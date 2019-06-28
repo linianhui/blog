@@ -1,0 +1,42 @@
+# Hexo Configuration : https://hexo.io/docs/configuration.html
+title: Code
+author: lnh
+language: zh-CN
+timezone: Asia/Shanghai
+url: https://linianhui.github.io
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+  lang: en
+source_dir: blog
+public_dir: www
+tag_dir: tag
+archive_dir: archive
+category_dir: category
+i18n_dir: :lang
+new_post_name: :title.md
+auto_spacing: true
+filename_case: 1
+default_layout:
+titlecase: false
+external_link: true
+render_drafts: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace:
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+default_category: 默认分类
+category_map:
+tag_map:
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+per_page: 10
+pagination_dir: page
+theme: false
