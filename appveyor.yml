@@ -1,0 +1,7 @@
+version: 1.0.{build}
+image: Ubuntu1804
+build: off
+test_script:
+  - npm install -g hexo-cli
+  - npm install
+  - npm run deploy

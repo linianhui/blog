@@ -40,3 +40,7 @@ time_format: HH:mm:ss
 per_page: 10
 pagination_dir: page
 theme: false
+deploy:
+  type: git
+  repo: https://github.com/linianhui/linianhui.github.io
+  branch: www
