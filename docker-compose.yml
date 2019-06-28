@@ -1,0 +1,13 @@
+version: '3'
+
+networks:
+  network_default:
+    driver: bridge
+
+services:
+  infocenter:
+    build: .
+    networks:
+      - network_default
+    ports:
+      - '60080:80'

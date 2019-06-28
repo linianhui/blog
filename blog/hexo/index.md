@@ -23,9 +23,3 @@ tags:
 - 标签2
 ---
 ```
-
-# 2. 生成
-
-```sh
-hexo --config .hexo.yml generate
-```
