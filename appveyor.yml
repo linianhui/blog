@@ -5,7 +5,7 @@ branches:
   only:
     - master
 test_script:
-  - nvm use 8.10.0
+  - nvm list
   - npm install -g hexo-cli
   - npm install
   - npm run pack
