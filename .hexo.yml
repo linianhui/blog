@@ -8,7 +8,7 @@ root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
   lang: en
-source_dir: blog
+source_dir: src
 public_dir: www
 tag_dir: tag
 archive_dir: archive
