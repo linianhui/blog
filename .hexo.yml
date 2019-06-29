@@ -43,4 +43,4 @@ theme: false
 deploy:
   type: git
   repo: https://github.com/linianhui/linianhui.github.io
-  branch: gh-pages
+  branch: master

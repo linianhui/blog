@@ -3,7 +3,7 @@ image: Ubuntu1804
 build: off
 branches:
   only:
-    - master
+    - blog
 test_script:
   - nvm list
   - nvm use 8.16.0

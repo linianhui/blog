@@ -6,5 +6,5 @@ package-lock.json
 node_modules/
 www/
 scaffolds/
-.deploy*/
+.deploy_git/
 .vscode/

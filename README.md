@@ -16,5 +16,5 @@
     ```
 
 
-[AppVeyor-Img]:https://ci.appveyor.com/api/projects/status/elf7njee7eewnmco/branch/master?svg=true
-[AppVeyor-Url]:https://ci.appveyor.com/project/linianhui/linianhui-github-io/branch/master
+[AppVeyor-Img]:https://ci.appveyor.com/api/projects/status/elf7njee7eewnmco/branch/blog?svg=true
+[AppVeyor-Url]:https://ci.appveyor.com/project/linianhui/linianhui-github-io/branch/blog
