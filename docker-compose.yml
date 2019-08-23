@@ -5,7 +5,7 @@ networks:
     driver: bridge
 
 services:
-  infocenter:
+  hexo:
     build: .
     networks:
       - network_default
