@@ -11,7 +11,7 @@ environment:
 
 install:
   - wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-32bit.deb
-  - dpkg -i hugo_0.57.2_Linux-32bit.deb
+  - sudo dpkg -i hugo_0.57.2_Linux-32bit.deb
   - echo "${private_key}" | tr " " "\n" >> $HOME/.ssh/id_rsa
   - chmod 600 $HOME/.ssh/id_rsa
 
