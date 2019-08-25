@@ -5,12 +5,24 @@ branches:
   only:
     - blog
 
+environment:
+  private_key:
+    secure: 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
+
 install:
-  - sh: sudo apt-get update -y 
-  - sh: sudo apt-get install hugo -y
+  - sudo apt-get update -y 
+  - sudo apt-get install hugo -y
+  - echo "${private_key}" | tr " " "\n" >> $HOME/.ssh/id_rsa
 
 test_script:
   - hugo --config .hugo.yml
 
-artifacts:
-  - path: .www
+deploy_script:
+  - cd .www
+  - git init
+  - git config user.name 'appveyor'
+  - git config user.email 'lnhcode@outlook.com'
+  - git add .
+  - git commit -m "appveyor auto deploy"
+  - git remote add origin https://github.com/linianhui/linianhui.github.io
+  - git push --set-upstream origin master --force
