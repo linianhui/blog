@@ -4,8 +4,10 @@ build: off
 branches:
   only:
     - blog
-before_test:
-  - apt-get update -y && apt-get install hugo -y
+
+install:
+  - sh: sudo apt-get update -y && apt-get install hugo -y
+
 test_script:
   - hugo --config .hugo.yml
 
