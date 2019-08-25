@@ -8,3 +8,6 @@ before_test:
   - apt-get update -y && apt-get install hugo -y
 test_script:
   - hugo --config .hugo.yml
+
+artifacts:
+  - path: .www
