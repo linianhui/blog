@@ -5,9 +5,4 @@ branches:
   only:
     - blog
 test_script:
-  - nvm list
-  - nvm use 8.16.0
-  - nvm list
-  - npm install -g hexo-cli
-  - npm install
-  - npm run pack
+  - pwd
