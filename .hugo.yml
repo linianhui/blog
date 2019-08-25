@@ -1,0 +1,68 @@
+#  https://gohugo.io/getting-started/configuration/#configure-blackfriday
+
+baseURL: http://linianhui.github.io/
+languageCode: zh-cn
+hasCJKLanguage: true
+
+title: lnh blog
+sitemap:
+  changefreq: monthly
+  filename: sitemap.xml
+  priority: 0.5
+uglyURLs: false
+
+taxonomies:
+  tags: tags
+
+contentDir: blog
+layoutDir: .hugo/layout
+staticDir: .hugo/static
+assetDir: .hugo/asset
+resourceDir: .hugo/resource
+dataDir: .hugo/data
+themesDir: .hugo/theme
+publishDir: .www
+
+metaDataFormat: yaml
+frontmatter:
+  date: 
+    - created_at
+  lastmod: 
+    - ":fileModTime"
+summaryLength: 120
+
+pygmentsCodeFencesGuessSyntax: false
+pygmentsUseClasses: false
+pygmentsStyle: default
+
+enableEmoji: true
+enableGitInfo: true
+
+# Blackfriday Options 
+taskLists: true
+smartypants: false
+angledQuotes: false
+fractions: true
+plainIDAnchors: false
+extensions:
+  - tables
+  - fencedCode
+  - autolink
+  - strikethrough
+  - spaceHeaders
+  - footnotes
+  - headerIds
+  - definitionLists
+  - joinLines
+extensionsmask:
+  - noIntraEmphasis
+  - laxHtmlBlocks
+  - tabSizeEight
+  - noEmptyLineBeforeBlock
+  - autoHeaderIds
+  - backslashLineBreak
+skipHTML: true
+
+
+log: true
+verbose: true
