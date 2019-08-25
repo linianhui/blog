@@ -1,6 +1,6 @@
 #  https://gohugo.io/getting-started/configuration/#configure-blackfriday
 
-baseURL: http://linianhui.github.io/
+baseURL: https://linianhui.github.io/
 languageCode: zh-cn
 hasCJKLanguage: true
 
