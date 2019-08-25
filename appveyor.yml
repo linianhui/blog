@@ -6,7 +6,8 @@ branches:
     - blog
 
 install:
-  - sh: sudo apt-get update -y && apt-get install hugo -y
+  - sh: sudo apt-get update -y 
+  - sh: sudo apt-get install hugo -y
 
 test_script:
   - hugo --config .hugo.yml
