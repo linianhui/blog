@@ -10,6 +10,8 @@ sitemap:
   filename: sitemap.xml
   priority: 0.5
 uglyURLs: false
+relativeURLs: true
+canonifyURLs: false
 
 taxonomies:
   tags: tags
@@ -62,6 +64,7 @@ extensionsmask:
   - autoHeaderIds
   - backslashLineBreak
 skipHTML: true
+hrefTargetBlank: true
 
 
 log: true
