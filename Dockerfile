@@ -3,7 +3,7 @@ FROM lnhcode/hugo AS builder
 COPY . /src
 WORKDIR /src
 
-RUN hugo --config .hogo.yml
+RUN hugo --config .hugo.yml
 
 
 FROM nginx:alpine
