@@ -15,6 +15,7 @@ install:
   - echo "-----BEGIN RSA PRIVATE KEY-----" > $HOME/.ssh/id_rsa
   - echo "${private_key}" | tr " " "\n" >> $HOME/.ssh/id_rsa
   - echo "-----END RSA PRIVATE KEY-----" >> $HOME/.ssh/id_rsa
+  - chmod 600 $HOME/.ssh/id_rsa
 
 test_script:
   - hugo --config .hugo.yml
