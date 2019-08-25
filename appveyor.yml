@@ -24,5 +24,5 @@ deploy_script:
   - git config user.email 'lnhcode@outlook.com'
   - git add .
   - git commit -m "appveyor auto deploy"
-  - git remote add origin https://github.com/linianhui/linianhui.github.io
+  - git remote add origin git@github.com:linianhui/linianhui.github.io.git
   - git push --set-upstream origin master --force
