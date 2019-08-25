@@ -1,5 +1,5 @@
 ---
-title: [REST] 06 REST的应用经验以及教训
+title: "[REST] 06 REST的应用经验以及教训"
 created_at: 2017-10-21 15:21:00
 tags: ["REST"]
 ---

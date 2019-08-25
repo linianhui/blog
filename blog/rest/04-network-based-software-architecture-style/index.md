@@ -1,5 +1,5 @@
 ---
-title: [REST] 04 基于网络应用的架构风格
+title: "[REST] 04 基于网络应用的架构风格"
 created_at: 2017-09-24 13:33:00
 tags: ["REST"]
 ---

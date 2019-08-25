@@ -1,5 +1,5 @@
 ---
-title: [REST] 03 基于网络应用的架构
+title: "[REST] 03 基于网络应用的架构"
 created_at: 2017-09-17 16:58:00
 tags: ["REST"]
 ---
