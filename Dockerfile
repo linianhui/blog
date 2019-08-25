@@ -1,15 +1,13 @@
-FROM node:10-alpine AS builder
+FROM lnhcode/hugo AS builder
 
-COPY . /build
-WORKDIR /build
+COPY . /src
+WORKDIR /src
 
-RUN npm install -g hexo-cli --registry=https://registry.npm.taobao.org
-RUN npm install --registry=https://registry.npm.taobao.org
-RUN npm run pack
+RUN hugo --config .hogo.yml
 
 
-FROM nginx:1.17-alpine
+FROM nginx:alpine
 
-COPY --from=builder /build/www /usr/share/nginx/html
+COPY --from=builder /src/.www /usr/share/nginx/html
 
 EXPOSE 80

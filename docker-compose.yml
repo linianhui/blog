@@ -5,7 +5,7 @@ networks:
     driver: bridge
 
 services:
-  hexo:
+  hugo:
     build: .
     networks:
       - network_default
