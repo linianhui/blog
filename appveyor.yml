@@ -1,0 +1,8 @@
+version: 1.0.{build}
+image: Ubuntu1804
+build: off
+branches:
+  only:
+    - blog
+test_script:
+  - hugo --config .hugo.yml

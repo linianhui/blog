@@ -1,5 +1,7 @@
+# https://linianhui.github.io 
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/34aa987e-162c-41a0-88ed-dbfb6fce322c/deploy-status)](https://app.netlify.com/sites/nifty-wozniak-2ea9d2/deploys)
+[![AppVeyor-Img]][AppVeyor-Url]
 
 
-http://linianhui.github.io
+[AppVeyor-Img]:https://ci.appveyor.com/api/projects/status/elf7njee7eewnmco/branch/blog?svg=true
+[AppVeyor-Url]:https://ci.appveyor.com/project/linianhui/linianhui-github-io/branch/blog
