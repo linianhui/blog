@@ -1,7 +1,7 @@
 <article class="post">
   <header>
     <h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
-    <div class="post-meta">{{ .Date.Format "2006-01-02" }} - {{ .FuzzyWordCount }} 字 </div>
+    <div class="post-meta">{{ .Date.Format "2006-01-02" }} {{ .FuzzyWordCount }} 字 </div>
   </header>
   {{ .Summary }}
   <footer>
