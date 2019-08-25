@@ -1,9 +1,1 @@
-# 构建
-
-| CI Service | Stauts                          |
-| ---------- | ------------------------------- |
-| AppVeyor   | [![AppVeyor-Img]][AppVeyor-Url] |
-
-
-[AppVeyor-Img]:https://ci.appveyor.com/api/projects/status/elf7njee7eewnmco/branch/blog?svg=true
-[AppVeyor-Url]:https://ci.appveyor.com/project/linianhui/linianhui-github-io/branch/blog
+http://linianhui.github.io
