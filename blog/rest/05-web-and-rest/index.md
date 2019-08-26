@@ -225,4 +225,4 @@ REST架构风格由**客户端-服务器**、**无状态**、**缓存**、**统�
 
 [[REST] 00 参考资料][reference]
 
-[reference]:../00-reference
+[reference]:../00-reference/

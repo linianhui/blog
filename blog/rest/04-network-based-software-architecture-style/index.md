@@ -254,4 +254,4 @@ DO是CS和CS的组合。在单独的CS的风格总，客户端和服务端是相
 
 [[REST] 00 参考资料][reference]
 
-[reference]:../00-reference
+[reference]:../00-reference/

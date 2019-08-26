@@ -54,4 +54,4 @@ Fielding在完成HTTP/1.1协议的设计工作之后，回到了加州大学欧�
 
 [[REST] 00 参考资料][reference]
 
-[reference]:../00-reference
+[reference]:../00-reference/
