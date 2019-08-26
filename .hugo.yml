@@ -29,8 +29,6 @@ metaDataFormat: yaml
 frontmatter:
   date: 
     - created_at
-  lastmod: 
-    - ":fileModTime"
 summaryLength: 120
 
 pygmentsCodeFencesGuessSyntax: false
