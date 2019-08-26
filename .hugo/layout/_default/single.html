@@ -4,6 +4,10 @@
     {{ .TableOfContents }}
   </aside>
   <h1 id="title">{{ .Title }}</h1>
+  <section>
+    <a href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.GitInfo.Hash }}" target="_blank">{{ $.GitInfo.AbbreviatedHash }}</a>
+    <a href="{{ $.Site.Params.RepositoryBlogUrl}}/{{ $.File.Path }}" target="_blank">编辑</a>
+  </section>
   <div>
     <article id="content">
       {{ .Content }}
