@@ -4,7 +4,7 @@ created_at: 2017-10-21 15:21:00
 tags: ["REST"]
 ---
 
-衔接上文[[REST] 05 Web的需求 & 推导REST](./05-web-and-rest/)，上文根据Web的需求推导出了REST架构风格，以及REST的详细描述和解释。自从1994年以来，REST架构风格被用于指导Web架构的设计和开发工作，最重要的两点体现是在设计HTTP和URI两个互联网规范协议中，以及实现这些规范的libwww-perl客户端库，Apache HTTP项目（httpd）以及其他的实现中，所得到的经验以及教训。
+衔接上文[[REST] 05 Web的需求 & 推导REST](../05-web-and-rest/)，上文根据Web的需求推导出了REST架构风格，以及REST的详细描述和解释。自从1994年以来，REST架构风格被用于指导Web架构的设计和开发工作，最重要的两点体现是在设计HTTP和URI两个互联网规范协议中，以及实现这些规范的libwww-perl客户端库，Apache HTTP项目（httpd）以及其他的实现中，所得到的经验以及教训。
 
 > 其实REST也用于指导约束超媒体的设计工作，比如HTML，但是Fielding并未在论文中详细解释这部分（很遗憾的一件事情）。所以也造成了如今大家普遍对REST的片面理解，这也造成了大家都i不把超媒体这部分作为REST的重要组成部分来考虑。为此Fielding博士在08年专门写过一篇文章来解释：[http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven](http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven) 。
 
