@@ -66,6 +66,9 @@ extensionsmask:
 skipHTML: true
 hrefTargetBlank: true
 
+params:
+  RepositoryUrl: https://github.com/linianhui/linianhui.github.io
+  RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
 
 log: true
 verbose: true
