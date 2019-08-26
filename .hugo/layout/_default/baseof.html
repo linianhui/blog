@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ .Site.LanguageCode }}">
 
 <head>
-  <meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <title>
     {{ block "title" . }}
     {{ .Site.Title }}
@@ -17,6 +20,14 @@
   {{ block "footer" . }}
   <!-- More shared code, perhaps a footer but that can be overridden if need be in  -->
   {{ end }}
+  
+  <footer class="footer">
+    <div class="meta">
+      <span class="powered_by">Powered by <a href="https://github.com/gohugoio/hugo" target="_blank">Hugo</a></span>
+      <span class="hosted_on">Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></span>
+    <div>
+  </footer>
+
 </body>
 
 </html>
