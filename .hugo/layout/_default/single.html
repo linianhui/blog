@@ -6,7 +6,7 @@
   <h1 id="title">{{ .Title }}</h1>
   <section>
     <a href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.GitInfo.Hash }}" target="_blank">{{ $.GitInfo.AbbreviatedHash }}</a>
-     at <time>{{ $.GitInfo.AuthorDate.Format "2006-01-02 15:04:05" }}</time>
+     {{ $.GitInfo.Subject }} at <time>{{ $.GitInfo.AuthorDate.Format "2006-01-02 15:04:05" }}</time>
     <a href="{{ $.Site.Params.RepositoryBlogUrl}}/{{ $.File.Path }}" target="_blank">编辑</a>
   </section>
   <div>
