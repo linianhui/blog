@@ -13,24 +13,6 @@
 </section>
 <aside id="meta">
   {{ partial "metadata/article.html" . }}
-  <div>
-    <section>
-
-      {{ with .PrevInSection }}
-      <div>
-        <span>上一篇 : </span>
-        <a class="previous" href="{{.RelPermalink}}"> {{.Title}}</a>
-      </div>
-      {{ end }}
-
-      {{ with .NextInSection }}
-      <div>
-        <span>下一篇 : </span>
-        <a class="next" href="{{.RelPermalink}}"> {{.Title}}</a>
-      </div>
-      {{ end }}
-
-    </section>
-  </div>
+  {{ partial "metadata/article-prev-next-page.html" . }}
 </aside>
 {{ end }}

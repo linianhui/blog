@@ -1,0 +1,15 @@
+<section>
+  {{ with .PrevInSection }}
+  <div>
+    <span>上一篇 : </span>
+    <a class="prev" href="{{.RelPermalink}}"> {{.Title}}</a>
+  </div>
+  {{ end }}
+
+  {{ with .NextInSection }}
+  <div>
+    <span>下一篇 : </span>
+    <a class="next" href="{{.RelPermalink}}"> {{.Title}}</a>
+  </div>
+  {{ end }}
+</section>
