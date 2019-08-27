@@ -1,0 +1,17 @@
+{{ define "main" }}
+<main>
+  <article>
+    <header>
+      <h1>标签 : {{.Title}}</h1> {{ len .Data.Pages }}
+    </header>
+  </article>
+  <ul>
+    {{ range .Pages.ByDate.Reverse }}
+    <li>
+      <time>{{ .Date.Format "2006-01-02" }}</time>
+      <a href="{{.RelPermalink}}">{{.Title}}</a>
+    </li>
+    {{ end }}
+  </ul>
+</main>
+{{ end }}

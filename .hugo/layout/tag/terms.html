@@ -1,0 +1,16 @@
+{{ define "main" }}
+<main>
+  <article>
+    <header>
+      <h1>标签列表</h1>
+    </header>
+  </article>
+  <ul>
+    {{ range .Pages }}
+    <li>
+      <a href="{{.RelPermalink}}">{{.Title}} ({{ len .Data.Pages }})</a>
+    </li>
+    {{ end }}
+  </ul>
+</main>
+{{ end }}
