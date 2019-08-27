@@ -4,6 +4,7 @@
     {{ .TableOfContents }}
   </aside>
   <h1 id="title">{{ .Title }}</h1>
+  {{ partial "metadata/article.html" . }}
   {{ partial "metadata/tag.html" . }}
   {{ partial "metadata/git.html" . }}
   <div>
@@ -14,12 +15,7 @@
 </section>
 <aside id="meta">
   <div>
-
-    <section>
-      <h4 id="created_at">创建于 : {{ .Date.Format "2006-01-02 15:04:05" }} </h4>
-      <h4 id="modified_at">更新于 : {{ .Lastmod.Format "2006-01-02 15:04:05" }} </h4>
-      <h5 id="word_count"> {{ .WordCount }} 字 </h5>
-    </section>
+    {{ partial "metadata/article.html" . }}
     {{ partial "metadata/tag.html" . }}
     {{ partial "metadata/git.html" . }}
   </div>
