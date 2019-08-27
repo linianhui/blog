@@ -5,7 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <style>
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
+    .highlight {
+      overflow-x: auto;
+    }
+  </style>
   <title>
     {{ with .Title }}
     {{ . }}
@@ -16,7 +25,7 @@
 </head>
 
 <body>
-  <nav> 
+  <nav>
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
     <a href="{{ .URL }}" title="{{ .Name }}">
