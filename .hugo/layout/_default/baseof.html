@@ -7,9 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>
-    {{ block "title" . }}
-    {{ .Site.Title }}
+    {{ with .Title }}
+    {{ . }}
+    -
     {{ end }}
+    {{ .Site.Title }}
   </title>
 </head>
 
