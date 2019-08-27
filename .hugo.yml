@@ -5,6 +5,23 @@ languageCode: zh-cn
 hasCJKLanguage: true
 
 title: lnh blog
+
+sectionPagesMenu: 'main'
+menu:
+  main:
+    - identifier: home
+      name: 首页
+      url: /
+      weight: 1
+    - identifier: tag
+      name: 标签
+      url: /tag/
+      weight: 2
+    - identifier: archive
+      name: 归档
+      url: /archive/
+      weight: 99
+
 sitemap:
   changefreq: monthly
   filename: sitemap.xml
@@ -27,7 +44,7 @@ publishDir: .www
 
 metaDataFormat: yaml
 frontmatter:
-  date: 
+  date:
     - created_at
 summaryLength: 120
 
@@ -44,7 +61,7 @@ pygmentsOptions:
 enableEmoji: true
 enableGitInfo: true
 
-# Blackfriday Options 
+# Blackfriday Options
 taskLists: true
 smartypants: false
 angledQuotes: false
