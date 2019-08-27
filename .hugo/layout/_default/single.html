@@ -21,22 +21,11 @@
     </section>
     {{ partial "meta/git.html" . }}
     <section>
-      <h5> 主题 </h5>
-      {{ with .Params.topics }}
-      <ul id="topics">
-        {{ range . }}
-        <li><a href="/topics/{{ . | urlize }}">{{ . }}</a> </li>
-        {{ end }}
-      </ul>
-      {{ end }}
-    </section>
-
-    <section>
       <h5> 标签 </h5>
-      {{ with .Params.tags }}
+      {{ with .Params.tag }}
       <ul id="tags">
         {{ range . }}
-        <li> <a href="/tags/{{ . | urlize }}">{{ . }}</a> </li>
+        <li> <a href="/tag/{{ . | urlize }}">{{ . }}</a> </li>
         {{ end }}
       </ul>
       {{ end }}

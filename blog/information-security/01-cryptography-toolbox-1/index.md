@@ -1,7 +1,7 @@
 ---
 title: "[信息安全] 01 密码工具箱 第1部分"
 created_at: 2017-06-26 22:55:00
-tags: ["MD5", "SHA", "DES", "AES", "RSA", "MAC", "HEX", "base64", "数字签名"]
+tag: ["MD5", "SHA", "DES", "AES", "RSA", "MAC", "HEX", "base64", "数字签名"]
 ---
 
 # 0 何谓信息安全？ {#0.what-is-information-security}

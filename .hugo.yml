@@ -14,7 +14,7 @@ relativeURLs: false
 canonifyURLs: false
 
 taxonomies:
-  tags: tags
+  tag: tag
 
 contentDir: blog
 layoutDir: .hugo/layout
