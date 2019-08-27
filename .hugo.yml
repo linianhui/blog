@@ -6,21 +6,26 @@ hasCJKLanguage: true
 
 title: lnh blog
 
-sectionPagesMenu: 'main'
+sectionPagesMenu: 'topic'
 menu:
   main:
     - identifier: home
       name: 首页
       url: /
       weight: 1
+    - identifier: topic
+      name: 专题
+      url: /topic/
+      weight: 3
     - identifier: tag
       name: 标签
       url: /tag/
-      weight: 2
+      weight: 3
     - identifier: archive
       name: 归档
       url: /archive/
-      weight: 99
+      weight: 4
+  topic: []
 
 sitemap:
   changefreq: monthly

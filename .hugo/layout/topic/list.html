@@ -1,0 +1,17 @@
+{{ define "main" }}
+<main>
+  <nav>
+    {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
+    <section>
+      <a href="{{ .URL }}" title="{{ .Title }}">
+        {{ .Name }}
+        ({{len .Page.Pages}})
+      </a>
+      <div>
+        {{ .Page.Content }}
+      </div>
+    </section>
+    {{ end }}
+  </nav>
+</main>
+{{ end }}
