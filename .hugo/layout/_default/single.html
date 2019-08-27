@@ -5,8 +5,6 @@
   </aside>
   <h1 id="title">{{ .Title }}</h1>
   {{ partial "metadata/article.html" . }}
-  {{ partial "metadata/tag.html" . }}
-  {{ partial "metadata/git.html" . }}
   <div>
     <article id="content">
       {{ .Content }}
@@ -14,11 +12,7 @@
   </div>
 </section>
 <aside id="meta">
-  <div>
-    {{ partial "metadata/article.html" . }}
-    {{ partial "metadata/tag.html" . }}
-    {{ partial "metadata/git.html" . }}
-  </div>
+  {{ partial "metadata/article.html" . }}
   <div>
     <section>
 

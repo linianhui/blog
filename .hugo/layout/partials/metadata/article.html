@@ -1,4 +1,8 @@
 <section>
-  <span>创建于 : {{ .Date.Format "2006-01-02 15:04:05" }}</span>
-  <span> {{ .WordCount }} 字</span>
+  <section>
+    <span>创建于 : {{ .Date.Format "2006-01-02 15:04:05" }}</span>
+    <span> {{ .WordCount }} 字</span>
+  </section>
+  {{ partial "metadata/article-tag.html" . }}
+  {{ partial "metadata/article-git.html" . }}
 </section>
