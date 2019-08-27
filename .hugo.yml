@@ -10,7 +10,7 @@ sitemap:
   filename: sitemap.xml
   priority: 0.5
 uglyURLs: false
-relativeURLs: true
+relativeURLs: false
 canonifyURLs: false
 
 taxonomies:
