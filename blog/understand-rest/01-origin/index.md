@@ -1,5 +1,5 @@
 ---
-title: "[REST] 01 REST的起源"
+title: "[理解REST] 01 REST的起源"
 created_at: 2017-09-06 10:06:00
 tags: ["REST"]
 ---
@@ -52,6 +52,6 @@ Fielding在完成HTTP/1.1协议的设计工作之后，回到了加州大学欧�
 
 # 5 参考资料 {#5.reference}
 
-[[REST] 00 参考资料][reference]
+[[理解REST] 00 参考资料][reference]
 
 [reference]:../00-reference/

@@ -1,5 +1,5 @@
 ---
-title: "[REST] 00 参考资料"
+title: "[理解REST] 00 参考资料"
 created_at: 2017-09-01 10:06:00
 tags: ["REST"]
 ---

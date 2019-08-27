@@ -1,14 +1,14 @@
 ---
-title: "[REST] 05 Web的需求 & 推导REST"
+title: "[理解REST] 05 Web的需求 & 推导REST"
 created_at: 2017-10-15 15:44:00
 tags: ["REST"]
 ---
 
-衔接上文[[REST] 04 基于网络应用的架构风格](../04-network-based-software-architecture-style/)，上文总结了一些适用于基于网络应用的架构风格，以及其评估结果。在前文的基础上，本文介绍一下Web架构的需求，以及在对Web的关键协议进行设计和改进的过程中遇到的问题；以及在对基于网络应用的架构风格进行评估的过程中的领悟；结合Web的需求进而推导出REST这种架构风格，随后使用REST来指导Web架构的设计和改进工作。
+衔接上文[[理解REST] 04 基于网络应用的架构风格](../04-network-based-software-architecture-style/)，上文总结了一些适用于基于网络应用的架构风格，以及其评估结果。在前文的基础上，本文介绍一下Web架构的需求，以及在对Web的关键协议进行设计和改进的过程中遇到的问题；以及在对基于网络应用的架构风格进行评估的过程中的领悟；结合Web的需求进而推导出REST这种架构风格，随后使用REST来指导Web架构的设计和改进工作。
 
 # 1 Web的需求 {#1.web-domain-requirements}
 
-在本系列博客的第一篇博客[[REST] 01 REST的起源](../01-origin/)中，Web之父Berners-Lee在世界上第一个网站写下的第一句话：**The WorldWideWeb (W3) is a wide-area[ hypermedia ](http://info.cern.ch/hypertext/WWW/WhatIs.html) information retrieval initiative aiming to give universal access to a large universe of documents.** 阐述了创建Web的目的在于形成一种链接众多文档的广域的超媒体信息检索系统，使得人类和机器都可以通过它来进行沟通和交流。这个系统最初的目标用户是分散在世界各地的、通过互联网链接的各个大学和政府的高能物理研究实验室。他们的机器是不同类型的终端、工作站、服务器和超级计算机的大杂烩，所以他们的操作系统和文件格式也是一个大杂烩。构建一个这样的系统所面临的挑战是为这些信息文档提供统一的接口，使得这些信息可以在众多的平台上进行交流通信，以及当新的设备接入到这个系统时，可以进行增量的部署。
+在本系列博客的第一篇博客[[理解REST] 01 REST的起源](../01-origin/)中，Web之父Berners-Lee在世界上第一个网站写下的第一句话：**The WorldWideWeb (W3) is a wide-area[ hypermedia ](http://info.cern.ch/hypertext/WWW/WhatIs.html) information retrieval initiative aiming to give universal access to a large universe of documents.** 阐述了创建Web的目的在于形成一种链接众多文档的广域的超媒体信息检索系统，使得人类和机器都可以通过它来进行沟通和交流。这个系统最初的目标用户是分散在世界各地的、通过互联网链接的各个大学和政府的高能物理研究实验室。他们的机器是不同类型的终端、工作站、服务器和超级计算机的大杂烩，所以他们的操作系统和文件格式也是一个大杂烩。构建一个这样的系统所面临的挑战是为这些信息文档提供统一的接口，使得这些信息可以在众多的平台上进行交流通信，以及当新的设备接入到这个系统时，可以进行增量的部署。
 
 ## 1.1 低门槛 {#1.1.low-entry-barrier}
 
@@ -52,7 +52,7 @@ Web的旨在形成一个互联网规模的分布式超媒体系统，这意味�
 
 # 2 推导REST {#2.deriving-rest}
 
-上一小节提到的 **新的架构风格** 就是专门为分布式超媒体系统设计的 **REST(Representational State Transfer=表述性状态移交)** ，它由上一篇博客中描述的几中架构风格（[[REST] 04 基于网络应用的架构风格](../04-network-based-software-architecture-style/)）衍生而来，添加了一些额外的架构约束。Web架构的设计理论，是由一组应用于架构元素之上的架构约束组成的，当逐步将每个架构约束添加到这个架构风格上时，会对架构风格产生一些影响，通过检查这些影响，可以识别出来其产生的架构属性。这里就从一个 `空风格` 开始，它代表一个空的架构约束集合（即是一个没有明显边界的系统），而这也正是推导REST的起点。
+上一小节提到的 **新的架构风格** 就是专门为分布式超媒体系统设计的 **REST(Representational State Transfer=表述性状态移交)** ，它由上一篇博客中描述的几中架构风格（[[理解REST] 04 基于网络应用的架构风格](../04-network-based-software-architecture-style/)）衍生而来，添加了一些额外的架构约束。Web架构的设计理论，是由一组应用于架构元素之上的架构约束组成的，当逐步将每个架构约束添加到这个架构风格上时，会对架构风格产生一些影响，通过检查这些影响，可以识别出来其产生的架构属性。这里就从一个 `空风格` 开始，它代表一个空的架构约束集合（即是一个没有明显边界的系统），而这也正是推导REST的起点。
 
 ![空 风格](./0-empty-style.png)
 
@@ -111,7 +111,7 @@ REST区别于其他的基于网络的架构风格的核心特征是：强调组�
 
 REST是由一组经过选择的架构约束组成的架构风格，通过这些架构约束产生了期待的架构属性。完整的REST的推导流程图如下：
 
-![REST](./7-rest.png)
+![理解REST](./7-rest.png)
 
 # 3 REST的架构元素 {#3.rest-architectural-elements}
 
@@ -223,7 +223,7 @@ REST架构风格由 [客户端-服务器](#2.1.client-Server)、[无状态](#2.2
 
 # 6 参考资料 {#6.reference}
 
-[[REST] 00 参考资料][reference]
+[[理解REST] 00 参考资料][reference]
 
 [reference]:../00-reference/
 
