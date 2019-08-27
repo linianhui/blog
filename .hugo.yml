@@ -31,9 +31,15 @@ frontmatter:
     - created_at
 summaryLength: 120
 
-pygmentsCodeFencesGuessSyntax: false
+pygmentsCodefences: true
+pygmentsUseClassic: false
+pygmentsCodefencesGuessSyntax: true
 pygmentsUseClasses: false
-pygmentsStyle: default
+pygmentsStyle: vs
+pygmentsOptions:
+  noclasses: true
+  linenos: 1
+  linenostart: 1
 
 enableEmoji: true
 enableGitInfo: true
