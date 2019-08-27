@@ -52,14 +52,14 @@
       {{ with .PrevInSection }}
       <div>
         <span>上一篇 : </span>
-        <a class="previous" href="{{.Permalink}}"> {{.Title}}</a>
+        <a class="previous" href="{{.RelPermalink}}"> {{.Title}}</a>
       </div>
       {{ end }}
 
       {{ with .NextInSection }}
       <div>
         <span>下一篇 : </span>
-        <a class="next" href="{{.Permalink}}"> {{.Title}}</a>
+        <a class="next" href="{{.RelPermalink}}"> {{.Title}}</a>
       </div>
       {{ end }}
 
