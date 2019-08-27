@@ -9,4 +9,4 @@ scaffolds/
 .deploy_git/
 .vscode/
 .vs/
-.hugo/resource/_gen
+.hugo/resource
