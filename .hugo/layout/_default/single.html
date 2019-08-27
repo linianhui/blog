@@ -7,7 +7,7 @@
   <section>
     <a href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.GitInfo.Hash }}" target="_blank">{{ $.GitInfo.AbbreviatedHash }}</a>
      {{ $.GitInfo.Subject }} at <time>{{ $.GitInfo.AuthorDate.Format "2006-01-02 15:04:05" }}</time>
-    <a href="{{ $.Site.Params.RepositoryBlogUrl}}/{{ $.File.Path }}" target="_blank">Source Code</a>
+    <a href="{{ $.Site.Params.RepositoryBlogUrl}}/{{ $.File.Path }}" target="_blank">源码</a>
   </section>
   <div>
     <article id="content">
