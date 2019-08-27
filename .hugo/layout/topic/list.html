@@ -3,7 +3,7 @@
   <nav>
     {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
     <section>
-      <a href="{{ .URL }}" title="{{ .Title }}">
+      <a href="{{ .URL }}" title="{{ .Name }}">
         {{ .Name }}
         ({{len .Page.Pages}})
       </a>

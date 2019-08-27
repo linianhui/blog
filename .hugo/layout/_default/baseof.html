@@ -17,7 +17,7 @@
   <nav> 
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
-    <a href="{{ .URL }}" title="{{ .Title }}">
+    <a href="{{ .URL }}" title="{{ .Name }}">
       {{ .Name }}
     </a>
     {{ end }}
