@@ -1,0 +1,11 @@
+<section>
+  {{ with .Params.tag }}
+  <span>
+    {{ range . }}
+    <span>
+      <a href="/tag/{{ . | urlize }}">{{ . }}</a>
+    </span>
+    {{ end }}
+  </span>
+  {{ end }}
+</section>

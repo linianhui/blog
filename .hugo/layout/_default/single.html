@@ -4,6 +4,7 @@
     {{ .TableOfContents }}
   </aside>
   <h1 id="title">{{ .Title }}</h1>
+  {{ partial "meta/tag.html" . }}
   {{ partial "meta/git.html" . }}
   <div>
     <article id="content">
@@ -19,17 +20,8 @@
       <h4 id="modified_at">更新于 : {{ .Lastmod.Format "2006-01-02 15:04:05" }} </h4>
       <h5 id="word_count"> {{ .WordCount }} 字 </h5>
     </section>
+    {{ partial "meta/tag.html" . }}
     {{ partial "meta/git.html" . }}
-    <section>
-      <h5> 标签 </h5>
-      {{ with .Params.tag }}
-      <ul id="tags">
-        {{ range . }}
-        <li> <a href="/tag/{{ . | urlize }}">{{ . }}</a> </li>
-        {{ end }}
-      </ul>
-      {{ end }}
-    </section>
   </div>
   <div>
     <section>
