@@ -1,0 +1,19 @@
+.body {
+  padding-left: 320px;
+}
+
+#TableOfContents {
+  position: fixed;
+  display: inline-block;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #fff;
+  box-shadow: 0 0 2px #ccc;
+  line-height: 1.6;
+  overflow-y: auto;
+  min-width: 240px;
+  max-width: 320px;
+  overflow-x: auto;
+}

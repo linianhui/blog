@@ -1,0 +1,154 @@
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0
+}
+
+a {
+  text-decoration: none
+}
+
+a:active,
+a:link,
+a:visited {
+  color: #0681ba
+}
+
+a:hover {
+  color: #f60
+}
+
+a img {
+  border-width: 0
+}
+
+table,
+tbody,
+td,
+th,
+thead,
+tr {
+  border-collapse: collapse;
+  border: 1px solid silver
+}
+
+table {
+  width: 100%
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  line-height: 1.5;
+  background-color: #FFF;
+}
+
+.body {
+  margin: 48px 64px 16px 64px;
+}
+
+.header {
+  border-bottom: 1px solid #0681ba;
+}
+
+.header-hgroup {
+  text-align: right;
+}
+
+.header-hgroup-subtitle {
+  color: #999;
+  font-size: 12px;
+  margin: 6px 0;
+}
+
+.header-nav {
+  text-align: right;
+}
+
+.header-nav-item {
+  display: inline-block;
+  width: 5em;
+  font-size: 16px;
+  padding: 6px 0;
+  text-align: center;
+}
+
+.header-nav-item:hover {
+  color: #fff;
+  background-color: #0681ba;
+}
+
+.main {
+  position: relative;
+  display: block;
+  margin: 32px 0;
+  box-sizing: border-box;
+}
+
+.footer {
+  border-top: 1px solid #0681ba;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.article-list {
+  margin: 32px 0;
+}
+
+.article {
+  position: relative;
+  padding: 24px;
+  box-shadow: 0 0 2px #ccc;
+}
+
+.article-title {
+  border-bottom: 1px dashed #0681ba;
+  font-size: 24px;
+  padding-bottom: 4px;
+}
+
+.article-date {
+  text-align: right;
+  color: #999;
+  font-size: 12px;
+  padding: 2px;
+}
+
+.article-tags {
+  text-align: right;
+  padding: 2px;
+}
+
+.article-tag {
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+.article-git {
+  text-align: right;
+  padding: 2px;
+  color: #999;
+  font-size: 12px;
+}
+
+.article img {
+  display: block;
+  max-width: 100%;
+}
+
+.article h1 {
+  font-size: 22px;
+}
+
+.article h2 {
+  font-size: 20px;
+}
+
+.highlight {
+  overflow-x: auto;
+}
