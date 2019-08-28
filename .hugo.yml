@@ -18,18 +18,22 @@ menu:
       name: 首页
       url: /
       weight: 1
+      pre: '<i class="fa fa-home"></i>'
     - identifier: topic
       name: 专题
       url: /topic/
-      weight: 3
+      weight: 2
+      pre: '<i class="fa fa-folder"></i>'
     - identifier: tag
       name: 标签
       url: /tag/
       weight: 3
+      pre: '<i class="fa fa-tags"></i>'
     - identifier: archive
       name: 归档
       url: /archive/
       weight: 4
+      pre: '<i class="fa fa-archive"></i>'
   topic: []
 sectionPagesMenu: 'topic'
 
