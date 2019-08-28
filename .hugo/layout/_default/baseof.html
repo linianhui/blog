@@ -2,59 +2,21 @@
 <html lang="{{ .Site.LanguageCode }}">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <style>
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    .highlight {
-      overflow-x: auto;
-    }
-  </style>
-  <title>
-    {{ with .Title }}
-    {{ . }}
-    -
-    {{ end }}
-    {{ .Site.Title }}
-  </title>
+  {{ partial "head/meta.html" . }}
+  {{ partial "head/link.html" . }}
+  {{ partial "head/title.html" . }}
 </head>
 
 <body>
-  <nav>
-    {{ $currentPage := . }}
-    {{ range .Site.Menus.main }}
-    <a href="{{ .URL }}" title="{{ .Name }}">
-      {{ .Name }}
-    </a>
+
+  {{ partial "body/header.html" . }}
+
+  <main>
+    {{ block "main" . }}
     {{ end }}
-  </nav>
+  </main>
 
-  {{ block "main" . }}
-  <!-- The part of the page that begins to differ between templates -->
-  {{ end }}
-  {{ block "footer" . }}
-  <!-- More shared code, perhaps a footer but that can be overridden if need be in  -->
-  {{ end }}
-
-  <footer class="footer">
-    <div class="meta">
-      <span class="source_code"><a href="{{ $.Site.Params.RepositoryUrl }}" target="_blank">源码</a></span>
-      <span> | </span>
-      <span class="powered_by">
-        Powered by
-        <a href="https://www.appveyor.com" target="_blank">AppVeyor</a>
-        and
-        <a href="https://github.com/gohugoio/hugo" target="_blank">Hugo</a>
-      </span>
-      <span> | </span>
-      <span class="hosted_on">Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></span>
-      <div>
-  </footer>
+  {{ partial "body/footer.html" . }}
 
 </body>
 

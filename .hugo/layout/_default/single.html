@@ -1,18 +1,14 @@
 {{ define "main" }}
-<section id="main">
-  <aside>
-    {{ .TableOfContents }}
-  </aside>
+<aside>
+  {{ .TableOfContents }}
+</aside>
+<section>
   <h1 id="title">{{ .Title }}</h1>
   {{ partial "metadata/article.html" . }}
-  <div>
-    <article id="content">
-      {{ .Content }}
-    </article>
-  </div>
-</section>
-<aside id="meta">
+  <article>
+    {{ .Content }}
+  </article>
   {{ partial "metadata/article.html" . }}
   {{ partial "metadata/article-prev-next-page.html" . }}
-</aside>
+</section>
 {{ end }}

@@ -1,0 +1,8 @@
+<title>
+  {{ if ne .Title .Site.Title }}
+    {{ with .Title }}
+      {{ . }} - 
+    {{ end }}
+  {{ end }}
+  {{- .Site.Title -}}
+</title>

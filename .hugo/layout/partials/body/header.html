@@ -1,0 +1,13 @@
+<header>
+  <hgroup>
+    <h1>{{ .Site.Title }}</h1>
+    <h2>{{ .Site.Params.SubTitle }}</h2>
+  </hgroup>
+  <nav>
+    {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}" title="{{ .Name }}">
+        {{ .Name }}
+      </a>
+    {{ end }}
+  </nav>
+</header>
