@@ -2,13 +2,13 @@
 <aside>
   {{ .TableOfContents }}
 </aside>
-<section>
-  <h1 id="title">{{ .Title }}</h1>
+<article class="article">
+  {{ partial "metadata/title.html" . }}
   {{ partial "metadata/article.html" . }}
-  <article>
+  <div>
     {{ .Content }}
-  </article>
+  </div>
   {{ partial "metadata/article.html" . }}
   {{ partial "metadata/article-prev-next-page.html" . }}
-</section>
+</article>
 {{ end }}
