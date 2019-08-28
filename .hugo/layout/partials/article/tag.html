@@ -1,7 +1,7 @@
 {{ with .Params.tag }}
 <section class="article-tags">
   {{ range . }}
-  <a class="article-tag" href="/tag/{{ . | urlize }}">
+  <a class="article-tag" href="/tag/{{ . | urlize }}" target="_blank">
     <i class="fa fa-tag"></i>
     {{ . }}
   </a>

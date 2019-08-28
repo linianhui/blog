@@ -1,6 +1,6 @@
 {{ range where $.Site.Menus.topic "Page.Section" "eq" .Section }}
 <section class="article-topic">
-  <a href="{{ .URL }}" title="{{ .Name }}">
+  <a href="{{ .URL }}" title="{{ .Name }}" target="_blank">
     <i class="fa fa-folder"></i>
     {{ .Name }}
   </a>
