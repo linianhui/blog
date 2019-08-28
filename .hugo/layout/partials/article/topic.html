@@ -1,0 +1,8 @@
+{{ range where $.Site.Menus.topic "Page.Section" "eq" .Section }}
+<section class="article-topic">
+  <a href="{{ .URL }}" title="{{ .Name }}">
+    <i class="fa fa-folder"></i>
+    {{ .Name }}
+  </a>
+</section>
+{{ end }}

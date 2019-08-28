@@ -3,12 +3,14 @@
 <article class="article">
   {{ partial "article/title.html" . }}
   {{ partial "article/date.html" . }}
+  {{ partial "article/topic.html" . }}
   {{ partial "article/tag.html" . }}
   {{ partial "article/git.html" . }}
   <div>
     {{ .Content }}
   </div>
   {{ partial "article/date.html" . }}
+  {{ partial "article/topic.html" . }}
   {{ partial "article/tag.html" . }}
   {{ partial "article/git.html" . }}
   {{ partial "article/page.html" . }}
