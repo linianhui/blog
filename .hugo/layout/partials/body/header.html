@@ -1,13 +1,15 @@
-<header>
-  <hgroup>
-    <h1>{{ .Site.Title }}</h1>
-    <h2>{{ .Site.Params.SubTitle }}</h2>
+<header class="header">
+  <hgroup class="header-hgroup">
+    <h1 class="header-hgroup-title">
+      <a href="/" target="_blank">{{ .Site.Title }}</a>
+    </h1>
+    <h2 class="header-hgroup-subtitle">{{ .Site.Params.SubTitle }}</h2>
   </hgroup>
-  <nav>
+  <nav class="header-nav">
     {{ range .Site.Menus.main }}
-      <a href="{{ .URL }}" title="{{ .Name }}">
-        {{ .Name }}
-      </a>
+    <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}">
+      {{ .Name }}
+    </a>
     {{ end }}
   </nav>
 </header>

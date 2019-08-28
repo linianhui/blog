@@ -9,14 +9,18 @@
 
 <body>
 
-  {{ partial "body/header.html" . }}
+  <main class="main">
 
-  <main>
-    {{ block "main" . }}
-    {{ end }}
+    {{ partial "body/header.html" . }}
+
+    <main>
+      {{ block "main" . }}
+      {{ end }}
+    </main>
+
+    {{ partial "body/footer.html" . }}
+
   </main>
-
-  {{ partial "body/footer.html" . }}
 
 </body>
 
