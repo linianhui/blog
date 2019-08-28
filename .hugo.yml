@@ -4,9 +4,14 @@ baseURL: https://linianhui.github.io/
 languageCode: zh-cn
 hasCJKLanguage: true
 
-title: lnh blog
+title: 'blackheart'
+params:
+  Subtitle: '泛义的工具是文明的基础，而确指的工具却是愚人的器物'
+  RepositoryUrl: https://github.com/linianhui/linianhui.github.io
+  RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
 
-sectionPagesMenu: 'topic'
+taxonomies:
+  tag: tag
 menu:
   main:
     - identifier: home
@@ -26,6 +31,7 @@ menu:
       url: /archive/
       weight: 4
   topic: []
+sectionPagesMenu: 'topic'
 
 sitemap:
   changefreq: monthly
@@ -34,9 +40,6 @@ sitemap:
 uglyURLs: false
 relativeURLs: false
 canonifyURLs: false
-
-taxonomies:
-  tag: tag
 
 contentDir: blog
 layoutDir: .hugo/layout
@@ -91,10 +94,6 @@ extensionsmask:
   - backslashLineBreak
 skipHTML: true
 hrefTargetBlank: true
-
-params:
-  RepositoryUrl: https://github.com/linianhui/linianhui.github.io
-  RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
 
 log: true
 verbose: true
