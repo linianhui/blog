@@ -2,7 +2,7 @@
   padding-left: 320px;
 }
 
-#TableOfContents {
+.toc {
   position: fixed;
   display: inline-block;
   left: 0;
