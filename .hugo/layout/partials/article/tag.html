@@ -1,0 +1,10 @@
+{{ with .Params.tag }}
+<section class="article-tags">
+  {{ range . }}
+  <a class="article-tag" href="/tag/{{ . | urlize }}">
+    <i class="fa fa-tag"></i>
+    {{ . }}
+  </a>
+  {{ end }}
+</section>
+{{ end }}

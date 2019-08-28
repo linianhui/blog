@@ -3,12 +3,16 @@
   {{ .TableOfContents }}
 </aside>
 <article class="article">
-  {{ partial "metadata/title.html" . }}
-  {{ partial "metadata/article.html" . }}
+  {{ partial "article/title.html" . }}
+  {{ partial "article/date.html" . }}
+  {{ partial "article/tag.html" . }}
+  {{ partial "article/git.html" . }}
   <div>
     {{ .Content }}
   </div>
-  {{ partial "metadata/article.html" . }}
-  {{ partial "metadata/article-prev-next-page.html" . }}
+  {{ partial "article/date.html" . }}
+  {{ partial "article/tag.html" . }}
+  {{ partial "article/git.html" . }}
+  {{ partial "article/page.html" . }}
 </article>
 {{ end }}
