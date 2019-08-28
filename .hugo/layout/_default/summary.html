@@ -1,12 +1,5 @@
-<article class="post">
-  <header>
-    <h2><a href='{{ .RelPermalink }}'> {{ .Title }}</a> </h2>
-    <div class="post-meta">{{ .Date.Format "2006-01-02" }} {{ .FuzzyWordCount }} 字 </div>
-  </header>
+<article class="article-list">
+  {{ partial "article/title.html" . }}
+  {{ partial "article/date.html" . }}
   {{ .Summary }}
-  <footer>
-    <a href='{{ .RelPermalink }}'>
-      <nobr>阅读全文</nobr>
-    </a>
-  </footer>
 </article>
