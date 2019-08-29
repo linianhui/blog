@@ -207,6 +207,7 @@ body {
 }
 
 .article-content .highlight {
+  margin-top: 0.5em;
   display: block;
   overflow-x: auto;
   border: 1px solid #eee;
