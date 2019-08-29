@@ -58,7 +58,7 @@ metaDataFormat: yaml
 frontmatter:
   date:
     - created_at
-summaryLength: 120
+summaryLength: 168
 
 pygmentsCodefences: true
 pygmentsUseClassic: false

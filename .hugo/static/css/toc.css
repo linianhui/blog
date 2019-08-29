@@ -4,19 +4,24 @@
 
 .toc {
   position: fixed;
-  display: inline-block;
+  display: block;
   left: 0;
   top: 0;
   bottom: 0;
   z-index: 9999;
-  background-color: #fff;
-  box-shadow: 0 0 2px #ccc;
-  line-height: 1.6;
+  line-height: 1.8;
   overflow-y: auto;
   width: 320px;
   overflow-x: auto;
 }
 
 .toc ul{
-  padding-left: 1.5em;
+  padding-left: 1em;
+  list-style: none;
+}
+
+.toc a{
+  display: block;
+  word-wrap: break-word;
+  text-overflow: clip;
 }
