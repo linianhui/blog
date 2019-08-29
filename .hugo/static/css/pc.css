@@ -32,11 +32,12 @@ th,
 thead,
 tr {
   border-collapse: collapse;
-  border: 1px solid silver
+  border: 1px solid silver;
+  padding: 2px;
 }
 
 table {
-  width: 100%
+  width: 100%;
 }
 
 body {
@@ -102,59 +103,126 @@ body {
 
 .article {
   position: relative;
-  padding: 24px;
+  padding: 24px 24px 12px 24px;
   box-shadow: 0 0 2px #ccc;
 }
 
 .article-title {
-  border-bottom: 1px dashed #0681ba;
+  border-bottom: 1px solid #eee;
   font-size: 24px;
-  padding-bottom: 4px;
+  padding: 8px 0px;
+  font-weight: bold;
+}
+
+.article-meta{
+  text-align: right;
+  margin: 8px 0px;
+  color: #999;
+  font-size: 12px;
+}
+
+.article-meta section{
+  margin: 4px 0px;
 }
 
 .article-date {
   text-align: right;
-  color: #999;
   font-size: 12px;
   margin: 2px 0px;
-}
-
-.article-tags {
-  text-align: right;
-  margin: 2px 0px;
-}
-
-.article-tag {
-  margin-left: 6px;
-  font-size: 12px;
-}
-
-.article-git {
-  text-align: right;
-  margin: 2px 0px;
-  color: #999;
-  font-size: 12px;
 }
 
 .article-topic{
-  text-align: right;
-  font-size: 12px;
-  margin: 2px 0px;
+  margin-left: 4px;
 }
 
-.article img {
+.article-tag {
+  margin-left: 4px;
+}
+
+.article-content{
+  margin: 16px 0px;
+}
+
+.article-content h1 {
+  font-size: 22px;
+  margin-top: 2em;
+}
+
+.article-content h2 {
+  font-size: 20px;
+  margin-top: 1.5em;
+}
+
+.article-content h2 {
+  font-size: 18px;
+  margin-top: 1em;
+}
+
+.article-content p{
+  margin: 1em 0 0 0;
+}
+
+.article-content blockquote{
+  margin: 0.5em 0 0.5em 2em;
+  border-left: 6px solid #eee;
+  color: #333;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 2;
+  padding: 0.5em;
+  word-break: break-all;
+}
+
+.article-content blockquote p{
+  margin: 0;
+}
+
+.article-content a{
+  padding: 0px 0.5em;
+}
+
+.article-content img {
   display: block;
   max-width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  box-shadow: 0 0 4px #ddd;
 }
 
-.article h1 {
-  font-size: 22px;
+.article-content strong{
+  margin: 0 0.5em;
 }
 
-.article h2 {
-  font-size: 20px;
+.article-content ol{
+  margin-top: 0.5em;
 }
 
-.article .highlight {
+.article-content ol li{
+  padding-left: 0.5em;
+}
+
+.article-content table{
+  margin-top: 0.5em;
+}
+
+.article-content .highlight {
+  display: block;
   overflow-x: auto;
+  border: 1px solid #eee;
+  padding-left: 1em;
+}
+
+.article-page{
+  margin: 16px 0px;
+  border-top: 1px solid #eee;
+}
+
+.article-page-prev,
+.article-page-next{
+  margin: 8px 0px;
+}
+
+.article-comment{
+  margin: 16px 0px;
 }
