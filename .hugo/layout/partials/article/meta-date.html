@@ -1,0 +1,14 @@
+<section class="article-date">
+  <time class="article-date-created_at">
+    {{ .Date.Format "2006-01-02 15:04:05" }}
+  </time>
+  ，约
+  <span class="article-date-word_count">
+    {{ .WordCount }}
+  </span>
+  字，阅读预计需
+  <span class="article-date-reading_time">
+    {{ .ReadingTime }}
+  </span>
+  分钟
+</section>

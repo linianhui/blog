@@ -1,15 +1,15 @@
-<section>
+<section class="article-page">
   {{ with .PrevInSection }}
-  <div>
+  <div class="article-page-prev">
     <span>上一篇 : </span>
-    <a href="{{.RelPermalink}}"  target="_blank"> {{.Title}}</a>
+    <a href="{{.RelPermalink}}" target="_blank"> {{.Title}}</a>
   </div>
   {{ end }}
 
   {{ with .NextInSection }}
-  <div>
+  <div class="article-page-next">
     <span>下一篇 : </span>
-    <a href="{{.RelPermalink}}"  target="_blank"> {{.Title}}</a>
+    <a href="{{.RelPermalink}}" target="_blank"> {{.Title}}</a>
   </div>
   {{ end }}
 </section>

@@ -1,30 +1,19 @@
 {{ define "main" }}
 {{ partial "article/toc.html" . }}
 <article class="article">
+  
   {{ partial "article/title.html" . }}
-  {{ partial "article/date.html" . }}
-  {{ partial "article/topic.html" . }}
-  {{ partial "article/tag.html" . }}
-  {{ partial "article/git.html" . }}
-  <div>
+  
+  {{ partial "article/meta.html" . }}
+  
+  <section class="article-content">
     {{ .Content }}
-  </div>
-  {{ partial "article/date.html" . }}
-  {{ partial "article/topic.html" . }}
-  {{ partial "article/tag.html" . }}
-  {{ partial "article/git.html" . }}
+  </section>
+  
+  {{ partial "article/meta.html" . }}
+  
   {{ partial "article/page.html" . }}
   
-  <section>
-    <script src="https://utteranc.es/client.js"
-        repo="linianhui/linianhui.github.io"
-        issue-term="url"
-        label="博客评论"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-    </script>
-  </section>
- 
 </article>
+{{ partial "article/comment.html" . }}
 {{ end }}
