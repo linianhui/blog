@@ -13,7 +13,10 @@
   box-shadow: 0 0 2px #ccc;
   line-height: 1.6;
   overflow-y: auto;
-  min-width: 240px;
-  max-width: 320px;
+  width: 320px;
   overflow-x: auto;
+}
+
+.toc ul{
+  padding-left: 1.5em;
 }
