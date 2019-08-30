@@ -1,23 +1,25 @@
 {{ define "main" }}
-{{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
-<section class="topic">
-  <h1 class="topic-title">
-    <a href="{{ .URL }}" title="{{ .Name }}" target="_blank" >
-      {{ .Name }}
-    </a>
-    ( {{len .Page.Pages}} )
-  </h1>
-  <div class="topic-content">
-    {{ .Page.Content }}
-  </div>
-  <section class="topic-articles">
-    {{ range .Page.Pages.ByDate.Reverse }}
-    <article class="topic-article">
-      <time class="topic-article-time">{{ .Date.Format "2006-01-02" }}</time>
-      <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
-    </article>
-    {{ end }}
+<section class="topics">
+  {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
+  <section class="topic">
+    <h1 class="topic-title">
+      <a href="{{ .URL }}" title="{{ .Name }}" target="_blank">
+        {{ .Name }}
+      </a>
+      ( {{len .Page.Pages}} )
+    </h1>
+    <div class="topic-content">
+      {{ .Page.Content }}
+    </div>
+    <section class="topic-articles">
+      {{ range .Page.Pages.ByDate.Reverse }}
+      <article class="topic-article">
+        <time class="topic-article-time">{{ .Date.Format "2006-01-02" }}</time>
+        <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
+      </article>
+      {{ end }}
+    </section>
   </section>
+  {{ end }}
 </section>
-{{ end }}
 {{ end }}

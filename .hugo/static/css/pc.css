@@ -253,11 +253,11 @@ summary{
   margin-top: 2em;
 }
 
-.topic{
+.topics .topic{
   margin-top: 32px;
 }
 
-.topic-title{
+.topics .topic-title{
   font-size: 24px;
 }
 
