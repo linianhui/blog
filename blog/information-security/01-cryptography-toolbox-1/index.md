@@ -82,8 +82,7 @@ static void Main()
 ```
 
 .Net库已经封装好了一些对称加密的类，开箱即用：
-
-![CSharp Symmetric Algorithm](./csharp-symmetric-algorithm.png)
+![CSharp Symmetric Algorithm](csharp-symmetric-algorithm.png)
 
 ## 1.1 遗留问题 {#1.1.leftover-problem}
 
@@ -158,14 +157,12 @@ static void Main()
 ```
 
 .Net库中已经提供了公钥密码相关的类，开箱即用：
-
-![CSharp Asymmetric Algorithm](./csharp-asymmetric-algorithm.png)
+![CSharp Asymmetric Algorithm](csharp-asymmetric-algorithm.png)
 
 ## 2.1 对公钥密钥的攻击 {#2.1.attack-asymmetric-algorithm}
 
 中间人攻击：这钟类型的攻击发生在上述流程中的第一步，即发送方A向接收方B请求 `public_key` 的时候。这时有一个拦路打劫的家伙M，截获了这个 `public_key` ，自己据为己有。然后M把自己的一个 `public_key` 给到了A，A是浑然不觉，傻乎乎的用这个假的 `public_key` 加密了信息，发送了出去，这时候M拦截到了这个消息，用自己的 `private_key` 解密了这个消息，然后篡改一番，用真正的 `public_key` 进行加密，发给了B。这个时候B以为是A发送的，A也以为自己发给了B，其实都被M给玩了...文字可能不是很清晰，看图：
-
-![Attack Asymmetric Algorithm](./attack-asymmetric-algorithm.png)
+![Attack Asymmetric Algorithm](attack-asymmetric-algorithm.png)
 
 ## 2.2 遗留问题 {#2.2.leftover-problem}
 
@@ -230,8 +227,7 @@ public static byte[] ToSHA256(this byte[] value)
 ```
 
 .NET的库已经帮我们封装好了密码散列函数相关的类，开箱即用。
-
-![CSharp Hash Algorithm](./csharp-hash-algorithm.png)
+![CSharp Hash Algorithm](csharp-hash-algorithm.png)
 
 ## 3.3 密码散列函数的实际应用 {#3.3.practical-use-of-cryptographic-hash-function-}
 
@@ -292,8 +288,7 @@ static void Main()
 ```
 
 .Net类库中开箱即用的MAC相关的类，开箱即用：
-
-![CSharp MAC Algorithm](./csharp-mac-algorithm.png)
+![CSharp MAC Algorithm](csharp-mac-algorithm.png)
 
 ## 4.1 消息认证码的实际应用 {#4.1.practical-use-of-message-authentication-code}
 
@@ -333,12 +328,10 @@ static void Main()
 上面我们说到**签名人用私钥加密{一段信息}来生成签名**。那么问题来了，这 `{一段信息}` 是什么信息？关于这一段信息我们由两种选择：1是消息本身，2是消息的hash。
 
 下图是对消息本身进行签名的过程：
-
-![对消息本身进行签名](./digital-signature-message.png)
+![对消息本身进行签名](digital-signature-message.png)
 
 下图是对消息的hash进行签名的过程：
-
-![对消息的hash进行签名](./digital-signature-message-hash.png)
+![对消息的hash进行签名](digital-signature-message-hash.png)
 
 实际中我们一般采用的是对消息的hash进行签名的方式，因为消息本身可能非常大，加密解密过程会非常消耗资源。再C#中使用RSA来实现数字签名：
 
@@ -407,8 +400,7 @@ static void Main()
 ## 5.3 遗留问题 {#5.3.leftover-problem}
 
 数字签名可以识别出篡改和伪装，还可以防止否认，也就是说数字签名可以提供信息安全中的**完整性**、**认证**和**不可否认性**这3点的保障（很强大有木有）。然而这一切都基于一个假设**公钥必须是真正的发送者提供的**，和公钥密钥陷入了同一个问题。**我们发现自己陷入了一个死循环：数字签名可以用来识别篡改、伪装以及否认的，但是为此我们又需要从一个没有被伪装的真正的发送者那里得到一个没有被篡改的密钥......**这是一个鸡生蛋蛋生鸡的问题。
-
-![抓狂](./crazy.jpg)
+![抓狂](crazy.jpg)
 
 细心的读者或许可以看出来，上面我们的加密、散列、mac，签名也好，消费的数据都是`byte[]`，而`byte[]`是不方便书写、打印、复制和粘贴的，下面看一看`byte[]`编码的问题。换换脑子，鸡生蛋还是蛋生鸡的问题放一放先。
 
@@ -419,8 +411,7 @@ static void Main()
 ## 6.1 16进制（base16） {#6.1.base16}
 
 16进制的核心在于把一个`1byte = 8bit`分割成**两组4个bit**。那么这四个bit组合起来最小的数字是**0（2⁰）**，最大是**16（2⁴）**。编码后每一组（4个bit）都转成十进制，对应一个字母（使用1个byte表示），也就是相当于对原始的数据放大了2倍，其字母表如下：
-
-![base16 字母表](./base16-alphabet.png)
+![base16 字母表](base16-alphabet.png)
 
 举个简单的例子如下，比如**李**这个原始字符，我把它先用UTF8取得byte数组，然后把byte数组转成16进制：
 
@@ -540,8 +531,7 @@ static void Main()
 base64也可以说是64进制，它是用6个bit表示一个字符，也就是**2⁶。**其实核心原理和的16进制是一模一样的，但是有点不同的是，当一组byte（8bit）拆成4bit一组的的时候，是永远都可以成对的拆分的（8÷4=2）；但是当一组byte想要拆成6bit一组的时候，可能就无法正好拆分了（8÷6=1.333333.....），只有数据的bit数是8和6的最小公约数24的整数倍的情况下，才可以正好拆分，简化点就是**byte数÷3**。不能整除的时候，这个时候就需要补上一些0凑够6位。
 
 标准的base64的码表是由：**[A-Z]、[a-z]、[0-9]、`+`和`/`构成的（26+26+10+2=64），再附加一个对齐用的`=`（**个人理解这个`=`完全是多余，就像人的阑尾似的...**），**一共65个字符。
-
-![base64 字母表](./base64-alphabet.png)
+![base64 字母表](base64-alphabet.png)
 
 除了这个标准的码表之外，还有一些其他的码表，主要是因为`/+=`这三个字符再一些特殊的场景下术语特殊字符，比如在url传递的时候，这三个字符都是特殊字符，需要替换掉，比如把`/+`换成`-_`这2个字符。还拿上面的`李`举例子（这次我们用GB2312，故意使它无法整除：李字在GB2312中使用2个byte表示，不能整除3）：
 

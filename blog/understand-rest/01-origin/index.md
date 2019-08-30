@@ -7,8 +7,7 @@ tag: ["REST", "超媒体", "Hypermedia", "CREN"]
 # 1 世界上第一个网站 {#1.the-first-web-site-in-the-world}
 
 1990年12月20日，这一天对于现在的互联网来说意义非凡。欧洲核子研究组织（CREN）的科学家Tim Berners-Lee在一台NeXT电脑上启动了世界上的第一个网站（当然当时仅能Tim Berners-Lee自己访问），这台电脑至今仍保留在CREN，但当年那个网站已经不复存在了。鉴于这个网站的意义重大，CREN在2013年 **“复刻”** 了这个网站，并指向了原来的网址 : http://info.cern.ch 。由于现在的浏览器早已不是当初的样子，所以CREN还提供了一个模拟器来模拟当时浏览这个网站是什么情形。 http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html 打开后如下 : 
-
-![http://info.cern.ch](./info.cern.ch.png)
+![http://info.cern.ch](info.cern.ch.png)
 
 哈哈，看起来是不是很酷炫的样子（可以通过输入数字编号进行链接的跳转）。
 
