@@ -315,3 +315,39 @@ summary{
 .tag-article-time{
   margin-left: 0.5em;
 }
+
+.archives-title{
+  font-size: 24px;
+}
+
+.archives-count{
+  font-size: 18px;
+  color: #333;
+}
+
+.archive-group{
+  margin-top: 2em;
+}
+
+.archive-group-title{
+  font-size: 24px;
+}
+
+.archive-group-count{
+  font-size: 16px;
+  color: #333;
+}
+
+.archive-group-items{
+  margin-top: 1em;
+}
+
+.archive-group-item{
+  margin-left: 2em;
+  display: list-item;
+  list-style: decimal-leading-zero;
+}
+
+.archive-group-item-time{
+  margin-left: 0.5em;
+}

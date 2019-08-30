@@ -1,22 +1,24 @@
 {{ define "main" }}
-<main>
-  <article>
-    <header>
-      <h1>{{.Title}} {{ len $.Site.RegularPages }} 篇</h1>
+<h1 class="archives-title">
+  {{.Title}}
+  <span class="archives-count">({{ len $.Site.RegularPages }})</span>
+</h1>
+<section class="archives">
+  {{ range $.Site.RegularPages.GroupByDate "2006-01" }}
+  <section class="archive-group">
+    <header class="archive-group-title">
+      {{ .Key }}
+      <span class="archive-group-count">({{ len .Pages }})</span>
     </header>
-  </article>
-  <ul>
-    {{ range $.Site.RegularPages.GroupByDate "2006-01" }}
-    <h3>{{ .Key }}</h3>
-    <ul>
+    <section class="archive-group-items">
       {{ range .Pages.ByDate.Reverse }}
-      <li>
-        <time>{{ .Date.Format "2006-01-02" }}</time>
-        <a href="{{.RelPermalink}}">{{.Title}}</a>
-      </li>
+      <header class="archive-group-item">
+        <time class="archive-group-item-time">{{ .Date.Format "2006-01-02" }}</time>
+        <a class="archive-group-item-title" href="{{.RelPermalink}}" target="_blank">{{.Title}}</a>
+      </header>
       {{ end }}
-    </ul>
-    {{ end }}
-  </ul>
-</main>
+    </section>
+  </section>
+  {{ end }}
+</section>
 {{ end }}
