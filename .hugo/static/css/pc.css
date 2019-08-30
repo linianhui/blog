@@ -1,28 +1,27 @@
-
 h1,
 h2,
 h3,
 h4 {
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 
 a {
-  text-decoration: none
+  text-decoration: none;
 }
 
 a:active,
 a:link,
 a:visited {
-  color: #0681ba
+  color: #0681ba;
 }
 
 a:hover {
-  color: #f60
+  color: #f60;
 }
 
 a img {
-  border-width: 0
+  border-width: 0;
 }
 
 table,
@@ -32,7 +31,7 @@ th,
 thead,
 tr {
   border-collapse: collapse;
-  border: 1px solid silver;
+  border: 1px solid #ccc;
   padding: 2px;
 }
 
@@ -46,11 +45,11 @@ body {
   padding: 0;
   height: 100%;
   line-height: 1.5;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .body {
-  margin: 48px 64px 16px 64px;
+  margin: 48px 64px 32px 64px;
 }
 
 .header {
@@ -92,9 +91,13 @@ body {
 }
 
 .footer {
+  margin-top: 2em;
   border-top: 1px solid #0681ba;
-  padding-top: 10px;
   text-align: center;
+}
+
+.footer section{
+  margin-top: 1em;
 }
 
 .article-list {
@@ -103,7 +106,7 @@ body {
 
 .article {
   position: relative;
-  padding: 24px 24px 12px 24px;
+  padding: 24px;
   box-shadow: 0 0 2px #ccc;
 }
 
@@ -116,13 +119,13 @@ body {
 
 .article-meta{
   text-align: right;
-  margin: 8px 0px;
+  margin-top: 6px;
   color: #999;
   font-size: 12px;
 }
 
 .article-meta section{
-  margin: 4px 0px;
+  margin-top: 4px;
 }
 
 .article-date {
@@ -145,30 +148,54 @@ body {
 
 .article-content h1 {
   font-size: 22px;
+  margin-left: 0;
   margin-top: 2em;
+  margin-right: 0;
+  margin-bottom: 0;
 }
 
 .article-content h2 {
   font-size: 20px;
-  margin-top: 1.5em;
+  margin-left: 0;
+  margin-top: 2em;
+  margin-right: 0;
+  margin-bottom: 0;
 }
 
-.article-content h2 {
+.article-content h3 {
   font-size: 18px;
-  margin-top: 1em;
+  margin-left: 0;
+  margin-top: 2em;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.article-content h4 {
+  font-size: 16px;
+  margin-left: 0;
+  margin-top: 2em;
+  margin-right: 0;
+  margin-bottom: 0;
 }
 
 .article-content p{
-  margin: 1em 0 0 0;
+  font-size: 14px;
+  margin-left: 0;
+  margin-top: 1em;
+  margin-right: 0;
+  margin-bottom: 0;
 }
 
 .article-content blockquote{
-  margin: 0.5em 0 0.5em 2em;
-  border-left: 6px solid #eee;
-  color: #333;
   font-size: 12px;
   font-style: italic;
-  line-height: 2;
+  margin-left: 2em;
+  margin-top: 1em;
+  margin-right: 0;
+  margin-bottom: 0;
+  border-left: 6px solid #eee;
+  color: #333;
+  line-height: 1.8;
   padding: 0.5em;
   word-break: break-all;
 }
@@ -215,15 +242,15 @@ body {
 }
 
 .article-page{
-  margin: 16px 0px;
+  margin-top: 2em;
   border-top: 1px solid #eee;
 }
 
 .article-page-prev,
 .article-page-next{
-  margin: 8px 0px;
+  margin-top: 1em;
 }
 
 .article-comment{
-  margin: 16px 0px;
+  margin-top: 2em;
 }
