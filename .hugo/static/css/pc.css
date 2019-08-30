@@ -260,3 +260,34 @@ summary{
 .topic-title{
   font-size: 24px;
 }
+
+.tags{
+  margin-top: 32px;
+}
+
+.tags-title h1{
+  font-size: 24px;
+}
+
+.tags-title .tags-count{
+  font-size: 18px;
+  color: #333;
+}
+
+.tags{
+  margin-left: 2em;
+}
+
+.tags .tag{
+  display: list-item;
+  list-style: decimal-leading-zero;
+}
+
+.tags .tag .tag-link{
+  margin-left: 0.5em;
+}
+
+.tags .tag .tag-count{
+  font-size: 12px;
+  color: #333;
+}

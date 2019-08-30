@@ -1,16 +1,17 @@
 {{ define "main" }}
-<main>
-  <article>
-    <header>
-      <h1>标签列表</h1>
-    </header>
-  </article>
-  <ul>
-    {{ range .Pages }}
-    <li>
-      <a href="{{.RelPermalink}}">{{.Title}} ({{ len .Data.Pages }})</a>
-    </li>
-    {{ end }}
-  </ul>
-</main>
+<section class="tags-title">
+  <h1>标签列表
+    <span class="tags-count">
+      ({{len .Pages}})
+    </span>
+  </h1>
+</section>
+<section class="tags">
+  {{ range .Pages.ByTitle }}
+  <div class="tag">
+    <a class="tag-link" href="{{.RelPermalink}}">{{.Title}}</a>
+    <span class="tag-count">({{ len .Data.Pages }})</span>
+  </div>
+  {{ end }}
+</section>
 {{ end }}
