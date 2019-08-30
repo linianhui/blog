@@ -252,3 +252,11 @@ summary{
 .article-comment{
   margin-top: 2em;
 }
+
+.topic{
+  margin-top: 32px;
+}
+
+.topic-title{
+  font-size: 24px;
+}
