@@ -11,14 +11,14 @@
     <div class="topic-content">
       {{ .Page.Content }}
     </div>
-    <section class="topic-articles">
+    <ol class="topic-articles" reversed>
       {{ range .Page.Pages.ByDate.Reverse }}
-      <article class="topic-article">
+      <li class="topic-article">
         <time class="topic-article-time">{{ .Date.Format "2006-01-02" }}</time>
         <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
-      </article>
+      </li>
       {{ end }}
-    </section>
+    </ol>
   </section>
   {{ end }}
 </section>

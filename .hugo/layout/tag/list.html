@@ -2,12 +2,12 @@
 <h1 class="tag-title">标签 : {{.Title}}
   <span class="tag-title-count">({{ len .Data.Pages }})</span>
 </h1>
-<section class="tag-articles">
+<ol class="tag-articles" reversed>
   {{ range .Page.Pages.ByDate.Reverse }}
-  <article class="tag-article">
+  <li class="tag-article">
     <time class="tag-article-time">{{ .Date.Format "2006-01-02" }}</time>
     <a class="tag-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
-  </article>
+  </li>
   {{ end }}
-</section>
+</ol>
 {{ end }}

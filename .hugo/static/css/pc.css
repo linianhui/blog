@@ -262,8 +262,6 @@ summary{
 }
 
 .topic-article{
-  margin-left: 2em;
-  display: list-item;
   list-style: decimal-leading-zero;
 }
 
@@ -284,12 +282,7 @@ summary{
   color: #333;
 }
 
-.tags{
-  margin-left: 2em;
-}
-
 .tags .tag{
-  display: list-item;
   list-style: decimal-leading-zero;
 }
 
@@ -313,12 +306,9 @@ summary{
 
 .tag-articles{
   margin-top: 2em;
-  margin-left: 2em;
 }
 
 .tag-article{
-  margin-top: 1em;
-  display: list-item;
   list-style: decimal-leading-zero;
 }
 
@@ -353,8 +343,6 @@ summary{
 }
 
 .archive-group-item{
-  margin-left: 2em;
-  display: list-item;
   list-style: decimal-leading-zero;
 }
 
