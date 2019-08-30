@@ -200,7 +200,18 @@ summary{
 }
 
 .article-content a{
-  padding: 0px 0.5em;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.article-content strong{
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.article-content a strong,
+.article-content strong a{
+  margin: 0;
 }
 
 .article-content img {
@@ -213,10 +224,6 @@ summary{
   padding: 0;
   font-size: 0;
   box-shadow: 0 0 4px #ddd;
-}
-
-.article-content strong{
-  margin: 0 0.5em;
 }
 
 .article-content ol{
