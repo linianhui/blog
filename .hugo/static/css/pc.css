@@ -291,3 +291,27 @@ summary{
   font-size: 12px;
   color: #333;
 }
+
+.tag-title{
+  font-size: 24px;
+}
+
+.tag-title-count{
+  font-size: 18px;
+  color: #333;
+}
+
+.tag-articles{
+  margin-top: 2em;
+  margin-left: 2em;
+}
+
+.tag-article{
+  margin-top: 1em;
+  display: list-item;
+  list-style: decimal-leading-zero;
+}
+
+.tag-article-time{
+  margin-left: 0.5em;
+}

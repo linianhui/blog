@@ -1,17 +1,13 @@
 {{ define "main" }}
-<main>
-  <article>
-    <header>
-      <h1>标签 : {{.Title}}</h1> {{ len .Data.Pages }}
-    </header>
+<h1 class="tag-title">标签 : {{.Title}}
+  <span class="tag-title-count">({{ len .Data.Pages }})</span>
+</h1>
+<section class="tag-articles">
+  {{ range .Page.Pages.ByDate.Reverse }}
+  <article class="tag-article">
+    <time class="tag-article-time">{{ .Date.Format "2006-01-02" }}</time>
+    <a class="tag-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
   </article>
-  <ul>
-    {{ range .Pages.ByDate.Reverse }}
-    <li>
-      <time>{{ .Date.Format "2006-01-02" }}</time>
-      <a href="{{.RelPermalink}}">{{.Title}}</a>
-    </li>
-    {{ end }}
-  </ul>
-</main>
+  {{ end }}
+</section>
 {{ end }}
