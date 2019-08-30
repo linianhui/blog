@@ -1,3 +1,12 @@
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  line-height: 1.5;
+  background-color: #fff;
+}
+
 h1,
 h2,
 h3,
@@ -11,9 +20,12 @@ a {
 }
 
 a:active,
-a:link,
-a:visited {
+a:link {
   color: #0681ba;
+}
+
+a:visited {
+  color: #551a8b;
 }
 
 a:hover {
@@ -39,13 +51,9 @@ table {
   width: 100%;
 }
 
-body {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  line-height: 1.5;
-  background-color: #fff;
+summary{
+  display: block;
+  margin-top: 0.5em;
 }
 
 .body {
@@ -100,7 +108,7 @@ body {
   margin-top: 1em;
 }
 
-.article-list {
+.articles-item {
   margin: 32px 0;
 }
 

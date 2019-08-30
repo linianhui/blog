@@ -1,7 +1,9 @@
-<article class="article-list">
+<article class="articles-item">
   {{ partial "article/title.html" . }}
   <section class="article-meta">
   {{ partial "article/meta-date.html" . }}
   </section>
+  <summary>
   {{ .Summary }}
+  </summary>
 </article>
