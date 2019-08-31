@@ -1,15 +1,21 @@
 {{ define "main" }}
-  <article>
-    <h1>{{.Title}}</h1>
-    <summary>{{.Content}}</summary>
-  </article>
-  <section>
-    {{ range .Pages }}
-    <article>
-      <a href="{{.RelPermalink}}">
-        {{.Date.Format "2006-01-02"}} : {{.Title}}
-      </a>
-    </article>
+<section class="topic">
+  <h1 class="topic-title">
+    <a href="{{ .URL }}" title="{{ .Title }}" target="_blank">
+      {{ .Title }}
+    </a>
+    <span class="topic-articles-count">({{len .Pages}})</span>
+  </h1>
+  <div class="topic-content">
+    {{ .Content }}
+  </div>
+  <ol class="topic-articles" reversed>
+    {{ range .Pages.ByDate.Reverse }}
+    <li class="topic-article">
+      <time class="topic-article-time">{{ .Date.Format "2006-01-02" }}</time>
+      <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
+    </li>
     {{ end }}
-  </section>
+  </ol>
+</section>
 {{ end }}

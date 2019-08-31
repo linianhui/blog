@@ -260,12 +260,16 @@ summary{
   margin-top: 2em;
 }
 
-.topics .topic{
+.topic{
   margin-top: 32px;
 }
 
-.topics .topic-title{
+.topic-title{
   font-size: 24px;
+}
+
+.topic-articles-count{
+  font-size: 16px;
 }
 
 .topic-article{

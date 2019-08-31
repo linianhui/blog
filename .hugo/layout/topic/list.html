@@ -6,7 +6,7 @@
       <a href="{{ .URL }}" title="{{ .Name }}" target="_blank">
         {{ .Name }}
       </a>
-      ( {{len .Page.Pages}} )
+      <span class="topic-articles-count">({{len .Page.Pages}})</span>
     </h1>
     <div class="topic-content">
       {{ .Page.Content }}
