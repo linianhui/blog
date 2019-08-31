@@ -57,7 +57,7 @@
   }
 
   function onScroll() {
-    var scrollTop = window.scrollY + 66;
+    var scrollTop = window.scrollY + 32;
     console.log("scrollTop", scrollTop);
     selectedToc(lnh.tocList, scrollTop);
   }
