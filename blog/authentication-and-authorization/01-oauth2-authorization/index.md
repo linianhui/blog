@@ -353,7 +353,7 @@ POST /resource HTTP/1.1
 Host: server.example.com 
 Content-Type: application/x-www-form-urlencoded
 
-_access_token=mF9.B5f-4.1JqM
+access_token=mF9.B5f-4.1JqM
 ```
 
 # 8 OAuth2的安全问题 {#8.security}
