@@ -229,7 +229,7 @@ public static byte[] ToSHA256(this byte[] value)
 .NET的库已经帮我们封装好了密码散列函数相关的类，开箱即用。
 ![CSharp Hash Algorithm](csharp-hash-algorithm.png)
 
-## 3.3 密码散列函数的实际应用 {#3.3.practical-use-of-cryptographic-hash-function-}
+## 3.3 密码散列函数的实际应用 {#3.3.practical-use-of-cryptographic-hash-function}
 
 1. 检查文件是否被修改：上面一开始举得例子下载文件的例子。
 2. 基于口令的加密：通常我们在存储用户的密码的时候，都会采用这种方式（除非你是csdn），一般还会辅助的加上盐。
@@ -237,7 +237,7 @@ public static byte[] ToSHA256(this byte[] value)
 4. 数字签名：后面会介绍到。
 5. 伪随机数生成器：后面会介绍到。
 
-## 3.4 针对密码散列函数的攻击 {#3.4.attack-cryptographic-hash-function-}
+## 3.4 针对密码散列函数的攻击 {#3.4.attack-cryptographic-hash-function}
 
 1.  强碰撞性攻击：比如上面提到的Google破解了SHA-1，即使用大量的计算来找出两个数据message不一样，但是hash值却一样的过程，如果找到了这样的两块数据，那么再使用这个hash作为数据的完整性校验的手段，其实已经没有意义了。解决办法是升级SHA-2，增大计算出这样两块数据的难度。
 2.  暴力破解：比如网上很多的MD5的解密，其实原理在于他们有大量的MD5 hash库，比如 `123456` 的MD5是 `e10adc3949ba59abbe56e057f20f883e` ，那么在你给我一个 `e10adc3949ba59abbe56e057f20f883e` 的时候，我就知道你的原文是 `123456` 。解决办法是加盐，增大这种暴力比对的难度。
