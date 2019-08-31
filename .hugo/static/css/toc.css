@@ -21,6 +21,11 @@
   list-style: none;
 }
 
+.toc a.selected {
+  color: #fff;
+  background-color: #0681ba;
+}
+
 .toc a{
   display: block;
   white-space: nowrap;
