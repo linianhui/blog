@@ -1,5 +1,5 @@
 ---
-title: '[OIDC in Action] 01 基于OIDC的SSO - JS Client'
+title: '[OIDC in Action] 02 基于OIDC的SSO - JS Client'
 created_at: 2017-11-27 12:19:00
 tag: ["OIDC", "OpenId Connect", "SSO", "oidc-client.js"]
 ---
