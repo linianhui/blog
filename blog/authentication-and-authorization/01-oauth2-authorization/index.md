@@ -113,7 +113,7 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 
 **注意：以下4种授权许可是对上述([4 OAuth2的授权流程](#4.oauth2-flow))中的ABDE四个阶段的展开。**
 
-## 5.1 Authorization Code
+## 5.1 Authorization Code {#5.1.authorization-code}
 
 这是OAuth2最常用的一种授权许可类型，比如QQ，微博，Facebook和豆瓣等等。要求Client具有可公开访问的Server服务器来接受`授权码(Authorization Code)`，具体的流程如下：
 ![Authorization Code](oauth2-authorization-code.jpg)
@@ -134,7 +134,7 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 2. client_id：必选。第三方应用的标识ID。
 3. state：**推荐**。Client提供的一个字符串，服务器会原样返回给Client。
 4. redirect_uri：必选。授权成功后的重定向地址。
-5. scope：可选。表示授权范围。
+5. `scope`：可选。表示授权范围。
 
 比如以下示例：
 
