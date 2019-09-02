@@ -9,25 +9,30 @@
   top: 0;
   bottom: 0;
   z-index: 9999;
-  line-height: 1.8;
   overflow-y: auto;
-  width: 320px;
   overflow-x: auto;
   box-shadow: 0 0 4px #aaa;
   font-size: 14px;
 }
 
+.toc nav{
+  padding-right: 1em;
+  margin-top: 2em;
+}
+
 .toc ul{
   padding-left: 1em;
   list-style: none;
-}
-
-.toc a.selected {
-  color: #fff;
-  background-color: #0681ba;
+  margin: 0;
 }
 
 .toc a{
   display: block;
   white-space: nowrap;
+  padding: 4px 6px;
+}
+
+.toc a.selected {
+  color: #fff;
+  background-color: #0681ba;
 }
