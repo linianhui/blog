@@ -5,7 +5,7 @@ created_at: 2017-04-09 16:59:00
 
 原作者 : [Justin Richer], 原文: [User Authentication with OAuth 2.0][OAuth2-Authentication]。
 
-[OAuth2]规范定义了一个**授权(delegation)**协议，对于使用Web的应用程序和API在网络上传递**授权决策**非常有用。OAuth被用在各钟各样的应用程序中，包括提供用户认证的机制。这导致许多的开发者和API提供者得出一个OAuth本身是一个**认证**协议的</span>错误结论，并将其错误的使用于此。在此需要明确指出：
+[OAuth2]规范定义了一个**授权(delegation)**协议，对于使用Web的应用程序和API在网络上传递**授权决策**非常有用。OAuth被用在各钟各样的应用程序中，包括提供用户认证的机制。这导致许多的开发者和API提供者得出一个OAuth本身是一个**认证**协议的</span>错误结论，并将其错误的使用于此。在此需要明确指出 :  
 
 - **OAuth2不是认证协议**。
 - **OAuth2不是认证协议**。 
@@ -21,13 +21,13 @@ created_at: 2017-04-09 16:59:00
 
 然而，OAuth没有告诉应用程序上述任何信息。OAuth对用户没有任何说明，也没有说明如何证明他们的存在，即使他们就在那里。对于OAuth的Client而言，它请求一个token，得到一个token，并用这个token访问一些API。但它不知道是谁授权的应用程序，以及甚至还有一个用户在那里。实际上，OAuth的大部分问题在于Client和被访问的资源之间的连接上在**用户不存在**的情况下使用这种委托访问。这对于Client授权来说是好的，但是对于用户身份认证来说却非常糟糕，因为认证需要确定用户是否存在(以及他们是谁)。
 
-另外一个的混淆的因素，一个OAuth的过程通常包含在一些认证的过程中：资源所有者在授权步骤中向授权服务器进行身份验证，客户端向令牌端点中的授权服务器进行身份验证，可能还有其他的。OAuth协议中的这些认证事件的存在不能够说明OAuth协议本身能够可靠地传送认证。(译注：我觉得可能作者想表达的是虽然OAuth是这些认证事件的消费者，但却不是生产者，所以不能因为使用了认证，就等同于OAuth可以直接提供认证。)
+另外一个的混淆的因素，一个OAuth的过程通常包含在一些认证的过程中 :  资源所有者在授权步骤中向授权服务器进行身份验证，客户端向令牌端点中的授权服务器进行身份验证，可能还有其他的。OAuth协议中的这些认证事件的存在不能够说明OAuth协议本身能够可靠地传送认证。(译注 :  我觉得可能作者想表达的是虽然OAuth是这些认证事件的消费者，但却不是生产者，所以不能因为使用了认证，就等同于OAuth可以直接提供认证。)
 
 事实证明尽管如此，还有一些事情可以和OAuth一起使用，以便在授权和授权协议之上**创建**身份认证协议。几乎在所有的这些情况下，OAuth的核心功能都将保持不变，而发生的事件是用户将他们的身份委派给他们正在尝试登录的应用程序。然后，客户端应用程序成为身份API的消费者，从而找出先前授权给客户端的用户。以这种方式建立身份验证的一个主要好处是允许管理最终用户的同意，这在互联网规模的跨域身份联合中是非常重要的。另一个重要的好处是，用户可以同时将访问其他受保护的API委托给他们的身份，使应用程序开发人员和最终用户管理更简单。通过一个调用，应用程序可以找出用户是否登录，应该调用什么用户，下载照片进行打印，并将更新发布到其消息流。这种简单性是非常有吸引力的，但当这两件事情同时进行时，许多开发人员将这两个功能混为一谈。
 
 # 认证(Authentication) VS 授权(Authorization) {#authentication-vs-authorization}
 
-为了帮助弄清楚这件事情，可以通过一个比喻来思考这个问题：巧克力 VS 软糖。在一开始，这两件事情的本质是截然不同的：巧克力是一种原料，软糖就是糖果。巧克力可以用来做许多不同的事情，甚至可以自己使用。软糖可以由许多不同的东西制成，其中一种可能是巧克力，但是需要多种成分来制造软糖，甚至不会用到巧克力。因此，**巧克力**等于**软糖**是错误的，而**巧克力**等于**巧克力软糖**肯定是夸大其词的。
+为了帮助弄清楚这件事情，可以通过一个比喻来思考这个问题 :  巧克力 VS 软糖。在一开始，这两件事情的本质是截然不同的 :  巧克力是一种原料，软糖就是糖果。巧克力可以用来做许多不同的事情，甚至可以自己使用。软糖可以由许多不同的东西制成，其中一种可能是巧克力，但是需要多种成分来制造软糖，甚至不会用到巧克力。因此，**巧克力**等于**软糖**是错误的，而**巧克力**等于**巧克力软糖**肯定是夸大其词的。
 
 在这个比喻中，OAuth是巧克力。这是一个多功能的原料，对许多不同的东西是至关重要的，甚至可以自己使用。认证更像是软糖，至少有一些成分必须以正确的方式汇集在一起​​，使其成为可能，OAuth**也许**是这些成分之一(可能是主要原料)，但可能也根本不需要参与其中。你需要一个配方来说明说明如何组合它们。
 
@@ -45,13 +45,13 @@ created_at: 2017-04-09 16:59:00
 
 ## 访问受保护的API作为身份认证的证明 {#access-of-a-protected-api-as-proof-of-authentication}
 
-由于access_token可以用于获取一组用户属性，因此拥有一个有效的access_token作为身份认证的证明也是很诱人的。在一些情况下，这种假设是成立的，因为在授权服务器商经过身份认证的用户上下文中，token是刚刚被创建的。但是在OAuth中，这并不是获取access_token的唯一方法，Refresh Token和assertions([Assertion Framework for OAuth 2.0 Client Authentication and Authorization Grants : https://tools.ietf.org/html/rfc7521](https://tools.ietf.org/html/rfc7521))可以在用户不存在的情况下获取access_token。而在某些情况下，用户无需身份验证即可获得access_token(译注：比如[[认证&授权] 01 OAuth2授权 - 5.4 Client Credentials Grant][01-5.4])。
+由于access_token可以用于获取一组用户属性，因此拥有一个有效的access_token作为身份认证的证明也是很诱人的。在一些情况下，这种假设是成立的，因为在授权服务器商经过身份认证的用户上下文中，token是刚刚被创建的。但是在OAuth中，这并不是获取access_token的唯一方法，Refresh Token和assertions([Assertion Framework for OAuth 2.0 Client Authentication and Authorization Grants : https://tools.ietf.org/html/rfc7521](https://tools.ietf.org/html/rfc7521))可以在用户不存在的情况下获取access_token。而在某些情况下，用户无需身份验证即可获得access_token(译注 :  比如[[认证&授权] 01 OAuth2授权 - 5.4 Client Credentials Grant][01-5.4])。
 
 此外，在用户不存在后，access_token通常还会存在很长时间。记住，OAuth是一个授权协议(`delegation protocol`)，这对它的设计至关重要。这意味着，如果一个Client想要确保身份认证是有效的，那么简单的使用token获取用户属性是不够的，因为OAuth保护的是资源，获取用户属性的API(identity API)通常没有办法告诉你用户是否存在。
 
 ## 注入Access Token {#injection-of-access-tokens}
 
-另外一个额外的威胁(非常危险)是当Client接受来自token endpoint的token时。这可能会发生在使用implicit流程(这个流程中直接把access_token作为url的hash参数(译注：[[认证&授权] 01 OAuth2授权 - 5.2.2 Access Token Response][01-5.2.2])中，并且Client不正确的使用state参数的时候。如果应用程序在不同的组件中传递 access_token以**共享**访问权限的时候，也会发生此问题。这里的问题在于它开辟了一个注入access_token到应用程序外部(并可能在应用程序外部泄露)的地方。如果Client不通过某种机制验证access_token，则它无法区分access_token是有效的令牌还是攻击的令牌。
+另外一个额外的威胁(非常危险)是当Client接受来自token endpoint的token时。这可能会发生在使用implicit流程(这个流程中直接把access_token作为url的hash参数(译注 :  [[认证&授权] 01 OAuth2授权 - 5.2.2 Access Token Response][01-5.2.2])中，并且Client不正确的使用state参数的时候。如果应用程序在不同的组件中传递 access_token以**共享**访问权限的时候，也会发生此问题。这里的问题在于它开辟了一个注入access_token到应用程序外部(并可能在应用程序外部泄露)的地方。如果Client不通过某种机制验证access_token，则它无法区分access_token是有效的令牌还是攻击的令牌。
 
 可以通过使用Authorization code来缓解这一点，并且只能通过授权服务器的token API(token endpoint)并使用一个state的值来避免被攻击者猜中。
 
@@ -79,7 +79,7 @@ OpenId Connect是直接建立在OAuth2之上的，在大多数情况下，部署
 
 ## ID Tokens {#id-tokens}
 
-OpenID Connect Id Token是一个签名的JSON Web Token(JWT：RFC7519)，它和OAuth access_token一起提供给Client应用程序。Id Token包含一组关于身份认证会话的声明(claim)，包括用户的标识(sub)、颁发令牌的提供程序的标识符(iss)、以及创建此标识的Client的标识符(aud)。此外，Id Token还包含token的有效生存期(通常非常短)以及其他相关的上下文信息。由于Client知道Id Token的格式，因此它能直接分析出token的内容而无需依赖外部服务。此外，OpenId Connect还颁发access_token给Client，允许Client保持对token的不透明，因为这是属于OAuth规范的一部分。最后，token本身是由提供程序的私钥进行签名的，除了在获取token中受TLS的保护之外，还添加了一个额外的保护层，以防止类似的模拟攻击。通过对此token的一些校验检查，Client可以保护自己免受大量常见的攻击。
+OpenID Connect Id Token是一个签名的JSON Web Token(JWT :  RFC7519)，它和OAuth access_token一起提供给Client应用程序。Id Token包含一组关于身份认证会话的声明(claim)，包括用户的标识(sub)、颁发令牌的提供程序的标识符(iss)、以及创建此标识的Client的标识符(aud)。此外，Id Token还包含token的有效生存期(通常非常短)以及其他相关的上下文信息。由于Client知道Id Token的格式，因此它能直接分析出token的内容而无需依赖外部服务。此外，OpenId Connect还颁发access_token给Client，允许Client保持对token的不透明，因为这是属于OAuth规范的一部分。最后，token本身是由提供程序的私钥进行签名的，除了在获取token中受TLS的保护之外，还添加了一个额外的保护层，以防止类似的模拟攻击。通过对此token的一些校验检查，Client可以保护自己免受大量常见的攻击。
 
 由于Id token是授权服务器签名的，它还提供了在authorization code(c_hash)和access_token(at_hash)上添加分离签名的位置，这些hash可以由Client来验证，同时仍保留authorization code和access_token对Client不透明的语义，从而防止这一类的注入攻击。
 
@@ -87,7 +87,7 @@ OpenID Connect Id Token是一个签名的JSON Web Token(JWT：RFC7519)，它和O
 
 ## UserInfo Endpoint {#userinfo-endpoint}
 
-除了Id token包含的信息之外，还定义了一个包含当前用户信息的标准的受保护的资源。如上所述，这些信息不是身份认证的一部分，而是提供附加的标识信息。比如说应用程序提示说**早上好：Jane Doe**，总比说**早上好：9XE3-JI34-00132A**要友好的多。它提供了一组标准化的属性：比如profile、email、phone和address。OpenId Connect定义了一个特殊的openid scope，可以通过access_token来开启Id token的颁发以及对UserInfo Endpoint的访问。它可以和其他scope一起使用而不发生冲突。这允许OpenId Connect和OAuth平滑的共存。
+除了Id token包含的信息之外，还定义了一个包含当前用户信息的标准的受保护的资源。如上所述，这些信息不是身份认证的一部分，而是提供附加的标识信息。比如说应用程序提示说**早上好 :  Jane Doe**，总比说**早上好 :  9XE3-JI34-00132A**要友好的多。它提供了一组标准化的属性 :  比如profile、email、phone和address。OpenId Connect定义了一个特殊的openid scope，可以通过access_token来开启Id token的颁发以及对UserInfo Endpoint的访问。它可以和其他scope一起使用而不发生冲突。这允许OpenId Connect和OAuth平滑的共存。
 
 ## 动态服务发现以及客户端注册 {#dynamic-server-discovery-and-client-registration}
 

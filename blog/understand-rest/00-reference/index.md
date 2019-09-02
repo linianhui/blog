@@ -58,7 +58,7 @@ REST知识的阅读清单 : https://www.infoq.cn/article/rest-reading-list
 What's different/better/worse than other JSON hypermedia media types? : https://github.com/kevinswiber/siren/issues/15
 
 
-COAP (Constrained Application Protocol)：http://coap.technology/
+COAP (Constrained Application Protocol) :  http://coap.technology/
 
 
 REST APIs Design Guidelines : https://github.com/linianhui/code.guide

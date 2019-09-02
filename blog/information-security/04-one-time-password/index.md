@@ -8,12 +8,12 @@ tag: ["OTP", "HOTP", "TOTP", "MFA", "2FA", "2SV"]
 
 # 1 OTP 一次性密码 {#1.one-time-password}
 
-OTP是One Time Password的简写，即一次性密码。在平时生活中，我们接触一次性密码的场景非常多，比如在登录账号、找回密码，更改密码和转账操作等等这些场景，其中一些常用到的方式有：
+OTP是One Time Password的简写，即一次性密码。在平时生活中，我们接触一次性密码的场景非常多，比如在登录账号、找回密码，更改密码和转账操作等等这些场景，其中一些常用到的方式有 :  
 
 1. 手机短信+短信验证码；
 2. 邮件+邮件验证码；
 3. 认证器软件+验证码，比如Microsoft Authenticator App，Google Authenticator App等等；
-4. 硬件+验证码：比如网银的电子密码器；
+4. 硬件+验证码 :  比如网银的电子密码器；
 
 这些场景的流程一般都是在用户提供了账号+密码的基础上，让用户再提供一个一次性的验证码来提供一层额外的安全防护。通常情况下，这个验证码是一个6-8位的数字，只能使用一次或者仅在很短的时间内可用(比如5分钟以内)。
 
@@ -21,12 +21,12 @@ OTP是One Time Password的简写，即一次性密码。在平时生活中，我
 
 HOTP是HMAC-Based One Time Password的缩写，即是基于HMAC(基于Hash的[消息认证码])实现的一次性密码。算法细节定义在RFC4226(<https://tools.ietf.org/html/rfc4226>)，算法公式为 : `HOTP(Key,Counter)`，拆开是`Truncate(HMAC-SHA-1(Key,Counter))` 。
 
-1. Key：密钥；
-2. Counter：一个计数器；
-3. HMAC-SHA-1：基于SHA1的HMAC算法的一个函数，返回MAC的值，MAC是一个20bytes(160bits)的字节数组；
-4. Truncate：一个截取数字的函数，以3中的MAC为参数，按照指定规则，得到一个6位或者8位数字(位数太多的话不方便用户输入，太少的话又容易被暴力猜测到)；
+1. Key :  密钥；
+2. Counter :  一个计数器；
+3. HMAC-SHA-1 :  基于SHA1的HMAC算法的一个函数，返回MAC的值，MAC是一个20bytes(160bits)的字节数组；
+4. Truncate :  一个截取数字的函数，以3中的MAC为参数，按照指定规则，得到一个6位或者8位数字(位数太多的话不方便用户输入，太少的话又容易被暴力猜测到)；
 
-C#实现基于HMAC的OTP的代码：
+C#实现基于HMAC的OTP的代码 :  
 
 ```csharp
 public static string HOTP(byte[] key, byte[] counter, int length = 6)
@@ -48,7 +48,7 @@ public static string HOTP(byte[] key, byte[] counter, int length = 6)
 }
 ```
 
-调用一下试试看：
+调用一下试试看 :  
 
 ```csharp
 //密钥key
@@ -68,7 +68,7 @@ var otp8 = SecurityHelper.HOTP(key, counter, 8);
 
 # 3 TOTP 基于时间的一次性密码 {#3.time-based-one-time-password}
 
-TOTP是Time-Based One Time Password的缩写。TOTP是在HOTP的基础上扩展的一个算法，算法细节定义在RFC6238(<https://tools.ietf.org/html/rfc6238>)，其核心在于把HOTP中的counter换成了时间T，可以简单的理解为一个当前时间的时间戳(unixtime)。一般实际应用中会固定一个时间的步长，比如30秒，60秒，120秒等等，也就是说再这个步长的时间内，基于TOTP算法算出的OTP值是一样的。废话不多说，看看TOTP算法的核心代码：
+TOTP是Time-Based One Time Password的缩写。TOTP是在HOTP的基础上扩展的一个算法，算法细节定义在RFC6238(<https://tools.ietf.org/html/rfc6238>)，其核心在于把HOTP中的counter换成了时间T，可以简单的理解为一个当前时间的时间戳(unixtime)。一般实际应用中会固定一个时间的步长，比如30秒，60秒，120秒等等，也就是说再这个步长的时间内，基于TOTP算法算出的OTP值是一样的。废话不多说，看看TOTP算法的核心代码 :  
 
 ```csharp
 public static string TOTP(byte[] key, int step = 60, int length = 6)
@@ -80,7 +80,7 @@ public static string TOTP(byte[] key, int step = 60, int length = 6)
 }
 ```
 
-调用一下试试看：
+调用一下试试看 :  
 
 ```csharp
 //密钥key
@@ -98,7 +98,7 @@ for (var i = 0; i < 100; i++)
 
 # 4 身份认证 {#4.identity-authentication}
 
-首先解释下什么是身份认证？其实很简单，就是让对方相信你就是你。那么如何让对方相信你就是你呢？按照你能提供的信息的等级来划分，大致有如下三种信息可以证明你就是你自己：
+首先解释下什么是身份认证？其实很简单，就是让对方相信你就是你。那么如何让对方相信你就是你呢？按照你能提供的信息的等级来划分，大致有如下三种信息可以证明你就是你自己 :  
 
 1. 你所`知道`的信息 : 比如我们最广泛使用的**用户名+密码**，因为只有你自己知道**用户名+密码**这个信息组合，那么当你把这个组合提供给我的时候，我就可以相信你就是你。
 2. 你所`拥有`的信息 : 假如你的**用户名+密码**泄露给了第三方，这个时候你就会有被第三方冒充的危险了。怎么办呢，再进一步提供一个只有**你自己拥有的信息**，即可防止被第三方冒充的危险。
@@ -110,7 +110,7 @@ for (var i = 0; i < 100; i++)
 
 ## 4.2 2FA 双因素认证(Two Factor Authentication) {#4.2.two-factor-authentication}
 
-2SV有个孪生兄弟2FA(双因素认证：Two Factor Authentication)，那么关于2SV和2FA有什么区别呢，比如让用户在**用户名+密码**的基础上提供的额外的**一次性密码**，关于这个**一次性密码**到底是属于**你所知道的信息**还是**你所拥有的信息**呢？并没有明显的区分界限，有兴趣的可以看看这里的讨论 :<https://security.stackexchange.com/questions/41939/two-step-vs-two-factor-authentication-is-there-a-difference>。 如果你觉得这个一次性密码属于**你所知道的信息**，那么你可以认为它是2SV；如果你觉得这个一次性密码属于**你所拥有的信息**，那么你可以认为它是2FA。
+2SV有个孪生兄弟2FA(双因素认证 :  Two Factor Authentication)，那么关于2SV和2FA有什么区别呢，比如让用户在**用户名+密码**的基础上提供的额外的**一次性密码**，关于这个**一次性密码**到底是属于**你所知道的信息**还是**你所拥有的信息**呢？并没有明显的区分界限，有兴趣的可以看看这里的讨论 :<https://security.stackexchange.com/questions/41939/two-step-vs-two-factor-authentication-is-there-a-difference>。 如果你觉得这个一次性密码属于**你所知道的信息**，那么你可以认为它是2SV；如果你觉得这个一次性密码属于**你所拥有的信息**，那么你可以认为它是2FA。
 
 总结来说，2FA就是使用了身份认证中的2个要素。
 
@@ -120,23 +120,23 @@ for (var i = 0; i < 100; i++)
 
 # 6 参考资料 {#6.reference}
 
-OTP(One Time Password)Wiki：https://en.wikipedia.org/wiki/One-time_password
+OTP(One Time Password)Wiki :  https://en.wikipedia.org/wiki/One-time_password
 
-One Time Password System：https://tools.ietf.org/html/rfc2289
+One Time Password System :  https://tools.ietf.org/html/rfc2289
 
-HOTP(HMAC-Based One Time Password) Wiki：https://en.wikipedia.org/wiki/HMAC-based_One-time_Password_Algorithm
+HOTP(HMAC-Based One Time Password) Wiki :  https://en.wikipedia.org/wiki/HMAC-based_One-time_Password_Algorithm
 
-HOTP(HMAC-Based One Time Password)RFC：https://tools.ietf.org/html/rfc4226
+HOTP(HMAC-Based One Time Password)RFC :  https://tools.ietf.org/html/rfc4226
 
-TOTP(Time-Based One Time Password)Wiki：https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm
+TOTP(Time-Based One Time Password)Wiki :  https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm
 
-TOTP(Time-Based One Time Password)RFC：https://tools.ietf.org/html/rfc6238
+TOTP(Time-Based One Time Password)RFC :  https://tools.ietf.org/html/rfc6238
 
-2SV vs 2FA (1)：https://security.stackexchange.com/questions/41939/two-step-vs-two-factor-authentication-is-there-a-difference
+2SV vs 2FA (1) :  https://security.stackexchange.com/questions/41939/two-step-vs-two-factor-authentication-is-there-a-difference
 
-2SV vs 2FA (2)：https://paul.reviews/the-difference-between-two-factor-and-two-step-authentication/
+2SV vs 2FA (2) :  https://paul.reviews/the-difference-between-two-factor-and-two-step-authentication/
 
-MFA/2FA(Multi Factor Authentication) Wiki：https://en.wikipedia.org/wiki/Multi-factor_authentication
+MFA/2FA(Multi Factor Authentication) Wiki :  https://en.wikipedia.org/wiki/Multi-factor_authentication
 
 ## 6.1 示例 {#6.1.example}
 
