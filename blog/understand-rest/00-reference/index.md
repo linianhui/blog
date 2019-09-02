@@ -26,7 +26,7 @@ Roy T. Fielding : https://en.wikipedia.org/wiki/Roy_Fielding
 
 Roy T. Fielding : REST 论文《Architectural Styles and the Design of Network-based Software Architectures》 : https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
 
-Roy T. Fielding : REST 论文（中文版 译者:李锟）《架构风格与基于网络应用软件的架构设计（中文修订版）》 : https://www.infoq.cn/article/web-based-apps-archit-design
+Roy T. Fielding : REST 论文(中文版 译者:李锟)《架构风格与基于网络应用软件的架构设计(中文修订版)》 : https://www.infoq.cn/article/web-based-apps-archit-design
 
 Roy T. Fielding : Roy T. Fielding 谈Google SPDY协议 : https://www.infoq.cn/article/2012/07/roy-on-google-spdy
 
@@ -49,7 +49,7 @@ REST is not about APIs , Part 1 : https://www.nirmata.com/2013/10/01/rest-apis-p
 REST is not about APIs , Part 2 : https://www.nirmata.com/2013/11/12/rest-apis-part-2/
 
 
-架构（Architecture）: https://en.wikipedia.org/wiki/Architecture
+架构(Architecture): https://en.wikipedia.org/wiki/Architecture
 
 
 REST知识的阅读清单 : https://www.infoq.cn/article/rest-reading-list
@@ -58,7 +58,7 @@ REST知识的阅读清单 : https://www.infoq.cn/article/rest-reading-list
 What's different/better/worse than other JSON hypermedia media types? : https://github.com/kevinswiber/siren/issues/15
 
 
-COAP （Constrained Application Protocol）：http://coap.technology/
+COAP (Constrained Application Protocol)：http://coap.technology/
 
 
 REST APIs Design Guidelines : https://github.com/linianhui/code.guide

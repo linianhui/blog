@@ -15,7 +15,7 @@ tag: ["OAuth2", "JWT"]
 OAuth2提供的`access_token`是一个对Client不透明的字符串，尽管有`scope`，`expires_in`和`refresh_token`来辅助，但也是不完善的且分散的信息。还拿上一篇的小明来举例 : **小明**授权**在线打印并且包邮的网站**访问**自己的QQ空间**的**相册**。这句话其中有4个重要的概念 : 
 
 1.  授权者**小明** : 表示是小明授权，而不是隔壁老王。
-2.  被授权者**在线打印并且包邮的网站** : 表示授权给指定的网站，而不是其他的比如1024.com之类的网站（你懂的。。。）。
+2.  被授权者**在线打印并且包邮的网站** : 表示授权给指定的网站，而不是其他的比如1024.com之类的网站(你懂的。。。)。
 3.  小明**自己的QQ空间**表示让被授权者访问自己的信息，而不是隔壁老王的信息，小明也没这权限来着，不然隔壁王婶夜不答应吧。。。
 4.  **相册** : 表示你可以访问我的相册，而不是我的日志，我的其他信息。
 
@@ -50,7 +50,7 @@ token=45ghiukldjahdnhzdauz&amp;token_type_hint=refresh_token
 
 # 3 RFC7662 OAuth2 Token Introspection {#3.rfc7662-oauth2-token-introspection}
 
-简单的总结来说，这个[RFC7662 - OAuth 2.0 Token Introspection][RFC7662]协议是为OAuth2扩展了一个API接口`Introspection Endpoint`，让第三方Client可以查询上面提到的那些信息（比如，access_token是否还有效，谁颁发的，颁发给谁的，scope又哪些等等的元数据信息）。
+简单的总结来说，这个[RFC7662 - OAuth 2.0 Token Introspection][RFC7662]协议是为OAuth2扩展了一个API接口`Introspection Endpoint`，让第三方Client可以查询上面提到的那些信息(比如，access_token是否还有效，谁颁发的，颁发给谁的，scope又哪些等等的元数据信息)。
 
 比如Client发起一个如下的请求 : 
 
@@ -93,7 +93,7 @@ token=2YotnFZFEjr1zCsicMWpAA&amp;token_type_hint=access_token
 }
 ```
 
-JSON各项属性含义如下（其中有些信息是在JSON Web Token中定义的，参考链接有详细的介绍）:
+JSON各项属性含义如下(其中有些信息是在JSON Web Token中定义的，参考链接有详细的介绍):
 
 1. `active` : 必须的。表示token是否还是有效的。
 2. `client_id` : 可选的。表示token所属的Client。比如上面的**在线打印并且包邮的网站**。
@@ -142,7 +142,7 @@ header是一个有效的JSON，其中通常包含了两部分 : token类型和�
 
 ## 4.2 Payload {#4.2.json-web-token-payload}
 
-这一部分代表真正想要传递的数据，包含一组Claims，其中JWT预定义了一些Claim([RFC7662 OAuth2 Token Introspection](#3.rfc7662-oauth2-token-introspection))这一节就用到一些JWT预定义的一些Cliam）后面会介绍。关于什么是Claim，可以参考文章末尾给的参考链接。
+这一部分代表真正想要传递的数据，包含一组Claims，其中JWT预定义了一些Claim([RFC7662 OAuth2 Token Introspection](#3.rfc7662-oauth2-token-introspection))这一节就用到一些JWT预定义的一些Cliam)后面会介绍。关于什么是Claim，可以参考文章末尾给的参考链接。
 
 ```json
 {
@@ -187,7 +187,7 @@ JWT规范中预先定义了一些Cliam，但并不是必选的，常用的有 :
 
 由于其采用base64来进行编码，使得它可以安全的用在一些仅限_ASCII_的地方传递信息，比如URL的querystring中。
 
-比如用户登陆后，可以把用户的一些属性信息（用户标识，是否是管理员，权限有哪些等等可以公开的信息）用JWT编码存储在cookie中，由于其自包含的性质，每次服务器读取到Cookie的时候就可以解析到当前用户对应的属性信息，而不必再次去查询数据库。如果Cookie中每次都发送浪费带宽，也可以用`Authorization: Bearer jwttoken` 的方式附加到Http Request上去。
+比如用户登陆后，可以把用户的一些属性信息(用户标识，是否是管理员，权限有哪些等等可以公开的信息)用JWT编码存储在cookie中，由于其自包含的性质，每次服务器读取到Cookie的时候就可以解析到当前用户对应的属性信息，而不必再次去查询数据库。如果Cookie中每次都发送浪费带宽，也可以用`Authorization: Bearer jwttoken` 的方式附加到Http Request上去。
 
 # 5 OAuth2 & JWT  {#4.5.oauth2-and-json-web-token}
 

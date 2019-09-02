@@ -6,31 +6,31 @@ tag: ["SSO", "OIDC", "OpenId Connect", "OP", "OpenID Provider", "acr_values", "I
 
 在上上一篇[[OIDC in Action] 01 基于OIDC的SSO][01]的登录页面的截图中有出现QQ登录的地方。这个其实是通过扩展OIDC的OpenID Provider来实现的，OpenID Provider简称OP，OP是OIDC的一个很重要的角色，OIDC用它来实现兼容众多的用户认证方式的，比如基于OAuth2，SAML和WS-Federation等等的用户认证方式。关于OP在[[认证&授权] 04 OIDC(OpenId Connect)身份认证(核心部分)][authc-and-authz-oidc-core]中有提到过，但是并未详细解释。
 
-> 由于QQ的开发者账号申请不方便，故而在一下的示例中使用了Github的OAuth 2.0作为替代（原理是一模一样的），源码[Add Github OAuth2 as OIDC OpenID Provider](https://github.com/linianhui/oidc.example/pull/14)。
+> 由于QQ的开发者账号申请不方便，故而在一下的示例中使用了Github的OAuth 2.0作为替代(原理是一模一样的)，源码[Add Github OAuth2 as OIDC OpenID Provider](https://github.com/linianhui/oidc.example/pull/14)。
 > 
-> 由于dev顶级域名已被Google所持有并且强制Chrome对dev使用https（不便于查看http消息），故而[改为了test顶级域名](https://github.com/linianhui/oidc.example/commit/60f8da75a237144d5ab5c06d17aae3cd739792cb)。
+> 由于dev顶级域名已被Google所持有并且强制Chrome对dev使用https(不便于查看http消息)，故而[改为了test顶级域名](https://github.com/linianhui/oidc.example/commit/60f8da75a237144d5ab5c06d17aae3cd739792cb)。
 
-上一篇博客中的登录时采用的本地的账户和密码来运行的。本篇则为OIDC Server添加一个OP :  `Github OAuth 2.0`。这就使得oidc-server.test可以使>Github来登录，并且SSO的客户端可以不做任何改动（除非客户端需要指定采用何种认证方式，即使如此也是非常非常微小的改动）。本篇涉及到的部分有（本系列的源代码位于<https://github.com/linianhui/oidc.example>） :  
+上一篇博客中的登录时采用的本地的账户和密码来运行的。本篇则为OIDC Server添加一个OP :  `Github OAuth 2.0`。这就使得oidc-server.test可以使>Github来登录，并且SSO的客户端可以不做任何改动(除非客户端需要指定采用何种认证方式，即使如此也是非常非常微小的改动)。本篇涉及到的部分有(本系列的源代码位于<https://github.com/linianhui/oidc.example>) :  
 
 1. [oauth2.github.aspnetcore](https://github.com/linianhui/oidc.example/blob/master/1-src/oauth2.github.aspnetcore)这个项目，它基于aspnetcore2实现了Github OAuth 2.0认证。
 2. [oidc-server.test](http://oidc-server.test)站点，对应的是[web.oidc.server.ids4](https://github.com/linianhui/oidc.example/blob/master/1-src/web.oidc.server.ids4)这个项目，引用了上面的这个项目。
-3. [oidc-client-implicit.test](http://oidc-client-implicit.test)站点，作为oidc的客户端，Github登录的最终消费者（它无需关注Github登录的任何细节）。
+3. [oidc-client-implicit.test](http://oidc-client-implicit.test)站点，作为oidc的客户端，Github登录的最终消费者(它无需关注Github登录的任何细节)。
 
 # 1 OIDC Client {#1.oidc-client}
 
-## 1.1 指定oidc-server.test使用Github认证（可选） {#1.1.use-github-idp}
+## 1.1 指定oidc-server.test使用Github认证(可选) {#1.1.use-github-idp}
 
-下图是上一篇中起始页面，这次我们点击Oidc Login（Github）这个链接（客户端也可以不指定采用Github进行认证，推迟到进入[oidc-server.test](http://oidc-server.test)之后进行选择）。
+下图是上一篇中起始页面，这次我们点击Oidc Login(Github)这个链接(客户端也可以不指定采用Github进行认证，推迟到进入[oidc-server.test](http://oidc-server.test)之后进行选择)。
 ![](1.1.github-op.png)
 
 我们知道这个链接会返回一个302重定向，重定向的地址是发往[oidc-server.test](http://oidc-server.test)的认证请求，我们看下这个请求和[上一次][01-authc]有什么差异 :  
 ![](1.1.github-op-http.png)
 
-除了红色部分之外，其他地方并没有任何的不同。那么我们就可以理解为时`acr_values=idp:github` （_其中idp是Identity Provider的缩写，即身份提供商，和OP的OpenId Provider属于一类含义，只是不同的叫法_）这个参数改变了oidc-server.test的认证行为，使其选择了Github进行登录。
+除了红色部分之外，其他地方并没有任何的不同。那么我们就可以理解为时`acr_values=idp:github` (_其中idp是Identity Provider的缩写，即身份提供商，和OP的OpenId Provider属于一类含义，只是不同的叫法_)这个参数改变了oidc-server.test的认证行为，使其选择了Github进行登录。
 
 至此我们可以得出一个结论，那就是Github登录无需在[oidc-server.test](http://oidc-server.test)的客户端这边进行处理，只需指定一个参数即可，比如如果[oidc-server.test](http://oidc-server.test)还支持了微信登录，那么客户端就可以通过传递`acr_values=idp:wechat`即可直接使用微信登录。但是oidc-server.test内部是怎么实现的呢？这里有两件事情需要处理 :  
 
-1. [oidc-server.test](http://oidc-server.test)要能够识别oidc客户端传递过来的这个参数，如果参数有效，则使用参数指定的OP进行登录，如果没有指定，则采用默认的登录方式（本地的用户和密码体系）。参数是 [acr_values(Authentication Context Class Reference values)](http://openid.net/specs/openid-connect-core-1_0.html#rfc.section.3.1.2.1)，它是oidc协议规定的一个参数，Ids4实现了对这个参数的支持。
+1. [oidc-server.test](http://oidc-server.test)要能够识别oidc客户端传递过来的这个参数，如果参数有效，则使用参数指定的OP进行登录，如果没有指定，则采用默认的登录方式(本地的用户和密码体系)。参数是 [acr_values(Authentication Context Class Reference values)](http://openid.net/specs/openid-connect-core-1_0.html#rfc.section.3.1.2.1)，它是oidc协议规定的一个参数，Ids4实现了对这个参数的支持。
 2. [oidc-server.test](http://oidc-server.test)需要支持使用Github进行登录，并且关联到ids4组件。
 
 下面我们看看[oidc-server.test](http://oidc-server.test)这个站点是如何完成这两件事情的。
@@ -110,7 +110,7 @@ protected virtual string BuildChallengeUrl(AuthenticationProperties properties, 
 然后输入账号密码登录Github,随后Github会采用OAuth 2.0的流程，重定向到[oidc-server.test](http://oidc-server.test)的回调地址上。
 ![](2.3.github-login-callback.png)
 
-这个回调地址是标准的OAuth 2的流程，返回了code和state参数，[OAuthHandler](https://github.com/aspnet/AspNetCore/blob/master/src/Security/src/Microsoft.AspNetCore.Authentication.OAuth/OAuthHandler.cs#L45)类的`protected override async Task<HandleRequestResult> HandleRemoteAuthenticateAsync()`方法会根据code得到github的access_token，然后进一步的获取到github的用户信息（位于[GithubOAuthHandler](https://github.com/linianhui/oidc.example/blob/master/1-src/oauth2.github.aspnetcore/GithubOAuthHandler.cs)）。
+这个回调地址是标准的OAuth 2的流程，返回了code和state参数，[OAuthHandler](https://github.com/aspnet/AspNetCore/blob/master/src/Security/src/Microsoft.AspNetCore.Authentication.OAuth/OAuthHandler.cs#L45)类的`protected override async Task<HandleRequestResult> HandleRemoteAuthenticateAsync()`方法会根据code得到github的access_token，然后进一步的获取到github的用户信息(位于[GithubOAuthHandler](https://github.com/linianhui/oidc.example/blob/master/1-src/oauth2.github.aspnetcore/GithubOAuthHandler.cs))。
 
 ```csharp
 protected override async Task<AuthenticationTicket> CreateTicketAsync(
@@ -133,14 +133,14 @@ protected override async Task<AuthenticationTicket> CreateTicketAsync(
 }
 ```
 
-随后把这些信息加密保存到了名为`idsrv.external`（还记得在一开始的时候设置的`options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme`吧）的cookie中。
+随后把这些信息加密保存到了名为`idsrv.external`(还记得在一开始的时候设置的`options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme`吧)的cookie中。
 
 ## 2.4 关联Github用户 {#2.4.association-github-user}
 
-在上一步保存完github的用户信息到cookie中后，ids4便开始根据github的用户信息查找是否已经绑定了已有的用户，如果没有则新建一个。我这里模拟了一个新建用户的页面（简单的设置了下昵称和用户头像-来自github） :  
+在上一步保存完github的用户信息到cookie中后，ids4便开始根据github的用户信息查找是否已经绑定了已有的用户，如果没有则新建一个。我这里模拟了一个新建用户的页面(简单的设置了下昵称和用户头像-来自github) :  
 ![](2.4.0.png)
 
-随后，ids4保存这个新用户的信息，并且用它登录系统（并清空保存的github的用户信息）。
+随后，ids4保存这个新用户的信息，并且用它登录系统(并清空保存的github的用户信息)。
 ![](2.4.1.png)
 
 ## 2.5 构造id_token & 重定向到客户端 {#2.5.redirect-to-client}
@@ -156,7 +156,7 @@ protected override async Task<AuthenticationTicket> CreateTicketAsync(
 2. 然后利用这些信息链接到自有账号体系，最终使用自有的账号体系完成认证。
 3. 扩展登录的信息可以根据需要放到发放给客户端的idtoken中，但是只是作为辅助信息存在的。
 
-本例只是使用OAuth 2.0（IDP）作为了OIDC的OP，但是并不仅限于此，还支持SAML，WS-Federation，Windows AD，或者常用的手机短信验证码等等方式，其实OIDC并不关系是如何完成用户认证的，它关心的只是得到用户认证的信息后，按照统一的规范的流程把这个认证信息（id_token）安全的给到OIDC的客户端即可。
+本例只是使用OAuth 2.0(IDP)作为了OIDC的OP，但是并不仅限于此，还支持SAML，WS-Federation，Windows AD，或者常用的手机短信验证码等等方式，其实OIDC并不关系是如何完成用户认证的，它关心的只是得到用户认证的信息后，按照统一的规范的流程把这个认证信息(id_token)安全的给到OIDC的客户端即可。
 
 如有错误指出，欢迎指正!
 
