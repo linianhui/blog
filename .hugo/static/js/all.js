@@ -17,11 +17,18 @@
     var toc = document.getElementById("toc");
     toc.style.display = "block";
     var tocWidth = toc.offsetWidth;
-    if(tocWidth > 360){
+    if (tocWidth > 360) {
       tocWidth = 360;
       toc.style.width = tocWidth + 'px';
     }
     document.body.style.marginLeft = tocWidth + 'px';
+  }
+
+  function addComment() {
+    var comment = document.getElementById("article-comment")
+    if (comment) {
+      comment.innerHTML = '<script src="https://utteranc.es/client.js" repo="linianhui/linianhui.github.io" issue-term="url" label="博客评论" theme="github-light" crossorigin="anonymous"></script>';
+    }
   }
 
   function getFragmentId(url) {
@@ -84,6 +91,7 @@
         window.onscroll = onScroll;
       }
     }
+    addComment();
   }
 
   window.lnh = {
