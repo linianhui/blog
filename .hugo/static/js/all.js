@@ -5,8 +5,18 @@
     return navigator.userAgent.match(/.*Mobile.*/);
   }
 
+  function isPC() {
+    return !isMobile();
+  }
+
   function removeMobileCss() {
     document.getElementsByName("mobile_css")[0].remove();
+  }
+
+  function showToc() {
+    var toc = document.getElementById("toc");
+    toc.style.display = "block";
+    document.body.style.marginLeft = toc.offsetWidth + 'px';
   }
 
   function getFragmentId(url) {
@@ -19,7 +29,7 @@
 
   function getTocList() {
     var tocList = [];
-    document.querySelectorAll("#TableOfContents a").forEach(function (a) {
+    document.querySelectorAll("#toc a").forEach(function (a) {
       var hId = getFragmentId(a.href);
       if (hId) {
         var h = document.getElementById(hId);
@@ -62,19 +72,18 @@
     selectedToc(lnh.tocList, scrollTop);
   }
 
-  function tryRegisterOnScroll() {
-    if (!isMobile() && lnh.tocList.length != 0) {
-      window.onscroll = onScroll;
+  function onLoad() {
+    if (isPC()) {
+      showToc();
+      lnh.tocList = getTocList();
+      if (lnh.tocList.length != 0) {
+        window.onscroll = onScroll;
+      }
     }
   }
 
-  function onLoad() {
-    lnh.tocList = getTocList();
-    tryRegisterOnScroll();
-  }
-
   window.lnh = {
-    isMobile: isMobile,
+    isPC: isPC,
     removeMobileCss: removeMobileCss,
     onLoad: onLoad
   };
@@ -83,6 +92,6 @@
 
 window.onload = lnh.onLoad;
 
-if (!lnh.isMobile()) {
+if (lnh.isPC()) {
   lnh.removeMobileCss();
 }
