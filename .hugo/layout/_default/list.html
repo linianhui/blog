@@ -1,7 +1,7 @@
 {{ define "main" }}
 <section class="topic">
   <h1 class="topic-title">
-    <a href="{{ .URL }}" title="{{ .Title }}" target="_blank">
+    <a href="{{ .RelPermalink }}" title="{{ .Title }}" target="_blank">
       {{ .Title }}
     </a>
     <span class="topic-articles-count">({{len .Pages}})</span>
