@@ -16,7 +16,12 @@
   function showToc() {
     var toc = document.getElementById("toc");
     toc.style.display = "block";
-    document.body.style.marginLeft = toc.offsetWidth + 'px';
+    var tocWidth = toc.offsetWidth;
+    if(tocWidth > 360){
+      tocWidth = 360;
+      toc.style.width = tocWidth + 'px';
+    }
+    document.body.style.marginLeft = tocWidth + 'px';
   }
 
   function getFragmentId(url) {
