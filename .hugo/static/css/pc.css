@@ -242,10 +242,12 @@ summary{
 
 .article-content ol li{
   padding-left: 0.5em;
+  word-break: break-all;
 }
 
 .article-content table{
   margin-top: 0.5em;
+  word-break: break-all;
 }
 
 .article-content .highlight {
