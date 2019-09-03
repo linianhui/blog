@@ -184,6 +184,7 @@ summary{
 
 .article-content p code,
 .article-content li code,
+.article-content table code,
 .article-content blockquote code{
   padding: 2px 4px;
   color: #c0341d;
