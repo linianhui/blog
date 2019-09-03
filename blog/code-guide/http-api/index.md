@@ -9,13 +9,13 @@ tag: ["REST", "HTTP", "API", "JSON", "URL", "资源", "表述", "i18n", "命名�
 
 # 1 设计指南 {#1.design-guide}
 
-HTTP APIs主要由四部分组成 : [HTTP](#4.http), [URL](#5.url), `资源`，`资源的表述`。
+HTTP APIs主要由四部分组成 : [#4 HTTP](#4.http), [#5 URL](#5.url), `资源`，`资源的表述`。
 
-> 资源的表述格式通常都采用[JSON](#6.json)，故而下文使用[JSON](#6.json)代指`资源的表述`。
+> 资源的表述通常都采用[#6 JSON](#6.json)格式，故而下文使用[#6 JSON](#6.json)代指`资源的表述`。
 
 根据这些组成部分，按照以下**3**个步骤设计APIs。
 
-## 1.1 基于资源设计API {#1.1.resource-based-design-api}
+## 1.1 基于`资源`设计API {#1.1.resource-based-design-api}
 
 设计HTTP APIs的首要任务是识别出业务领域中的资源。资源是对服务端提供的服务进行分解、组合后的一个被命名的抽象概念。
 
@@ -23,24 +23,24 @@ HTTP APIs主要由四部分组成 : [HTTP](#4.http), [URL](#5.url), `资源`，`
 
 资源的设计是以`名词`为中心的。比如`今天的天气`是一个资源; 而**获取今天的天气**则不是，它代表的是对`今天的天气`资源的一个读取操作。基于此我们可以抽象出来一个`天气`的资源。
 
-## 1.2 基于URL标识资源 {#1.2.identify-resources-based-on-url}
+## 1.2 基于`URL`标识`资源` {#1.2.identify-resources-based-on-url}
 
-识别出`资源`后，则需要为其分配一个[URL](#5.url)进行标识。
+识别出`资源`后，则需要为其分配一个[#5 URL](#5.url)进行标识。
 
-1. 一个`资源`可以有多个[URL](#5.url)。
-2. 一个[URL](#5.url)只能标识一个`资源`。
+1. 一个`资源`可以有多个[#5 URL](#5.url)。
+2. 一个[#5 URL](#5.url)只能标识一个`资源`。
 
 > 总结来说就是`资源 : URL`的关系就是`1 : N`的关系。
 
-比如上面提到的`天气`和`今天的天气`这两个资源，可以用如下的[URL](#5.url)进行标识。
+比如上面提到的`天气`和`今天的天气`这两个资源，可以用如下的[#5 URL](#5.url)进行标识。
 
 | 资源       | URL                                     |
-| :--------- | :-------------------------------------- |
+| --------- | -------------------------------------- |
 | 天气       | `/weather`                              |
 | 今天的天气 | `/weather/today`                        |
 | 今天的天气 | `/weather/2018-04-01`，今天是2018-04-01 |
 
-`资源名`(资源的名字)体现在[URL](#5.url)中的`Path`部分。
+`资源名`(资源的名字)体现在[#5 URL](#5.url)中的`Path`部分。
 
 >关于`资源名`采用单数还是复数的问题，这里统一为单数（即使代表的是一个集合资源）。原因有 **3** : 
 >
@@ -61,14 +61,14 @@ HTTP APIs主要由四部分组成 : [HTTP](#4.http), [URL](#5.url), `资源`，`
 /order/{order_id}/item
 ```
 
-## 1.3 基于HTTP和JSON操作URL标识的资源  {#1.3.operate-on-url-identified-resources-based-on-http-and-json}
+## 1.3 基于`HTTP`和`JSON`操作`URL`标识的`资源` {#1.3.operate-on-url-identified-resources-based-on-http-and-json}
 
-在标识出`资源`以后，就可以使用[HTTP](#4.http)通过[JSON](#6.json)来操作资源了。
+在标识出`资源`以后，就可以使用[#4 HTTP](#4.http)通过[#6 JSON](#6.json)来操作资源了。
 
-1. 使用[HTTP Method](#4.1.http-method)来映射对资源的操作请求（CRUD或者其他）。
-2. 使用[HTTP Header](#4.2.http-header)携带请求/响应所需的元数据信息。
-3. 使用[HTTP Stauts Code](#4.3.http-status-code)表示`HTTP协议层面`的响应状态。
-4. 使用[JSON](#6.json)作为数据交换格式。
+1. 使用[#4.1 HTTP Method](#4.1.http-method)来映射对资源的操作请求（CRUD或者其他）。
+2. 使用[#4.2 HTTP Header](#4.2.http-header)携带请求/响应所需的元数据信息。
+3. 使用[#4.3 HTTP Stauts Code](#4.3.http-status-code)表示**HTTP协议层面**的响应状态。
+4. 使用[#6 JSON](#6.json)作为数据交换格式。
 
 
 
@@ -99,7 +99,7 @@ HTTP APIs主要由四部分组成 : [HTTP](#4.http), [URL](#5.url), `资源`，`
 # 3 命名规则 {#3.name-case}
 
 | 规则名称                    | 说明                  | 取值范围    |
-| :-------------------------- | :-------------------- | :---------- |
+| -------------------------- | -------------------- | ---------- |
 | `all-lower-hyphen-case`     | 采用`-`分隔符的全小写 | `a-z 0-9 -` |
 | `all_lower_underscore_case` | 采用`_`分隔符的全小写 | `a-z 0-9 _` |
 | `ALL_UPPER_UNDERSCORE_CASE` | 采用`_`分隔符的全大写 | `A-Z 0-9 _` |
@@ -107,7 +107,7 @@ HTTP APIs主要由四部分组成 : [HTTP](#4.http), [URL](#5.url), `资源`，`
 ## 3.1 URL {#3.1.name-case-url}
 
 | URL组件   | 命名规则                    |
-| :-------- | :-------------------------- |
+| -------- | -------------------------- |
 | scheme    | `all-lower-hyphen-case`     |
 | authority | `all-lower-hyphen-case`     |
 | path      | `all-lower-hyphen-case`     |
@@ -133,7 +133,7 @@ display_names = [
 ## 3.2 JSON {#3.2.name-case-json}
 
 | JSON             | 命名规则                    |
-| :--------------- | :-------------------------- |
+| --------------- | -------------------------- |
 | filed_name       | `all_lower_underscore_case` |
 | filed_value      | 无要求                      |
 | ENUM_FILED_VALUE | `ALL_UPPER_UNDERSCORE_CASE` |
@@ -150,9 +150,11 @@ display_names = [
 }
 ```
 
-https://stackoverflow.com/questions/5543490/json-naming-convention
+参考资料 : 
 
-
+1. https://support.google.com/webmasters/answer/76329
+2. https://stackoverflow.com/questions/5543490/json-naming-convention
+3. https://tools.ietf.org/html/rfc3986#section-2.4
 
 # 4 HTTP {#4.http}
 
@@ -160,7 +162,7 @@ https://stackoverflow.com/questions/5543490/json-naming-convention
 
 面向资源设计的HTTP APIs中，绝大部分的操作都是`CRUD(Create,Read,Update,Delete)`，都可以映射为某一个[HTTP Method] [HTTP-Method]。其余的无法映射的操作一般存在两种解决方案 : 
 
-1. 抽象出新的资源，比如`禁用用户`的操作。假设用户的资源是`/user`，那么可以抽象出来一个被锁定的用户的资源`/user/disabled`。如此以来，
+1. 抽象出新的资源，比如**禁用用户**的操作。假设用户的资源是`/user`，那么可以抽象出来一个被锁定的用户的资源`/user/disabled`。如此以来，
    1. 禁用用户 : `POST /user/disabled`或者`PUT /user/disabled/{user_id}`。
    2. 取消禁用 : `DELETE /user/disabled/{user_id}`。
    3. 获取被禁用的用户列表 : `GET /user/disabled`。
@@ -172,7 +174,7 @@ https://stackoverflow.com/questions/5543490/json-naming-convention
 ### 4.1.1 Names {#4.1.1.http-method-names}
 
 | HTTP Method Name             | Safe | Idempotent | 描述说明                                     |
-| :--------------------------- | :--- | :--------- | :------------------------------------------- |
+| --------------------------- | :--- | --------- | ------------------------------------------- |
 | [GET][HTTP-Method-GET]       | ✔    | ✔          | 获取一个资源                                 |
 | [PUT][HTTP-Method-PUT]       | ✘    | ✔          | 更新或创建一个资源（完整替换）               |
 | [PATCH][HTTP-Method-PATCH]   | ✘    | ✘          | 更新一个资源（部分更新）                     |
@@ -186,11 +188,15 @@ https://stackoverflow.com/questions/5543490/json-naming-convention
 每一个[HTTP Method] [HTTP-Method]都具有一下3个HTTP协议层面的语义。
 
 | HTTP Method Semantics                          | 含义                                     |
-| :--------------------------------------------- | :--------------------------------------- |
+| --------------------------------------------- | --------------------------------------- |
 | [Safe][HTTP-Method-Semantics-Safe]             | 操作不会对资源产生副作用，不会修改资源。 |
 | [Idempotent][HTTP-Method-Semantics-Idempotent] | 执行一次和重复执行N次，结果是一样的。    |
 | [Cacheable][HTTP-Method-Semantics-Cacheable]   | 可以被缓存。                             |
 
+参考资料 : 
+
+1. https://tools.ietf.org/html/rfc7231#section-4
+2. https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
 [HTTP-Method]:https://tools.ietf.org/html/rfc7231#section-4
 [HTTP-Method-GET]:https://tools.ietf.org/html/rfc7231#section-4.3.1
@@ -217,7 +223,7 @@ Http Header的用途在于携带`HTTP Request`和`HTTP Response`的元数据信�
 HTTP APIs中常用到的Headers : 
 
 | HTTP Header Name                                 | 描述说明                             | 示例                            |
-| :----------------------------------------------- | :----------------------------------- | :------------------------------ |
+| ----------------------------------------------- | ----------------------------------- | ------------------------------ |
 | [Accept][HTTP-Header-Accept]                     | 客户端期望服务器返回的数据格式。     | `Accept:application/json`       |
 | [Accept-Charset][HTTP-Header-Accept-Charset]     | 客户端期望服务器返回的数据的字符集。 | `Accept-Charset:utf-8`          |
 | [Content-Type][HTTP-Header-Content-Type]         | 描述`Body`的数据类型。               | `Content-Type:application/json` |
@@ -249,6 +255,11 @@ Request-Id: {id}
 
 `Request-Id`可以由`Http Request`传入，也可以由服务端生成，追加此信息到`log`中，便于服务端追踪请求。
 
+参考资料 : 
+
+1. https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+2. https://tools.ietf.org/html/rfc7231#section-5
+3. https://tools.ietf.org/html/rfc7231#section-7
 
 [HTTP-Header-Accept]:https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept
 [HTTP-Header-Accept-Charset]:https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Charset
@@ -267,7 +278,7 @@ Request-Id: {id}
 3. `5xx` : 服务端的错误。
 
 | HTTP Status Code                                   | 描述说明                                                                                                                                    |
-| :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | [200 OK][HTTP-Status-Code-200]                     | 执行成功。                                                                                                                                  |
 | [201 Created][HTTP-Status-Code-201]                | 资源创建成功，应该在`HTTP Response Header`中返回`Location`来提供新创建资源的URL地址。                                                       |
 | [202 Accepted][HTTP-Status-Code-202]               | 服务端已经接受了请求，但是并未处理完成，适用于一些异步操作。                                                                                |
@@ -284,7 +295,11 @@ Request-Id: {id}
 | [500 Internal Server Error][HTTP-Status-Code-500]  | 服务器遇见了未知的内部错误。                                                                                                                |
 | [501 Not Implemented][HTTP-Status-Code-501]        | 服务器还未实现次功能。                                                                                                                      |
 | [503 Service Unavailable][HTTP-Status-Code-503]    | 服务器繁忙，暂时无法处理客户端的请求。                                                                                                      |
+参考资料 : 
 
+1. https://tools.ietf.org/html/rfc7231#section-6
+2. https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+3. https://httpstatuses.com/
 
 [HTTP-Status-Code]:https://tools.ietf.org/html/rfc7231#section-6
 [HTTP-Status-Code-200]:https://tools.ietf.org/html/rfc7231#section-6.3.1
@@ -334,7 +349,9 @@ Request-Id: {id}
 ]
 ```
 
-Problem Details for HTTP APIs : https://tools.ietf.org/html/rfc7807
+参考资料 : 
+
+1. Problem Details for HTTP APIs : https://tools.ietf.org/html/rfc7807
 
 # 5 URL {#5.url}
 
@@ -347,14 +364,17 @@ URL遵循[RFC3986]规范，由以下几部分组成。
   scheme        authority              path         query    fragment
 </pre>
 
-URL的命名遵循命名规则[#3.1 URL](#3.1.name-case-url)的要求。
+URL的命名规则[#3.1 URL](#3.1.name-case-url)。
 
+参考资料 : 
+
+1. https://tools.ietf.org/html/rfc3986
 
 [RFC3986]:https://tools.ietf.org/html/rfc3986
 
 # 6 JSON {#6.json}
 
-[JSON]是一种应用非常广泛的数据交换格式。其包含6种基本的数据类型。
+[#6 JSON]是一种应用非常广泛的数据交换格式。其包含6种基本的数据类型。
 
 | JSON数据类型 | 示例       |
 | ------------ | ---------- |
@@ -365,7 +385,7 @@ URL的命名遵循命名规则[#3.1 URL](#3.1.name-case-url)的要求。
 | `bool`       | true/false |
 | `null`       | null       |
 
-1. JSON的命名遵循命名规则[#3.2 JSON](#3.2.name-case-json)。
+1. JSON的命名规则[#3.2 JSON](#3.2.name-case-json)。
 2. JSON中没有原生的日期和时间类型，应该遵循[#7 Date Time](#7.date-time)的要求，使用`string`类型表示。
 3. JSON中出现的和国际化相关的数据遵循[#8 i18n](#8.i18n)中的要求。
 4. `null`值的字段不能忽略掉，应该显式的表示为`"field_name":null`。
@@ -389,18 +409,20 @@ JSON示例 :
 }
 ```
 
-http://json.org/
+参考资料 :
 
-https://tools.ietf.org/html/rfc7159
+1. http://json.org/
+2. https://tools.ietf.org/html/rfc7159
 
-[JSON]:http://json.org/
+[#6 JSON]:http://json.org/
+
 
 # 7 Date Time {#7.date-time}
 
 日期和时间采用[RFC3339]中定义的通用的格式。表示方法如下 : 
 
 | 格式             | 组成部分                                             | 示例                           |
-| :--------------- | :--------------------------------------------------- | :----------------------------- |
+| --------------- | --------------------------------------------------- | ----------------------------- |
 | `date-fullyear`  | 4位数的年份                                          | 2018                           |
 | `date-month`     | 2位数的月份                                          | 04                             |
 | `date-mday`      | 2位数的日期                                          | 01                             |
@@ -421,19 +443,13 @@ https://tools.ietf.org/html/rfc7159
 2. 优先采用UTC时间（即Z+00:00）。即使没有跨时区的要求，也必须携带时区偏移信息，比如`2018-04-01T02:08:59.256Z+08:00`。
 
 
+参考资料 : 
 
-https://tools.ietf.org/html/rfc3339
-
-https://www.w3.org/TR/NOTE-datetime
+1. Date and Time Formats - ISO 8601 : https://www.w3.org/TR/NOTE-datetime
+2. Date and Time on the Internet: Timestamps ( RFC 3339 )  : https://tools.ietf.org/html/rfc3339#section-5.6
 
 
 [RFC3339]:https://tools.ietf.org/html/rfc3339
-
-[Date-and-Time-Formats]:https://www.w3.org/TR/NOTE-datetime
-
-1. Date and Time Formats - ISO 8601 : https://www.w3.org/TR/NOTE-datetime
-1. Date and Time on the Internet: Timestamps ( RFC 3339 )  : https://tools.ietf.org/html/rfc3339#section-5.6
-
 
 # 8 i18n {#8.i18n}
 
@@ -461,22 +477,24 @@ https://www.w3.org/TR/NOTE-datetime
 区域代码 : 由[Language Code]和[Country Code]组合而成。示例 : 
 
 1. `zh-CN`
-1. `en-US`
+2. `en-US`
 
-https://www.iso.org/iso-3166-country-codes.html
+参考资料 : 
 
-https://www.iso.org/iso-4217-currency-codes.html
-
-https://www.iso.org/iso-639-language-codes.html
+1. https://www.iso.org/iso-3166-country-codes.html
+2. https://www.iso.org/iso-4217-currency-codes.html
+3. https://www.iso.org/iso-639-language-codes.html
 
 [Country Code]:https://www.iso.org/iso-3166-country-codes.html
 [Currency Code]:https://www.iso.org/iso-4217-currency-codes.html
 [Language Code]:https://www.iso.org/iso-639-language-codes.html
 
 
-# 9 其他
+# 9 其他 {#9.other}
 
-## 9.1 Request 公共查询参数
+待完善...
+
+## 9.1 HTTP Request 公共查询参数
 
 | 参数用途 | 参数名                                         | 取值范围                                              |
 | -------- | ---------------------------------------------- | ----------------------------------------------------- |
@@ -498,7 +516,7 @@ GET /user
 
 上面的查询代表的含义 : 按照`name`升序和`age`倒序的排序方式；获取`created_at`时间位于`2018-01-01`和`2018-06-01`区间内；按照每页`10`条数据，获取第`2`页的数据。
 
-## 9.2 Response 分页数据结构
+## 9.2 HTTP Response 分页数据结构
 
 在分页请求的时候，API会返回分页后的数据和分页的信息。
 
@@ -520,9 +538,9 @@ GET /user
 ... 待补充
 
 
-# 11 参考资料 {#5.reference}
+# 11 参考资料 {#11.reference}
 
-本人的解读REST系列博客 : https://linianhui.github.io/understand-rest/
+本人的解读REST系列博客 : [理解REST](/understand-rest/)
 
 REST APIs 成熟度模型 : https://martinfowler.com/articles/richardsonMaturityModel.html
 

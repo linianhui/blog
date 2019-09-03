@@ -182,6 +182,10 @@ summary{
   margin-bottom: 0;
 }
 
+.article-content h1 code,
+.article-content h2 code,
+.article-content h3 code,
+.article-content h4 code,
 .article-content p code,
 .article-content li code,
 .article-content table code,
