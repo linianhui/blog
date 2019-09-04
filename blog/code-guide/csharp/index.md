@@ -1,5 +1,5 @@
 ---
-title: '[代码规范] C#'
+title: '[代码规范] C#规范指南'
 created_at: 2018-03-31 09:02:21
 tag: ["代码规范", ".editorcofig"]
 ---
