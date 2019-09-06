@@ -22,11 +22,11 @@ jobs:
       - name: push to github master branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: .www
         run: |
-          cd .www
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
           git add .
           git commit -m "GitHub Actions auto deploy"
-          git push --force https://$GITHUB_TOKEN@github.com/linianhui/linianhui.github.io master:master
+          git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/linianhui/linianhui.github.io" master:master
