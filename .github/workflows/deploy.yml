@@ -29,5 +29,4 @@ jobs:
           git config user.email 'lnhcode@outlook.com'
           git add .
           git commit -m "GitHub Actions auto deploy"
-          git remote add origin git@github.com:linianhui/linianhui.github.io.git
-          git push --set-upstream origin master --force
+          git push --force https://${GITHUB_TOKEN}@github.com/linianhui/linianhui.github.io master:master
