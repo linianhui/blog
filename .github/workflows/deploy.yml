@@ -3,28 +3,29 @@ name: cd
 on:
   push:
     branches:
-    - blog
+      - blog
 
 jobs:
   deploy:
     runs-on: ubuntu-18.04
+
     steps:
-    - uses: actions/checkout@v1
-    - name: install hugo
-      run: |
-        wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-32bit.deb
-        sudo dpkg -i hugo_0.57.2_Linux-32bit.deb
-    - name: generate
-      run: |
-        hugo version
-        hugo --config .hugo.yml
-    - name: deploy
-      run: |
-        cd .www
-        git init
-        git config user.name 'GitHub Actions'
-        git config user.email 'lnhcode@outlook.com'
-        git add .
-        git commit -m "GitHub Actions auto deploy"
-        git remote add origin git@github.com:linianhui/linianhui.github.io.git
-        git push --set-upstream origin master --force
+      - uses: actions/checkout@v1
+      - name: install hugo
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-64bit.deb
+          sudo dpkg -i hugo_0.57.2_Linux-64bit.deb
+      - name: generate
+        run: |
+          hugo version
+          hugo --config .hugo.yml
+      - name: deploy
+        run: |
+          cd .www
+          git init
+          git config user.name 'GitHub Actions'
+          git config user.email 'lnhcode@outlook.com'
+          git add .
+          git commit -m "GitHub Actions auto deploy"
+          git remote add origin git@github.com:linianhui/linianhui.github.io.git
+          git push --set-upstream origin master --force
