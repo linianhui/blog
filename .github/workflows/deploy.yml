@@ -1,4 +1,4 @@
-name: cd
+name: deploy
 
 on:
   push:
@@ -15,11 +15,13 @@ jobs:
         run: |
           wget https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_0.57.2_Linux-64bit.deb
           sudo dpkg -i hugo_0.57.2_Linux-64bit.deb
-      - name: generate
+      - name: hugo generate static web site
         run: |
           hugo version
           hugo --config .hugo.yml
-      - name: deploy
+      - name: push to github master branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd .www
           git init
