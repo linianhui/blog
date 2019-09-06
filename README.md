@@ -1,7 +1,6 @@
 
 # https://linianhui.github.io
 
-[![AppVeyor-Img]][AppVeyor-Url]
 [![Github-Actions-Img]][Github-Actions-Url]
 
 
