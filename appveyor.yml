@@ -21,12 +21,12 @@ build_script:
   - hugo version
   - hugo --config .hugo.yml
 
-deploy_script:
-  - cd .www
-  - git init
-  - git config user.name 'appveyor'
-  - git config user.email 'lnhcode@outlook.com'
-  - git add .
-  - git commit -m "appveyor auto deploy"
-  - git remote add origin git@github.com:linianhui/linianhui.github.io.git
-  - git push --set-upstream origin master --force
+# deploy_script:
+#   - cd .www
+#   - git init
+#   - git config user.name 'appveyor'
+#   - git config user.email 'lnhcode@outlook.com'
+#   - git add .
+#   - git commit -m "appveyor auto deploy"
+#   - git remote add origin git@github.com:linianhui/linianhui.github.io.git
+#   - git push --set-upstream origin master --force
