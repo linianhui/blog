@@ -24,6 +24,7 @@ jobs:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         working-directory: .www
         run: |
+          mkdir $HOME/.ssh
           echo "${DEPLOY_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           git init
