@@ -24,9 +24,10 @@ jobs:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         working-directory: .www
         run: |
-          mkdir $HOME/.ssh
-          echo "${DEPLOY_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
+          mkdir -p ~/.ssh/
+          echo "DEPLOY_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
