@@ -28,5 +28,5 @@ jobs:
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
           git add .
-          git commit -m "GitHub Actions auto deploy ${GITHUB_REF} at ${GITHUB_SHA}"
-          git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/linianhui/linianhui.github.io" HEAD:master
+          git commit -m "GitHub Actions deploy ${GITHUB_REF} at ${GITHUB_SHA}"
+          git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/linianhui/linianhui.github.io.git" HEAD:master
