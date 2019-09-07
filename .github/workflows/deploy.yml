@@ -21,12 +21,14 @@ jobs:
           hugo --config .hugo.yml
       - name: push to github master branch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         working-directory: .www
         run: |
+          echo "${DEPLOY_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
           git add .
           git commit -m "GitHub Actions deploy ${GITHUB_SHA}"
-          git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/linianhui/linianhui.github.io.git" HEAD:master
+          git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:master
