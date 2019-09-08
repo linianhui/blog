@@ -226,16 +226,6 @@ summary{
   word-break: break-all;
 }
 
-.article-content strong{
-  margin-left: 6px;
-  margin-right: 6px;
-}
-
-.article-content a strong,
-.article-content strong a{
-  margin: 0;
-}
-
 .article-content img {
   display: block;
   max-width: 100%;
