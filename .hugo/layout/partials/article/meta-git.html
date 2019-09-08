@@ -2,7 +2,7 @@
   <a class="fa fa-code-fork article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.GitInfo.Hash }}" target="_blank">
     {{ $.GitInfo.AbbreviatedHash }}
   </a>
-  at
+  {{ $.GitInfo.Subject }} at
   <time class="article-git-commit_time">
     {{ $.GitInfo.AuthorDate.Format "2006-01-02 15:04" }}
   </time>
