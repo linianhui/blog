@@ -27,6 +27,7 @@
         if (h) {
           a_list.push({
             a: a,
+            id: hId,
             offset_top: h.offsetTop
           });
         }
@@ -54,7 +55,17 @@
         break;
       }
     }
-  };
+  }
+
+
+  function lnh_toc_title_add_a(a_list) {
+    a_list.forEach(function (a) {
+       var h = document.getElementById(a.id);
+       if(h){
+          h.innerHTML = '<a href="#' + a.id +'" class="fa fa-link article-h-a" aria-hidden="true"></a>' + h.innerHTML;
+       }
+    });
+  }
 
   function lnh_toc_on_scroll(a_list) {
     var scroll_top = window.scrollY + 32;

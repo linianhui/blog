@@ -115,7 +115,7 @@ summary{
 
 .article {
   position: relative;
-  padding: 24px;
+  padding: 32px;
   box-shadow: 0 0 2px #ccc;
 }
 
@@ -153,11 +153,15 @@ summary{
 .article-content h1,
 .article-content h2,
 .article-content h3,
-.article-content h4 {
-  margin-left: 0;
+.article-content h4, 
+.article-content h5,
+.article-content h6 {
+  position: relative;
+  margin-left: -32px;
   margin-top: 2em;
   margin-right: 0;
   margin-bottom: 0;
+  padding-left: 32px;
 }
 
 .article-content h1 {
@@ -187,6 +191,8 @@ summary{
 .article-content h2 code,
 .article-content h3 code,
 .article-content h4 code,
+.article-content h5 code,
+.article-content h6 code,
 .article-content p code,
 .article-content li code,
 .article-content table code,
@@ -262,6 +268,26 @@ summary{
   overflow-x: auto;
   border: 1px solid #eee;
   padding-left: 1em;
+}
+
+.article-content .article-h-a{
+  position: absolute;
+  visibility: hidden;
+  left: 0;
+  top: 0.3em;
+}
+
+.article-content h1:hover .article-h-a,
+.article-content h2:hover .article-h-a,
+.article-content h3:hover .article-h-a,
+.article-content h4:hover .article-h-a,
+.article-content h5:hover .article-h-a,
+.article-content h6:hover .article-h-a{
+  visibility: visible;
+}
+
+.article-content pre{
+  overflow-x: auto;
 }
 
 .article-page{
