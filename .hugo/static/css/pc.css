@@ -119,6 +119,7 @@ summary{
   box-shadow: 0 0 2px #ccc;
 }
 
+.topic-title,
 .article-title {
   border-bottom: 1px solid #eee;
   font-size: 24px;

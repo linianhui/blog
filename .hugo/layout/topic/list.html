@@ -8,6 +8,9 @@
       </a>
       <span class="topic-articles-count">({{len .Page.Pages}})</span>
     </h1>
+    <section class="article-meta">
+      {{ partial "article/meta-git.html" .Page }}
+    </section>
     <div class="topic-content">
       {{ .Page.Content }}
     </div>
