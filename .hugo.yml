@@ -9,6 +9,8 @@ params:
   Subtitle: '泛义的工具是文明的基础，而确指的工具却是愚人的器物'
   RepositoryUrl: https://github.com/linianhui/linianhui.github.io
   RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
+  CiUrl: https://github.com/linianhui/linianhui.github.io/actions
+  CiBadgeImageUrl: https://github.com/linianhui/linianhui.github.io/workflows/deploy/badge.svg
 
 taxonomies:
   tag: tag
