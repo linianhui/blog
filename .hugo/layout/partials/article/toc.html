@@ -1,3 +1,68 @@
 <aside id="toc" class="toc">
   {{ .TableOfContents }}
 </aside>
+
+<script type="text/javascript">
+
+  function lnh_toc_reset_style() {
+    var toc = document.getElementById("toc");
+    var toc_width = toc.offsetWidth;
+    document.body.style.marginLeft = toc_width + 'px';
+  }
+
+  function lnh_toc_get_fragment_id(url) {
+    var fragment_index = (url || '').lastIndexOf('#');
+    if (fragment_index == -1) {
+      return null;
+    }
+    return url.substr(fragment_index + 1);
+  }
+
+  function lnh_toc_get_a_list() {
+    var a_list = [];
+    document.querySelectorAll("#toc a").forEach(function (a) {
+      var hId = lnh_toc_get_fragment_id(a.href);
+      if (hId) {
+        var h = document.getElementById(hId);
+        if (h) {
+          a_list.push({
+            a: a,
+            offset_top: h.offsetTop
+          });
+        }
+      }
+    });
+    return a_list;
+  }
+
+  function lnh_toc_selected_toc_item(a_list, selected_item) {
+    a_list.forEach(function (item) {
+      item.a.className = '';
+    });
+    selected_item.a.className = 'selected';
+  }
+
+  function lnh_toc_selected_toc(a_list, scroll_top) {
+    for (var i = 0; i < a_list.length; i++) {
+      var current = a_list[i];
+      var next = a_list[i + 1];
+      if (scroll_top > current.offset_top) {
+        if (next && (scroll_top >= next.offset_top)) {
+          continue;
+        }
+        lnh_toc_selected_toc_item(a_list, current);
+        break;
+      }
+    }
+  };
+
+  function lnh_toc_on_scroll(a_list) {
+    var scroll_top = window.scrollY + 32;
+    lnh_toc_selected_toc(a_list, scroll_top);
+  }
+
+
+  if (lnh_is_pc()) {
+    lnh_toc_reset_style();
+  }
+</script>

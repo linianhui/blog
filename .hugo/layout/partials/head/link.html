@@ -1,7 +1,20 @@
 <link href="//cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="/css/pc.css" rel="stylesheet">
+<link href="/css/pc.css?{{ now.Unix }}" rel="stylesheet">
 {{ with .TableOfContents }}
-<link href="/css/toc.css" rel="stylesheet">
+<link href="/css/toc.css?{{ now.Unix }}" rel="stylesheet">
 {{ end }}
-<link href="/css/mobile.css" rel="stylesheet" name="mobile_css">
+
+<script type="text/javascript">
+  function lnh_is_mobile() {
+    return /.*Mobile.*/.test(navigator.userAgent);
+  }
+
+  function lnh_is_pc(){
+    return !lnh_is_mobile();
+  }
+
+  if (lnh_is_mobile()) {
+    document.write('<link href="/css/mobile.css?{{ now.Unix }}" rel="stylesheet">');
+  }
+</script>

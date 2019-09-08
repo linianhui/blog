@@ -1,10 +1,13 @@
+body{
+  margin-left: 0px;
+}
+
 .body {
-  padding-left: 0;
   margin: 20px;
 }
 
 .toc {
-  display:none;
+  display: none;
 }
 
 .article{

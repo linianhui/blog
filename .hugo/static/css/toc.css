@@ -1,6 +1,10 @@
+body{
+  margin-left: 360px;
+}
+
 .toc {
   position: fixed;
-  display: none;
+  display: block;
   left: 0;
   top: 0;
   bottom: 0;
@@ -9,6 +13,7 @@
   overflow-x: auto;
   box-shadow: 0 0 4px #aaa;
   font-size: 14px;
+  max-width: 360px;
 }
 
 .toc nav{
