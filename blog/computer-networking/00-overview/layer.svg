@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="yes"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" font-size="14" font-family="Microsoft YaHei">
+  <svg width="540" height="174">
+    <rect width="100%" height="100%" fill="#FFF"/>
+    <svg x="10" y="10" width="450" height="30">
+      <rect x="360" width="90" height="100%" fill="#00FFFF"/>
+      <text y="23" text-anchor="end">
+        <tspan x="350">Data</tspan> <tspan x="439">应用层数据</tspan>
+      </text>
+    </svg>
+    <svg x="10" y="41" width="450" height="30">
+      <rect x="270" width="90" height="100%" fill="#00FF00"/>
+      <rect x="360" width="90" height="100%" fill="#00FFFF"/>
+      <text y="23" text-anchor="end">
+        <tspan x="260">Segment</tspan> <tspan x="352">传输层头部</tspan> <tspan x="439">应用层数据</tspan>
+      </text>
+    </svg>
+    <svg x="10" y="72" width="450" height="30">
+      <rect x="180" width="90" height="100%" fill="#FFFF00"/>
+      <rect x="270" width="90" height="100%" fill="#00FF00"/>
+      <rect x="360" width="90" height="100%" fill="#00FFFF"/>
+      <text y="23" text-anchor="end">
+        <tspan x="170">Packet</tspan> <tspan x="263">网络层头部</tspan> <tspan x="352">传输层头部</tspan> <tspan x="439">应用层数据</tspan>
+      </text>
+    </svg>
+    <svg x="10" y="103" width="450" height="30">
+      <rect x="90" width="90" height="100%" fill="#FF7D00"/>
+      <rect x="180" width="90" height="100%" fill="#FFFF00"/>
+      <rect x="270" width="90" height="100%" fill="#00FF00"/>
+      <rect x="360" width="90" height="100%" fill="#00FFFF"/>
+      <text y="23" text-anchor="end">
+        <tspan x="80">Frame</tspan> <tspan x="173">链路层头部</tspan> <tspan x="263">网络层头部</tspan> <tspan x="352">传输层头部</tspan> <tspan x="439">应用层数据</tspan>
+      </text>
+    </svg>
+    <svg x="10" y="134" width="450" height="30">
+      <rect x="90" width="360" height="100%" fill="#F00"/>
+      <text y="23" text-anchor="end">
+        <tspan x="80">物理信号</tspan>
+      </text>
+    </svg>
+    <svg x="470" y="10" width="60" height="154">
+      <rect y="0" width="60" height="30" fill="#00FFFF"/>
+      <rect y="31" width="60" height="30" fill="#00FF00"/>
+      <rect y="62" width="60" height="30" fill="#FFFF00"/>
+      <rect y="93" width="60" height="30" fill="#FF7D00"/>
+      <rect y="124" width="60" height="30" fill="#FF0000"/>
+      <text x="10">
+        <tspan x="10" y="23">应用层</tspan> <tspan x="10" y="54">传输层</tspan> <tspan x="10" y="85">网络层</tspan> <tspan x="10" y="115">链路层</tspan> <tspan x="10" y="147">物理层</tspan>
+      </text>
+    </svg>
+  </svg>
+</svg>
