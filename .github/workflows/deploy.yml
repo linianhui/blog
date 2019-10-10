@@ -16,10 +16,10 @@ jobs:
     steps:
       - name: git checkout
         uses: actions/checkout@v1
+      - name: hugo version
+        run: hugo version
       - name: hugo generate static web site
-        run: |
-          hugo version
-          hugo --config .hugo.yml
+        run: hugo --config .hugo.yml
       - name: push to github master branch
         working-directory: .www
         env:
