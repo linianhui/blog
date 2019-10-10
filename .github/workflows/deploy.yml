@@ -16,26 +16,16 @@ jobs:
     steps:
       - name: git checkout
         uses: actions/checkout@v1
-      - name: config git
-        env:
-          DEPLOY_PRIVATE_KEY: ${{secrets.DEPLOY_PRIVATE_KEY}}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'lnhcode@outlook.com'
       - name: hugo generate static web site
         run: |
           hugo version
           hugo --config .hugo.yml
       - name: push to github master branch
         working-directory: .www
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           git init
+          git config user.name 'GitHub Actions'
+          git config user.email 'lnhcode@outlook.com'
           git add .
           git commit -m "GitHub Actions deploy ${GITHUB_SHA}"
           git push --force https://x-access-token:${GITHUB_TOKEN}@github.com/linianhui/linianhui.github.io.git HEAD:master
