@@ -24,8 +24,8 @@ jobs:
           echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config user.name 'GitHub Actions'
-          git config user.email 'lnhcode@outlook.com'
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'lnhcode@outlook.com'
       - name: hugo generate static web site
         run: |
           hugo version
