@@ -34,5 +34,6 @@ jobs:
         working-directory: .www
         run: |
           git init
-          git commit -am "GitHub Actions deploy ${GITHUB_SHA}"
+          git add .
+          git commit -m "GitHub Actions deploy ${GITHUB_SHA}"
           git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:master
