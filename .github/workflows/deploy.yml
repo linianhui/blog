@@ -29,7 +29,7 @@ jobs:
           echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          echo ${DEPLOY_PRIVATE_KEY}
+          echo “key--------${DEPLOY_PRIVATE_KEY}"
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
