@@ -12,8 +12,6 @@ jobs:
     container:
       # https://hub.docker.com/r/lnhcode/hugo
       image: lnhcode/hugo
-      env:
-        DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
 
     steps:
       - name: git checkout
@@ -24,14 +22,14 @@ jobs:
         run: hugo --config .hugo.yml
       - name: push to github master branch
         working-directory: .www
+        env:
+          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh/
           echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          env
-          cat ~/.ssh/id_rsa
-          cat ~/.ssh/known_hosts
+          echo ${DEPLOY_PRIVATE_KEY}
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
