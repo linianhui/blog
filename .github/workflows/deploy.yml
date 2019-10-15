@@ -8,28 +8,27 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    container:
-      # https://hub.docker.com/r/lnhcode/hugo
-      image: lnhcode/hugo
-
+    
     steps:
       - name: git checkout
         uses: actions/checkout@v1
+      - name: install hugo
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_0.58.3_Linux-64bit.deb
+          sudo dpkg -i hugo_0.58.3_Linux-64bit.deb
       - name: hugo version
         run: hugo version
       - name: hugo generate static web site
         run: hugo --config .hugo.yml
       - name: push to github master branch
-        working-directory: .www
         env:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+        working-directory: .www
         run: |
           mkdir -p ~/.ssh/
           echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          echo "key--------${DEPLOY_PRIVATE_KEY}"
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
