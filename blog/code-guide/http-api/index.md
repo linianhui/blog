@@ -496,12 +496,12 @@ JSON示例 :
 
 ## 9.1 HTTP Request 公共查询参数
 
-| 参数用途 | 参数名                                         | 取值范围                                              |
-| -------- | ---------------------------------------------- | ----------------------------------------------------- |
-| 分页     | `page`<br/>`page_size`                         | >=1                                                   |
-| 排序     | `sort`                                         | `{field_name}\|{asc\|desc},{field_name}\|{asc\|desc}` |
-| 区间     | `{field_name}_before`<br/>`{field_name}_after` | 无要求                                                |
-| 时间     | `{field_name}_at`                              | 无要求                                                |
+| 参数用途 | 参数名                                      | 取值范围                                          |
+| -------- | ------------------------------------------- | ------------------------------------------------- |
+| 分页     | `page`<br/>`page_size`                      | >=1                                               |
+| 排序     | `sort`                                      | `{field_name}|{asc|desc},{field_name}|{asc|desc}` |
+| 区间     | `{field_name}_begin`<br/>`{field_name}_end` | 无要求                                            |
+| 时间     | `{field_name}_at`                           | 无要求                                            |
 
 示例:
 
@@ -510,8 +510,8 @@ GET /user
     ?page=2
     &page_size=10
     &sort=name,age|desc
-    &created_at_after=2018-01-01
-    &created_at_before=2018-06-01
+    &created_at_begin=2018-01-01
+    &created_at_end=2018-06-01
 ```
 
 上面的查询代表的含义 : 按照`name`升序和`age`倒序的排序方式；获取`created_at`时间位于`2018-01-01`和`2018-06-01`区间内；按照每页`10`条数据，获取第`2`页的数据。
