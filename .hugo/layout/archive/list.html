@@ -8,7 +8,7 @@
   <section class="archive-group">
     <header class="archive-group-title">
       {{ .Key }}
-      <span class="archive-group-count">({{ len .Pages }})</span>
+      <span class="archive-group-count">（{{ len .Pages }}篇）</span>
     </header>
     <ol class="archive-group-items" reversed>
       {{ range .Pages.ByDate.Reverse }}
