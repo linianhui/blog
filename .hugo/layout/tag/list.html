@@ -1,6 +1,6 @@
 {{ define "main" }}
 <h1 class="tag-title">标签 : {{.Title}}
-  <span class="tag-title-count">({{ len .Data.Pages }})</span>
+  <span class="tag-title-count">（{{ len .Data.Pages }}篇）</span>
 </h1>
 <ol class="tag-articles" reversed>
   {{ range .Page.Pages.ByDate.Reverse }}
