@@ -10,7 +10,7 @@
   {{ range .Pages.ByTitle }}
   <li class="tag">
     <a class="tag-link" href="{{.RelPermalink}}">{{.Title}}</a>
-    <span class="tag-count">({{ len .Data.Pages }})</span>
+    <span class="tag-count">（{{ len .Data.Pages }}篇）</span>
   </li>
   {{ end }}
 </ol>
