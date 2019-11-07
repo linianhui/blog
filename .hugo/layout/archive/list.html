@@ -1,7 +1,7 @@
 {{ define "main" }}
 <h1 class="archives-title">
   {{.Title}}
-  <span class="archives-count">({{ len $.Site.RegularPages }})</span>
+  <span class="archives-count">（{{ len $.Site.RegularPages }}篇）</span>
 </h1>
 <section class="archives">
   {{ range $.Site.RegularPages.GroupByDate "2006-01" }}
