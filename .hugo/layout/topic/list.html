@@ -6,7 +6,7 @@
       <a href="{{ .URL }}" title="{{ .Name }}" target="_blank">
         {{ .Name }}
       </a>
-      <span class="topic-articles-count">({{len .Page.Pages}})</span>
+      <span class="topic-articles-count">（{{len .Page.Pages}}篇）</span>
     </h1>
     <section class="article-meta">
       {{ partial "article/meta-git.html" .Page }}
