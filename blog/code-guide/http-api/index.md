@@ -549,7 +549,7 @@ PayPal的API设计指南 : https://github.com/paypal/api-standards
 REST架构风格的出处 : 架构风格与基于网络的软件架构设计(by [Roy Thomas Fielding](http://www.ics.uci.edu/~fielding/))论文。
 
 1. 英文版 :  https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
-2. 中文版 :  http://www.infoq.com/cn/minibooks/web-based-apps-archit-design
+2. 中文版 :  https://www.infoq.cn/article/web-based-apps-archit-design/
 
 HTTP APIs 四大组成部分（HTTP, URI, MIME, JSON）
 
