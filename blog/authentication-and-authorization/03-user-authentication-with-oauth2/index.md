@@ -107,5 +107,5 @@ OAuth2为了允许各种不同的部署而编写，但是这样的设计并没�
 [OAuth2]:http://tools.ietf.org/html/rfc6749
 [OAuth2-Authentication]:https://oauth.net/articles/authentication
 [02]:../02-oauth2-extensions-protocol-and-json-web-token/
-[01-5.4]:../01-oauth2-authorization/#5.4.client-credentials-grant
-[01-5.2.2]:../01-oauth2-authorization/#5.2.2.access-token-response
+[01-5.4]:../01-oauth2-authorization/#5-4-client-credentials-grant
+[01-5.2.2]:../01-oauth2-authorization/#5-2-2-access-token-response

@@ -4,7 +4,7 @@ created_at: 2017-05-30 09:18:00
 tag: ["OAuth2", "JWT", "OIDC", "OpenId Connect", "OP", "RP", "Id Token"]
 ---
 
-# 1 什么是OIDC？ {#1.what-is-oidc}
+# 1 什么是OIDC？ {#1-what-is-oidc}
 
 看一下官方的介绍(<http://openid.net/connect/>) : 
 
@@ -19,7 +19,7 @@ OIDC已经有很多的企业在使用，比如[Google的账号认证授权体系
 
 理解OIDC的前提是需要理解OAuth2，这里假设大家都有OAuth2的基础，不清楚的可以先阅读本系列的前几篇OAuth2的文章。
 
-# 2 OIDC 协议族 {#2.oidc-protocol-suite}
+# 2 OIDC 协议族 {#2-oidc-protocol-suite}
 
 OIDC本身是有多个规范构成，其中包含一个核心的规范，多个可选支持的规范来提供扩展支持，简单的来看一下 : 
 
@@ -37,11 +37,11 @@ OIDC本身是有多个规范构成，其中包含一个核心的规范，多个�
 
 上图是官方给出的一个OIDC组成结构图，我们暂时只关注Core的部分，其他的部分了解是什么东西就可以了，当作黑盒来用。就像当初的AJAX一样，它其实并不是一个新的技术，而是结合很多已有的技术，按照规范的方式组合起来，就是AJAX。同理，OIDC也不是新技术，它主要是借鉴OpenId的身份标识，OAuth2的授权和JWT包装数据的方式，把这些技术融合在一起就是OIDC。
 
-# 3 OIDC 核心概念 {#3.oidc-core-concept}
+# 3 OIDC 核心概念 {#3-oidc-core-concept}
 
 OAuth2提供了Access Token来解决授权第三方客户端访问受保护资源的问题；OIDC在这个基础上提供了ID Token来解决第三方客户端标识用户身份认证的问题。OIDC的核心在于在OAuth2的授权流程中，一并提供用户的身份认证信息(ID Token)给到第三方客户端，ID Token使用JWT格式来包装，得益于JWT([JSON Web Token][02-jwt])的自包含性，紧凑性以及防篡改机制，使得ID Token可以安全的传递给第三方客户端程序并且容易被验证。此外还提供了UserInfo的接口，用户获取用户的更完整的信息。
 
-## 3.1 OIDC 主要术语 {#3.1.oidc-core-terminology}
+## 3.1 OIDC 主要术语 {#3-1-oidc-core-terminology}
 
 主要的术语以及概念介绍(完整术语参见<http://openid.net/specs/openid-connect-core-1_0.html#Terminology>) : 
 
@@ -51,7 +51,7 @@ OAuth2提供了Access Token来解决授权第三方客户端访问受保护资�
 4. `ID Token` : JWT格式的数据，包含EU身份认证的信息。
 5. `UserInfo Endpoint` : 用户信息接口(受OAuth2保护)，当RP使用Access Token访问时，返回授权用户的信息，此接口必须使用HTTPS。
 
-## 3.2 OIDC 工作流程 {#3.2.oidc-workflow}
+## 3.2 OIDC 工作流程 {#3-2-oidc-workflow}
 
 从抽象的角度来看，OIDC的流程由以下5个步骤构成 : 
 
@@ -64,7 +64,7 @@ OAuth2提供了Access Token来解决授权第三方客户端访问受保护资�
 
 上图取自Core规范文档，其中`AuthN=Authentication`，表示认证；`AuthZ=Authorization`，代表授权。注意这里面RP发往OP的请求，是属于**Authentication**类型的请求，虽然在OIDC中是复用OAuth2的**Authorization**请求通道，但是用途是不一样的，且OIDC的AuthN请求中**scope参数必须要有一个值为的openid的参数**(后面会详细介绍AuthN请求所需的参数)，用来区分这是一个OIDC的**Authentication**请求，而不是OAuth2的**Authorization**请求。
 
-## 3.3 ID Token {#3.3.oidc-id-token}
+## 3.3 ID Token {#3-3-oidc-id-token}
 
 上面提到过**OIDC对OAuth2最主要的扩展就是提供了ID Token**。ID Token是一个安全令牌，是一个授权服务器提供的包含**用户信息(由一组Cliams构成以及其他辅助的Cliams)**的JWT格式的数据结构。ID Token的主要构成部分如下(使用OAuth2流程的OIDC)。
 
@@ -94,7 +94,7 @@ ID Token通常情况下还会包含其他的Claims(毕竟上述claim中只有sub
 }
 ```
 
-## 3.4 认证 {#3.4.authentication}
+## 3.4 认证 {#3-4-authentication}
 
 解释完了ID Token是什么，下面就看一下OIDC如何获取到`ID Token`，因为OIDC基于OAuth2，所以OIDC的认证流程主要是由OAuth2的几种授权流程延伸而来的，有以下3种 : 
 
@@ -108,7 +108,7 @@ ID Token通常情况下还会包含其他的Claims(毕竟上述claim中只有sub
 > 
 > 2. Client Credentials Grant这种方式根本就不需要用户参与，更谈不上用户身份认证了。这也能反映授权和认证的差异，以及只使用OAuth2来做身份认证的事情是远远不够的，也是不合适的。
 
-### 3.4.1 基于Authorization Code的认证请求 {#3.4.1.based-on-authorization-code-authentication-request}
+### 3.4.1 基于Authorization Code的认证请求 {#3-4-1-based-on-authorization-code-authentication-request}
 
 这种方式使用OAuth2的Authorization Code的方式来完成用户身份认证，所有的Token都是通过Token EndPoint(OAuth2中定义 : <https://tools.ietf.org/html/rfc6749#section-3.2>)来发放的。构建一个OIDC的Authentication Request需要提供如下的参数 : 
 
@@ -139,7 +139,7 @@ Host: server.example.com
 
 也可以是一个基于302的重定向方式。
 
-### 3.4.2 基于Authorization Code的认证请求的响应 {#3.4.2.based-on-authorization-code-authentication-response}
+### 3.4.2 基于Authorization Code的认证请求的响应 {#3-4-2-based-on-authorization-code-authentication-response}
 
 在授权服务器接收到认证请求之后，需要对请求参数做严格的验证，具体的规则参见<http://openid.net/specs/openid-connect-core-1_0.html#AuthRequestValidation>，验证通过后引导EU进行身份认证并且同意授权。在这一切都完成后，会重定向到RP指定的回调地址，并且把code和state参数传递过去。比如 : 
 
@@ -148,7 +148,7 @@ HTTP/1.1 302 Found
 Location: https://client.example.org/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=af0ifjsldkj
 ```
 
-### 3.4.3 获取ID Token {#3.4.3.get-id-token}
+### 3.4.3 获取ID Token {#3-4-3-get-id-token}
 
 RP使用上一步获得的code来请求Token EndPoint，这一步同OAuth2，就不再展开细说了。然后Token EndPoint会返回响应的Token，其中除了OAuth2规定的部分数据外，还会附加一个**id_token**的字段。id_token字段就是上面提到的ID Token。例如 : 
 
@@ -178,13 +178,13 @@ Pragma: no-cache
 
 其中看起来一堆乱码的部分就是JWT格式的ID Token。在RP拿到这些信息之后，需要对id_token以及access_token进行验证(具体的规则参见<http://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation>和<http://openid.net/specs/openid-connect-core-1_0.html#ImplicitTokenValidation>)。至此，可以说用户身份认证就可以完成了，后续可以根据UserInfo EndPoint获取更完整的信息。
 
-### 3.4.4 Implicit Flow和Hybrid Flow {#3.4.4.implicit-flow-and-hybrid-flow}
+### 3.4.4 Implicit Flow和Hybrid Flow {#3-4-4-implicit-flow-and-hybrid-flow}
 
 Implicit Flow的工作方式是在OAuth2 Implicit Flow上附加提供id_token，当然，认证请求的参数和基于Authorization Code的流程稍有不同，具体的差异参见<http://openid.net/specs/openid-connect-core-1_0.html#ImplicitAuthRequest>，这里就不做详细介绍了。
 
 Hybrid Flow则=Authorization Code Flow+Implicit Flow，也不再详细介绍了。
 
-## 3.5 UserInfo Endpoint {#3.5.userinfo-endpoint}
+## 3.5 UserInfo Endpoint {#3-5.userinfo-endpoint}
 
 UserIndo EndPoint是一个受OAuth2保护的资源。在RP得到Access Token后可以请求此资源，然后获得一组EU相关的Claims，这些信息可以说是ID Token的扩展，比如如果你觉得ID Token中只需包含EU的唯一标识sub即可(避免ID Token过于庞大)，然后通过此接口获取完整的EU的信息。此资源必须部署在TLS之上，例如 : 
 
@@ -213,7 +213,7 @@ Content-Type: application/json
 
 其中`sub`代表`EU`的唯一标识，这个claim是必须的，其他的都是可选的。
 
-# 4 总结 {#4.summary}
+# 4 总结 {#4-summary}
 
 继OAuth2之后，感觉OIDC也要大放异彩了。其本身是一个完全开放的标准，而且兼容众多的已有的IDP(身份提供商)，比如基于SAML的、基于WS-Federation的等等已有的身份认证系统，都可以作为OIDC的OP存在。总结一下OIDC有那些特性和好处吧 : 
 
@@ -225,7 +225,7 @@ Content-Type: application/json
 
 以上内容均是个人的一些理解，如果错误之处，欢迎指正！
 
-# 5 示例 {#4.example}
+# 5 示例 {#4-example}
 
 笔者基于IdentityServer3和IdentitySever4(两者都是基于OIDC的一个.NET版本的开源实现)写的一个集成SSO,API访问授权控制,GitHub(作为OP)登录,QQ(作为OP)登录的示例 : <https://github.com/linianhui/oidc.example>。
 
@@ -256,7 +256,7 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory
 https://developers.google.com/identity/protocols/OpenIDConnect
 
 
-[02-jwt]:../02-oauth2-extensions-protocol-and-json-web-token/#4.json-web-token
+[02-jwt]:../02-oauth2-extensions-protocol-and-json-web-token/#4-json-web-token
 [03]:../03-user-authentication-with-oauth2/
 
 [OIDC-Core]:http://openid.net/specs/openid-connect-core-1_0.html

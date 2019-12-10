@@ -11,14 +11,14 @@ tag: ["OAuth2", "OIDC", "OpenId Connect", "OIDC Discovery", "OAuth 2.0 Multiple 
 3. [OAuth 2.0 Form Post Response Mode][OAuth-2-Form-Post-Response-Mode] : 可选。针对OAuth2的扩展，OAuth2回传信息给客户端是通过URL的querystring和fragment这两种方式，这个扩展标准提供了一基于form表单的形式把数据post给客户端的机制。
 4. [Session Management][OIDC-Session-Management] : 可选。Session管理，用于规范OIDC服务如何管理Session信息；[Front-Channel Logout][OIDC-Front-Channel-Logout] : 可选。基于前端的注销机制。
 
-# 1 OIDC Discovery {#1.oidc-discovery}
+# 1 OIDC Discovery {#1-oidc-discovery}
 
 顾名思义，Discovery定义了一个服务发现的规范，它定义了一个api`/.well-known/openid-configuration`，这个api返回一个json数据结构，其中包含了一些OIDC中提供的服务以及其支持情况的描述信息，这样可以使得oidc服务的`RP`可以不再硬编码OIDC服务接口信息。这个api返回的**示例信息**如下(这里面只是一部分，更完整的信息在官方的规范中有详细的描述和解释说明(<http://openid.net/specs/openid-connect-discovery-1_0.html>): 
 ![OIDC Discovery API](oidc-discovery-api.png)
 
 相信大家都看得懂的，它包含有授权的url，获取token的url，注销token的url，以及其对OIDC的扩展功能支持的情况等等信息，这里就不再详细解释每一项了。
 
-# 2 OAuth2 Multiple Response Types {#2.oauth2-multiple-response-types}
+# 2 OAuth2 Multiple Response Types {#2-oauth2-multiple-response-types}
 
 在本系列的第一篇博客[[认证&授权] 01 OAuth2授权][01]中解释OAuth2的授权请求的时候，其请求参数中有一个`response_type`的参数，其允许的值有`code`和`token`两个，在这两个的基础上，OIDC增加了一个新值`id_token`(详细信息定义在<http://openid.net/specs/oauth-v2-multiple-response-types-1_0.html>) : 
 
@@ -29,7 +29,7 @@ tag: ["OAuth2", "OIDC", "OpenId Connect", "OIDC Discovery", "OAuth 2.0 Multiple 
 至此OIDC是支持三种类型的response_type的，不但如此，OIDC还允许了可以组合这三种类型，即在一个response_type中包含多个值(空格分隔)。比如当参数是这样的时候`response_type=id_token token`，OIDC服务就会把`access_token`和`id_token`一并给到调用方。OIDC对这些类型的支持情况体现在上面提到的Discovery服务中返回的`response_types_supported`字段中 : 
 ![OIDC Discovery API response-types-supported 字段](oidc-discovery-api-response-types-supported.png)
 
-# 3 OAuth2 Form Post Response Mode {#3.oauth2-form-post-response-mode}
+# 3 OAuth2 Form Post Response Mode {#3-oauth2-form-post-response-mode}
 
 在oauth2的授权码流程中，当response_type设置为code的时候，oauth2的授权服务会把authorization_code通过url的`?query`部分传递给调用方，比如这样`https://client.lnh.dev/oauth2-callback?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz`。
 
@@ -67,7 +67,7 @@ tag: ["OAuth2", "OIDC", "OpenId Connect", "OIDC Discovery", "OAuth 2.0 Multiple 
 
 这是一个会在html加载完毕后，通过一个自动提交的form表单。把id_token，access_token，authorization_code或者其他的相关数据POST到调用方指定的回调地址上。
 
-# 4 OIDC Session Management {#4.oidc-session-management}
+# 4 OIDC Session Management {#4-oidc-session-management}
 
 综合上篇提到的id_token和前面的discovery服务以及针对oauth2的扩展，则可以让OIDC服务的RP完成用户认证的过程。那么如何主动的撤销这个认证呢(也就是我们常说的退出登录)？总结来说就是其认证的会话管理，OIDC单独定义了3个独立的规范来完成这件事情 : 
 
@@ -89,15 +89,15 @@ tag: ["OAuth2", "OIDC", "OpenId Connect", "OIDC Discovery", "OAuth 2.0 Multiple 
 1. RP退出登录的URL地址(这个在RP注册的时候会提供给OIDC服务)；
 2. URL中的sessionid这个参数，这个参数一般是会包含在idtoken中给到OIDC客户端，或者在认证完成的时候以一个独立的sessionid的参数给到OIDC客户端，通常来讲都是会直接把它包含在IDToken中以防止被篡改。
 
-# 5 总结 {#5.summary}
+# 5 总结 {#5-summary}
 
 本篇博客介绍了OIDC的发现服务，OAuth2的两个扩展规范，以及OIDC管理会话的机制。至此则可以构成一个完整的认证和退出的流程。其中有一点需要特别注意，这个流程中用到的token是OIDC定义的**IDToken**，**IDToke**，**IDToken**(重要要的事情说三遍)，而不是OAuth2中定义的Access Token，千万不要混淆这两者，它们是有着本质的区别的 : 这一点在[[认证&授权] 03 使用OAuth2进行用户认证(译)][03]和[[认证&授权] 04 OIDC(OpenId Connect)身份认证(核心部分)][04]中都有解释。
 
-# 6 Example {#6.example}
+# 6 Example {#6-example}
 
 笔者基于IdentityServer3和IdentitySever4(两者都是基于OIDC的一个.NET版本的开源实现)写的一个集成SSO,API访问授权控制,GitHub(作为OP)登录,QQ(作为OP)登录的示例 : <https://github.com/linianhui/oidc.example>。xample) 。
 
-# 7 参考资料 {#7.reference}
+# 7 参考资料 {#7-reference}
 
 OIDC Core :  http://openid.net/connect/
 

@@ -4,14 +4,14 @@ created_at: 2017-09-06 10:06:00
 tag: ["REST", "超媒体", "Hypermedia", "CREN"]
 ---
 
-# 1 世界上第一个网站 {#1.the-first-web-site-in-the-world}
+# 1 世界上第一个网站 {#1-the-first-web-site-in-the-world}
 
 1990年12月20日，这一天对于现在的互联网来说意义非凡。欧洲核子研究组织(CREN)的科学家Tim Berners-Lee在一台NeXT电脑上启动了世界上的第一个网站(当然当时仅能Tim Berners-Lee自己访问)，这台电脑至今仍保留在CREN，但当年那个网站已经不复存在了。鉴于这个网站的意义重大，CREN在2013年 **“复刻”** 了这个网站，并指向了原来的网址 : http://info.cern.ch 。由于现在的浏览器早已不是当初的样子，所以CREN还提供了一个模拟器来模拟当时浏览这个网站是什么情形。 http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html 打开后如下 : 
 ![http://info.cern.ch](info.cern.ch.png)
 
 哈哈，看起来是不是很酷炫的样子(可以通过输入数字编号进行链接的跳转)。
 
-# 2 Hypermedia {#2.hypermedia}
+# 2 Hypermedia {#2-hypermedia}
 
 我们注意看它的第一句话 : 
 
@@ -31,7 +31,7 @@ tag: ["REST", "超媒体", "Hypermedia", "CREN"]
 
 **hypermedia是web重中之重的一个角色，如果说没有它就没有今天的web也是不为过的。**
 
-# 3 HTTP历史的简单回顾 {#3.http-history}
+# 3 HTTP历史的简单回顾 {#3-http-history}
 
 具体的HTTP协议最早是版本0.9，发布与1991年(HTTP 0.9 https://www.w3.org/Protocols/HTTP/AsImplemented.html )。从现在的角度看可以说是一个很简陋的协议，只支持GET请求，无request header，所以只能用来展示静态文本内容，不对对于当时来说已经足够了，毕竟当初Web建立的初衷仅仅是为了在这些科学家之间共享文档信息用的。
 
@@ -41,7 +41,7 @@ tag: ["REST", "超媒体", "Hypermedia", "CREN"]
 
 HTTP 1.1从1999年至今10多年，随着越来越丰富富庞大的web，http1.1的性能问题越来越凸显出来。后来Google开发了一个SPDY协议，在TCP和HTTP之间增加了一层，重点在于提示传输性能和增加安全性，但是却强制了采用TLS。在后来制订了新版的http2，借鉴了SPDY中的一些经验，但是移除了对TLS的强制要求，至于为什么，原因很简单，这个要求违反了REST的一些架构约束(至于违反了哪些约束，后面的博客会解释)。
 
-# 4 REST的诞生 {#4.the-birth-of-rest}
+# 4 REST的诞生 {#4-the-birth-of-rest}
 
 在上面我们提到一个人 : Roy Fielding，他和他的同事们在URI，HTTP1.0和HTTP/1.1协议的设计工作中，对于Web之所以取得巨大成功(同时面对早期HTTP0.9的糟糕设计)，在技术架构方面的因素做了一番深入的分析和总结。Fielding将这些总结纳入到了一套理论框架之中，然后使用这套理论框架中的指导原则，用来描述解释Web的架构，以及用来指导这些协议的设计。HTTP/1.1协议的第一个草稿是在1996年1月发布的，经过了三年多时间的修订，于1999年6月成为了IETF的正式规范。用来指导HTTP协议设计的这套理论框架，最初是以备忘录的形式在专家组成员之间交流，除了IETF/W3C的专家圈子，并没有在外界广泛流传。
 
@@ -49,7 +49,7 @@ Fielding在完成HTTP/1.1协议的设计工作之后，回到了加州大学欧�
 
 本篇先开个头，简单介绍一下web的历史，以及REST的诞生时机和环境。后面会逐一解释什么笔者眼中的REST是什么，欢迎有兴趣的前来讨论。
 
-# 5 参考资料 {#5.reference}
+# 5 参考资料 {#5-reference}
 
 [[理解REST] 00 参考资料][reference]
 

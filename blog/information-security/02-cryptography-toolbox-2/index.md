@@ -6,7 +6,7 @@ tag: [ "随机数", "混合密码", "证书", "PKI", "cer", "pfx", "p12", "pem"]
 
 在上一篇[[信息安全] 01 密码工具箱 第1部分](../01-cryptography-toolbox-1/)中介绍了一些密码技术相关的一些基本工具，同时遗留了**一个鸡生蛋蛋生鸡的问题**和**公钥的认证问题**(￣▽￣)"，这里再补充几个常用的工具先。
 
-# 1 伪随机数(Pseudo-Random Number) {#1.pseudo-random-number}
+# 1 伪随机数(Pseudo-Random Number) {#1-pseudo-random-number}
 
 随机数大家不陌生，但是随机数怎么就和信息安全扯上关系了呢?其实想一想我们在给自己的账号设置密码的时候，是不是都会尽量的让其他人不会轻易的猜到我们的密码，虽然并不是随机，但是它就像是满足了随机数的一个特征 :  **不可预测性**。那么对于信息安全来说来说，也是用到了这个特定，当然还有随机数的**随机性**，**不可重复性**这两点特征。
 
@@ -49,21 +49,21 @@ Console.WriteLine(random3);
 
 一般情况下，Guid即可满足要求(但是只有固定的16byte)，如需更高强度的伪随机数，可以使用 `RNGCryptoServiceProvider` 来生成任意长度的随机数。
 
-## 1.1 伪随机数的实际应用 {#1.1.practical-use-of-pseudo-random-number}
+## 1.1 伪随机数的实际应用 {#1-1-practical-use-of-pseudo-random-number}
 
 1.  生成密钥 :  [对称密码]和[消息认证码]；
 2.  生成密钥对 :  [公钥密码]和[数字签名]；
 3.  生成nonce :  防止重放攻击；
 4.  生成salt :  盐用于增强基于口令的密码的加密。
 
-## 1.2 针对伪随机数生成器的攻击 {#1.2.attack-pseudo-random-number-generator}
+## 1.2 针对伪随机数生成器的攻击 {#1-2-attack-pseudo-random-number-generator}
 
 伪随机数的程序结构可以说很简单，但是其中的每个环节都有可能成为被攻击的突破口。
 
 1. 对种子的攻击 :  如果暴露了种子，那么其实攻击者就可以得到其所有的伪随机数(假设攻击者知道其内部算法的情况下)。
 2. 对伪随机数池的攻击 :  如果我们实现生成了一大堆的伪随机数，用的时候从里面取一个，那么这个存储这些预先生成的伪随机数的地方，就可能会被泄露。
 
-# 2 混合密码系统 {#2.hybrid-cryptosystem}
+# 2 混合密码系统 {#2-hybrid-cryptosystem}
 
 针对密码相关的基本工具介绍就暂时可以告一段落了，回顾总结以下有这6个[对称密码],[公钥密码],[密码散列函数],[消息认证码],[数字签名],[伪随机数]基本工具，下面我们用这6个基本工具来组合一些高级的工具出来。
 
@@ -146,15 +146,15 @@ static string HybridDecrypt(string privateKey, string hybridCiphertext)
 }
 ```
 
-## 2.1 混合密码系统的实际应用 {#2.1.practical-use-of-hybrid-cryptosystem}
+## 2.1 混合密码系统的实际应用 {#2-1-practical-use-of-hybrid-cryptosystem}
 
 SSL/TLS :  最常见的一个应用场景了，后续会介绍。
 
-## 2.2 遗留问题 {#2.2.leftover-problem}
+## 2.2 遗留问题 {#2-2-leftover-problem}
 
 混合密码系统只能说是降低了单纯的公钥密码带来的成本问题，而公钥密码遗留的公钥认证问题，在混合密码系统中依然存在。同时使用了伪随机数生成器，混合密码系统也会面临针对伪随机生成器的一些攻击。
 
-# 3. 证书(Certificate)- 为公钥添加数字签名 {#3.certificate}
+# 3. 证书(Certificate)- 为公钥添加数字签名 {#3-certificate}
 
 总结一下[上篇的数字签名遗留的问题]和上一小节遗留的问题，汇总在一起的核心就是验证公钥必须是真正的发送者提供的。
 
@@ -166,11 +166,11 @@ SSL/TLS :  最常见的一个应用场景了，后续会介绍。
 
 计算机领域的证书和现实社会中的各种证书的工作原理是完全一样的，因为其工作在计算机体系中，也被称为**数字证书**。计算机中**数字证书**是这样定义的 :  **由证书授权中心进行数字签名的，包含公钥以及其拥有者信息的一个文件。注意 :  证书的真正用途在于为公钥提供认证功能，所以有时候也叫做公钥证书。**我们使用这个被称做证书的文件来**转移我们在信息安全层面所面临的死循环的问题**，**为什么说是转移而不是解决呢**，这是因为你拿到一个证书后，也需要进行校验吧，而校验又需要一个真正的发送者提供的公钥才行，那么你就需要另外一个证书来保障，然后你就会一直的循环下去，，，这也是为什么在计算机体系中有根证书的存在，以及相关的证书授权认证中心会是一个层级的关系，这就是为了在你不信任一个证书的时候，可以继续往上一个层级来寻求验证，直到根证书。那么问题就来了，假如你也不相信根证书怎么办？这其实是一个无法回答的问题，笔者想起来之前读《[人类简史](https://book.douban.com/subject/25985021/)》的时候，有一个至今烙印在脑海中的观点 :  **如今的社会，是一个由想象所构建的秩序**。其实想一想，也确实是如此。比如你为何相信国家的存在呢，为何会把钱存进银行呢。你拿出来一张毛爷爷(从物理的角度来看，它就是一张纸而已)为什么就能从饭店买来一堆食物，这其实就是你相信它，对方也相信它，所有人都相信它，背后有银行体系为其担保，那么什么为银行提供担保呢，背后有我们的国家提供保障，这就是一个信任的体系。**计算机体系的数字证书也是基于这么一个共同的想象所构建的信任秩序**。补充一个新闻 :  Google 宣布将完全取消对沃通和 StartCom 所有证书的信任([https://news.cnblogs.com/n/573409/](https://news.cnblogs.com/n/573409/))，这就是对方不再信任你的根证书的情况。
 
-## 3.1 PKI(Public Key Infrastructure) {#3.1.public-key-infrastructure}
+## 3.1 PKI(Public Key Infrastructure) {#3-1-public-key-infrastructure}
 
 证书得以运行的这个基本的体系称为PKI(Public Key Infrastructure)，即公钥基础设施，它是一套以公钥密码为核心的技术规范标准的一个代名词。总体来说，PKI由3个要素组成 :  PKI的消费者；认证机构(**Certificate Authority**，简称CA)；证书仓库。我们常说的CA证书，就是由CA机构签名颁发的证书。CA负责生成密钥对(也可由用户提供)、负责对用户身份进行认证、负责生成并颁发证书、负责作废证书([https://en.wikipedia.org/wiki/Certificate_revocation_list](https://en.wikipedia.org/wiki/Certificate_revocation_list))。CA是由层级结构的，正是这个层级结构构建了一套证书的验证链条，其中Root CA的证书是自签名的(也就是自己证明自己)，其下级机构逐层签名，构成一个金字塔似的结构。当然你平时自己也可以生成自签名的证书，但是除了你自己，其他地方是不认可你这个证书的(就好比你拿一张白纸，写上这是100块，然后别人就相信你它值100块吗?)，想要得以正常运行，是需要用户主动确认表示认可你这个证书才行。比如我们用Fiddler抓取HTTPS的内容的时候，其实Fiddler自己生成了一个自签名的根证书，然后你主动的确认信赖它，只有这样，证书构造的这个验证链才能得以正常运行。想起来12306就自己搞了一个自签名的证书，想必大家都有印象吧，，，需要自己下载下来证书，然后导入到计算机中，再确认信任它；其实这也是一个很尴尬的事情，全球最大的几家CA清一色不是美国就是俄罗斯。
 
-## 3.2 公钥证书 {#3.2.public-key-certificate}
+## 3.2 公钥证书 {#3-2-public-key-certificate}
 
 好了，分析完数字证书这套体系为什么能够运转起来为我们提供公钥的认证的保障之后。看看计算机中的公钥证书是什么样的，我们拿[https://www.google.com](https://www.google.com/ncr)的做例子(F12，打开安全选项卡即可)，证书的相关信息如下 :  
 ![](google-public-key-certificate-1.png)
@@ -220,7 +220,7 @@ static void Main()
 }
 ```
 
-## 3.3 PKCS(Public Key Cryptography Standards) {#3.2.public-key-cryptography-standards}
+## 3.3 PKCS(Public Key Cryptography Standards) {#3-2-public-key-cryptography-standards}
 
 证书的相关格式以及交换标准在PKCS([Public-Key Cryptography Standards](https://en.wikipedia.org/wiki/PKCS))中有详细的定义。常见的证书编码格式 :  
 
@@ -234,11 +234,11 @@ static void Main()
 3. `.pem` : 一般是采用PEM编码的base64格式，不含私钥，另外其文件一般采用ASCII编码。
 4. `.pfx` / `.p12` : 一般是采用DER编码的二进制格式，包含公钥和私钥的。
 
-# 4. 总结 {#4.summary}
+# 4. 总结 {#4-summary}
 
 本篇完善了密码相关的工具箱，增加了伪随机数，混合密码系统，以及通过转移问题而解决公钥的认证问题的数字证书，以及数字证书的工作机制，和其相关的一些细节点(当然都是一笔带过了，想了解更详细的信息还需读者自行研究)。本系列后续的会拿这个工具箱来剖析HTTPS是如何工作的。如有错误指出，欢迎指正！
 
-# 5 参考资料 {#5.reference}
+# 5 参考资料 {#5-reference}
 
 伪随机数生成器 :  https://en.wikipedia.org/wiki/Random_number_generation
 
@@ -253,10 +253,10 @@ PKCS :  https://en.wikipedia.org/wiki/PKCS
 X.509  :  https://en.wikipedia.org/wiki/X.509
 
 
-[对称密码]:../01-cryptography-toolbox-1/#1.symmetric-cryptography
-[公钥密码]:../01-cryptography-toolbox-1/#2.asymmetric-cryptography
-[密码散列函数]:../01-cryptography-toolbox-1/#3.cryptographic-hash-function
-[消息认证码]:../01-cryptography-toolbox-1/#4.message-authentication-code
-[数字签名]:../01-cryptography-toolbox-1/#5.digital-signature
-[上篇的数字签名遗留的问题]:../01-cryptography-toolbox-1/#5.3.leftover-problem
-[伪随机数]:#1.pseudo-random-number
+[对称密码]:../01-cryptography-toolbox-1/#1-symmetric-cryptography
+[公钥密码]:../01-cryptography-toolbox-1/#2-asymmetric-cryptography
+[密码散列函数]:../01-cryptography-toolbox-1/#3-cryptographic-hash-function
+[消息认证码]:../01-cryptography-toolbox-1/#4-message-authentication-code
+[数字签名]:../01-cryptography-toolbox-1/#5-digital-signature
+[上篇的数字签名遗留的问题]:../01-cryptography-toolbox-1/#5-3-leftover-problem
+[伪随机数]:#1-pseudo-random-number

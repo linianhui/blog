@@ -16,9 +16,9 @@ tag: ["SSO", "OIDC", "OpenId Connect", "OP", "OpenID Provider", "acr_values", "I
 2. [oidc-server.test](http://oidc-server.test)站点，对应的是[web.oidc.server.ids4](https://github.com/linianhui/oidc.example/blob/master/1-src/web.oidc.server.ids4)这个项目，引用了上面的这个项目。
 3. [oidc-client-implicit.test](http://oidc-client-implicit.test)站点，作为oidc的客户端，Github登录的最终消费者(它无需关注Github登录的任何细节)。
 
-# 1 OIDC Client {#1.oidc-client}
+# 1 OIDC Client {#1-oidc-client}
 
-## 1.1 指定oidc-server.test使用Github认证(可选) {#1.1.use-github-idp}
+## 1.1 指定oidc-server.test使用Github认证(可选) {#1-1-use-github-idp}
 
 下图是上一篇中起始页面，这次我们点击Oidc Login(Github)这个链接(客户端也可以不指定采用Github进行认证，推迟到进入[oidc-server.test](http://oidc-server.test)之后进行选择)。
 ![](1.1.github-op.png)
@@ -35,9 +35,9 @@ tag: ["SSO", "OIDC", "OpenId Connect", "OP", "OpenID Provider", "acr_values", "I
 
 下面我们看看[oidc-server.test](http://oidc-server.test)这个站点是如何完成这两件事情的。
 
-# 2 OIDC Server {#2.oidc-server}
+# 2 OIDC Server {#2-oidc-server}
 
-## 2.1 识别客户端发送的IDP信息 {#2.1.oidc-server-idp}
+## 2.1 识别客户端发送的IDP信息 {#2-1-oidc-server-idp}
 
 在[oidc-server.test](http://oidc-server.test)这个站点中，在集成ids4组件的时候，有这么一段代码 :  
 
@@ -74,7 +74,7 @@ private static void SetGithubOptions(GithubOAuthOptions options)
 1. `github`，这是方法的第1个参数，指定了Github作为aspnetcore这个框架种支持的一种认证方式的唯一标识符，也就是一个scheme名字。
 2. `options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;` 其含义是把上面指定的`github`这个认证方式，作为ids4的外部登录来使用。其实ExternalCookieAuthenticationScheme 也是个字符串而已 `public const string ExternalCookieAuthenticationScheme = "idsrv.external";` ，这个字符串是ids4定义的一个外部登录的sheme名字。所有的外部登录如果想要和ids4集成，都需要使用它来关联。
 
-## 2.2 集成Github登录 {#2.2.github-login}
+## 2.2 集成Github登录 {#2-2-github-login}
 
 有了上述两个信息，ids4就可以在接收到`acr_values=idp:github`这样的参数时，自动的从aspnetcore框架中已经注册的认证scheme中查找名为`gtihub`的认证方式，然后来触Github登录的流程。并且在Github认证完成后，进入ids4定义的外部登录流程中。从Fiddler中可以看到这个重定向的过程 :  
 ![](2.2.redirect-github.png)
@@ -105,7 +105,7 @@ protected virtual string BuildChallengeUrl(AuthenticationProperties properties, 
 
 `BuildChallengeUrl`方法返回的URL地址，正是上图中Github的认证页面。
 
-## 2.3 处理Github OAuth 2.0 的回调 {#2.3.github-login-callback}
+## 2.3 处理Github OAuth 2.0 的回调 {#2-3-github-login-callback}
 
 然后输入账号密码登录Github,随后Github会采用OAuth 2.0的流程，重定向到[oidc-server.test](http://oidc-server.test)的回调地址上。
 ![](2.3.github-login-callback.png)
@@ -135,7 +135,7 @@ protected override async Task<AuthenticationTicket> CreateTicketAsync(
 
 随后把这些信息加密保存到了名为`idsrv.external`(还记得在一开始的时候设置的`options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme`吧)的cookie中。
 
-## 2.4 关联Github用户 {#2.4.association-github-user}
+## 2.4 关联Github用户 {#2-4-association-github-user}
 
 在上一步保存完github的用户信息到cookie中后，ids4便开始根据github的用户信息查找是否已经绑定了已有的用户，如果没有则新建一个。我这里模拟了一个新建用户的页面(简单的设置了下昵称和用户头像-来自github) :  
 ![](2.4.0.png)
@@ -143,12 +143,12 @@ protected override async Task<AuthenticationTicket> CreateTicketAsync(
 随后，ids4保存这个新用户的信息，并且用它登录系统(并清空保存的github的用户信息)。
 ![](2.4.1.png)
 
-## 2.5 构造id_token & 重定向到客户端 {#2.5.redirect-to-client}
+## 2.5 构造id_token & 重定向到客户端 {#2-5-redirect-to-client}
 
 随后的流程就和[[OIDC in Action] 01 基于OIDC的SSO - 2.1 OIDC-Client 触发登出请求][01-login-completed]时一样的了，这里就不介绍了，完成后客户端或得到了id_token，读取到了其中的github的用户信息。
 ![](2.5.0.png)
 
-# 3 总结 {#3.summary}
+# 3 总结 {#3-summary}
 
 剖析oidc-server.test如何利用ids4来扩展第三方的登录认证方式。文章中的例子是利用ids4来处理的，其他的比如node.js或者java等等平台，代码也许不一样，但是核心流程是一样的 :  
 
@@ -160,7 +160,7 @@ protected override async Task<AuthenticationTicket> CreateTicketAsync(
 
 如有错误指出，欢迎指正!
 
-# 4 参考资料 {#4.reference}
+# 4 参考资料 {#4-reference}
 
 idp vs op  :  http://lists.openid.net/pipermail/openid-specs/2006-November/003807.html
 
@@ -173,7 +173,7 @@ ids4 Sign-in with External Identity Providers :  https://identityserver4.readthe
 
 
 [01]:../01-oidc-sso/
-[01-authc]:../01-oidc-sso/#1.2.oidc-client-send-authentication-request
-[01-login-completed]:../01-oidc-sso/#1.5.oidc-server-login-completed
+[01-authc]:../01-oidc-sso/#1-2-oidc-client-send-authentication-request
+[01-login-completed]:../01-oidc-sso/#1-5-oidc-server-login-completed
 
 [authc-and-authz-oidc-core]:/authentication-and-authorization/04-openid-connect-core/

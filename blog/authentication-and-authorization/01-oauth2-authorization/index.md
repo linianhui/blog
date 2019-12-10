@@ -4,7 +4,7 @@ created_at: 2017-01-09 09:40:00
 tag: ["OAuth2", "Access Token", "Refresh Token", "Authorization Code", "Implicit", "Resource Owner Password Credentials", "Client Credentials"]
 ---
 
-# 1 OAuth2解决什么问题的？ {#1.what-is-oauth2-use-for}
+# 1 OAuth2解决什么问题的？ {#1-what-is-oauth2-use-for}
 
 举个栗子先。**小明**在**QQ空间**积攒了多年的照片，想挑选一些照片来打印出来。然后小明在找到一家提供在线打印并且包邮的网站(我们叫它**PP**吧(Print Photo缩写 😂))。
 
@@ -19,13 +19,13 @@ tag: ["OAuth2", "Access Token", "Refresh Token", "Authorization Code", "Implicit
 
 小明觉得很痛苦，，，那么有没有不给PP账号密码，不下载照片，自己选哪些要打印直接扔给PP去打印的办法呢？OAuth走了过来扔给小明一块肥皂...
 
-# 2 OAuth2简介 {#2.oauth2-overview}
+# 2 OAuth2简介 {#2-oauth2-overview}
 
 总结来说，OAuth2 是一个**开放授权标准**,它允许用户(小明)让第三方应用(PP)访问该用户在某服务的**特定私有资源**(QQ空间中小明的照片，可以不包含小明的小视频哦)但是不提供账号密码信息给第三方应用(PP)_。_
 
 > 有个小问题，为啥是OAuth2呢？1在哪？嗯，这个嘛，其实是有1和1.1版本的，只是因为1和1.1版本流程比较复杂，应用不是很广范，这里就不介绍了。据笔者以前做过的项目，Twitter是使用的OAuth1.1的版本，感兴趣的可以去了解下<https://dev.twitter.com/oauth>。
 
-## 2.1 OAuth2的四个重要角色 {#2.1.four-important-roles-for-oauth2}
+## 2.1 OAuth2的四个重要角色 {#2-1-four-important-roles-for-oauth2}
 
 进入正题，在OAuth2的完整授权流程中有4个重要的角色参与进来 :  
 
@@ -40,7 +40,7 @@ tag: ["OAuth2", "Access Token", "Refresh Token", "Authorization Code", "Implicit
 
 OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访问凭据**给`Client`，使得`Client`可以在不知道`Resource Owner`在`Resource Server`上的用户名和密码的情况下消费`Resource Owner`的受保护资源。
 
-# 3 部署OAuth2需要的完成的工作 {#3.what-you-need-to-do-to-deploy-oauth2}
+# 3 部署OAuth2需要的完成的工作 {#3-what-you-need-to-do-to-deploy-oauth2}
 
 由于OAuth2引入了Authorization Server来管理Resource Owner，Client和Resource Server的三角关系，那么想要用上OAuth2，是实现以下功能的。
 
@@ -56,7 +56,7 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 
 其中作为Resource Owner来说，是不用做什么的，是OAuth2受益的千千万万的最终人类用户。
 
-## 3.1 作为Resource Server {#3.1.resource-server}
+## 3.1 作为Resource Server {#3-1-resource-server}
 
 在一般情况下，Resource Server提供Authorization Server服务，主要提供两类接口 :  
 
@@ -68,11 +68,11 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 1. client_id :  第三方应用程序的一个标识id，这个信息通常是公开的信息，用来区分哪一个第三方应用程序。
 2. client_secret :  第三方应用程序的私钥信息，这个信息是私密的信息，不允许在OAuth2流程中传递的，用于安全方面的检测和加密。
 
-## 3.2 作为Client {#3.1.client}
+## 3.2 作为Client {#3-1-client}
 
 在Client取得client_id和client_secret之后。使用这些信息来发起授权请求、获取access_token请求和消费受保护的资源。
 
-# 4 OAuth2的授权流程 {#4.oauth2-flow}
+# 4 OAuth2的授权流程 {#4-oauth2-flow}
 
 贴个图瞅瞅OAuth2的工作流程 :  
 ![OAuth2的工作流程](oauth2-flow.jpg)
@@ -98,7 +98,7 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 
 有了这三类信息，那么资源服务器(Resouce Server)就可以区分出来是哪个第三方应用(Client)要访问哪个用户(Resource Owner)的哪些资源(以及有没有权限)。
 
-# 5 OAuth2的4种授权许可 {#5.authorization-grant}
+# 5 OAuth2的4种授权许可 {#5-authorization-grant}
 
 上一小节介绍了OAuth2的授权流程，除了访问令牌之外，还有一个重要的概念**授权许可(Authorization Grant)**。
 
@@ -111,9 +111,9 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 3. Resource Owner Password Credentials :  资源所有者密码凭据；
 4. Client Credentials  :  客户端凭据。
 
-**注意 :  以下4种授权许可是对上述([4 OAuth2的授权流程](#4.oauth2-flow))中的ABDE四个阶段的展开。**
+**注意 :  以下4种授权许可是对上述([4 OAuth2的授权流程](#4-oauth2-flow))中的ABDE四个阶段的展开。**
 
-## 5.1 Authorization Code {#5.1.authorization-code}
+## 5.1 Authorization Code {#5-1-authorization-code}
 
 这是OAuth2最常用的一种授权许可类型，比如QQ，微博，Facebook和豆瓣等等。要求Client具有可公开访问的Server服务器来接受`授权码(Authorization Code)`，具体的流程如下 :  
 ![Authorization Code](oauth2-authorization-code.jpg)
@@ -126,7 +126,7 @@ OAuth2解决问题的关键在于使用`Authorization Server`提供一个**访�
 - (D)**Client**拿着(C )中获得的`授权码(Authorization Code)`和(客户端标识、重定向URL等信息)作为参数，请求**Authorization Server**提供的获取访问令牌的-RL**。**
 - (E)**Authorization Server**返回**访问令牌**和可选的**刷新令牌**以及**令牌有效时间**等信息给**Client**。
 
-### 5.1.1 Authorization Request {#5.1.1.authorization-request}
+### 5.1.1 Authorization Request {#5-1-1-authorization-request}
 
 对应步骤(A)，客户端提供以下参数请求Authorization Server :  
 
@@ -143,7 +143,7 @@ GET /authorize?response_type=code&client_id=1&state=xyz&redirect_uri=https%3A%2F
 Host: server.example.com
 ```
 
-### 5.1.2 Authorization Response {#5.1.2.authorization-response}
+### 5.1.2 Authorization Response {#5-1-2-authorization-response}
 
 对应步骤(C)，Authorization Server会返回如下信息 :  
 
@@ -159,7 +159,7 @@ Location: https://client.example.com/oauth2?code=SplxlOBeZQQYbYS6WxSbIA&state=xy
 
 Location头部信息指向步骤(A)提供的redirect_uri地址，同时携带code信息和state信息给client，这样浏览器在重定向的时候就会已GET的方式访问Client提供的redirect_uri，同时Client接收到code信息和state信息。下一步就可以请求access_token了。
 
-### 5.1.3 Access Token Request {#5.1.3.access-token-request}
+### 5.1.3 Access Token Request {#5-1-3-access-token-request}
 
 对应步骤(D)，客户端提供以下参数请求Authorization Server :  
 
@@ -178,7 +178,7 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=authorization_code&code=123&client_id=1&redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Foauth2
 ```
 
-### 5.1.4 Access Token Response {#5.1.4.access-token-response}
+### 5.1.4 Access Token Response {#5-1-4-access-token-response}
 
 对应步骤(E)，Authorization Server会返回如下典型的信息 :  
 
@@ -201,14 +201,14 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-## 5.2 Implicit {#5.2.implicit}
+## 5.2 Implicit {#5-2-implicit}
 
 这个是Authorization Code的简化版本。其中省略掉了颁发授权码(Authorization Code)给客户端的过程，而是直接返回访问令牌和可选的刷新令牌。其适用于没有Server服务器来接受处理Authorization Code的第三方应用，其流程如下 :  
 ![Implicit](oauth2-implicit.jpg)
 
 其步骤就不做详细介绍了，相信大家都能理解。和Authorzation Code类型下重要的区分就是省略了Authorization Response和Access Token Request。而是直接由Authorization Request返回Access Token Response信息，具体如下。
 
-### 5.2.1 Authorization Request {#5.2.1.authorization-request}
+### 5.2.1 Authorization Request {#5-2-1-authorization-request}
 
 客户端提供以下参数请求Authorization Server :  
 
@@ -227,7 +227,7 @@ GET /authorize?response_type=token&client_id=1&state=xyz&redirect_uri=https%3A%2
 Host: server.example.com
 ```
 
-### 5.2.2 Access Token Response {#5.2.2.access-token-response}
+### 5.2.2 Access Token Response {#5-2-2-access-token-response}
 
 Authorization Server会返回如下典型的信息 :  
 
@@ -244,7 +244,7 @@ Location: http://client.example.com/oauth2#access_token=2YotnFZFEjr1zCsicMWpAA&s
 
 注意其和Authorization Code的最大区别在于它是把token信息放在了url的hash部分(`#`后面)，而不是作为参数(`?`后面)。这样浏览器在访问重定向的Location指定的url时，就不会把这些数据发送到服务器。而Client可以通过读取Location头信息中获取到access_token信息。
 
-## 5.3 Resource Owner Password Credentials Grant {#5.3.resource-owner-password-credentials-grant}
+## 5.3 Resource Owner Password Credentials Grant {#5-3-resource-owner-password-credentials-grant}
 
 看看流程图 :  
 ![Resource Owner Password Credentials Grant](oauth2-resource-owner-password-credentials-grant.jpg)
@@ -270,7 +270,7 @@ grant_type=password&username=blackheart&password=1234
 
 Access Token Response和Authorization Code一致，就不列出来了。
 
-## 5.4 Client Credentials Grant {#5.4.client-credentials-grant}
+## 5.4 Client Credentials Grant {#5-4-client-credentials-grant}
 
 这种类型就更简化了，Client直接已自己的名义而不是Resource Owner的名义去要求访问Resource Server的一些受保护资源。
 ![Client Credentials Grant](oauth2-client-credentials-grant.jpg)
@@ -294,7 +294,7 @@ Access Token Response和Authorization Code一致，就不列出来了。
 
 以笔者以前做公共号开发的经验，它提供由这类的OAuth2许可类型，这个场景下得到的access_token的所属人是公众号的，可以用此access_token来获取所有已关注的用户的信息，而不局限于特定的某一个用户，正是Client Credentials Grant这种类型的许可的用武之地，案例文档地址在文章最后面。
 
-# 6 OAuth2刷新令牌 {#6.refresh-token}
+# 6 OAuth2刷新令牌 {#6-refresh-token}
 
 在上述得到访问令牌(access_token)时，一般会提供一个过期时间和刷新令牌。以便在访问令牌过期失效的时候可以由客户端自动获取新的访问令牌，而不是让用户再次登陆授权。那么问题来了，是否可以把过期时间设置的无限大呢，答案是可以的，笔者记得Pocket的OAuth2拿到的访问令牌就是无限期的，好像豆瓣的也是。如下是刷新令牌的收客户端需要提供给Authorization Server的参数 :  
 
@@ -310,9 +310,9 @@ Host: server.example.com
 grant_type=refresh_token&refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
 ```
 
-响应信息和[5.1.4 Access Token Response](#5.1.4.access-token-response)保持一致。
+响应信息和[5.1.4 Access Token Response](#5-1-4-access-token-response)保持一致。
 
-# 7 Token传递方式 {#7.token-parameter}
+# 7 Token传递方式 {#7-token-parameter}
 
 在第三方Client拿到access_token后，如何发送给Resouce Server这个问题并没有在RFC6729种定义，而是作为一个单独的RFC6750来独立定义了。这里做以下简单的介绍，主要有三种方式如下 :  
 
@@ -320,7 +320,7 @@ grant_type=refresh_token&refresh_token=tGzv3JOkF0XG5Qx2TlKWIA
 2. Authorization Request Header Field.
 3. Form-Encoded Body Parameter.
 
-## 7.1 URI Query Parameter {#7.1.url-query-parameter}
+## 7.1 URI Query Parameter {#7-1-url-query-parameter}
 
 这种使用途径应该是最常见的一种方式，非常简单，比如 :  
 
@@ -332,7 +332,7 @@ Cache-Control: no-store
 
 在我们请求受保护的资源的Url后面追加一个`access_token`参数即可。另外还有一点要求，就是Client需要设置以下Request Header的`Cache-Control:no-store`，用来阻止access_token不会被Web中间件给log下来，属于安全防护方面的一个考虑。
 
-## 7.2 Authorization Request Header Field {#7.2.authorization-request-header-field}
+## 7.2 Authorization Request Header Field {#7-2-authorization-request-header-field}
 
 因为在HTTP应用层协议中，专门有定义一个授权使用的Request Header，所以也可以使用这种方式 :  
 
@@ -344,7 +344,7 @@ Authorization: Bearer mF9.B5f-4.1JqM
 
 其中`Bearer `是固定的在access_token前面的头部信息。
 
-## 7.3 Form-Encoded Body Parameter {#7.3.form-encoded-body-parameter}
+## 7.3 Form-Encoded Body Parameter {#7-3-form-encoded-body-parameter}
 
 使用Request Body这种方式，有一个额外的要求，就是Request Header的`Content-Type`必须是固定的`application/x-www-form-urlencoded`，此外还有一个限制就是不可以使用GET访问，这个好理解，毕竟GET请求是不能携带Request Body的。
 
@@ -356,7 +356,7 @@ Content-Type: application/x-www-form-urlencoded
 access_token=mF9.B5f-4.1JqM
 ```
 
-# 8 OAuth2的安全问题 {#8.security}
+# 8 OAuth2的安全问题 {#8-security}
 
 在OAuth2早期的时候爆发过不少相关的安全方面的漏洞，其实仔细分析后会发现大都都是没有严格遵循OAuth2的安全相关的指导造成的，相关的漏洞事件百度以下就有了。
 
@@ -370,11 +370,11 @@ access_token=mF9.B5f-4.1JqM
 
 安全无小事，这方面是要靠各方面(开放平台，第三方开发者)共同防范的。如QQ互联的OAuth2 API中，state参数是强制必选的参数，授权接口是基于HTTPS的加密通道等；同时作为第三方开发者在使用消费这些服务的时候也应该遵循其相关的安全规范。
 
-# 9 总结 {#9.summary}
+# 9 总结 {#9-summary}
 
 OAuth2是一种**授权**标准框架，用来解决的是第三方服务在无需用户提供账号密度的情况下访问用户的私有资源的一套流程规范。与其配套的还有其他相关的规范，都可以到<https://oauth.net/2/>去延伸阅读和了解。
 
-# 10 参考 {#10.reference}
+# 10 参考 {#10-reference}
 
 https://oauth.net/2/
 
@@ -390,7 +390,7 @@ RFC6750 - The OAuth 2.0 Authorization Framework: Bearer Token Usage : https://to
 
 RFC6819 - OAuth 2.0 Threat Model and Security Considerations : https://tools.ietf.org/html/rfc6819
 
-# 11 案例  {#11.example}
+# 11 案例  {#11-example}
 
 [豆瓣OAuth2 API(Authorization Code)](https://developers.douban.com/wiki/?title=oauth2 "oauth2")
 
