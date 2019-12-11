@@ -1,19 +1,22 @@
 #  https://gohugo.io/getting-started/configuration/#configure-blackfriday
 
+log: true
+verbose: true
+
+
 baseURL: https://linianhui.github.io/
 languageCode: zh-cn
 hasCJKLanguage: true
 
-title: 'blackheart'
+
+title: "blackheart"
 params:
-  Subtitle: '泛义的工具是文明的基础，而确指的工具却是愚人的器物'
+  Subtitle: "泛义的工具是文明的基础，而确指的工具却是愚人的器物"
   RepositoryUrl: https://github.com/linianhui/linianhui.github.io
   RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
   CiUrl: https://github.com/linianhui/linianhui.github.io/actions
   CiBadgeImageUrl: https://github.com/linianhui/linianhui.github.io/workflows/deploy/badge.svg
 
-taxonomies:
-  tag: tag
 menu:
   main:
     - identifier: home
@@ -37,7 +40,9 @@ menu:
       weight: 4
       pre: '<i class="fa fa-archive"></i>'
   topic: []
-sectionPagesMenu: 'topic'
+taxonomies:
+  tag: tag
+sectionPagesMenu: "topic"
 
 sitemap:
   changefreq: monthly
@@ -61,45 +66,36 @@ frontmatter:
   date:
     - created_at
 summaryLength: 168
-
-pygmentsCodefences: true
-pygmentsUseClassic: false
-pygmentsCodefencesGuessSyntax: true
-pygmentsUseClasses: false
-pygmentsStyle: vs
-pygmentsOptions:
-  noclasses: true
-  linenos: 1
-  linenostart: 1
-
 enableEmoji: true
 enableGitInfo: true
 
-# Blackfriday Options
-taskLists: true
-smartypants: false
-angledQuotes: false
-fractions: true
-plainIDAnchors: false
-extensions:
-  - tables
-  - fencedCode
-  - autolink
-  - strikethrough
-  - spaceHeaders
-  - footnotes
-  - headerIds
-  - definitionLists
-  - joinLines
-extensionsmask:
-  - noIntraEmphasis
-  - laxHtmlBlocks
-  - tabSizeEight
-  - noEmptyLineBeforeBlock
-  - autoHeaderIds
-  - backslashLineBreak
-skipHTML: true
-hrefTargetBlank: true
-
-log: true
-verbose: true
+markup:
+  tableOfContents:
+    startLevel: 1
+    endLevel: 6
+  highlight:
+    codeFences: true
+    hl_Lines: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: false
+    noClasses: true
+    style: vs
+    tabWidth: 4
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    extensions:
+      definitionList: true
+      footnote: true
+      linkify: true
+      strikethrough: true
+      table: true
+      taskList: true
+      typographer: false
+    parser:
+      attribute: true
+      autoHeadingID: false
+    renderer:
+      hardWraps: true
+      unsafe: true
+      xHTML: true
