@@ -9,14 +9,13 @@
     </span>
   </section>
   <section>
-    {{ if ne $.Site.Params.GitLastHash "" }}
     <span>
-      <a class="fa fa-code-fork article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
-        {{substr $.Site.Params.GitLastHash 0 7}}
+      <a href="{{ $.Site.Params.RepositoryUrl }}" target="_blank">
+        <i class="fa fa-github"></i>
+        源码
       </a>
     </span>
     <span> | </span>
-    {{ end }}
     <span>
       Powered by
       <a href="https://github.com/actions" target="_blank">GitHub Actions</a>
@@ -27,9 +26,13 @@
     <span>Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></span>
     <span> | </span>
     <span>
+      {{ if ne $.Site.Params.GitLastHash "" }}
+        <a class="fa fa-code-fork article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
+          {{substr $.Site.Params.GitLastHash 0 7}}
+        </a>
+      {{ end }}
       <a href="{{ $.Site.Params.CiUrl}}" target="_blank">
-        <img src="{{ $.Site.Params.CiBadgeImageUrl}}"
-          style="vertical-align: bottom;">
+        <img src="{{ $.Site.Params.CiBadgeImageUrl}}" style="vertical-align: top;" />
       </a>
     </span>
     <section>
