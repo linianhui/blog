@@ -2,6 +2,7 @@
 title: '[OIDC in Action] 01 基于OIDC的SSO'
 created_at: 2017-11-26 01:09:00
 tag: ["OIDC", "OpenId Connect", "SSO"]
+toc: true
 ---
 
 在[[认证&授权]][authc-and-authz]系列博客中，分别对OAuth2和OIDC在理论概念方面进行了解释说明，其间虽然我有写过一个完整的示例(<https://github.com/linianhui/oidc.example>)，但是却没有在实践方面做出过解释。在这里新开一个系列博客，来解释其各种不同的应用场景。因为OIDC是在OAuth2之上的协议，所以这其中也会包含OAuth2的一些内容。

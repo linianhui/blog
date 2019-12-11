@@ -2,6 +2,7 @@
 title: '[程序设计语言] 02 [核心概念] 名字、作用域和约束(Bindings)'
 created_at: 2014-08-03 09:09:00
 tag: ["抽象", "名字", "作用域", "约束"]
+toc: true
 ---
 
 # 1 名字、约束时间(Binding Time) {#1-names-and-binding-time}

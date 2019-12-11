@@ -2,6 +2,7 @@
 title: "[理解REST] 01 REST的起源"
 created_at: 2017-09-06 10:06:00
 tag: ["REST", "超媒体", "Hypermedia", "CREN"]
+toc: true
 ---
 
 # 1 世界上第一个网站 {#1-the-first-web-site-in-the-world}

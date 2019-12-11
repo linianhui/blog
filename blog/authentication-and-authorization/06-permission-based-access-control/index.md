@@ -2,6 +2,7 @@
 title: '[认证&授权] 06 Permission Based Access Control'
 created_at: 2018-01-13 15:23:00
 tag: ["Access Token", "Id Token", "Permission", "Scope", "Role", "Shiro"]
+toc: true
 ---
 
 在前面5篇博客中介绍了OAuth2和OIDC(OpenId Connect)，其作用是授权和认证。那么当我们得到OAuth2的`Access Token`或者OIDC的`Id Token`之后，我们的**资源服务**如何来验证这些token是否有权限来执行对资源的某一项操作呢？比如我有一个API `/book`，它具有如下5个操作 :

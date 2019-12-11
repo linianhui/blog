@@ -2,6 +2,7 @@
 title: '[代码规范] HTTP APIs 设计/规范指南'
 created_at: 2018-03-31 09:02:21
 tag: ["REST", "HTTP", "API", "JSON", "URL", "资源", "表述", "i18n", "命名规则", "设计指南"]
+toc: true
 ---
 
 根据REST APIs的成熟度模型 ，此规范关注的是`Level 2`的APIs。

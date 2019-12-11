@@ -2,6 +2,7 @@
 title: '[程序设计语言] 01 基础'
 created_at: 2014-07-20 19:58:00
 tag: ["抽象", "汇编", "编译器", "解释器"]
+toc: true
 ---
 
 # 1 机器语言 > 汇编语言 > 高级语言 {#1-machine-assembly-high-level-language}
