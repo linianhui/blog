@@ -2,7 +2,6 @@
 title: "[理解REST] 00 参考资料"
 created_at: 2017-09-01 10:06:00
 tag: ["REST"]
-toc: true
 ---
 
 Web之父 Tim Berners Lee : https://en.wikipedia.org/wiki/Tim_Berners-Lee
