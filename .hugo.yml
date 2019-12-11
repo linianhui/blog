@@ -16,6 +16,7 @@ params:
   RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
   CiUrl: https://github.com/linianhui/linianhui.github.io/actions
   CiBadgeImageUrl: https://github.com/linianhui/linianhui.github.io/workflows/deploy/badge.svg
+  GitLastHash: ''
 
 menu:
   main:

@@ -23,6 +23,7 @@ jobs:
       - name: push to github master branch
         env:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+          HUGO_PARAMS_GitLastHash: ${{ GITHUB_SHA }}
         working-directory: .www
         run: |
           mkdir -p ~/.ssh/
