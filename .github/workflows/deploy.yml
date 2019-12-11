@@ -19,9 +19,9 @@ jobs:
       - name: hugo version
         run: hugo version
       - name: hugo generate static web site
-        env:
-          HUGO_PARAMS_GitLastHash: ${GITHUB_SHA}
-        run: hugo --config .hugo.yml
+        run: |
+          export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
+          hugo --config .hugo.yml
       - name: push to github master branch
         env:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
