@@ -7,17 +7,15 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    
+    runs-on: ubuntu-16.04
+
+    container:
+      # https://hub.docker.com/r/lnhcode/hugo
+      image: lnhcode/hugo:0.62.0
+
     steps:
       - name: git checkout
         uses: actions/checkout@v1
-      - name: install hugo
-        run: |
-          wget https://github.com/gohugoio/hugo/releases/download/v0.62.0/hugo_0.62.0_Linux-64bit.deb
-          sudo dpkg -i hugo_0.62.0_Linux-64bit.deb
-      - name: hugo version
-        run: hugo version
       - name: hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
