@@ -9,7 +9,7 @@ toc: true
 
 # 1 标准化 {#1-standardization} 
 
-**计算机网络**由**节点(node : 计算机、集线器、交换机或路由器)**和连接它们的**链路(link)**组成。这些众多的设备之间如何通信？其中离不开各种各样的标准，标准的意义在于统一的规则，遵循相同标准的设备之间可以互联互通，从而避免一些不兼容的问题。[IETF(Internet Engineering Task Force)][ietf]是负责标准化的一个重要机构，IP、TCP、UDP、DNS、HTTP等等众多协议都是由IETF标准化的。
+**计算机网络** 由 **节点(node : 计算机、集线器、交换机或路由器)** 和连接它们的 **链路(link)** 组成。这些众多的设备之间如何通信？其中离不开各种各样的标准，标准的意义在于统一的规则，遵循相同标准的设备之间可以互联互通，从而避免一些不兼容的问题。[IETF(Internet Engineering Task Force)][ietf]是负责标准化的一个重要机构，IP、TCP、UDP、DNS、HTTP等等众多协议都是由IETF标准化的。
 
 # 2 常见的分类 {#2-categories}
 
