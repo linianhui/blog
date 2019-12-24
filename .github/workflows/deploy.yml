@@ -7,27 +7,33 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-16.04
-
-    container:
-      # https://hub.docker.com/r/lnhcode/hugo
-      image: lnhcode/hugo:0.62.0
-
+    runs-on: ubuntu-latest
+    
     steps:
       - name: git checkout
         uses: actions/checkout@v1
+      - name: install hugo
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v0.62.0/hugo_0.62.0_Linux-64bit.deb
+          sudo dpkg -i hugo_0.62.0_Linux-64bit.deb
+      - name: hugo version
+        run: hugo version
       - name: hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
           hugo --config .hugo.yml
       - name: push to github master branch
-        working-directory: .www
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+        working-directory: .www
         run: |
+          mkdir -p ~/.ssh/
+          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
           git add .
           git commit -m "GitHub Actions deploy ${GITHUB_SHA}"
-          git push --force "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}" HEAD:master
+          git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:master
