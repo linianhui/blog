@@ -8,22 +8,26 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: git checkout
         uses: actions/checkout@v1
+
       - name: install hugo
         env:
           HUGO_VERSION: 0.62.0
         run: |
           wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.deb
           sudo dpkg -i hugo_${HUGO_VERSION}_Linux-64bit.deb
+
       - name: hugo version
         run: hugo version
+
       - name: hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
           hugo --config .hugo.yml
+
       - name: push to github master branch
         env:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
