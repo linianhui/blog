@@ -40,6 +40,11 @@ menu:
       url: /archive/
       weight: 4
       pre: '<i class="fa fa-archive"></i>'
+    - identifier: mirror
+      name: Mirror
+      url: https://linianhui.gitee.io
+      weight: 5
+      pre: '<i class="fa fa-file-archive-o"></i>'
   topic: []
 taxonomies:
   tag: tag
