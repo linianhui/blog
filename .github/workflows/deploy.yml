@@ -41,5 +41,13 @@ jobs:
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
           git add .
-          git commit -m "GitHub Actions deploy ${GITHUB_SHA}"
+          git commit -m "GitHub Actions deploy https://github.com/linianhui/linianhui.github.io/commit/${GITHUB_SHA}"
           git push --force git@github.com:${GITHUB_REPOSITORY} HEAD:master
+      - name: push to gitee master branch
+        env:
+          DEPLOY_PRIVATE_KEY: ${{ secrets.GITEE_DEPLOY_PRIVATE_KEY }}
+        working-directory: .www
+        run: |
+          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          ssh-keyscan gitee.com >> ~/.ssh/known_hosts
+          git push --force git@gitee.com:linianhui/linianhui.git HEAD:master
