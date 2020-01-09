@@ -42,7 +42,7 @@ menu:
       pre: '<i class="fa fa-archive"></i>'
     - identifier: github
       name: GitHub
-      url: https://linianhui.gitee.io
+      url: https://github.com/linianhui/linianhui.github.io
       weight: 5
       pre: '<i class="fa fa-github"></i>'
   topic: []
