@@ -276,7 +276,7 @@ summary{
   margin-top: 0;
 }
 
-.article-content .file-list-wrapper {
+.article-content .file-list {
   margin-top: 0.5em;
   border: 1px solid #eee;
 }
@@ -288,8 +288,18 @@ summary{
   background-color: #eee;
 }
 
-.article-content .file-item {
-  margin: 4px;
+.article-content .file-list table {
+  margin: 0;
+  width: auto;
+}
+
+
+.article-content .file-list table,
+.article-content .file-list td, 
+.article-content .file-list th {
+  border-collapse: unset; 
+  border: none; 
+  padding: 2px;
 }
 
 .article-content .article-h-a{
