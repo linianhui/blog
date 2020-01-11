@@ -1,13 +1,7 @@
 version: '3'
 
-networks:
-  network_default:
-    driver: bridge
-
 services:
   hugo:
     build: .
-    networks:
-      - network_default
     ports:
-      - '60080:80'
+      - '1313:80'
