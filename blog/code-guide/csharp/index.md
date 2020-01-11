@@ -8,7 +8,7 @@ toc: true
 
 # 1 代码规范
 
-代码风格配置文件 [.editorconfig](https://github.com/linianhui/linianhui.github.io/blob/blog/blog/code-guide/csharp/.editorconfig)
+代码风格配置文件 [.editorconfig](https://github.com/linianhui/blog/blob/master/blog/code-guide/csharp/.editorconfig)
 
 # 2 项目结构
 

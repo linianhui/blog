@@ -12,10 +12,10 @@ hasCJKLanguage: true
 title: "blackheart"
 params:
   Subtitle: "泛义的工具是文明的基础，而确指的工具却是愚人的器物"
-  RepositoryUrl: https://github.com/linianhui/linianhui.github.io
-  RepositoryBlogUrl: https://github.com/linianhui/linianhui.github.io/blob/blog/blog
-  CiUrl: https://github.com/linianhui/linianhui.github.io/actions
-  CiBadgeImageUrl: https://github.com/linianhui/linianhui.github.io/workflows/deploy/badge.svg
+  RepositoryUrl: https://github.com/linianhui/blog
+  RepositoryBlogUrl: https://github.com/linianhui/blog/blob/master/blog
+  CiUrl: https://github.com/linianhui/blog/actions
+  CiBadgeImageUrl: https://github.com/linianhui/blog/workflows/deploy/badge.svg
   GitLastHash: ''
 
 menu:
@@ -42,7 +42,7 @@ menu:
       pre: '<i class="fa fa-archive"></i>'
     - identifier: github
       name: GitHub
-      url: https://github.com/linianhui/linianhui.github.io
+      url: https://github.com/linianhui/blog
       weight: 5
       pre: '<i class="fa fa-github"></i>'
   topic: []
