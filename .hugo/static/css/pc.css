@@ -253,8 +253,20 @@ summary{
   word-break: break-all;
 }
 
+.article-content .highlight {
+  margin-top: 16px;
+  display: block;
+  overflow-x: auto;
+  border: 1px solid #eee;
+}
+
+.article-content .highlight pre {
+  margin: 0;
+  padding: 6px 8px;
+}
+
 .article-content .highlight-file {
-  margin-top: 0.5em;
+  margin-top: 16px;
 }
 
 .article-content .highlight-file-title {
@@ -262,14 +274,6 @@ summary{
   border: 1px solid #eee;
   font-style: italic;
   background-color: #eee;
-}
-
-.article-content .highlight {
-  margin-top: 0.5em;
-  display: block;
-  overflow-x: auto;
-  border: 1px solid #eee;
-  padding-left: 1em;
 }
 
 .article-content .highlight-file .highlight{
