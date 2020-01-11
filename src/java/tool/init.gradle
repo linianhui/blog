@@ -1,0 +1,53 @@
+// GRADLE_USER_HOME/init.gradle
+gradle.allprojects {
+  ext {
+    // https://help.aliyun.com/document_detail/102512.html
+    MAVEN_REPOSITORY_MIRROR_URL_MAP = [
+      '//repo1.maven.org/maven2'         : 'https://maven.aliyun.com/repository/central',
+      '//repo.maven.apache.org/maven2'   : 'https://maven.aliyun.com/repository/central',
+      '//jcenter.bintray.com'            : 'https://maven.aliyun.com/repository/jcenter',
+      '//maven.google.com'               : 'https://maven.aliyun.com/repository/google',
+      '//plugins.gradle.org/m2'          : 'https://maven.aliyun.com/repository/gradle-plugin',
+      '//repo.spring.io/release'         : 'https://maven.aliyun.com/repository/spring',
+      '//repo.spring.io/milestone'       : 'https://maven.aliyun.com/repository/spring',
+      '//repo.spring.io/libs-milestone'  : 'https://maven.aliyun.com/repository/spring',
+      '//repo.spring.io/plugins-release' : 'https://maven.aliyun.com/repository/spring-plugin',
+      '//repo.grails.org/grails/core'    : 'https://maven.aliyun.com/repository/grails-core'
+    ]
+
+    findMavenRepositoryMirrorUrl = {
+      for(item in MAVEN_REPOSITORY_MIRROR_URL_MAP){
+        if(it.contains(item.key)){
+          return item.value
+        }
+      }
+    }
+
+    tryReplaceWithMavenRepositoryMirrorUrl = { type, repository ->
+      if(repository instanceof MavenArtifactRepository){
+        originalUrl = repository.url.toString()
+        mirrorUrl = findMavenRepositoryMirrorUrl(originalUrl)
+        if(mirrorUrl){
+          repository.setUrl(mirrorUrl)
+          logger.info("${type} : use ${repository.url} replace ${originalUrl}")
+        }else{
+          logger.info("${type} : use ${repository.url}")
+        }
+      }
+    }
+  }
+
+  buildscript {
+    repositories {
+      all { repository -> 
+        tryReplaceWithMavenRepositoryMirrorUrl('buildscript.repositories', repository)
+      }
+    }
+  }
+
+  repositories {
+    all { repository -> 
+      tryReplaceWithMavenRepositoryMirrorUrl('repositories', repository)
+    }
+  }
+}
