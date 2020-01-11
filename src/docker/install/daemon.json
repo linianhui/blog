@@ -1,0 +1,14 @@
+{
+  "debug": true,
+  "tls": false,
+  "ipv6": false,
+  "registry-mirrors": [
+    "https://registry.docker-cn.com",
+    "https://dockerhub.azk8s.cn",
+    "https://reg-mirror.qiniu.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ],
+  "insecure-registries": [
+    "registry.test"
+  ]
+}
