@@ -13,7 +13,7 @@ title: "blackheart"
 params:
   Subtitle: "泛义的工具是文明的基础，而确指的工具却是愚人的器物"
   RepositoryUrl: https://github.com/linianhui/blog
-  RepositoryBlogUrl: https://github.com/linianhui/blog/blob/master/src
+  RepositorySrcUrl: https://github.com/linianhui/blog/blob/master/src
   CiUrl: https://github.com/linianhui/blog/actions
   CiBadgeImageUrl: https://github.com/linianhui/blog/workflows/deploy/badge.svg
   GitLastHash: ''

@@ -3,7 +3,9 @@
 {{$lang := path.Ext $file | strings.TrimPrefix "."}}
 <div class="highlight-file">
   <div class="highlight-file-title">
-    <a class="highlight-file-title-a" href="{{$fileFullPath}}">{{ $file }}</a>
+    file : {{ $file }}
+    <a class="fa fa-download" target="_blank" href="{{$fileFullPath}}"></a>
+    <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositorySrcUrl}}{{$fileFullPath}}"></a>
   </div>
   {{- highlight ($fileFullPath | readFile) $lang "" -}}
 </div>
