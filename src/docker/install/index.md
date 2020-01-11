@@ -7,21 +7,21 @@ toc: true
 
 # 1 Dokcer {#1-docker}
 
-{{<highlight-file file="install.docker-on-ubuntu.sh">}}
+{{<highlight-file file="install.docker-on-ubuntu.sh" lang="bash">}}
 
-{{<highlight-file file="install.docker-on-centos.sh">}}
+{{<highlight-file file="install.docker-on-centos.sh" lang="bash">}}
 
-{{<highlight-file file="config.dockerd.sh">}}
+{{<highlight-file file="config.dockerd.sh" lang="bash">}}
 
 
 # 2 Dokcer Compose {#2-docker-compose}
 
-{{<highlight-file file="install.docker-compose.sh">}}
+{{<highlight-file file="install.docker-compose.sh" lang="bash">}}
 
 
 # 3 Dokcer Machine {#3-docker-machine}
 
-{{<highlight-file file="install.docker-machine.sh">}}
+{{<highlight-file file="install.docker-machine.sh" lang="bash">}}
 
 
 # 4 Reference {#4-reference}
