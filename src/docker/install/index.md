@@ -7,36 +7,21 @@ toc: true
 
 # 1 Dokcer {#1-docker}
 
-```bash
-wget https://linianhui.github.io/docker/install/install.docker-on-ubuntu.sh
-sudo bash install.docker-on-ubuntu.sh
-```
+{{<highlight-file file="install.docker-on-ubuntu.sh">}}
 
-```bash
-wget https://linianhui.github.io/docker/install/install.docker-on-centos.sh
-sudo bash install.docker-on-centos.sh
-```
+{{<highlight-file file="install.docker-on-centos.sh">}}
 
-```bash
-wget https://linianhui.github.io/docker/install/config.dockerd.sh
-sudo bash config.dockerd.sh
-```
+{{<highlight-file file="config.dockerd.sh">}}
 
 
 # 2 Dokcer Compose {#2-docker-compose}
 
-```bash
-wget https://linianhui.github.io/docker/install/install.docker-compose.sh
-sudo bash install.docker-compose.sh
-```
+{{<highlight-file file="install.docker-compose.sh">}}
 
 
 # 3 Dokcer Machine {#3-docker-machine}
 
-```bash
-wget https://linianhui.github.io/docker/install/install.docker-machine.sh
-sudo bash install.docker-machine.sh
-```
+{{<highlight-file file="install.docker-machine.sh">}}
 
 
 # 4 Reference {#4-reference}
