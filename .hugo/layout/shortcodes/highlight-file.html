@@ -1,9 +1,9 @@
 {{$file := .Get "file"}}
-{{$fileFullPath := (printf "%s%s" $.Page.File.Dir $file) }}
+{{$fileFullPath := ((path.Join $.Page.File.Dir $file) | relURL) }}
 {{$lang := path.Ext $file | strings.TrimPrefix "."}}
 <div class="highlight-file">
   <div class="highlight-file-title">
-    <a class="highlight-file-title-a" href="/{{ $fileFullPath}}">{{ $file }}</a>
+    <a class="highlight-file-title-a" href="{{$fileFullPath}}">{{ $file }}</a>
   </div>
   {{- highlight ($fileFullPath | readFile) $lang "" -}}
 </div>
