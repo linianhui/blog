@@ -9,10 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-16.04
 
-    container:
-      # https://hub.docker.com/r/lnhcode/hugo
-      image: lnhcode/hugo:0.62.0
-
     steps:
       - name: git checkout
         uses: actions/checkout@v1
@@ -25,6 +21,13 @@ jobs:
           echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: install hugo
+        env:
+          HUGO_VERSION: 0.62.0
+        run: |
+          wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb -O hugo.deb
+          sudo dpkg -i hugo.deb
 
       - name: hugo generate static web site
         run: |
