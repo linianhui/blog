@@ -277,6 +277,22 @@ summary{
   margin-top: 0;
 }
 
+.article-content .file-list-wrapper {
+  margin-top: 0.5em;
+  border: 1px solid #eee;
+}
+
+.article-content .file-list-title {
+  padding: 4px;
+  border: 1px solid #eee;
+  font-style: italic;
+  background-color: #eee;
+}
+
+.article-content .file-item {
+  margin: 4px;
+}
+
 .article-content .article-h-a{
   position: absolute;
   visibility: hidden;

@@ -1,0 +1,14 @@
+{{$pattern := .Get "pattern"}}
+{{$currentDir := ($.Page.File.Dir | relURL)}}
+<div class="file-list-wrapper">
+  <div class="file-list-title">
+    ls {{ $pattern }}
+  </div>
+  <div class="file-list">
+    {{ range (readDir (path.Join "src" $currentDir)) }}
+    <div class="file-item">
+      <a class="file-item-a" href="{{path.Join $currentDir .Name}}">{{ .Name}}</a>
+    </div>
+    {{ end }}
+  </div>
+</div>
