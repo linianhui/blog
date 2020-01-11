@@ -253,12 +253,28 @@ summary{
   word-break: break-all;
 }
 
+.article-content .highlight-file {
+  margin-top: 0.5em;
+}
+
+.article-content .highlight-file-title {
+  padding: 4px;
+  border: 1px solid #eee;
+  font-style: italic;
+  background-color: #eee;
+  color: #eee;
+}
+
 .article-content .highlight {
   margin-top: 0.5em;
   display: block;
   overflow-x: auto;
   border: 1px solid #eee;
   padding-left: 1em;
+}
+
+.article-content .highlight-file .highlight{
+  margin-top: 0;
 }
 
 .article-content .article-h-a{
