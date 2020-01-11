@@ -1,6 +1,6 @@
 {{$file := .Get "file"}}
+{{$lang := .Get "lang"}}
 {{$fileFullPath := ((path.Join $.Page.File.Dir $file) | relURL) }}
-{{$lang := path.Ext $file | strings.TrimPrefix "."}}
 <div class="highlight-file">
   <div class="highlight-file-title">
     file : {{ $file }}
