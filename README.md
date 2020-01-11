@@ -1,11 +1,13 @@
+# <https://linianhui.github.io> 
 
 [![Github-Actions-Img]][Github-Actions-Url] 
 
-# <https://linianhui.github.io> 
 
+# 本地运行
 
-[AppVeyor-Img]:https://ci.appveyor.com/api/projects/status/x9h8w9cljbf4dcf7/branch/blog?svg=true&passingText=deploy+ok&pendingText=deploy+pending&failingText=deploy+failed
-[AppVeyor-Url]:https://ci.appveyor.com/project/linianhui/linianhui-github-io/branch/blog
+```bash
+hugo server
+```
 
 [Github-Actions-Img]:https://github.com/linianhui/blog/workflows/deploy/badge.svg
 [Github-Actions-Url]:https://github.com/linianhui/blog/actions

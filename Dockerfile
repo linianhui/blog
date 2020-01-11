@@ -4,7 +4,7 @@ COPY . /src
 WORKDIR /src
 
 RUN hugo version
-RUN hugo --config .hugo.yml
+RUN hugo
 
 
 FROM nginx:alpine
