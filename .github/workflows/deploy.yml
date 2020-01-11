@@ -17,20 +17,23 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v1
 
+      - name: add deploy private key
+        env:
+          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
           hugo --config .hugo.yml
 
       - name: push to linianhui/linianhui.github.io master branch
-        env:
-          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         working-directory: .www
         run: |
-          mkdir -p ~/.ssh/
-          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
           git init
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
