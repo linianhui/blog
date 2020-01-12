@@ -3,13 +3,13 @@
 [![Github-Actions-Img]][Github-Actions-Url] 
 
 
-# 运行
+# 本地运行
 
 <http://localhost:1313>
 
 1. hugo 运行
     ```bash
-    hugo server
+    hugo --config .hugo.yml server
     ```
 2. Docker Compose 运行
     ```bash

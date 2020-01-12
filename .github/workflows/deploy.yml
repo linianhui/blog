@@ -32,7 +32,7 @@ jobs:
       - name: hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
-          hugo
+          hugo --config .hugo.yml
 
       - name: push to linianhui/linianhui.github.io master branch
         working-directory: .www
