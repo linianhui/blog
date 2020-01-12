@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+;隐藏[快捷方式]的小箭头
+
+[HKEY_CLASSES_ROOT\lnkfile]
+"IsShortcut"=-
+
+[HKEY_CLASSES_ROOT\piffile]
+"IsShortcut"=-

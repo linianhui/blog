@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+;隐藏[资源管理器/收藏夹]
+
+[HKEY_CLASSES_ROOT\CLSID\{323CA680-C24D-4099-B94D-446DD2D7249E}\ShellFolder]
+"Attributes"=dword:a9400100
