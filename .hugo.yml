@@ -75,6 +75,7 @@ summaryLength: 168
 enableEmoji: true
 enableGitInfo: true
 disableHugoGeneratorInject: true
+enableRobotsTXT: true
 
 markup:
   tableOfContents:
