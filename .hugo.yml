@@ -74,6 +74,7 @@ frontmatter:
 summaryLength: 168
 enableEmoji: true
 enableGitInfo: true
+disableHugoGeneratorInject: true
 
 markup:
   tableOfContents:
@@ -86,6 +87,7 @@ markup:
     lineNos: false
     lineNumbersInTable: false
     noClasses: true
+    # https://xyproto.github.io/splash/docs/longer/all.html
     style: vs
     tabWidth: 4
   defaultMarkdownHandler: goldmark
