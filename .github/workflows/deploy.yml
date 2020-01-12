@@ -34,7 +34,7 @@ jobs:
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
           hugo --config .hugo.yml --minify
 
-      - name: push to linianhui/linianhui.github.io master branch
+      - name: init static web site git repo
         working-directory: .www
         run: |
           git init
@@ -42,7 +42,11 @@ jobs:
           git config user.email 'lnhcode@outlook.com'
           git add .
           git commit -m "GitHub Actions Auto Deploy"
-          git push --force git@github.com:/linianhui/linianhui.github.io HEAD:master
+
+      - name: push to linianhui/linianhui.github.io master branch
+        working-directory: .www
+        run: git push --force git@github.com:/linianhui/linianhui.github.io HEAD:master
+
       - name: update bing sitemap
         # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
         run: curl http://www.bing.com/ping?sitemap=https%3A%2F%2Flinianhui.github.io/sitemap.xml
