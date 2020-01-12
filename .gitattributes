@@ -1,0 +1,5 @@
+*     text=auto
+*.sh  text
+*.ps1 text
+*.md  text
+*.reg text eol=CRLF
