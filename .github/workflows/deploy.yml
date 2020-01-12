@@ -43,3 +43,6 @@ jobs:
           git add .
           git commit -m "GitHub Actions Auto Deploy"
           git push --force git@github.com:/linianhui/linianhui.github.io HEAD:master
+      - name: update bing sitemap
+        # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
+        run: curl http://www.bing.com/ping?sitemap=https%3A%2F%2Flinianhui.github.io/sitemap.xml
