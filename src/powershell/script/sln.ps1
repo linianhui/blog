@@ -4,7 +4,7 @@
 
 function script:Sln-GetFiles() {
     $currentPath = Get-Location
-    Log-Debug '当前目录：' $currentPath
+    Log-Debug 'Current Path : ' $currentPath
 
     $slnFiles = Get-ChildItem -Path $currentPath -File -Filter *.sln
 
@@ -13,7 +13,7 @@ function script:Sln-GetFiles() {
 
 function script:Sln-SelectFile($slnFiles) {
     if ($slnFiles.Count -eq 0) {
-        throw '没有找到sln文件。'
+        throw 'sln file not found.'
     }
 
     if ($slnFiles.Count -eq 1) {
@@ -26,15 +26,13 @@ function script:Sln-SelectFile($slnFiles) {
         $i++
     }
 
-    [int]$index = Read-Host "找到多个sln文件，请输入编号（默认0）："
+    [int]$index = Read-Host 'find more sln file, please input index (default 0) :'
     return $slnFiles[$index]
 }
 
 function Sln() {
     $slnFiles = Sln-GetFiles
     $slnFile = Sln-SelectFile $slnFiles
-    Log-Debug '正在打开：' $slnFile
+    Log-Debug 'opening...' $slnFile
     Invoke-Item $slnFile
 }
-
-
