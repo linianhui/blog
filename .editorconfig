@@ -18,6 +18,7 @@ end_of_line = crlf
 
 [*.ps1]
 indent_size = 4
+end_of_line = crlf
 
 [*.reg]
 charset     = utf-16le

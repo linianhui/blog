@@ -24,6 +24,7 @@ end_of_line = lf
 
 [*.ps1]
 indent_size = 4
+end_of_line = crlf
 
 # YAML 文件
 [*.yml]
