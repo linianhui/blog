@@ -1,4 +1,4 @@
-﻿# 代码的根目录
+# 代码的根目录
 $CODE_PATH = 'd:\.code\';
 # 我的代码的根目录
 $MY_CODE_PATH = $CODE_PATH + '.lnh\';

@@ -9,7 +9,7 @@ root = true
 # 所有文件
 [*]
 charset      = utf-8
-end_of_line  = crlf
+end_of_line  = lf
 indent_style = space
 
 # C# 文件
@@ -23,7 +23,6 @@ trim_trailing_whitespace = true
 end_of_line = lf
 
 [*.ps1]
-charset     = utf-8-bom
 indent_size = 4
 
 # YAML 文件
