@@ -7,19 +7,69 @@ root = true
 [*]
 charset      = utf-8
 end_of_line  = lf
-indent_style = space
 indent_size  = 2
+indent_style = space
 
-[*.md]
+[*.appxmanifest]
+end_of_line = crlf
+
+[*.asax]
+end_of_line = crlf
+
+[*.aspx]
+end_of_line = crlf
+
+[*.bat] 
+end_of_line = crlf
+indent_size = 4
+
+[*.cake]
+indent_size = 4
+
+[*.cmd] 
+end_of_line = crlf
+indent_size = 4
+
+[*.cs] 
+end_of_line = crlf
+indent_size = 4
+
+[*.cshtml] 
+end_of_line = crlf
+indent_size = 4
+
+[*.csproj] 
+end_of_line = crlf
+
+[*.gradle]
+indent_size = 4
+
+[*.java]
+indent_size = 4
+
+[*.js] 
+indent_size = 4
+
+[*.{md,markdown}]
 trim_trailing_whitespace = false
 
-[*.bat]
+[*.props] 
 end_of_line = crlf
 
-[*.ps1]
+[*.ps1] 
+end_of_line = crlf
 indent_size = 4
-end_of_line = crlf
 
-[*.reg]
+[*.reg] 
 charset     = utf-16le
 end_of_line = crlf
+
+[*.sln] 
+end_of_line = crlf
+
+[*.sql] 
+indent_size = 4
+
+[*.xaml]
+end_of_line = crlf
+indent_size = 4
