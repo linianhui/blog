@@ -1,14 +1,17 @@
-*                   text=auto
 *.7z                binary
 *.XRM-MS            binary
+*.adoc              text eol=lf
+*.appxmanifest      text eol=crlf
+*.asax              text eol=crlf
+*.aspx              text eol=crlf
 *.bash              text eol=lf
 *.bat               text eol=crlf
 *.bmp               binary
 *.cake              text eol=lf
 *.class             binary
 *.cmd               text eol=crlf
-*.config            text eol=lf
 *.cs                text eol=crlf
+*.cshtml            text eol=crlf
 *.csproj            text eol=crlf
 *.css               text eol=lf
 *.csv               text eol=lf
@@ -23,6 +26,8 @@
 *.gz                binary
 *.htm               text eol=lf
 *.html              text eol=lf
+*.http              text eol=lf
+*.rest              text eol=lf
 *.ico               binary
 *.ini               text eol=lf
 *.jar               binary
@@ -41,11 +46,17 @@
 *.mpeg              binary
 *.ogg               binary
 *.otf               binary
+*.pcap              binary
+*.pcapng            binary
+*.pfx               binary
 *.png               binary
 *.properties        text eol=lf
+*.props             text eol=crlf
 *.ps1               text eol=crlf
 *.rar               binary
 *.reg               text eol=crlf
+*.rs                text eol=lf
+*.rsa               text eol=lf
 *.sass              text eol=lf
 *.scss              text eol=lf
 *.sh                text eol=lf
@@ -66,6 +77,7 @@
 *.webp              binary
 *.woff              binary
 *.woff2             binary
+*.xaml              text eol=crlf
 *.xhtml             text eol=lf
 *.xml               text eol=lf
 *.yaml              text eol=lf
@@ -77,5 +89,9 @@
 .gitattributes      text eol=lf
 .gitconfig          text eol=lf
 .gitignore          text eol=lf
+.gitkeep            text eol=lf
+Caddyfile           text eol=lf
 Dockerfile          text eol=lf
 LICENSE             text eol=lf
+gradlew             text eol=lf
+mvnw                text eol=lf
