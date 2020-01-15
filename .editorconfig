@@ -1,75 +1,30 @@
 # http://editorconfig.org
 
-# VS Code : (Ctrl+E) ext install editorconfig
-
 root = true
 
 [*]
-charset      = utf-8
-end_of_line  = lf
-indent_size  = 2
-indent_style = space
+charset                  = utf-8
+end_of_line              = lf
+indent_size              = 2
+indent_style             = space
+trim_trailing_whitespace = true
 
-[*.appxmanifest]
-end_of_line = crlf
+[*.md]
+trim_trailing_whitespace = false
 
-[*.asax]
-end_of_line = crlf
-
-[*.aspx]
-end_of_line = crlf
-
-[*.bat] 
+[*.{bat,cmd,ps1}]
 end_of_line = crlf
 indent_size = 4
-
-[*.cake]
-indent_size = 4
-
-[*.cmd] 
-end_of_line = crlf
-indent_size = 4
-
-[*.cs] 
-end_of_line = crlf
-indent_size = 4
-
-[*.cshtml] 
-end_of_line = crlf
-indent_size = 4
-
-[*.csproj] 
-end_of_line = crlf
 
 [*.gradle]
 indent_size = 4
 
-[*.java]
+[*.js]
 indent_size = 4
 
-[*.js] 
+[*.sql]
 indent_size = 4
 
-[*.{md,markdown}]
-trim_trailing_whitespace = false
-
-[*.props] 
-end_of_line = crlf
-
-[*.ps1] 
-end_of_line = crlf
-indent_size = 4
-
-[*.reg] 
+[*.reg]
 charset     = utf-16le
 end_of_line = crlf
-
-[*.sln] 
-end_of_line = crlf
-
-[*.sql] 
-indent_size = 4
-
-[*.xaml]
-end_of_line = crlf
-indent_size = 4
