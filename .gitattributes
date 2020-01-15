@@ -10,10 +10,5 @@
 *.ps1      text eol=crlf
 
 # 原样存储
-*.XRM-MS   binary
-*.gif      binary
-*.ico      binary
-*.jpeg     binary
-*.jpg      binary
-*.png      binary
 *.reg      binary
+*.XRM-MS   binary
