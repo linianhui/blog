@@ -2,7 +2,7 @@
 # binary : 原样存储.
 
 # 自动识别文件是否为text
-*          text=auto
+*          text=auto eol=lf
 
 # 使用 lf 存储, checkout 时替换为 crlf.
 *.bat      text eol=crlf
