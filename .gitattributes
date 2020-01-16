@@ -2,13 +2,20 @@
 # binary : 原样存储.
 
 # 自动识别文件是否为text
-*          text=auto eol=lf
+*               text=auto eol=lf
 
 # 使用 lf 存储, checkout 时替换为 crlf.
-*.bat      text eol=crlf
-*.cmd      text eol=crlf
-*.ps1      text eol=crlf
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+*.ps1           text eol=crlf
+*.cs            text eol=crlf
+*.cake          text eol=crlf
+*.xaml          text eol=crlf
+*.csproj        text eol=crlf
+*.cshtml        text eol=crlf
+*.sln           text eol=crlf
+
 
 # 原样存储
-*.reg      binary
-*.XRM-MS   binary
+*.reg           binary
+*.XRM-MS        binary
