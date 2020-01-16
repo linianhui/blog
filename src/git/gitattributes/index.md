@@ -42,7 +42,7 @@ pattern
 `text`属性指示Git如何处理 **.git directory** 区域中的文本文件的EOL。比如:
 
 ```ini
-# 使用lf进行存储*.sh文件。
+# 使用lf存储*.sh文件。
 *.sh text
 
 # 不控制*.sh文件的EOL。
@@ -54,10 +54,10 @@ pattern
 `eol`属性指示Gir如何处理 **working directory** 区域中的文本文件的EOL。比如:
 
 ```ini
-# 使用lf进行存储*.sh文件, 在working directory则继续使用lf。
+# 使用lf存储*.sh文件, 在working directory则继续使用lf。
 *.sh  text eol=lf
 
-# 使用lf进行存储*.cs文件, 在working directory则自动转换为crlf。
+# 使用lf存储*.cs文件, 在working directory则自动转换为crlf。
 *.cs  text eol=crlf
 ```
 
@@ -77,7 +77,7 @@ pattern
 # 阻止Git进行自动转换
 git config --global core.autocrlf false
 
-# 当提交的文件不符合`.gitattributes`的配置时，阻止git add命令
+# 当提交的文件不符合.gitattributes的配置时，阻止git add命令
 git config --global core.safecrlf true
 ```
 
