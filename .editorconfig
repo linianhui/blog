@@ -17,9 +17,6 @@ trim_trailing_whitespace = false
 end_of_line = crlf
 indent_size = 4
 
-[*.gradle]
-indent_size = 4
-
 [*.js]
 indent_size = 4
 
