@@ -5,10 +5,16 @@
 <div class="highlight-file">
   <div class="highlight-file-title">
     <span>file : {{ $fileParam }}</span>
-    {{- if not $isAbsolutePath -}}
-      <a class="fa fa-download" target="_blank" href="{{$filePath}}"></a>
-      <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositorySrcUrl}}{{$filePath}}"></a>
-    {{- end -}}
+    <div class="highlight-file-action">
+      {{- if $isAbsolutePath -}}
+        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}"></a>
+        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}"></a>
+      {{- else -}}
+        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}"></a>
+        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}"></a>
+        <a class="fa fa-download" target="_blank" href="{{$filePath}}" download></a>
+      {{- end -}}
+    </div>
   </div>
   {{- highlight ($filePath | readFile) $langParam "" -}}
 </div>

@@ -1,21 +1,22 @@
-{{$pattern := .Get "pattern"}}
-{{$currentDir := ($.Page.File.Dir | relURL)}}
+{{- $pattern := .Get "pattern" -}}
+{{- $currentDir := ($.Page.File.Dir | relURL) -}}
 <div class="file-list">
-  <div class="file-list-title">
-    ls {{ $pattern }}
-  </div>
+  <div class="file-list-title">ls {{ $pattern }}</div>
   <table>
-    {{ range (readDir (path.Join "src" $currentDir)) }}
+    {{- range (readDir (path.Join "src" $currentDir)) -}}
+    {{- $filePath := (path.Join $currentDir .Name) -}}
     <tr>
-      <td>{{ .Name}}</td>
+      <td>{{- .Name -}}</td>
       <td>
-        <a class="fa fa-download" target="_blank" href="{{path.Join $currentDir .Name}}"></a>
+        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}"></a>
       </td>
       <td>
-        <a class="fa fa-github" target="_blank"
-          href="{{$.Site.Params.RepositorySrcUrl}}{{path.Join $currentDir .Name}}"></a>
+        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}"></a>
+      </td>
+      <td>
+        <a class="fa fa-download" target="_blank" href="{{$filePath}}" download></a>
       </td>
     </tr>
-    {{ end }}
+    {{- end -}}
   </table>
 </div>
