@@ -8,7 +8,9 @@ toc: true
 
 # 1 代码规范
 
-代码风格配置文件 [.editorconfig](https://github.com/linianhui/blog/blob/master/src/code-guide/csharp/.editorconfig)
+代码风格配置文件 :
+
+{{<highlight-file file="cs.editorconfig" lang="ini">}}
 
 # 2 项目结构
 
