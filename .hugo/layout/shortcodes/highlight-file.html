@@ -1,11 +1,14 @@
-{{$file := .Get "file"}}
-{{$lang := .Get "lang"}}
-{{$fileFullPath := ((path.Join $.Page.File.Dir $file) | relURL) }}
+{{- $fileParam := .Get "file" -}}
+{{- $langParam := .Get "lang" -}}
+{{- $isAbsolutePath := (hasPrefix $fileParam "/") -}}
+{{- $filePath := cond $isAbsolutePath $fileParam ((path.Join $.Page.File.Dir $fileParam) | relURL) }}
 <div class="highlight-file">
   <div class="highlight-file-title">
-    file : {{ $file }}
-    <a class="fa fa-download" target="_blank" href="{{$fileFullPath}}"></a>
-    <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositorySrcUrl}}{{$fileFullPath}}"></a>
+    <span>file : {{ $fileParam }}</span>
+    {{- if not $isAbsolutePath -}}
+      <a class="fa fa-download" target="_blank" href="{{$filePath}}"></a>
+      <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositorySrcUrl}}{{$filePath}}"></a>
+    {{- end -}}
   </div>
-  {{- highlight ($fileFullPath | readFile) $lang "" -}}
+  {{- highlight ($filePath | readFile) $langParam "" -}}
 </div>
