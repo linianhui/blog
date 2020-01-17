@@ -15,7 +15,7 @@ toc: true
 
 ## 1.1 语法 {#1-1-syntax}
 
-`.gitattributes`是一个文本文件，每一行使用匹配一些文件，然后设置对应的属性:
+`.gitattributes`是一个文本文件，每一行使用`pattern`匹配一些文件，然后设置对应的属性:
 
 ```ini
 pattern attr1 attr2 ...
@@ -51,7 +51,7 @@ pattern
 
 ## 1.3 eol 属性 {#1-3-eol-attribute}
 
-`eol`属性指示Gir如何处理 **working directory** 区域中的文本文件的EOL。比如:
+`eol`属性指示Git如何处理 **working directory** 区域中的文本文件的EOL。比如:
 
 ```ini
 # 使用lf存储*.sh文件, 在working directory则继续使用lf。
