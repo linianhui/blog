@@ -7,12 +7,12 @@
     <span>file : {{ $fileParam }}</span>
     <div class="highlight-file-action">
       {{- if $isAbsolutePath -}}
-        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}"></a>
-        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}"></a>
+        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
+        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}" title="文本"></a>
       {{- else -}}
-        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}"></a>
-        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}"></a>
-        <a class="fa fa-download" target="_blank" href="{{$filePath}}" download></a>
+        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
+        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
+        <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="下载" download></a>
       {{- end -}}
     </div>
   </div>
