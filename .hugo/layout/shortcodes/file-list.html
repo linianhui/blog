@@ -8,13 +8,13 @@
     <tr>
       <td>{{- .Name -}}</td>
       <td>
-        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}"></a>
+        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
       </td>
       <td>
-        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}"></a>
+        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
       </td>
       <td>
-        <a class="fa fa-download" target="_blank" href="{{$filePath}}" download></a>
+        <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="下载" download></a>
       </td>
     </tr>
     {{- end -}}
