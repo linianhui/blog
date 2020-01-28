@@ -5,4 +5,4 @@ tag: ["Linux", "sh"]
 toc: true
 ---
 
-{{<file-list pattern="*.sh">}}
+{{<file-list regularExpression="^.*\.sh$">}}

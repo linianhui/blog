@@ -23,7 +23,7 @@ slmgr.vbs -dlv
 ```
 # 2 列表 {#2-xrm-ms-file-list}
 
-{{<file-list pattern="*.XRM-MS">}}
+{{<file-list regularExpression="^.*\.XRM-MS$">}}
 
 # 3 路径 {#3-path}
 

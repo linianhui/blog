@@ -1,22 +1,25 @@
-{{- $pattern := .Get "pattern" -}}
+{{- $regularExpression := .Get "regularExpression" -}}
 {{- $currentDir := ($.Page.File.Dir | relURL) -}}
 <div class="file-list">
-  <div class="file-list-title">ls {{ $pattern }}</div>
+  <div class="file-list-title">File List : {{ $regularExpression }}</div>
   <table>
     {{- range (readDir (path.Join "src" $currentDir)) -}}
-    {{- $filePath := (path.Join $currentDir .Name) -}}
-    <tr>
-      <td>{{- .Name -}}</td>
-      <td>
-        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
-      </td>
-      <td>
-        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
-      </td>
-      <td>
-        <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="下载" download></a>
-      </td>
-    </tr>
+    {{- $match := findRE $regularExpression .Name 1 -}}
+    {{- if $match -}}
+      {{- $filePath := (path.Join $currentDir .Name) -}}
+      <tr>
+        <td>{{- .Name -}}</td>
+        <td>
+          <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
+        </td>
+        <td>
+          <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
+        </td>
+        <td>
+          <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="下载" download></a>
+        </td>
+      </tr>
+      {{- end -}}
     {{- end -}}
   </table>
 </div>

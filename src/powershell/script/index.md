@@ -5,4 +5,4 @@ tag: ["PowerShell", "ps1",]
 toc: true
 ---
 
-{{<file-list pattern="*.ps1">}}
+{{<file-list regularExpression="^.*\.ps1$">}}
