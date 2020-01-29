@@ -7,17 +7,10 @@
   </hgroup>
   <nav class="header-nav">
     {{ range .Site.Menus.main }}
-      {{- if (eq .Name "Mirror") -}}
-        <a class="header-nav-item" href="javascript:lnh_mirror('{{.URL}}')" title="{{ .Name }}">
-          {{ .Pre }}
-          {{ .Name }}
-        </a>
-      {{- else -}}
-        <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}">
-          {{ .Pre }}
-          {{ .Name }}
-        </a>
-      {{- end -}}
+    <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}">
+      {{ .Pre }}
+      {{ .Name }}
+    </a>
     {{ end }}
   </nav>
 </header>
