@@ -48,11 +48,6 @@ menu:
       url: https://github.com/linianhui/blog
       weight: 5
       pre: '<i class="fa fa-github"></i>'
-    - identifier: mirror
-      name: Mirror
-      url: https://linianhui.gitee.io
-      weight: 6
-      pre: '<i class="fa fa-database"></i>'
   topic: []
 taxonomies:
   tag: tag
