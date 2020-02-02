@@ -1,7 +1,7 @@
 ---
-title: '[Java] 工具'
+title: '[Java] Install'
 created_at: 2017-08-06 16:34:01
-tag: ["Java", "Maven", "Gradle"]
+tag: ["Java", "Maven", "Gradle", "Install"]
 toc: true
 ---
 
