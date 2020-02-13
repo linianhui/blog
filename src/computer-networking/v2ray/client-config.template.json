@@ -5,12 +5,7 @@
   "inbounds": [
     {
       "listen": "127.0.0.1",
-      "port": 10080,
-      "protocol": "http"
-    },
-    {
-      "listen": "127.0.0.1",
-      "port": 10081,
+      "port": 10001,
       "protocol": "socks",
       "settings": {
         "auth": "noauth",
