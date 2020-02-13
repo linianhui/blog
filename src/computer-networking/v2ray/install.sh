@@ -23,3 +23,9 @@ service v2ray start
 service v2ray status
 
 lsof -i:443
+
+# https://github.com/v2ray/v2ray-core
+# https://github.com/v2ray/manual/blob/master/zh_cn/SUMMARY.md
+
+# https://github.com/gfwlist/gfwlist
+# https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt

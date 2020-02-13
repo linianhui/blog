@@ -12,6 +12,11 @@ toc: true
 
 {{<highlight-file file="server-config.template.json" lang="json">}}
 
-# 2 客户端配置 {#3-client-config}
+# 3 客户端配置 {#3-client-config}
 
 {{<highlight-file file="client-config.template.json" lang="json">}}
+
+# 4 SwitchyOmega {#4-switchyomega}
+
+<https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif>
+
