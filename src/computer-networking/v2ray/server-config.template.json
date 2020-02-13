@@ -18,7 +18,7 @@
         "network": "tcp",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "domain.test",
+          "serverName": "$SERVER_NAME",
           "allowInsecure": false,
           "allowInsecureCiphers": false,
           "disableSystemRoot": true,

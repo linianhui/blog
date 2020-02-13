@@ -13,10 +13,10 @@ SERVER_NAME=domain.test
 UUID=$(v2ctl uuid)
 CERTIFICATE_JSON=$(v2ctl cert --ca --domain=$SERVER_NAME --expire=24000h --name=$SERVER_NAME --org=$SERVER_NAME)
 
-wget https://linianhui.github.io/computer-networking/v2ray/client-config.template.json -O client-config.template.json
+wget https://linianhui.github.io/computer-networking/v2ray/server-config.template.json -O server-config.template.json
 envsubst < server-config.template.json > /etc/v2ray/config.json
 
-wget https://linianhui.github.io/computer-networking/v2ray/server-config.template.json -O server-config.template.json
+wget https://linianhui.github.io/computer-networking/v2ray/client-config.template.json -O client-config.template.json
 envsubst < client-config.template.json > client-config.json
 
 service v2ray stop
