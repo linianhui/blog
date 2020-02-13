@@ -1,5 +1,5 @@
 # wget https://linianhui.github.io/computer-networking/v2ray/install.sh
-# bash install.sh
+# bash install.sh UUID
 
 set -eux
 
@@ -9,7 +9,7 @@ apt install gettext-base
 
 export PATH=$PATH:/usr/bin/v2ray/
 export SERVER_NAME=domain.test
-export UUID=$(v2ctl uuid)
+export UUID=$1
 export CERTIFICATE_JSON=$(v2ctl cert --ca --domain=$SERVER_NAME --expire=24000h --name=$SERVER_NAME --org=$SERVER_NAME)
 
 wget https://linianhui.github.io/computer-networking/v2ray/server-config.template.json -O server-config.template.json
