@@ -18,8 +18,7 @@ envsubst < server-config.template.json > /etc/v2ray/config.json
 wget https://linianhui.github.io/computer-networking/v2ray/client-config.template.json -O client-config.template.json
 envsubst < client-config.template.json > client-config.json
 
-service v2ray stop
-service v2ray start
+service v2ray restart
 service v2ray status
 
 lsof -i:443
