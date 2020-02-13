@@ -1,0 +1,41 @@
+{
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10001,
+      "protocol": "socks"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "127.0.0.1",
+            "port": 443,
+            "users": [
+              {
+                "id": "$UUID",
+                "alterId": 4
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "$SERVER_NAME",
+          "allowInsecure": false,
+          "allowInsecureCiphers": false,
+          "disableSystemRoot": true,
+          "certificates": [
+            $CERTIFICATE_JSON
+          ]
+        }
+      }
+    }
+  ]
+}

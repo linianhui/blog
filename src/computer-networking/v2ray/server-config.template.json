@@ -1,0 +1,38 @@
+{
+  "log": {
+    "logLevel": "none"
+  },
+  "inbounds": [
+    {
+      "port": 443,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID",
+            "alterId": 4
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "domain.test",
+          "allowInsecure": false,
+          "allowInsecureCiphers": false,
+          "disableSystemRoot": true,
+          "certificates": [
+            $CERTIFICATE_JSON
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
+}
