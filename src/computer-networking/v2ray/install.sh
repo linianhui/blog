@@ -1,5 +1,5 @@
 # wget https://linianhui.github.io/computer-networking/v2ray/install.sh
-# bash install.sh domain.test $(cat /proc/sys/kernel/random/uuid)
+# bash install.sh domain1.test $(cat /proc/sys/kernel/random/uuid)
 
 set -eux
 
