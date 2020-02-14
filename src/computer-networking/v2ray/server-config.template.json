@@ -10,7 +10,7 @@
       "settings": {
         "clients": [
           {
-            "id": "$UUID",
+            "id": "$TEMPLATE_CLIENT_ID",
             "alterId": 16
           }
         ]
@@ -19,12 +19,12 @@
         "network": "tcp",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "$SERVER_NAME",
+          "serverName": "$TEMPLATE_DOMAIN_NAME",
           "allowInsecure": false,
           "allowInsecureCiphers": false,
           "disableSystemRoot": true,
           "certificates": [
-            $CERTIFICATE_JSON
+            $TEMPLATE_CERTIFICATE_JSON
           ]
         }
       }
