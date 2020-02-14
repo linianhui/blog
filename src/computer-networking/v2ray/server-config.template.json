@@ -4,7 +4,7 @@
   },
   "inbounds": [
     {
-      "listen": "0.0.0.0",
+      "listen": "$TEMPLATE_SERVER_LISTEN_IP",
       "port": 443,
       "protocol": "vmess",
       "settings": {
@@ -19,7 +19,7 @@
         "network": "tcp",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "$TEMPLATE_DOMAIN_NAME",
+          "serverName": "$TEMPLATE_SERVER_NAME",
           "allowInsecure": false,
           "allowInsecureCiphers": false,
           "disableSystemRoot": true,

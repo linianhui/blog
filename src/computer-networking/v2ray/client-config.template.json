@@ -19,7 +19,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "127.0.0.1",
+            "address": "$TEMPLATE_SERVER_IP",
             "port": 443,
             "users": [
               {
@@ -35,7 +35,7 @@
         "network": "tcp",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "$TEMPLATE_DOMAIN_NAME",
+          "serverName": "$TEMPLATE_SERVER_NAME",
           "allowInsecure": false,
           "allowInsecureCiphers": false,
           "disableSystemRoot": true,
