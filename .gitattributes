@@ -19,3 +19,4 @@
 # 原样存储
 *.reg           binary
 *.XRM-MS        binary
+*.cer           binary
