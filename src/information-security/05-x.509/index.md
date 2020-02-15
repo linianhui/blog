@@ -75,7 +75,7 @@ Certificate Signature
 
 `DER`=`Distinguished Encoding Rules`是[# X.690](#x690)标准中的一种二进制编码格式。
 
-下面的文件是<https://google.com>所使用的DER编码的二进制公钥证书文件。
+下面的文件是<https://google.com>所使用的DER编码的二进制公钥证书文件(由于是二进制，故而显示乱码)。
 {{<highlight-file file="google.com.der.cer" lang="txt">}}
 
 参考资料 : <https://en.wikipedia.org/wiki/X.690#DER_encoding>。
