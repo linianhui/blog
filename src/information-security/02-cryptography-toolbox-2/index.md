@@ -178,7 +178,7 @@ SSL/TLS :  最常见的一个应用场景了，后续会介绍。
 ![](google-public-key-certificate-2.png)
 ![](google-public-key-certificate-3.png)
 
-证书除了包含公钥、签名算法和证书的层级结构(比如google这个的顶级颁发机构是GeoTurst Global CA)，还有一些证书的序号，版本信息，有效时间等等。这些信息由一个证书数据格式的标准规范来规定的，一个很通用的格式是[x509](https://en.wikipedia.org/wiki/X.509)，感兴趣的可以了解一下，这里就不介绍了。C#中有很多X509相关的类可以供我们使用。比如来读取一下上述google的这个证书信息(我把证书导出为了base64格式的数据，可以方便的直接包含在代码中) :  
+证书除了包含公钥、签名算法和证书的层级结构(比如google这个的顶级颁发机构是GeoTurst Global CA)，还有一些证书的序号，版本信息，有效时间等等。这些信息由一个证书数据格式的标准规范来规定的，一个很通用的格式是[X509](../05-x.509/)，感兴趣的可以了解一下，这里就不介绍了。C#中有很多X509相关的类可以供我们使用。比如来读取一下上述google的这个证书信息(我把证书导出为了base64格式的数据，可以方便的直接包含在代码中) :  
 
 ```csharp
 private static readonly string GoogleBase64FormatPublicKeyCertificate = @"
