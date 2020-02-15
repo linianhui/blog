@@ -21,7 +21,8 @@ X.509证书的标准规范[RFC5280][rfc5280]中详细描述了证书的[# 1.1 En
 
 ## 1.1 Encoding Format {#1-1-encoding-format}
 
-X.509使用`二进制`的[# DER](#distinguished-encoding-rules)作为**`唯一`**的`Encoding Format`。我们常用的[# PEM](#privacy-enhanced-mail)则是把`二进制的DER编码的数据`转换为[base64][base64]文本，以便于在仅支持`ASCII`的环境中使用`二进制的DER编码的数据`。
+1. [# DER](#distinguished-encoding-rules)格式 : `二进制`格式。
+2. [# PEM](#privacy-enhanced-mail)格式 : `ASCII文本`格式。在DER格式或者其他二进制数据的基础上，使用[base64][base64]编码为ASCII文本，以便于在仅支持ASCII的环境中使用`二进制的DER编码的数据`。
 
 ## 1.2 Structure {#1-2-structure}
 
@@ -50,10 +51,15 @@ Certificate Signature
 
 # 2 File Extension {#2-file-extension}
 
-`File Extension`和[# 1.1 Encoding Format](#1-1-encoding-format)是两个完全不同的概念。X.509有很多种常用的扩展名。不过这些扩展名有时候也是其他文件的扩展名，也就是说具有这个扩展名的文件并不一定是X.509证书。也可能只是保存了私钥的文件。
+X.509有很多种常用的扩展名。不过这些扩展名有时候也是其他类型文件的扩展名，也就是说具有这个扩展名的文件并不一定是X.509证书。也可能只是保存了私钥的文件。
 
 1. `.pem` : PEM格式。
-2. `.cer`,`.crt`,`.der` : 通常是DER格式的公钥证书，也可能是PEM。
+2. `.key` : PEM格式的[私钥][asymmetric-cryptography]文件。
+3. `.pub` : PEM格式的[公钥][asymmetric-cryptography]文件。
+4. `.crt` : PEM格式的[# 公钥证书](#public-key-certificate)文件，也可能是DER。
+5. `.cer` : DER格式的[# 公钥证书](#public-key-certificate)文件，也可能是PEM。
+6. `.crs` : PEM格式的[# CSR](#certificate-signing-request)文件，也可能是DER。
+
 
 # 3 Reference {#reference}
 
@@ -61,14 +67,14 @@ Certificate Signature
 
 `Public Key Certificate`=`公钥证书`。
 
-<https://en.wikipedia.org/wiki/Public_key_certificate>
+参考资料 : <https://en.wikipedia.org/wiki/Public_key_certificate>
 
 
 ## 3.2 CA {#certificate-authority}
 
 `CA`=`Certificate Authority`=`证书颁发机构`。
 
-<https://en.wikipedia.org/wiki/Certificate_authority>
+参考资料 : <https://en.wikipedia.org/wiki/Certificate_authority>
 
 
 ## 3.3 DER {#distinguished-encoding-rules}
@@ -105,18 +111,58 @@ base64 string...
 5. `X509 CRL` : X509证书吊销列表文件。
 
 下面的文件是上面的`google.com.der.cer`的PEM编码形式 :
-{{<highlight-file file="google.com.pem.cer" lang="txt">}}
+{{<highlight-file file="google.com.pem.crt" lang="txt">}}
 
-参考资料：<https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail>
 
-## 3.5 CRL {#certificate-revocation-list}
+参考资料 :
+1. <https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail>
+2. <https://tools.ietf.org/html/rfc7468>
+
+
+## 3.5 CSR {#certificate-signing-request}
+
+`CSR`=`Certificate Signing Request`=`证书签名请求`。
+
+```txt
+-----BEGIN CERTIFICATE REQUEST-----
+MIIBWDCCAQcCAQAwTjELMAkGA1UEBhMCU0UxJzAlBgNVBAoTHlNpbW9uIEpvc2Vm
+c3NvbiBEYXRha29uc3VsdCBBQjEWMBQGA1UEAxMNam9zZWZzc29uLm9yZzBOMBAG
+ByqGSM49AgEGBSuBBAAhAzoABLLPSkuXY0l66MbxVJ3Mot5FCFuqQfn6dTs+9/CM
+EOlSwVej77tj56kj9R/j9Q+LfysX8FO9I5p3oGIwYAYJKoZIhvcNAQkOMVMwUTAY
+BgNVHREEETAPgg1qb3NlZnNzb24ub3JnMAwGA1UdEwEB/wQCMAAwDwYDVR0PAQH/
+BAUDAwegADAWBgNVHSUBAf8EDDAKBggrBgEFBQcDATAKBggqhkjOPQQDAgM/ADA8
+AhxBvfhxPFfbBbsE1NoFmCUczOFApEuQVUw3ZP69AhwWXk3dgSUsKnuwL5g/ftAY
+dEQc8B8jAcnuOrfU
+-----END CERTIFICATE REQUEST-----
+```
+
+参考资料 : <https://en.wikipedia.org/wiki/Certificate_signing_request>
+
+
+## 3.6 CRL {#certificate-revocation-list}
 
 `CRL`=`Certificate Revocation List`=`证书吊销列表`。
 
-<https://en.wikipedia.org/wiki/Certificate_revocation_list>
+```txt
+-----BEGIN X509 CRL-----
+MIIB9DCCAV8CAQEwCwYJKoZIhvcNAQEFMIIBCDEXMBUGA1UEChMOVmVyaVNpZ24s
+IEluYy4xHzAdBgNVBAsTFlZlcmlTaWduIFRydXN0IE5ldHdvcmsxRjBEBgNVBAsT
+PXd3dy52ZXJpc2lnbi5jb20vcmVwb3NpdG9yeS9SUEEgSW5jb3JwLiBieSBSZWYu
+LExJQUIuTFREKGMpOTgxHjAcBgNVBAsTFVBlcnNvbmEgTm90IFZhbGlkYXRlZDEm
+MCQGA1UECxMdRGlnaXRhbCBJRCBDbGFzcyAxIC0gTmV0c2NhcGUxGDAWBgNVBAMU
+D1NpbW9uIEpvc2Vmc3NvbjEiMCAGCSqGSIb3DQEJARYTc2ltb25Aam9zZWZzc29u
+Lm9yZxcNMDYxMjI3MDgwMjM0WhcNMDcwMjA3MDgwMjM1WjAjMCECEC4QNwPfRoWd
+elUNpllhhTgXDTA2MTIyNzA4MDIzNFowCwYJKoZIhvcNAQEFA4GBAD0zX+J2hkcc
+Nbrq1Dn5IKL8nXLgPGcHv1I/le1MNo9t1ohGQxB5HnFUkRPAY82fR6Epor4aHgVy
+b+5y+neKN9Kn2mPF4iiun+a4o26CjJ0pArojCL1p8T0yyi9Xxvyc/ezaZ98HiIyP
+c3DGMNR+oUmSjKZ0jIhAYmeLxaPHfQwR
+-----END X509 CRL-----
+```
+
+参考资料 : <https://en.wikipedia.org/wiki/Certificate_revocation_list>
 
 
-## 3.6 X.690 {#x690}
+## 3.7 X.690 {#x690}
 
 [X.690][X.690]是一个ITU-T标准，规定了几种[ASN.1](#abstract-syntax-notation-1)编码格式:
 
@@ -124,11 +170,15 @@ base64 string...
 `CER`=`Canonical Encoding Rules` : <https://en.wikipedia.org/wiki/X.690#CER_encoding>
 `DER`=`Distinguished Encoding Rules` : <https://en.wikipedia.org/wiki/X.690#DER_encoding>
 
-## 3.7 ASN.1 {#abstract-syntax-notation-1}
+参考资料 : <https://en.wikipedia.org/wiki/X.690>
+
+
+## 3.8 ASN.1 {#abstract-syntax-notation-1}
 
 `ASN.1`=`Abstract Syntax Notation 1`=`抽象标记语法1`。
 
-<https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One>
+参考资料 : <https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One>
+
 
 
 [X.509]:<https://en.wikipedia.org/wiki/X.509>
@@ -137,3 +187,4 @@ base64 string...
 [rfc7468]:<https://tools.ietf.org/html/rfc7468>
 
 [base64]:../01-cryptography-toolbox-1/#6-2-base64
+[asymmetric-cryptography]:../01-cryptography-toolbox-1/#2-asymmetric-cryptography

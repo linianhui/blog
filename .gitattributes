@@ -20,3 +20,4 @@
 *.reg           binary
 *.XRM-MS        binary
 *.cer           binary
+*.crt           binary
