@@ -78,13 +78,13 @@ summary{
 
 .header-nav {
   text-align: right;
+  font-size: 0;
 }
 
 .header-nav-item {
   display: inline-block;
-  width: 5em;
   font-size: 16px;
-  padding: 6px 0;
+  padding: 6px 8px;
   text-align: center;
 }
 
