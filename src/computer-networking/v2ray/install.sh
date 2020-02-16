@@ -3,20 +3,19 @@
 
 set -eux
 
-bash <(wget -O - https://install.direct/go.sh)
+apt install -y wget gettext-base
 
-apt install gettext-base
+bash <(wget -q -O - https://install.direct/go.sh)
+
 export TEMPLATE_SERVER_LISTEN_IP=$1
 export TEMPLATE_SERVER_IP=$2
 export TEMPLATE_SERVER_NAME=$3
 export TEMPLATE_CLIENT_ID=$4
 export TEMPLATE_CERTIFICATE_JSON=$(/usr/bin/v2ray/v2ctl cert -json --domain=$TEMPLATE_SERVER_NAME --expire=24000h --name=name.test --org=org.test)
 
-wget https://linianhui.github.io/computer-networking/v2ray/server-config.template.json -O server-config.template.json
-envsubst < server-config.template.json > /etc/v2ray/config.json
+wget -q -O - https://linianhui.github.io/computer-networking/v2ray/server-config.template.json | envsubst > /etc/v2ray/config.json
 
-wget https://linianhui.github.io/computer-networking/v2ray/client-config.template.json -O client-config.template.json
-envsubst < client-config.template.json > client-config.json
+wget -q -O - https://linianhui.github.io/computer-networking/v2ray/client-config.template.json | envsubst > client-config.json
 
 service v2ray restart
 service v2ray status
