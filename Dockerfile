@@ -1,4 +1,4 @@
-FROM lnhcode/hugo:0.64.1 AS builder
+FROM lnhcode/hugo:0.65.2 AS builder
 
 COPY . /src
 WORKDIR /src
