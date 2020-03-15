@@ -19,14 +19,13 @@
     <span>
       Powered by
       <a href="https://github.com/actions" target="_blank">GitHub Actions</a>
-      and
+      ,
       <a href="https://github.com/gohugoio/hugo" target="_blank">Hugo</a>
+      and
+      <a href="https://github.com/utterance/utterances" target="_blank">utterances</a>
     </span>
     <span> | </span>
     <span>Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></span>
-    <span> | </span>
-    <span>Comments by <a href="https://github.com/utterance/utterances" target="_blank">utterances</a></span>
-    <span> | </span>
     <span>
       {{ if ne $.Site.Params.GitLastHash "" }}
         <a class="fa fa-code-fork article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
@@ -34,7 +33,7 @@
         </a>
       {{ end }}
       <a href="{{ $.Site.Params.CiUrl}}" target="_blank">
-        <img src="{{ $.Site.Params.CiBadgeImageUrl}}" style="vertical-align: top;" />
+        <img src="{{ $.Site.Params.CiBadgeImageUrl}}" style="vertical-align: middle;" />
       </a>
     </span>
     <section>
