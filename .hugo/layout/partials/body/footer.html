@@ -1,7 +1,7 @@
 <footer class="footer">
   <section>
     <span> Copyright © {{ now.Format "2006" }} blackheart </span>
-    <span> 
+    <span>
       <script type="text/javascript">
         var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
         document.write(unescape("%3Cspan id='cnzz_stat_icon_1278011463'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1278011463%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
@@ -12,7 +12,7 @@
     <span>
       <a href="{{ $.Site.Params.RepositoryUrl }}" target="_blank">
         <i class="fa fa-github"></i>
-        源码
+        Source Code
       </a>
     </span>
     <span> | </span>
@@ -24,6 +24,8 @@
     </span>
     <span> | </span>
     <span>Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></span>
+    <span> | </span>
+    <span>Comments by <a href="https://github.com/utterance/utterances" target="_blank">utterances</a></span>
     <span> | </span>
     <span>
       {{ if ne $.Site.Params.GitLastHash "" }}
