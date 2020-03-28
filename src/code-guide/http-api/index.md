@@ -36,7 +36,7 @@ HTTP APIs主要由四部分组成 : [#4 HTTP](#4-http), [#5 URL](#5-url), `资�
 比如上面提到的`天气`和`今天的天气`这两个资源，可以用如下的[#5 URL](#5-url)进行标识。
 
 | 资源       | URL                                     |
-| --------- | -------------------------------------- |
+| ---------- | --------------------------------------- |
 | 天气       | `/weather`                              |
 | 今天的天气 | `/weather/today`                        |
 | 今天的天气 | `/weather/2018-04-01`，今天是2018-04-01 |
@@ -100,7 +100,7 @@ HTTP APIs主要由四部分组成 : [#4 HTTP](#4-http), [#5 URL](#5-url), `资�
 # 3 命名规则 {#3-name-case}
 
 | 规则名称                    | 说明                  | 取值范围    |
-| -------------------------- | -------------------- | ---------- |
+| --------------------------- | --------------------- | ----------- |
 | `all-lower-hyphen-case`     | 采用`-`分隔符的全小写 | `a-z 0-9 -` |
 | `all_lower_underscore_case` | 采用`_`分隔符的全小写 | `a-z 0-9 _` |
 | `ALL_UPPER_UNDERSCORE_CASE` | 采用`_`分隔符的全大写 | `A-Z 0-9 _` |
@@ -108,7 +108,7 @@ HTTP APIs主要由四部分组成 : [#4 HTTP](#4-http), [#5 URL](#5-url), `资�
 ## 3.1 URL {#3-1-name-case-url}
 
 | URL组件   | 命名规则                    |
-| -------- | -------------------------- |
+| --------- | --------------------------- |
 | scheme    | `all-lower-hyphen-case`     |
 | authority | `all-lower-hyphen-case`     |
 | path      | `all-lower-hyphen-case`     |
@@ -134,7 +134,7 @@ display_names = [
 ## 3.2 JSON {#3-2-name-case-json}
 
 | JSON             | 命名规则                    |
-| --------------- | -------------------------- |
+| ---------------- | --------------------------- |
 | filed_name       | `all_lower_underscore_case` |
 | filed_value      | 无要求                      |
 | ENUM_FILED_VALUE | `ALL_UPPER_UNDERSCORE_CASE` |
@@ -161,7 +161,7 @@ display_names = [
 
 ## 4.1 HTTP Method {#4-1-http-method}
 
-面向资源设计的HTTP APIs中，绝大部分的操作都是`CRUD(Create,Read,Update,Delete)`，都可以映射为某一个[HTTP Method] [HTTP-Method]。其余的无法映射的操作一般存在两种解决方案 : 
+面向资源设计的HTTP APIs中，绝大部分的操作都是`CRUD(Create,Read,Update,Delete)`，都可以映射为某一个[HTTP Method][HTTP-Method]。其余的无法映射的操作一般存在两种解决方案 : 
 
 1. 抽象出新的资源，比如**禁用用户**的操作。假设用户的资源是`/user`，那么可以抽象出来一个被锁定的用户的资源`/user/disabled`。如此以来，
    1. 禁用用户 : `POST /user/disabled`或者`PUT /user/disabled/{user_id}`。
@@ -175,21 +175,21 @@ display_names = [
 ### 4.1.1 Names {#4-1-1-http-method-names}
 
 | HTTP Method Name             | Safe | Idempotent | 描述说明                                     |
-| --------------------------- | :--- | --------- | ------------------------------------------- |
+| ---------------------------- | :--- | ---------- | -------------------------------------------- |
 | [GET][HTTP-Method-GET]       | ✔    | ✔          | 获取一个资源                                 |
 | [PUT][HTTP-Method-PUT]       | ✘    | ✔          | 更新或创建一个资源（完整替换）               |
 | [PATCH][HTTP-Method-PATCH]   | ✘    | ✘          | 更新一个资源（部分更新）                     |
 | [DELETE][HTTP-Method-DELETE] | ✘    | ✔          | 删除一个资源                                 |
 | [POST][HTTP-Method-POST]     | ✘    | ✘          | 创建，或者不满足以上四个Method语义的所有操作 |
 
-[PATCH][HTTP-Method-PATCH]和[POST][HTTP-Method-POST]都是`不安全`且`不幂等`的，差异在于[PATCH][HTTP-Method-PATCH]仅是用于部分更新资源, 而且是一个可选支持的[HTTP Method] [HTTP-Method]，可能会存在一些代理、网关等组件不支持的情况，所以推荐用[POST][HTTP-Method-POST]来代替它。
+[PATCH][HTTP-Method-PATCH]和[POST][HTTP-Method-POST]都是`不安全`且`不幂等`的，差异在于[PATCH][HTTP-Method-PATCH]仅是用于部分更新资源, 而且是一个可选支持的[HTTP Method][HTTP-Method]，可能会存在一些代理、网关等组件不支持的情况，所以推荐用[POST][HTTP-Method-POST]来代替它。
 
 ### 4.1.2 Semantics {#4-1-2-http-method-semantics}
 
-每一个[HTTP Method] [HTTP-Method]都具有一下3个HTTP协议层面的语义。
+每一个[HTTP Method][HTTP-Method]都具有一下3个HTTP协议层面的语义。
 
 | HTTP Method Semantics                          | 含义                                     |
-| --------------------------------------------- | --------------------------------------- |
+| ---------------------------------------------- | ---------------------------------------- |
 | [Safe][HTTP-Method-Semantics-Safe]             | 操作不会对资源产生副作用，不会修改资源。 |
 | [Idempotent][HTTP-Method-Semantics-Idempotent] | 执行一次和重复执行N次，结果是一样的。    |
 | [Cacheable][HTTP-Method-Semantics-Cacheable]   | 可以被缓存。                             |
@@ -224,7 +224,7 @@ Http Header的用途在于携带`HTTP Request`和`HTTP Response`的元数据信�
 HTTP APIs中常用到的Headers : 
 
 | HTTP Header Name                                 | 描述说明                             | 示例                            |
-| ----------------------------------------------- | ----------------------------------- | ------------------------------ |
+| ------------------------------------------------ | ------------------------------------ | ------------------------------- |
 | [Accept][HTTP-Header-Accept]                     | 客户端期望服务器返回的数据格式。     | `Accept:application/json`       |
 | [Accept-Charset][HTTP-Header-Accept-Charset]     | 客户端期望服务器返回的数据的字符集。 | `Accept-Charset:utf-8`          |
 | [Content-Type][HTTP-Header-Content-Type]         | 描述`Body`的数据类型。               | `Content-Type:application/json` |
@@ -279,7 +279,7 @@ Request-Id: {id}
 3. `5xx` : 服务端的错误。
 
 | HTTP Status Code                                   | 描述说明                                                                                                                                    |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | [200 OK][HTTP-Status-Code-200]                     | 执行成功。                                                                                                                                  |
 | [201 Created][HTTP-Status-Code-201]                | 资源创建成功，应该在`HTTP Response Header`中返回`Location`来提供新创建资源的URL地址。                                                       |
 | [202 Accepted][HTTP-Status-Code-202]               | 服务端已经接受了请求，但是并未处理完成，适用于一些异步操作。                                                                                |
@@ -296,6 +296,7 @@ Request-Id: {id}
 | [500 Internal Server Error][HTTP-Status-Code-500]  | 服务器遇见了未知的内部错误。                                                                                                                |
 | [501 Not Implemented][HTTP-Status-Code-501]        | 服务器还未实现次功能。                                                                                                                      |
 | [503 Service Unavailable][HTTP-Status-Code-503]    | 服务器繁忙，暂时无法处理客户端的请求。                                                                                                      |
+
 参考资料 : 
 
 1. https://tools.ietf.org/html/rfc7231#section-6
@@ -423,7 +424,7 @@ JSON示例 :
 日期和时间采用[RFC3339]中定义的通用的格式。表示方法如下 : 
 
 | 格式             | 组成部分                                             | 示例                           |
-| --------------- | --------------------------------------------------- | ----------------------------- |
+| ---------------- | ---------------------------------------------------- | ------------------------------ |
 | `date-fullyear`  | 4位数的年份                                          | 2018                           |
 | `date-month`     | 2位数的月份                                          | 04                             |
 | `date-mday`      | 2位数的日期                                          | 01                             |
