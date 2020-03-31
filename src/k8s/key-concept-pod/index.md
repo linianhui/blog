@@ -6,7 +6,7 @@ toc: true
 ---
 
 
-抽象层面 : `Pod=random_ip:fixed_port`
+抽象层面 : `Pod = random-ip:fixed-port`
 
 # 1. 概述 {#overview}
 
