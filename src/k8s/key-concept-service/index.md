@@ -15,7 +15,7 @@ toc: true
 
 抽象层面 : `Service = service-name + EndPoints = fixed-vip:fixed-port`
 
-# 3.2 Service without selectors {#service-without-selectors}
+## 3.2 Service without selectors {#service-without-selectors}
 
 不使用`selectors`, 手动创建同名的`Endpoints`。
 
