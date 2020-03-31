@@ -30,17 +30,17 @@ resources:           # 资源限制
 # 3. 容器的健康检查探针 {#container-probes}
 
 ```yml
-readinessProbe:            #启动后检查，检查通过后才能接收流量。
-  initialDelaySeconds: 10  #单位=s。  等待10s后进行检查。
-  timeoutSeconds: 10       #单位=s。  每一次检查超过10s没返回视为失败。
-  periodSeconds: 10        #单位=s。  30s检查一次。
-  successThreshold: 1      #单位=次数。检查1次成功即视为成功。
-  failureThreshold: 6      #单位=次数。检查5次失败即视为失败。
+readinessProbe:            # 启动后检查，检查通过后才能接收流量。
+  initialDelaySeconds: 10  # 单位=s。  等待10s后进行检查。
+  timeoutSeconds: 10       # 单位=s。  每一次检查超过10s没返回视为失败。
+  periodSeconds: 10        # 单位=s。  30s检查一次。
+  successThreshold: 1      # 单位=次数。检查1次成功即视为成功。
+  failureThreshold: 6      # 单位=次数。检查5次失败即视为失败。
   httpGet:
     scheme: HTTP
     port: 80
     path: /.health-check
-livenessProbe:             #启动后周期性检查，检查失败时则kill Pod。
+livenessProbe:             # 启动后周期性检查，检查失败时则kill Pod。
   initialDelaySeconds: 60
   timeoutSeconds: 10
   periodSeconds: 30
