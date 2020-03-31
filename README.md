@@ -3,18 +3,14 @@
 [![Github-Actions-Img]][Github-Actions-Url] 
 
 
-# 本地运行
+# 运行
 
-<http://localhost:1313>
+```bash
+hugo --config .hugo.yml server
 
-1. hugo 运行
-    ```bash
-    hugo --config .hugo.yml server
-    ```
-2. Docker Compose 运行
-    ```bash
-    docker-compose up -d --build
-    ```
+...
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+```
 
 # 依赖
 
