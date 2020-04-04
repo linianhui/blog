@@ -13,15 +13,6 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v1
 
-      - name: add deploy private key
-        env:
-          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
       - name: install hugo
         env:
           HUGO_VERSION: 0.68.3
@@ -29,7 +20,7 @@ jobs:
           wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb -O hugo.deb
           sudo dpkg -i hugo.deb
 
-      - name: hugo generate static web site
+      - name: use hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
           hugo --config .hugo.yml
@@ -43,10 +34,23 @@ jobs:
           git add .
           git commit -m "GitHub Actions Auto Deploy"
 
+      - name: add deploy private key
+        env:
+          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: push to linianhui/linianhui.github.io master branch
         working-directory: .www
         run: git push --force git@github.com:/linianhui/linianhui.github.io HEAD:master
 
-      - name: update bing sitemap
+      - name: submit sitemap to bing
         # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
         run: curl http://www.bing.com/ping?sitemap=https%3A%2F%2Flinianhui.github.io/sitemap.xml
+
+      - name: submit sitemap to google
+        # https://support.google.com/webmasters/answer/183668
+        run: curl http://www.google.com/ping?sitemap=https%3A%2F%2Flinianhui.github.io/sitemap.xml
