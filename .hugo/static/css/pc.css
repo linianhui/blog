@@ -93,6 +93,24 @@ summary{
   background-color: #0681ba;
 }
 
+.bing-search{
+  position: relative;
+  display: block;
+}
+
+.bing-search-input{
+  position: absolute;
+  top: 1px;
+  right: 0;
+  display: inline-block;
+  width: 16em;
+  border-style:solid ;
+  border-color: #0681ba;
+  border-width: 0 1px 1px 1px;
+  font-size: 16px;
+  padding: 6px;
+}
+
 .main {
   position: relative;
   display: block;
