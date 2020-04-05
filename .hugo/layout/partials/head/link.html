@@ -5,9 +5,9 @@
 
 <link href="//cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="/.css/pc.css?{{ now.Unix }}" rel="stylesheet">
+<link href='/.css/pc.css?t={{- now.Format "2006-01-02T15:04:05-0700" -}}' rel="stylesheet">
 {{ if .Params.toc }}
-<link href="/.css/toc.css?{{ now.Unix }}" rel="stylesheet">
+<link href='/.css/toc.css?t={{- now.Format "2006-01-02T15:04:05-0700" -}}' rel="stylesheet">
 {{ end }}
 
 <script type="text/javascript">
@@ -20,6 +20,6 @@
   }
 
   if (lnh_is_mobile()) {
-    document.write('<link href="/.css/mobile.css?{{ now.Unix }}" rel="stylesheet">');
+    document.write('<link href="/.css/mobile.css?t={{- now.Format "2006-01-02T15:04:05-0700" -}}" rel="stylesheet">');
   }
 </script>
