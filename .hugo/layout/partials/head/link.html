@@ -1,6 +1,6 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 {{- range .AlternativeOutputFormats -}}
-  <link rel="{{.Rel}}" type="{{.MediaType.Type}}" href="{{.Permalink}}" title="{{$.Site.Title | safeHTML }}"/>
+<link rel="{{.Rel}}" type="{{.MediaType.Type}}" href="{{.Permalink}}" title="{{$.Site.Title | safeHTML }}" />
 {{- end -}}
 
 <link href="//cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
@@ -9,17 +9,9 @@
 {{ if .Params.toc }}
 <link href='/.css/toc.css?t={{- now.Format "2006-01-02T15:04:05-0700" -}}' rel="stylesheet">
 {{ end }}
-
+<script src='/.js/pc.js?t={{- now.Format "2006-01-02T15:04:05-0700" -}}' type="text/javascript"></script>
 <script type="text/javascript">
-  function lnh_is_mobile() {
-    return /.*Mobile.*/.test(navigator.userAgent);
-  }
-
-  function lnh_is_pc(){
-    return !lnh_is_mobile();
-  }
-
-  if (lnh_is_mobile()) {
-    document.write('<link href="/.css/mobile.css?t={{- now.Format "2006-01-02T15:04:05-0700" -}}" rel="stylesheet">');
+  if (lnh.isMobile()) {
+    lnh.css.addMobileCss('/.css/mobile.css?t={{- now.Format "2006-01-02T15:04:05-0700" -}}');
   }
 </script>

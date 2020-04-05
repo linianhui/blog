@@ -3,8 +3,7 @@
     <span> Copyright © {{ now.Format "2006" }} blackheart </span>
     <span>
       <script type="text/javascript">
-        var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
-        document.write(unescape("%3Cspan id='cnzz_stat_icon_1278011463'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1278011463%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+        lnh.analyzes.addAnalyzes();
       </script>
     </span>
   </section>
@@ -29,9 +28,10 @@
     <span> | </span>
     <span>
       {{ if ne $.Site.Params.GitLastHash "" }}
-        <a class="fa fa-code-fork article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
-          {{substr $.Site.Params.GitLastHash 0 7}}
-        </a>
+      <a class="fa fa-code-fork article-git-commit"
+        href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
+        {{substr $.Site.Params.GitLastHash 0 7}}
+      </a>
       {{ end }}
       <a href="{{ $.Site.Params.CiUrl}}" target="_blank">
         <img src="{{ $.Site.Params.CiBadgeImageUrl}}" style="vertical-align: middle;" />

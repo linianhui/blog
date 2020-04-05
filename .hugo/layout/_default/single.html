@@ -10,14 +10,8 @@
     {{ .Content }}
   </section>
   <script type="text/javascript">
-    if (lnh_is_pc()) {
-      var lnh_toc_a_list = lnh_toc_get_a_list();
-      lnh_toc_title_add_a(lnh_toc_a_list);
-      if (lnh_toc_a_list.length != 0) {
-        window.onscroll = function () {
-          lnh_toc_on_scroll(lnh_toc_a_list);
-        };
-      }
+   if (lnh.isPC()) {
+      lnh.toc.addOnScorllEvent();
     }
   </script>
 
