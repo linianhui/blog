@@ -14,10 +14,6 @@
         document.write('<link href="' + href + '" rel="stylesheet">');
     }
 
-    function addAnalyzes() {
-        document.write(unescape("%3Cspan id='cnzz_stat_icon_1278011463'%3E%3C/span%3E%3Cscript src='https://s4.cnzz.com/z_stat.php%3Fid%3D1278011463%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
-    }
-
     function tocResetStyle() {
         var tocElement = document.getElementById('toc');
         var tocElementOffsetWidth = tocElement.offsetWidth;
@@ -101,9 +97,6 @@
         isPC: isPC,
         css: {
             addMobileCss: addMobileCss
-        },
-        analyzes: {
-            addAnalyzes: addAnalyzes
         },
         toc: {
             resetStyle: tocResetStyle,
