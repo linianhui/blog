@@ -1,4 +1,6 @@
 <form class="bing-search" method="GET" target="_blank" action="https://www.bing.com/search">
-  <input type="hidden" name="q1" value="site:linianhui.github.io" />
-  <input class="bing-search-input" type="search" name="q" placeholder="Bing site search"/>
+  <input id="search_param_site" type="hidden" value="site:linianhui.github.io " />
+  <input id="search_param" type="hidden" name="q" />
+  <input class="bing-search-input" type="search" placeholder="Bing site search"
+    onkeypress="search_param.value=search_param_site.value+this.value;" />
 </form>
