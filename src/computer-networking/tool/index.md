@@ -109,8 +109,8 @@ apt install -y tcpdump
 # 抓包到文件
 tcpdump port 80 -w http-80.pcap
 
-# 解析80端口的包
-tcpdump port 80 -A 
+# 解析80端口的100个包
+tcpdump port 80 -A -c 100
 ```
 
 参考 : https://www.tcpdump.org/manpages/tcpdump.1.html
