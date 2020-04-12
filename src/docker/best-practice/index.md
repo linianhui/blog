@@ -17,7 +17,7 @@ ENTRYPOINT ["executable", "param1", "param2"]
 虽然官方推荐使用EXEC方式，推荐理由是[PID]=1，但是EXEC的参数无法解析ENV，故而在需要ENV时并无法使用。比如:
 ```dockerfile
 # 无效的，无法读取$JAVA_OPTIONS，但是PID=1。
-ENTRYPOINT ["java", "$JAVA_OPTIONS", "-jar", "app.jar]
+ENTRYPOINT ["java", "$JAVA_OPTIONS", "-jar", "app.jar"]
 ```
 
 ## 1.2 SHELL {#entrypoint-shell}
@@ -28,7 +28,7 @@ ENTRYPOINT command param1 param2
 上述命令会被转换成`/bin/sh -c "command param1 param2"`, 此时可以使用ENV的（但是[PID]不一定为=1，要看实际情况）。比如:
 ```dockerfile
 # 有效的，可以读取$JAVA_OPTIONS, 但是PID不一定=1。
-ENTRYPOINT java $JAVA_OPTIONS -jar app.jar]
+ENTRYPOINT java $JAVA_OPTIONS -jar app.jar
 ```
 
 参考资料 : <https://docs.docker.com/engine/reference/builder/#entrypoint>
