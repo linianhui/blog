@@ -1,7 +1,7 @@
 ---
 title: '[Docker] Best Practice'
-created_at: 2018-01-28 16:53:01
-tag: ["docker","Best Practice","PID","ENTRYPOINT","bash"]
+created_at: 2020-04-12 17:13:01
+tag: ["docker","Best Practice","PID","ENTRYPOINT","bash","dash"]
 toc: true
 ---
 
