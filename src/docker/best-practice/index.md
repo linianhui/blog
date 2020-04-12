@@ -7,27 +7,42 @@ toc: true
 
 # 1 ENTRYPOINT {#entrypoint} 
 
-推荐使用ENTRYPOINT(不要和CMD同时使用) : 当ENTRYPOINT存在时，CMD会作为它的参数存在，增加复杂性。ENTRYPOINT有一下两种格式。
+推荐使用ENTRYPOINT(不要和CMD同时使用) : 当ENTRYPOINT存在时，CMD会作为它的参数存在，增加复杂性。ENTRYPOINT指令有一下两种形式。
 
-## 1.1 EXEC {#entrypoint-exec}
+## 1.1 EXEC  {#entrypoint-exec}
+
+语法 : `ENTRYPOINT JSON数组`，由于是JSON数组，那么则只能使用双引号`"`而不是单引号`'`。
 
 ```dockerfile
 ENTRYPOINT ["executable", "param1", "param2"]
 ```
-虽然官方推荐使用EXEC方式，推荐理由是[PID]=1，但是EXEC的参数无法解析ENV，故而在需要ENV时并无法使用。比如:
+
+虽然官方推荐使用EXEC方式，推荐理由是默认[PID]=1，但是EXEC的参数无法解析ENV。比如:
+
 ```dockerfile
 # 无效的，无法读取$JAVA_OPTIONS，但是PID=1。
 ENTRYPOINT ["java", "$JAVA_OPTIONS", "-jar", "app.jar"]
 ```
+
+不过可以使用下面的方式使用ENV。
+
+```dockerfile
+# 有效的，可以读取$JAVA_OPTIONS，但是PID不一定=1，依赖具体sh的行为。
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTIONS -jar app.jar"]
+```
+
+所以推荐使用下面的[PID]中的形式。
 
 ## 1.2 SHELL {#entrypoint-shell}
 
 ```dockerfile
 ENTRYPOINT command param1 param2
 ```
-上述命令会被转换成`/bin/sh -c "command param1 param2"`, 此时可以使用ENV的（但是[PID]不一定为=1，要看实际情况）。比如:
+
+上述命令会被转换成`/bin/sh -c "command param1 param2"`, 此时可以使用ENV的。比如:
+
 ```dockerfile
-# 有效的，可以读取$JAVA_OPTIONS, 但是PID不一定=1。
+# 有效的，可以读取$JAVA_OPTIONS，但是PID不一定=1，依赖具体sh的行为。
 ENTRYPOINT java $JAVA_OPTIONS -jar app.jar
 ```
 
