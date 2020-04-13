@@ -1,11 +1,12 @@
 ---
-title: '[K8S] Install'
+title: '[K8S] kubeadm'
 created_at: 2018-12-13 23:21:01
-tag: ["K8S", "Install"]
+tag: ["K8S", "kubeadm"]
+aliases: ["/k8s/install"]
 toc: true
 ---
 
-使用kubeadm安装k8s集群。
+kubeadm是k8s的command-line工具，用来创建和维护k8s集群。
 
 # 1. 安装Master节点 {#master}
 
