@@ -27,3 +27,9 @@ kubeadm init --config kubeadm.init-config.yml --upload-certs
 # 3. Script File List {#script-file-list}
 
 {{<file-list regularExpression="^.*\.sh$">}}
+
+# 4. Reference {#reference}
+
+https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init
+
+https://kuboard.cn/install/install-k8s.html
