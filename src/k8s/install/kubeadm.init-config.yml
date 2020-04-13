@@ -1,0 +1,22 @@
+# 文档 : https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file
+# 查看默认配置 : kubeadm config print init-defaults
+# 安装 : kubeadm init --config kubeadm.init-config.yml --upload-certs
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+nodeRegistration:
+  taints:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/master
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: v1.18.1
+clusterName: k8s
+imageRepository: registry.aliyuncs.com/google_containers
+dns:
+  type: CoreDNS
+controlPlaneEndpoint: api-server.k8s.test:6443
+networking:
+  podSubnet: 10.1.0.1/16
+  serviceSubnet: 10.2.0.0/16
+  dnsDomain: cluster.local

@@ -5,6 +5,25 @@ tag: ["K8S", "Install"]
 toc: true
 ---
 
-# 1 Script File List {#script-file-list}
+使用kubeadm安装k8s集群。
+
+# 1. 安装Master节点 {#master}
+
+安装命令:
+```bash
+kubeadm init --config kubeadm.init-config.yml --upload-certs
+```
+
+可以通过`kubeadm config print init-defaults`命令查看默认的配置，然后修改为自己的`kubeadm.init-config.yml`即可。以下是一个修改后的示例：
+
+{{<highlight-file file="kubeadm.init-config.yml" lang="yml">}}
+
+# 2. 安装网络插件 {#network}
+
+
+# 3. 安装Worker节点 {#worker}
+
+
+# 3. Script File List {#script-file-list}
 
 {{<file-list regularExpression="^.*\.sh$">}}
