@@ -24,7 +24,7 @@ ENTRYPOINT ["echo", "PWD=$PWD"]
 EOF
 
 # 查看build后的Entrypoint
-docker inspect entrypoint-inspect:exec1 | jq .[0].Config.Entrypoint
+docker inspect entrypoint-inspect:exec1 --format '{{json .Config.Entrypoint}}'
 
 # 输出
 [
@@ -47,7 +47,7 @@ ENTRYPOINT ["/bin/sh", "-c", "echo PWD=$PWD"]
 EOF
 
 # 查看build后的Entrypoint
-docker inspect entrypoint-inspect:exec2 | jq .[0].Config.Entrypoint
+docker inspect entrypoint-inspect:exec2 --format '{{json .Config.Entrypoint}}'
 
 # 输出
 [
@@ -77,7 +77,7 @@ ENTRYPOINT echo PWD=$PWD
 EOF
 
 # 查看build后的Entrypoint
-docker inspect entrypoint-inspect:shell1 | jq .[0].Config.Entrypoint
+docker inspect entrypoint-inspect:shell1 --format '{{json .Config.Entrypoint}}'
 
 # 输出，可以发现完全等于:ENTRYPOINT ["/bin/sh", "-c", "echo PWD=$PWD"]
 [
@@ -99,7 +99,7 @@ PWD=/
 
 # 2 PID {#pid}
 
-容器内的进程PID=1时才可以接受UNXI的信号信息，比如stop或者kill容器的时候。`docker build`后的`.[0].Config.Entrypoint`中的**第一个元素是一个可执行程序，它的PID=1**。比如一下示例。
+容器内的进程PID=1时才可以接受UNXI的信号信息，比如`docker stop`或者`docker kill`容器的时候。`docker build`后的`.[0].Config.Entrypoint`中的**第一个元素是一个可执行程序，它的PID=1**。比如一下示例。
 
 当ENTRYPOINT是如下格式的时候：
 ```json
@@ -108,7 +108,7 @@ PWD=/
   "PWD=$PWD"
 ]
 ```
-这时echo的PID=1。
+这时`echo`的`PID=1`。
 
 当ENTRYPOINT是如下格式的时候：
 ```json
