@@ -1,3 +1,3 @@
 set -eux
 
-kubeadm init --image-repository gcr.azk8s.cn/google_containers
+kubeadm init --image-repository registry.aliyuncs.com/google_containers
