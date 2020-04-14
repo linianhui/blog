@@ -5,18 +5,28 @@ apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
   taints:
+    # 不向master节点调度pod
     - effect: NoSchedule
       key: node-role.kubernetes.io/master
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
+# 版本
 kubernetesVersion: v1.18.1
+# 集群名称
 clusterName: k8s
+# 内部组件的镜像仓库
 imageRepository: registry.aliyuncs.com/google_containers
+# 使用CoreDNS
 dns:
   type: CoreDNS
+# API SERVER组件的服务地址，worker节点通过这个地址和master通信
 controlPlaneEndpoint: api-server.k8s.test:6443
+# 笔者的环境 : k8s的node节点使用C类私有IP=192.168.0.0/16; Service使用B类私有IP=172.16.0.0/12; Pod使用A类私有IP=10.0.0.0/8
 networking:
+  # Pod的网络地址范围，/16最多可以给65536个Pod分配IP。
   podSubnet: 10.1.0.1/16
-  serviceSubnet: 10.2.0.0/16
+  # Service的网络地址范围，/24最多可以给256个Service分配IP。
+  serviceSubnet: 172.16.1.0/24
+  # 默认的顶级域名
   dnsDomain: cluster.local
