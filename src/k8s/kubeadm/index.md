@@ -8,6 +8,14 @@ toc: true
 
 kubeadm是k8s的command-line工具，用来创建和维护k8s集群。
 
+# 0. 准备环境 {#requirements}
+
+| role   | hostname     | fixed ip      | os                    | cpu  | memory |
+| :----- | :----------- | :------------ | :-------------------- | :--- | :----- |
+| master | k8s-master-1 | 192.168.2.220 | ubuntu server 18.04.4 | 2    | 4G     |
+| worker | k8s-worker-1 | 192.168.2.221 | ubuntu server 18.04.4 | 2    | 4G     |
+| worker | k8s-worker-2 | 192.168.2.222 | ubuntu server 18.04.4 | 2    | 4G     |
+
 # 1. 安装Master节点 {#master}
 
 安装命令:
