@@ -5,7 +5,7 @@ apt-get update -y
 apt-get install -y apt-transport-https
 
 
-curl -fsSL https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - 
+curl -fsSL https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
 
 
 tee <<-EOF /etc/apt/sources.list.d/kubernetes.list
@@ -14,4 +14,5 @@ EOF
 
 
 apt-get update -y
-apt-get install -y kubelet kubeadm kubectl
+# 安装kubeadm kubelet kubectl
+apt-get install -y kubeadm kubelet kubectl

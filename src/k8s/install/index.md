@@ -38,18 +38,18 @@ ip a
 2. 为k8s相关的服务配置防火墙，这里图省事，直接关闭防火墙。
 3. 关闭Swap内存（k8s为了性能考虑，不允许开启Swap）。
 
-{{<highlight-file file="1.prerequisites.sh" lang="bash">}}
+{{<highlight-file file="init-node.sh" lang="bash">}}
 
 
-# 2. 安装Docker {#instll-docker}
+# 2. 安装Docker {#docker}
 
 [安装Docker][docker-install]
 
-# 3. 安装Kubeadm {#install-docker}
+# 3. 安装Kubeadm {#kubeadm}
 
-{{<highlight-file file="2.kubeadm.install.sh" lang="bash">}}
+{{<highlight-file file="kubeadm.sh" lang="bash">}}
 
-# 4. 初始化Master节点 {#master-init}
+# 4. 初始化Master节点 {#master}
 
 上述步骤需要在每个node上都执行。本步骤只需在master上执行即可。集群配置文件
 
@@ -68,10 +68,32 @@ kubectl get nodes
 
 # 输出
 NAME           STATUS     ROLES    AGE   VERSION
-k8s-master-1   NotReady   master   5m    v1.18.1
+k8s-master-1   NotReady   master   2m    v1.18.1
+
+# 获取kubeadm join命令
+kubeadm token create --print-join-command
 ```
 
-# 5. 部署网络插件 
+# 5. 初始化Worker节点 {#worker}
+
+本步骤只需分别在worker上执行即可。
+```bash
+# 示例kubeadm join命令
+kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda --discovery-token-ca-cert-hash sha256:da3764c85a4727de39d674f93a976c617f15f49ca11b2a68bc850c5789
+```
+
+成功后会查看node:
+```bash
+kubectl get nodes
+
+# 输出
+NAME           STATUS   ROLES    AGE     VERSION
+k8s-master-1   Ready    master   3m21s   v1.18.1
+k8s-worker-1   Ready    <none>   112s    v1.18.1
+k8s-worker-2   Ready    <none>   108s    v1.18.1
+```
+
+# 6. 部署网络插件 {#cni}
 
 部署`flannel`网络插件。
 
@@ -82,7 +104,7 @@ kubectl apply -f https://linianhui.github.io/k8s/install/flannel.yml
 参考 : 
 1. https://github.com/coreos/flannel
 
-# 6. 部署dashboard
+# 7. 部署dashboard {#dashboard}
 
 部署`metrics-server`和`dashboard`。
 
@@ -107,18 +129,13 @@ kubectl -n kube-dashboard describe secret kube-dashboard-admin-token
 1. https://github.com/kubernetes-sigs/metrics-server
 2. https://github.com/kubernetes/dashboard
 
-# 7. 初始化Worker节点 {#worker-join}
+# 8. Debug {#debug}
 
-本步骤只需在worker上执行即可。使用上步中输出的信息。
-```bash
-# 在master上执行，获取kubeadm join命令
-kubeadm token create --print-join-command
-
-# 示例kubeadm join命令
-kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda --discovery-token-ca-cert-hash sha256:da3764c85a4727de39d674f93a976c617f15f49ca11b2a68bc850c5789
+```sh
+kubectl run -it --image=lnhcode/tool --restart=Never --command --rm -- sh
 ```
 
-# 8. Reference {#reference}
+# 9. Reference {#reference}
 
 {{<file-list regularExpression="^.*\.sh$">}}
 
