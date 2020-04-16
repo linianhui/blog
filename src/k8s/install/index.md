@@ -51,7 +51,9 @@ ip a
 
 # 4. 初始化Master节点 {#master-init}
 
-上述步骤需要在每个node上都执行。本步骤只需在master上执行即可。
+上述步骤需要在每个node上都执行。本步骤只需在master上执行即可。集群配置文件
+
+{{<highlight-file file="kubeadm.init-config.yml" lang="yml">}}
 
 初始化命令:
 ```bash
@@ -59,10 +61,6 @@ wget https://linianhui.github.io/k8s/install/kubeadm.init-config.yml
 
 kubeadm init --config kubeadm.init-config.yml --upload-certs -v=5
 ```
-
-可以通过`kubeadm config print init-defaults`命令查看默认的配置，然后修改为自己的`kubeadm.init-config.yml`即可。以下是一个修改后的示例：
-
-{{<highlight-file file="kubeadm.init-config.yml" lang="yml">}}
 
 成功后会查看node:
 ```bash
