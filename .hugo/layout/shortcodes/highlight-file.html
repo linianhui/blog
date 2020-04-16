@@ -4,17 +4,9 @@
 {{- $filePath := cond $isAbsolutePath $fileParam ((path.Join $.Page.File.Dir $fileParam) | relURL) }}
 <div class="highlight-file">
   <div class="highlight-file-title">
-    <span>{{$.Site.Params.Home}}{{$filePath}}</span>
-    <span class="highlight-file-action">
-      {{- if $isAbsolutePath -}}
-        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
-        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}" title="文本"></a>
-      {{- else -}}
-        <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
-        <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
-        <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="下载" download></a>
-      {{- end -}}
-    </span>
+    <a target="_blank" href="{{$.Site.Params.Home}}{{$filePath}}" download>{{$.Site.Params.Home}}{{$filePath}}</a>
+    <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
+    <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}" title="文本"></a>
   </div>
   {{- highlight ($filePath | readFile) $langParam "" -}}
 </div>
