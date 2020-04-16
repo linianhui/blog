@@ -4,11 +4,12 @@
 {{- $filePath := cond $isAbsolutePath $fileParam ((path.Join $.Page.File.Dir $fileParam) | relURL) }}
 <div class="highlight-file">
   <div class="highlight-file-title">
-    <a target="_blank" href="{{$.Site.Params.Home}}{{$filePath}}" download>{{$.Site.Params.Home}}{{$filePath}}</a>
     {{- if $isAbsolutePath -}}
+      <span>{{$filePath}}</span>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
       <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}" title="文本"></a>
     {{- else -}}
+      <a target="_blank" href="{{$.Site.Params.Home}}{{$filePath}}" download>{{$.Site.Params.Home}}{{$filePath}}</a>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
       <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
     {{- end -}}
