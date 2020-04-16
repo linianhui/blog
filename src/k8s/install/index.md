@@ -55,6 +55,8 @@ ip a
 
 初始化命令:
 ```bash
+wget https://linianhui.github.io/k8s/install/kubeadm.init-config.yml
+
 kubeadm init --config kubeadm.init-config.yml --upload-certs -v=5
 ```
 
@@ -62,40 +64,7 @@ kubeadm init --config kubeadm.init-config.yml --upload-certs -v=5
 
 {{<highlight-file file="kubeadm.init-config.yml" lang="yml">}}
 
-成功后会输出如下信息：
-```bash
-Your Kubernetes control-plane has initialized successfully!
-
-To start using your cluster, you need to run the following as a regular user:
-
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-You can now join any number of the control-plane node running the following command on each as root:
-
-  kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda \
-    --discovery-token-ca-cert-hash sha256:da3764c85a4727de39d674f93a976c617f15f49ca11b2a68bc850c5789
-7e5fb1 \
-    --control-plane --certificate-key e61aa43f26710748a727e64cdfe0d2b43ae4470a1f81bb1589e8f051d0163b
-d1
-
-Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
-As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
-"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
-
-Then you can join any number of worker nodes by running the following on each as root:
-
-kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda \
-    --discovery-token-ca-cert-hash sha256:da3764c85a4727de39d674f93a976c617f15f49ca11b2a68bc850c5789
-7e5fb1
-```
-
-查看node:
+成功后会查看node:
 ```bash
 kubectl get nodes
 
@@ -138,6 +107,10 @@ kubectl -n kube-dashboard describe secret kube-dashboard-admin-token
 
 本步骤只需在worker上执行即可。使用上步中输出的信息。
 ```bash
+# 在master上执行，获取kubeadm join命令
+kubeadm token create --print-join-command
+
+# 示例kubeadm join命令
 kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda --discovery-token-ca-cert-hash sha256:da3764c85a4727de39d674f93a976c617f15f49ca11b2a68bc850c5789
 ```
 
