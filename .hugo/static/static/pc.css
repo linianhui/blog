@@ -110,7 +110,10 @@ summary{
   font-size: 16px;
   padding: 6px;
   border-radius: 0;
-  -webkit-appearance: none;
+}
+
+.bing-search-input::-webkit-input-placeholder {
+  color: #aaa;
 }
 
 .main {
