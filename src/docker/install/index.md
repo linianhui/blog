@@ -5,23 +5,31 @@ tag: ["docker","docker-compose","docker-machine","Install"]
 toc: true
 ---
 
-# 1 Dokcer {#1-docker}
+# 1 Dokcer {#docker}
 
-{{<highlight-file file="install.docker-on-ubuntu.sh" lang="bash">}}
+## 1.1 Ubuntu {#docker-on-ubuntu} 
 
-{{<highlight-file file="install.docker-on-centos.sh" lang="bash">}}
+{{<highlight-file file="docker-on-ubuntu.sh" lang="bash">}}
 
-{{<highlight-file file="config.dockerd.sh" lang="bash">}}
+## 1.2 CentOS {#docker-on-centos}
+
+{{<highlight-file file="docker-on-centos.sh" lang="bash">}}
+
+## 1.3 Config dockerd {#config-dockerd}
+
+{{<highlight-file file="config-dockerd.sh" lang="bash">}}
+
+{{<highlight-file file="daemon.json" lang="json">}}
 
 
 # 2 Dokcer Compose {#2-docker-compose}
 
-{{<highlight-file file="install.docker-compose.sh" lang="bash">}}
+{{<highlight-file file="docker-compose.sh" lang="bash">}}
 
 
 # 3 Dokcer Machine {#3-docker-machine}
 
-{{<highlight-file file="install.docker-machine.sh" lang="bash">}}
+{{<highlight-file file="docker-machine.sh" lang="bash">}}
 
 
 # 4 Reference {#4-reference}

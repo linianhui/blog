@@ -1,4 +1,4 @@
-# wget https://linianhui.github.io/docker/install/install.docker-on-ubuntu.sh
+# wget https://linianhui.github.io/docker/install/docker-on-ubuntu.sh
 # sudo bash install.docker-on-ubuntu.sh
 
 set -eux

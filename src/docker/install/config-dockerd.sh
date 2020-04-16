@@ -1,4 +1,4 @@
-# wget https://linianhui.github.io/docker/install/config.dockerd.sh
+# wget https://linianhui.github.io/docker/install/config-dockerd.sh
 # sudo bash config.dockerd.sh
 
 set -eux

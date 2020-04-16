@@ -1,4 +1,4 @@
-# wget https://linianhui.github.io/docker/install/install.docker-machine.sh
+# wget https://linianhui.github.io/docker/install/docker-machine.sh
 # sudo bash install.docker-machine.sh
 
 set -eux

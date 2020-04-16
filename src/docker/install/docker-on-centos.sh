@@ -1,4 +1,4 @@
-# wget https://linianhui.github.io/docker/install/install.docker-on-centos.sh
+# wget https://linianhui.github.io/docker/install/docker-on-centos.sh
 # sudo bash install.docker-on-centos.sh
 
 set -eux
@@ -24,7 +24,7 @@ yum-config-manager \
 
 yum install -y docker-ce
 
-groupadd docker 
+groupadd docker
 usermod -aG docker lnh
 
 systemctl enable docker

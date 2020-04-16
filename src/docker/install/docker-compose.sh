@@ -1,4 +1,4 @@
-# wget https://linianhui.github.io/docker/install/install.docker-compose.sh
+# wget https://linianhui.github.io/docker/install/docker-compose.sh
 # sudo bash install.docker-compose.sh
 
 set -eux
