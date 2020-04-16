@@ -26,10 +26,7 @@ apt-get update -y
 apt-get install -y docker-ce
 
 groupadd docker
-usermod -aG docker lnh
 
 systemctl enable docker
 
 docker version
-
-docker run hello-world

@@ -1,6 +1,6 @@
 # 文档 : https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file
 # 查看默认配置 : kubeadm config print init-defaults
-# 安装 : kubeadm init --config kubeadm.init-config.yml --upload-certs
+# 安装 : kubeadm init --config kubeadm.init-config.yml --upload-certs -v=5
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 nodeRegistration:
