@@ -51,7 +51,7 @@ REST对于资源的定义来自于Web的核心需求 :  独立创作跨越多个
 
 # 3 把REST应用于HTTP {#3-rest-applied-to-http}
 
-HTTP在Web中是一个特殊的角色，它既是Web组件之间通信的的应用级协议，也是作为移交资源的表述而设计的唯一协议(**注 :  Fielding发布REST的论文是在2000年，而在2014年又但是了一个COAP协议，所以以现在时间点来看，HTTP已经不是唯一的协议了**)。REST用来识别早期HTTP协议中的问题，并指定了一个可以和HTTP/1.0互操作的协议子集，然后分析HTTP/1.1的扩展提议，并最终诞生了HTTP/1.1。
+HTTP在Web中是一个特殊的角色，它既是Web组件之间通信的的应用级协议，也是作为移交资源的表述而设计的唯一协议(**注 :  Fielding发布REST的论文是在2000年，而在2014年又诞生了一个COAP协议，所以以现在时间点来看，HTTP已经不是唯一的协议了**)。REST用来识别早期HTTP协议中的问题，并指定了一个可以和HTTP/1.0互操作的协议子集，然后分析HTTP/1.1的扩展提议，并最终诞生了HTTP/1.1。
 
 > 2014年IETF发布的的[COAP(RFC 7252 Constrained Application Protocol)](http://coap.technology/)协议，也是遵循REST的指导来设计的，用于IOT的M2M环境下的应用层协议。COAP可以简单的理解为使HTTP的二进制精简版，此外其基于UDP协议，而不是HTTP所使用的TCP。不过目前应用并不广泛，IBM在1998开发的基于TCP的MQTT协议出现的比较早，相关资源丰富一些，因此目前在IOT领域MQTT应用的比较广泛一些。
 
