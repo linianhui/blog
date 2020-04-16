@@ -89,13 +89,19 @@ kubectl apply -f https://linianhui.github.io/k8s/install/flannel.yml
 部署`metrics-server`和`dashboard`。
 
 ```bash
+# 检查flannel是否部署完成，部署完成后再部署dashboard。 
+kubectl get pods -A
+
+# 部署监控服务
 kubectl apply -f https://linianhui.github.io/k8s/install/metrics-server.yml
+# 部署dashboard
 kubectl apply -f https://linianhui.github.io/k8s/install/dashboard.yml
 ```
 
-部署完成后dashboard的端口号为`30080`。
+部署完成后dashboard的端口号为`30080`。笔者的地址为 : <http://192.168.2.220:30080>
 
 ```bash
+# 获取访问dashboard的token
 kubectl -n kube-dashboard describe secret kube-dashboard-admin-token
 ```
 

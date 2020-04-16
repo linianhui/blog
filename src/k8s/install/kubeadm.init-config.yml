@@ -2,14 +2,6 @@
 # 查看默认配置 : kubeadm config print init-defaults
 # 安装 : kubeadm init --config kubeadm.init-config.yml --upload-certs -v=5
 apiVersion: kubeadm.k8s.io/v1beta2
-kind: InitConfiguration
-nodeRegistration:
-  taints:
-    # 不向master节点调度pod
-    - effect: NoSchedule
-      key: node-role.kubernetes.io/master
----
-apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 # 版本
 kubernetesVersion: v1.18.1
