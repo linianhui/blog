@@ -1,0 +1,205 @@
+# https://github.com/kubernetes/dashboard/blob/master/aio/deploy/recommended.yaml
+# kubectl apply -f metrics-server.yml
+# kubectl apply -f dashboard.yml
+# kubectl -n kube-dashboard get secret | grep kube-dashboard-admin-token
+# kubectl -n kube-dashboard describe secret kube-dashboard-admin-token-xxxx
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-dashboard
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-dashboard-admin
+  namespace: kube-dashboard
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: kube-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: kube-dashboard-admin
+    namespace: kube-dashboard
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: kube-dashboard
+  # hard code : https://github.com/kubernetes/dashboard/blob/master/src/app/backend/auth/api/types.go#L28
+  name: kubernetes-dashboard-certs
+  namespace: kube-dashboard
+type: Opaque
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: kube-dashboard
+  # hard code : https://github.com/kubernetes/dashboard/blob/master/src/app/backend/client/api/types.go#L33
+  name: kubernetes-dashboard-csrf
+  namespace: kube-dashboard
+type: Opaque
+data:
+  csrf: ''
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: kube-dashboard
+  # hard code : https://github.com/kubernetes/dashboard/blob/master/src/app/backend/auth/api/types.go#L25
+  name: kubernetes-dashboard-key-holder
+  namespace: kube-dashboard
+type: Opaque
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: dashboard-ui
+  name: dashboard-ui
+  namespace: kube-dashboard
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: dashboard-ui
+  template:
+    metadata:
+      labels:
+        app: dashboard-ui
+    spec:
+      containers:
+        - name: dashboard-ui
+          # https://hub.docker.com/r/kubernetesui/dashboard
+          image: kubernetesui/dashboard:v2.0.0-rc7
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          # https://github.com/kubernetes/dashboard/blob/master/docs/common/dashboard-arguments.md
+          args:
+            - --auto-generate-certificates
+            - --namespace=kube-dashboard
+          volumeMounts:
+            - name: kubernetes-dashboard-certs
+              mountPath: /certs
+            - name: tmp
+              mountPath: /tmp
+          livenessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /
+              port: 8443
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+      volumes:
+        - name: kubernetes-dashboard-certs
+          secret:
+            secretName: kubernetes-dashboard-certs
+        - name: tmp
+          emptyDir: {}
+      serviceAccountName: kube-dashboard-admin
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: dashboard-ui
+  name: dashboard-ui
+  namespace: kube-dashboard
+spec:
+  type: NodePort
+  ports:
+    - port: 443
+      targetPort: 8443
+      nodePort: 30080
+  selector:
+    app: dashboard-ui
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: dashboard-metrics-scraper
+  name: dashboard-metrics-scraper
+  namespace: kube-dashboard
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: dashboard-metrics-scraper
+  template:
+    metadata:
+      labels:
+        app: dashboard-metrics-scraper
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: 'runtime/default'
+    spec:
+      containers:
+        - name: dashboard-metrics-scraper
+          image: kubernetesui/metrics-scraper:v1.0.4
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /
+              port: 8000
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsUser: 1001
+            runAsGroup: 2001
+      serviceAccountName: kube-dashboard-admin
+      nodeSelector:
+        'beta.kubernetes.io/os': linux
+      # Comment the following tolerations if Dashboard must not be deployed on master
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: dashboard-metrics-scraper
+  name: dashboard-metrics-scraper
+  namespace: kube-dashboard
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    app: dashboard-metrics-scraper

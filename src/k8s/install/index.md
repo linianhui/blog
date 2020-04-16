@@ -1,8 +1,7 @@
 ---
-title: '[K8S] kubeadm'
+title: '[K8S] Install'
 created_at: 2018-12-13 23:21:01
-tag: ["K8S", "kubeadm"]
-aliases: ["/k8s/install"]
+tag: ["K8S", "kubeadm","flannel"]
 toc: true
 ---
 
@@ -105,16 +104,30 @@ NAME           STATUS     ROLES    AGE   VERSION
 k8s-master-1   NotReady   master   5m    v1.18.1
 ```
 
-# 5. 初始化Worker节点 {#worker-join}
+# 5. 部署网络插件 
+
+部署`flannel`网络插件。
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
+
+
+# 6. 部署dashboard
+
+部署`metrics-server`和`dashboard`。
+
+```bash
+kubectl apply -f https://linianhui.github.io/k8s/install/metrics-server.yml
+kubectl apply -f https://linianhui.github.io/k8s/install/dashboard.yml
+```
+
+# 7. 初始化Worker节点 {#worker-join}
 
 本步骤只需在worker上执行即可。使用上步中输出的信息。
 ```bash
 kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda --discovery-token-ca-cert-hash sha256:da3764c85a4727de39d674f93a976c617f15f49ca11b2a68bc850c5789
 ```
-
-# 6. 部署网络插件 
-
-# 7. 部署dashboard
 
 # 8. Reference {#reference}
 
@@ -124,5 +137,6 @@ https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init
 
 https://kuboard.cn/install/install-k8s.html
 
+https://github.com/coreos/flannel
 
 [docker-install]:/docker/install
