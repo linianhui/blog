@@ -109,9 +109,11 @@ k8s-master-1   NotReady   master   5m    v1.18.1
 部署`flannel`网络插件。
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://linianhui.github.io/k8s/install/flannel.yml
 ```
 
+参考 : 
+1. https://github.com/coreos/flannel
 
 # 6. 部署dashboard
 
@@ -121,6 +123,16 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 kubectl apply -f https://linianhui.github.io/k8s/install/metrics-server.yml
 kubectl apply -f https://linianhui.github.io/k8s/install/dashboard.yml
 ```
+
+部署完成后dashboard的端口号为`30080`。
+
+```bash
+kubectl -n kube-dashboard describe secret kube-dashboard-admin-token
+```
+
+参考 :
+1. https://github.com/kubernetes-sigs/metrics-server
+2. https://github.com/kubernetes/dashboard
 
 # 7. 初始化Worker节点 {#worker-join}
 
@@ -133,10 +145,10 @@ kubeadm join api-server.k8s.test:6443 --token opomfo.nd0dkto8ye006hda --discover
 
 {{<file-list regularExpression="^.*\.sh$">}}
 
+{{<file-list regularExpression="^.*\.yml$">}}
+
 https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init
 
 https://kuboard.cn/install/install-k8s.html
-
-https://github.com/coreos/flannel
 
 [docker-install]:/docker/install

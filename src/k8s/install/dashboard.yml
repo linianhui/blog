@@ -1,8 +1,7 @@
 # https://github.com/kubernetes/dashboard/blob/master/aio/deploy/recommended.yaml
 # kubectl apply -f metrics-server.yml
 # kubectl apply -f dashboard.yml
-# kubectl -n kube-dashboard get secret | grep kube-dashboard-admin-token
-# kubectl -n kube-dashboard describe secret kube-dashboard-admin-token-xxxx
+# kubectl -n kube-dashboard describe secret kube-dashboard-admin-token
 
 apiVersion: v1
 kind: Namespace
