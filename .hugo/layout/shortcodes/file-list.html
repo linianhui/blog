@@ -8,7 +8,7 @@
     {{- if $match -}}
       {{- $filePath := (path.Join $currentDir .Name) -}}
       <tr>
-        <td>{{- .Name -}}</td>
+        <td>{{$.Site.Params.Home}}{{$filePath}}</td>
         <td>
           <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
         </td>
