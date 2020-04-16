@@ -8,15 +8,14 @@
     {{- if $match -}}
       {{- $filePath := (path.Join $currentDir .Name) -}}
       <tr>
-        <td>{{$.Site.Params.Home}}{{$filePath}}</td>
+        <td>
+          <a target="_blank" href="{{$.Site.Params.Home}}{{$filePath}}" download>{{$.Site.Params.Home}}{{$filePath}}</a>
+        </td>
         <td>
           <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
         </td>
         <td>
           <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
-        </td>
-        <td>
-          <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="下载" download></a>
         </td>
       </tr>
       {{- end -}}
