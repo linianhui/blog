@@ -11,9 +11,10 @@
       {{- if $match -}}
         {{- $filePath := (path.Join $currentDir .Name) -}}
         {{- $id := md5 $filePath -}}
-        <tr>
+        <tr id="file-list-tr1-{{- $id -}}">
           <td>
-            <a id="file-list-a-{{- $id -}}" class="fa fa-plus" href="javascript:void(0);" onclick="lnh.css.toggleClassName('file-list-a-{{- $id -}}','file-list-div-{{- $id -}}','active')"></a>
+            <a id="file-list-a-{{- $id -}}" class="fa fa-plus" href="javascript:void(0);"
+            onclick="lnh.css.toggleClassName('file-list-tr1-{{- $id -}}','file-list-tr2-{{- $id -}}','file-list-a-{{- $id -}}','file-list-div-{{- $id -}}','active')"></a>
             <a target="_blank" href="{{$filePath}}" download>{{.Name}}</a>
           </td>
           <td width="2em">
@@ -23,7 +24,7 @@
             <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
           </td>
         </tr>
-        <tr>
+        <tr id="file-list-tr2-{{- $id -}}">
           <td colspan="3">
             <div id="file-list-div-{{- $id -}}" class="highlight-file-content" >
               {{- highlight ($filePath | readFile) $langParam "" -}}

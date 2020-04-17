@@ -318,6 +318,10 @@ summary{
   display: block;
 }
 
+.article-content .file-list tr.active {
+  background-color: #eee;
+}
+
 .article-content .file-list {
   margin-top: 1em;
   border: 1px solid #eee;
