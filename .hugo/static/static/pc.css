@@ -13,11 +13,13 @@ h1,
 h2,
 h3,
 h4 {
+  position: relative;
   margin: 0;
   padding: 0;
 }
 
 a {
+  position: relative;
   text-decoration: none;
 }
 
@@ -43,6 +45,7 @@ th,
 tr,
 tbody,
 table {
+  position: relative;
   border-collapse: collapse;
   border: 1px solid #ccc;
   padding: 6px;
@@ -50,6 +53,7 @@ table {
 }
 
 summary{
+  position: relative;
   display: block;
   margin-top: 0.5em;
 }
