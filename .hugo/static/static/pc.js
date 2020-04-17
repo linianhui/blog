@@ -20,10 +20,10 @@
             var index = classNameArray.indexOf(className);
             if (index != -1) {
                 classNameArray.splice(index, 1);
-                element.className = classNameArray.join(" ");
+                element.className = classNameArray.join(" ").trim();
             } else {
                 classNameArray.push(className);
-                element.className = classNameArray.join(" ");
+                element.className = classNameArray.join(" ").trim();
             }
         }
     }
