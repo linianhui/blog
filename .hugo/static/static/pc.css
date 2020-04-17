@@ -339,7 +339,6 @@ summary{
 .article-content .file-list th,
 .article-content .file-list tbody,
 .article-content .file-list table {
-  border-collapse: unset;
   border: none;
   margin: 0px;
   padding: 2px;
