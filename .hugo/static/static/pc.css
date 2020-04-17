@@ -299,11 +299,6 @@ summary{
   background-color: #eee;
 }
 
-.article-content .highlight-file-action{
-  display: inline-block;
-  margin-left: 1em;
-}
-
 .article-content .highlight-file .highlight{
   margin-top: 0;
 }
