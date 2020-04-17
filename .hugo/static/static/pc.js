@@ -15,20 +15,25 @@
     }
 
     function toggleClassNameCore(element, className) {
-        var classNameArray = element.className.split(" ") || [];
-        var index = classNameArray.indexOf(className);
-        if (index != -1) {
-            classNameArray.splice(index, 1);
-            element.className = classNameArray.join(" ");
-        } else {
-            classNameArray.push(className);
-            element.className = classNameArray.join(" ");
+        if (element && className) {
+            var classNameArray = element.className.split(" ") || [];
+            var index = classNameArray.indexOf(className);
+            if (index != -1) {
+                classNameArray.splice(index, 1);
+                element.className = classNameArray.join(" ");
+            } else {
+                classNameArray.push(className);
+                element.className = classNameArray.join(" ");
+            }
         }
     }
 
-    function toggleClassName(a, b, className) {
-        toggleClassNameCore(document.getElementById(a), className);
-        toggleClassNameCore(document.getElementById(b), className);
+    function toggleClassName() {
+        var lastIndex = arguments.length - 1;
+        var className = arguments[lastIndex];
+        for (var i = 0; i < lastIndex; i++) {
+            toggleClassNameCore(document.getElementById(arguments[i]), className);
+        }
     }
 
     function tocResetStyle() {
