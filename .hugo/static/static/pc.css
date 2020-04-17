@@ -292,7 +292,7 @@ summary{
   margin-top: 16px;
 }
 
-.article-content .highlight-file-title {
+.article-content .highlight-file-header {
   padding: 4px;
   border: 1px solid #eee;
   font-style: italic;
@@ -301,6 +301,14 @@ summary{
 
 .article-content .highlight-file-content {
   display: none;
+}
+
+.article-content .highlight-file_opened .highlight-file-switch::before {
+  content: '\f068';
+}
+
+.article-content .highlight-file_opened .highlight-file-content {
+  display: block;
 }
 
 .article-content .highlight-file .highlight,
