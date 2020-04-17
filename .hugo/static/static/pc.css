@@ -46,11 +46,8 @@ thead,
 tr {
   border-collapse: collapse;
   border: 1px solid #ccc;
-  padding: 2px;
-}
-
-table {
-  width: 100%;
+  padding: 6px;
+  max-width: 100%;
 }
 
 summary{
@@ -272,7 +269,7 @@ summary{
 }
 
 .article-content table{
-  margin-top: 0.5em;
+  margin-top: 1em;
   word-break: break-all;
 }
 
@@ -315,7 +312,7 @@ summary{
 }
 
 .article-content .file-list {
-  margin-top: 0.5em;
+  margin-top: 1em;
   border: 1px solid #eee;
 }
 
@@ -330,17 +327,14 @@ summary{
   background-color: #eee;
 }
 
-.article-content .file-list table {
-  margin: 0;
-  width: auto;
-}
-
-
 .article-content .file-list table,
+.article-content .file-list tbody,
+.article-content .file-list tr,
 .article-content .file-list td,
 .article-content .file-list th {
   border-collapse: unset;
   border: none;
+  margin: 0px;
   padding: 2px;
 }
 

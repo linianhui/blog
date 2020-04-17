@@ -24,11 +24,12 @@
           </td>
         </tr>
         <tr>
-          <td colspan="3">
+          <td>
             <div id="file-list-div-{{- $id -}}" class="inactive">
               {{- highlight ($filePath | readFile) $langParam "" -}}
             </div>
           </td>
+          <td colspan="2"></td>
         </tr>
         {{- end -}}
       {{- end -}}
