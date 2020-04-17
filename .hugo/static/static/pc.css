@@ -292,6 +292,11 @@ summary{
   margin-top: 0;
 }
 
+.article-content .highlight-file .highlight-file-switch{
+  color: #0681ba;
+  cursor: pointer;
+}
+
 .article-content .highlight-file,
 .article-content .highlight-files {
   margin-top: 16px;
