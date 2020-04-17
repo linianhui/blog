@@ -27,7 +27,7 @@
     }
 
     function toggleClassName(a, b, className) {
-        toggleClassNameCore(a, className);
+        toggleClassNameCore(document.getElementById(a), className);
         toggleClassNameCore(document.getElementById(b), className);
     }
 
