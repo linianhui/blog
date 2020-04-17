@@ -2,37 +2,26 @@
 {{- $titleParam := .Get "title" -}}
 {{- $langParam  := .Get "lang" -}}
 {{- $currentDir := ($.Page.File.Dir | relURL) -}}
-<div class="file-list">
-  <div class="file-list-title">{{- $titleParam -}}</div>
-  <div class="file-list-content">
-    <table>
+<div class="highlight-files">
+  <div class="highlight-files-header">{{- $titleParam -}}</div>
+  <div class="highlight-files-list">
       {{- range (readDir (path.Join "src" $currentDir)) -}}
       {{- $match := findRE $regexParam .Name 1 -}}
       {{- if $match -}}
         {{- $filePath := (path.Join $currentDir .Name) -}}
         {{- $id := md5 $filePath -}}
-        <tr id="file-list-tr1-{{- $id -}}">
-          <td>
-            <a id="file-list-a-{{- $id -}}" class="fa fa-plus" href="javascript:void(0);"
-            onclick="blog.toggleClassName('file-list-tr1-{{- $id -}}','file-list-tr2-{{- $id -}}','file-list-a-{{- $id -}}','file-list-div-{{- $id -}}','active')"></a>
+        <div class="highlight-file" id="hfs-{{$id}}">
+          <div class="highlight-file-header">
+            <a class="fa fa-plus highlight-file-switch" href="javascript:blog.toggleClassName('hfs-{{$id}}','highlight-file_opened')"></a>
             <a target="_blank" href="{{$filePath}}" download>{{.Name}}</a>
-          </td>
-          <td width="2em">
             <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
-          </td>
-          <td width="2em">
             <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
-          </td>
-        </tr>
-        <tr id="file-list-tr2-{{- $id -}}">
-          <td colspan="3">
-            <div id="file-list-div-{{- $id -}}" class="highlight-file-content" >
-              {{- highlight ($filePath | readFile) $langParam "" -}}
-            </div>
-          </td>
-        </tr>
+          </div>
+          <div class="highlight-file-content">
+            {{- highlight ($filePath | readFile) $langParam "" -}}
+          </div>
+        </div>
         {{- end -}}
       {{- end -}}
-    </table>
   </div>
 </div>

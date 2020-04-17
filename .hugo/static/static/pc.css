@@ -288,19 +288,36 @@ summary{
   padding: 6px 8px;
 }
 
-.article-content .highlight-file {
+.article-content .highlight-file .highlight {
+  margin-top: 0;
+}
+
+.article-content .highlight-file,
+.article-content .highlight-files {
   margin-top: 16px;
 }
 
-.article-content .highlight-file-header {
-  padding: 4px;
-  border: 1px solid #eee;
+.article-content .highlight-file-header,
+.article-content .highlight-files-header {
+  padding: 6px;
   font-style: italic;
   background-color: #eee;
 }
 
 .article-content .highlight-file-content {
   display: none;
+}
+
+.article-content .highlight-files .highlight-file {
+  margin-top: 0;
+}
+
+.article-content .highlight-files .highlight-file-header {
+  background-color: #fff;
+}
+
+.article-content .highlight-files .highlight-files-list {
+  border: 1px solid #eee;
 }
 
 .article-content .highlight-file_opened .highlight-file-switch::before {
@@ -311,53 +328,8 @@ summary{
   display: block;
 }
 
-.article-content .highlight-file .highlight,
-.article-content .file-list .highlight{
-  margin-top: 0;
-}
-
-.article-content .highlight-file a.active::before,
-.article-content .file-list a.active::before {
-  content: '\f068';
-}
-
-.article-content .highlight-file div.active,
-.article-content .file-list div.active {
-  display: block;
-}
-
-.article-content .file-list tr.active {
-  background-color: #eee;
-}
-
-.article-content .file-list {
-  margin-top: 1em;
-  border: 1px solid #eee;
-}
-
-.article-content .file-list table code{
-  background-color: #FFF;
-}
-
-.article-content .file-list-title {
-  padding: 4px;
-  border: 1px solid #eee;
-  font-style: italic;
-  background-color: #eee;
-}
-
-.article-content .file-list td,
-.article-content .file-list tr,
-.article-content .file-list th,
-.article-content .file-list tbody,
-.article-content .file-list table {
-  border: none;
-  margin: 0px;
-  padding: 2px;
-}
-
-.article-content .file-list .file-list-content{
-  overflow-x: auto;
+.article-content .highlight-files .highlight-file_opened .highlight-file-header {
+  background-color: #ddd;
 }
 
 .article-content .article-h-a{
