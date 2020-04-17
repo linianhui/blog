@@ -300,19 +300,23 @@ summary{
   background-color: #eee;
 }
 
-.article-content .highlight-file a.inactive::before,
-.article-content .file-list a.inactive::before {
-  content: '\f067';
-}
-
-.article-content .highlight-file div.inactive,
-.article-content .file-list div.inactive {
+.article-content .highlight-file-content {
   display: none;
 }
 
 .article-content .highlight-file .highlight,
 .article-content .file-list .highlight{
   margin-top: 0;
+}
+
+.article-content .highlight-file a.active::before,
+.article-content .file-list a.active::before {
+  content: '\f068';
+}
+
+.article-content .highlight-file div.active,
+.article-content .file-list div.active {
+  display: block;
 }
 
 .article-content .file-list {

@@ -13,7 +13,7 @@
         {{- $id := md5 $filePath -}}
         <tr>
           <td>
-            <a id="file-list-a-{{- $id -}}" class="fa fa-minus inactive" href="javascript:void(0);" onclick="lnh.css.toggleClassName('file-list-a-{{- $id -}}','file-list-div-{{- $id -}}','inactive')"></a>
+            <a id="file-list-a-{{- $id -}}" class="fa fa-plus" href="javascript:void(0);" onclick="lnh.css.toggleClassName('file-list-a-{{- $id -}}','file-list-div-{{- $id -}}','active')"></a>
             <a target="_blank" href="{{$filePath}}" download>{{.Name}}</a>
           </td>
           <td>
@@ -25,7 +25,7 @@
         </tr>
         <tr>
           <td>
-            <div id="file-list-div-{{- $id -}}" class="inactive">
+            <div id="file-list-div-{{- $id -}}" class="highlight-file-content" >
               {{- highlight ($filePath | readFile) $langParam "" -}}
             </div>
           </td>

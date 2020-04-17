@@ -5,7 +5,7 @@
 {{- $id := md5 $filePath -}}
 <div class="highlight-file">
   <div class="highlight-file-title">
-    <a  id="file-a-{{- $id -}}" class="fa fa-minus" href="javascript:void(0);" onclick="lnh.css.toggleClassName('file-a-{{- $id -}}','file-div-{{- $id -}}','inactive')"></a>
+    <a  id="file-a-{{- $id -}}" class="fa fa-plus active" href="javascript:void(0);" onclick="lnh.css.toggleClassName('file-a-{{- $id -}}','file-div-{{- $id -}}','active')"></a>
     {{- if $isAbsolutePath -}}
       <span>{{$fileParam}}</span>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
@@ -16,7 +16,7 @@
       <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
     {{- end -}}
   </div>
-  <div id="file-div-{{- $id -}}" class="highlight-file-content">
+  <div id="file-div-{{- $id -}}" class="highlight-file-content active">
     {{- highlight ($filePath | readFile) $langParam "" -}}
   </div>
 </div>
