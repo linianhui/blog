@@ -299,6 +299,14 @@ summary{
   background-color: #eee;
 }
 
+.article-content .highlight-file a.inactive::before {
+  content: '\f067';
+}
+
+.article-content .highlight-file div.inactive {
+  display: none;
+}
+
 .article-content .highlight-file .highlight{
   margin-top: 0;
 }

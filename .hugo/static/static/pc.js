@@ -14,6 +14,23 @@
         document.write('<link href="' + href + '" rel="stylesheet">');
     }
 
+    function toggleClassNameCore(element, className) {
+        var classNameArray = element.className.split(" ") || [];
+        var index = classNameArray.indexOf(className);
+        if (index != -1) {
+            classNameArray.splice(index, 1);
+            element.className = classNameArray.join(" ");
+        } else {
+            classNameArray.push(className);
+            element.className = classNameArray.join(" ");
+        }
+    }
+
+    function toggleClassName(a, b, className) {
+        toggleClassNameCore(a, className);
+        toggleClassNameCore(document.getElementById(b), className);
+    }
+
     function tocResetStyle() {
         var tocElement = document.getElementById('toc');
         var tocElementOffsetWidth = tocElement.offsetWidth;
@@ -96,7 +113,8 @@
         isMobile: isMobile,
         isPC: isPC,
         css: {
-            addMobileCss: addMobileCss
+            addMobileCss: addMobileCss,
+            toggleClassName: toggleClassName
         },
         toc: {
             resetStyle: tocResetStyle,
