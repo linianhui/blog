@@ -137,9 +137,9 @@ kubectl run -it --image=lnhcode/tool --restart=Never --command --rm -- sh
 
 # 9. Reference {#reference}
 
-{{<file-list title="sh文件列表" regex="^.*\.sh$" lang="sh">}}
+{{<highlight-files title="sh文件列表" regex="^.*\.sh$" lang="sh">}}
 
-{{<file-list title="yml文件列表" regex="^.*\.yml$" lang="yml">}}
+{{<highlight-files title="yml文件列表" regex="^.*\.yml$" lang="yml">}}
 
 https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init
 

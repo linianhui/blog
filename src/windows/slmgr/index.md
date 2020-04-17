@@ -21,9 +21,9 @@ slmgr.vbs -ipk 6K2KY-BFH24-PJW6W-9GK29-TMPWP
 # 查看激活状态
 slmgr.vbs -dlv
 ```
-# 2 列表 {#2-xrm-ms-file-list}
+# 2 列表 {#2-xrm-ms-highlight-files}
 
-{{<file-list title="XRM-MS文件列表"  regex="^.*\.XRM-MS$" lang="xml">}}
+{{<highlight-files title="XRM-MS文件列表"  regex="^.*\.XRM-MS$" lang="xml">}}
 
 # 3 路径 {#3-path}
 

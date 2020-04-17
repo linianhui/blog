@@ -5,6 +5,6 @@ tag: ["PowerShell", "ps1",]
 toc: true
 ---
 
-# 1 Script File List {#1-script-file-list}
+# 1 Script File List {#1-script-highlight-files}
 
-{{<file-list title="ps1文件列表"  regex="^.*\.ps1$" lang="powershell">}}
+{{<highlight-files title="ps1文件列表"  regex="^.*\.ps1$" lang="powershell">}}

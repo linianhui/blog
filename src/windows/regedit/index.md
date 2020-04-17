@@ -19,6 +19,6 @@ toc: true
 4. 注释 : `;`。
 5. 删除 : `-`。
 
-# 3 列表 {#3-reg-file-list}
+# 3 列表 {#3-reg-highlight-files}
 
-{{<file-list title="reg文件列表"  regex="^.*\.reg$" lang="reg">}}
+{{<highlight-files title="reg文件列表"  regex="^.*\.reg$" lang="reg">}}

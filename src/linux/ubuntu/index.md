@@ -5,6 +5,6 @@ tag: ["Linux", "Ubuntu"]
 toc: true
 ---
 
-# 1 Script File List {#script-file-list}
+# 1 Script File List {#script-highlight-files}
 
-{{<file-list title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}
+{{<highlight-files title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}
