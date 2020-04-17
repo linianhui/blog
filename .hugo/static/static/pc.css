@@ -278,6 +278,7 @@ summary{
   display: block;
   overflow-x: auto;
   border: 1px solid #eee;
+  max-width: 100%;
 }
 
 .article-content .highlight pre {
@@ -352,10 +353,6 @@ summary{
 .article-content h5:hover .article-h-a,
 .article-content h6:hover .article-h-a{
   visibility: visible;
-}
-
-.article-content pre{
-  overflow-x: auto;
 }
 
 .article-page{
