@@ -47,7 +47,7 @@ tbody,
 table {
   position: relative;
   border-collapse: collapse;
-  border: 1px solid #ccc;
+  border: 1px solid #ebeef5;
   padding: 6px;
   max-width: 100%;
 }
