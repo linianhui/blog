@@ -38,12 +38,11 @@ a img {
   border-width: 0;
 }
 
-table,
-tbody,
 td,
 th,
-thead,
-tr {
+tr,
+tbody,
+table {
   border-collapse: collapse;
   border: 1px solid #ccc;
   padding: 6px;
@@ -328,15 +327,19 @@ summary{
   background-color: #eee;
 }
 
-.article-content .file-list table,
-.article-content .file-list tbody,
-.article-content .file-list tr,
 .article-content .file-list td,
-.article-content .file-list th {
+.article-content .file-list tr,
+.article-content .file-list th,
+.article-content .file-list tbody,
+.article-content .file-list table {
   border-collapse: unset;
   border: none;
   margin: 0px;
   padding: 2px;
+}
+
+.article-content .file-list .file-list-content{
+  overflow-x: auto;
 }
 
 .article-content .article-h-a{
