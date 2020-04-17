@@ -7,4 +7,4 @@ toc: true
 
 # 1 Script File List {#script-file-list}
 
-{{<file-list regularExpression="^.*\.sh$">}}
+{{<file-list title="sh文件列表"  regex="^.*\.sh$">}}
