@@ -114,17 +114,13 @@
         }
     }
 
-    window.lnh = {
+    window.blog = {
         isMobile: isMobile,
         isPC: isPC,
-        css: {
-            addMobileCss: addMobileCss,
-            toggleClassName: toggleClassName
-        },
-        toc: {
-            resetStyle: tocResetStyle,
-            addOnScorllEvent: tocAddOnScorllEvent
-        }
+        addMobileCss: addMobileCss,
+        toggleClassName: toggleClassName,
+        resetTocStyle: tocResetStyle,
+        addOnScorllEvent: tocAddOnScorllEvent
     };
 
 })(window, document, navigator);

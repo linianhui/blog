@@ -13,7 +13,7 @@
 {{ end }}
 <script src='/static/pc.js?time={{$time}}' type="text/javascript"></script>
 <script type="text/javascript">
-  if (lnh.isMobile()) {
-    lnh.css.addMobileCss('/static/mobile.css?time={{$time}}');
+  if (blog.isMobile()) {
+    blog.addMobileCss('/static/mobile.css?time={{$time}}');
   }
 </script>
