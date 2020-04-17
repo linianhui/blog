@@ -7,4 +7,4 @@ toc: true
 
 # 1 Script File List {#1-script-file-list}
 
-{{<file-list title="ps1文件列表"  regex="^.*\.ps1$">}}
+{{<file-list title="ps1文件列表"  regex="^.*\.ps1$" lang="powershell">}}

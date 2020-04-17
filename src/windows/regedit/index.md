@@ -21,4 +21,4 @@ toc: true
 
 # 3 列表 {#3-reg-file-list}
 
-{{<file-list title="reg文件列表"  regex="^.*\.reg$">}}
+{{<file-list title="reg文件列表"  regex="^.*\.reg$" lang="reg">}}
