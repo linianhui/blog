@@ -275,68 +275,6 @@ summary{
   word-break: break-all;
 }
 
-.article-content .highlight {
-  margin-top: 16px;
-  display: block;
-  overflow-x: auto;
-  border: 1px solid #eee;
-  max-width: 100%;
-}
-
-.article-content .highlight pre {
-  margin: 0;
-  padding: 6px 8px;
-}
-
-.article-content .highlight-file .highlight {
-  margin-top: 0;
-}
-
-.article-content .highlight-file .highlight-file-switch{
-  color: #0681ba;
-  cursor: pointer;
-}
-
-.article-content .highlight-file,
-.article-content .highlight-files {
-  margin-top: 16px;
-}
-
-.article-content .highlight-file-header,
-.article-content .highlight-files-header {
-  padding: 6px;
-  font-style: italic;
-  background-color: #eee;
-}
-
-.article-content .highlight-file-content {
-  display: none;
-}
-
-.article-content .highlight-files .highlight-file {
-  margin-top: 0;
-}
-
-.article-content .highlight-files .highlight-file-header {
-  background-color: #fff;
-}
-
-.article-content .highlight-files .highlight-files-list {
-  border: 1px solid #eee;
-}
-
-.article-content .highlight-file_opened .highlight-file-switch::before {
-  content: '\f068';
-}
-
-.article-content .highlight-file_opened .highlight-file-content {
-  display: block;
-}
-
-.article-content .highlight-files .highlight-file_opened .highlight-file-header {
-  background-color: #ddd;
-}
-
 .article-content .article-h-a{
   position: absolute;
   visibility: hidden;
@@ -351,6 +289,69 @@ summary{
 .article-content h5:hover .article-h-a,
 .article-content h6:hover .article-h-a{
   visibility: visible;
+}
+
+
+.highlight {
+  margin-top: 16px;
+  display: block;
+  overflow-x: auto;
+  border: 1px solid #eee;
+  max-width: 100%;
+}
+
+.highlight pre {
+  margin: 0;
+  padding: 6px 8px;
+}
+
+.highlight-file .highlight {
+  margin-top: 0;
+}
+
+.highlight-file-switch{
+  color: #0681ba;
+  cursor: pointer;
+}
+
+.highlight-file,
+.highlight-files {
+  margin-top: 16px;
+}
+
+.highlight-file-header,
+.highlight-files-header {
+  padding: 6px;
+  font-style: italic;
+  background-color: #eee;
+}
+
+.highlight-file-content {
+  display: none;
+}
+
+.highlight-files .highlight-file {
+  margin-top: 0;
+}
+
+.highlight-files .highlight-file-header {
+  background-color: #fff;
+}
+
+.highlight-files .highlight-files-list {
+  border: 1px solid #eee;
+}
+
+.highlight-file_opened .highlight-file-switch::before {
+  content: '\f068';
+}
+
+.highlight-file_opened .highlight-file-content {
+  display: block;
+}
+
+.highlight-files .highlight-file_opened .highlight-file-header {
+  background-color: #ddd;
 }
 
 .article-page{
