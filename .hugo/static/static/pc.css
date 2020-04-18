@@ -138,7 +138,7 @@ summary{
 .article {
   position: relative;
   padding: 32px;
-  box-shadow: 0 0 2px #ccc;
+  box-shadow: 0 0 2px #ebeef5;
 }
 
 .topic-title,
@@ -538,7 +538,7 @@ summary{
   background-color: #0681ba;
 }
 
-.fixed-bar{
+.toolbar{
   position: fixed;
   display: inline-block;
   right: 20px;
@@ -547,7 +547,7 @@ summary{
   font-size: 24px;
 }
 
-.fixed-bar a{
+.toolbar a{
   display: block;
   margin-top: 0.5em;
 }

@@ -22,7 +22,7 @@
   bottom: unset;
 }
 
-.fixed-bar{
+.toolbar{
   top: 0;
   left: 3px;
   bottom: unset;
@@ -30,7 +30,7 @@
   font-size: 16px;
 }
 
-.fixed-bar .fa-comments,
-.fixed-bar .fa-arrow-circle-up{
+.toolbar .fa-comments,
+.toolbar .fa-arrow-circle-up{
   display: none;
 }
