@@ -1,5 +1,5 @@
 .body {
-  margin: 20px;
+  margin: 18px 18px 54px 18px;
 }
 
 .article{
@@ -17,20 +17,25 @@
 }
 
 .toc{
-  left: unset;
+  top: unset;
+  left: 0;
   right: 0;
-  bottom: unset;
+  bottom: 36px;
 }
 
 .toolbar{
-  top: 0;
-  left: 3px;
-  bottom: unset;
-  right: unset;
-  font-size: 16px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  padding: 6px 18px;
+  background-color: #eee;
+  line-height: 1;
+  display: flex;
+  justify-content: space-between;
 }
 
-.toolbar .fa-comments,
-.toolbar .fa-arrow-circle-up{
-  display: none;
+.toolbar a{
+  margin: 0;
+  display: inline-block;
 }
