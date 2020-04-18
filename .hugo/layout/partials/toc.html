@@ -20,11 +20,10 @@
       </section>
     {{- end -}}
   {{ end }}
+  <script type="text/javascript">
+    if (blog.isPC()) {
+      blog.toggleToc();
+    }
+  </script>
 </aside>
-<script type="text/javascript">
-  if (blog.isPC()) {
-    blog.toggleClassName('toc','opened');
-    blog.resetTocStyle();
-  }
-</script>
 {{end}}
