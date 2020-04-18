@@ -47,6 +47,11 @@ menu:
       url: https://github.com/linianhui/blog
       weight: 5
       pre: '<i class="fa fa-github"></i>'
+    - identifier: rss
+      name: RSS
+      url: /index.xml
+      weight: 6
+      pre: '<i class="fa fa-rss"></i>'
   topic: []
 taxonomies:
   tag: tag
