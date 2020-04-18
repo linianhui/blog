@@ -18,3 +18,8 @@ body{
 .article-content{
   font-size: 14px;
 }
+
+.article-content blockquote{
+  margin-top: 0.5em;
+  margin-left: 1em;
+}
