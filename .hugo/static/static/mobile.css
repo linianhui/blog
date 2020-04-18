@@ -1,13 +1,5 @@
-body{
-  margin-left: 0px;
-}
-
 .body {
   margin: 20px;
-}
-
-.toc {
-  display: none;
 }
 
 .article{
@@ -22,4 +14,23 @@ body{
 .article-content blockquote{
   margin-top: 0.5em;
   margin-left: 1em;
+}
+
+.toc{
+  left: unset;
+  right: 0;
+  bottom: unset;
+}
+
+.fixed-bar{
+  top: 0;
+  left: 3px;
+  bottom: unset;
+  right: unset;
+  font-size: 16px;
+}
+
+.fixed-bar .fa-comments,
+.fixed-bar .fa-arrow-circle-up{
+  display: none;
 }

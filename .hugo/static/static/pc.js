@@ -83,8 +83,12 @@
 
     function resetTocStyle() {
         var tocElement = document.getElementById('toc');
-        var tocElementOffsetWidth = tocElement.offsetWidth;
-        document.body.style.marginLeft = tocElementOffsetWidth + 'px';
+        if (hasClassName(tocElement, 'opened')) {
+            var tocElementOffsetWidth = tocElement.offsetWidth;
+            document.body.style.marginLeft = tocElementOffsetWidth + 'px';
+        }else{
+            document.body.style.marginLeft = '0px';
+        }
     }
 
     function getTocItemArray() {
@@ -129,9 +133,9 @@
             var anchorElement = tocItem.anchorElement;
             if (anchorElement) {
                 anchorElement.innerHTML = '<a href="#'
-                + anchorElement.id
-                + '" class="fa fa-hashtag article-h-a" aria-hidden="true"></a>'
-                + anchorElement.innerHTML;
+                    + anchorElement.id
+                    + '" class="fa fa-hashtag article-h-a" aria-hidden="true"></a>'
+                    + anchorElement.innerHTML;
             }
         });
     }
@@ -152,13 +156,21 @@
         }
     }
 
+    function toggleToc() {
+        toggleClassNameCore(document.getElementById('toc'), 'opened');
+        if (isPC()) {
+            resetTocStyle();
+        }
+    }
+
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
         addMobileCssFile: addMobileCssFile,
         toggleClassName: toggleClassName,
         resetTocStyle: resetTocStyle,
-        addOnScorllEvent: tocAddOnScorllEvent
+        addOnScorllEvent: tocAddOnScorllEvent,
+        toggleToc: toggleToc
     };
 
 })(window, document, navigator);

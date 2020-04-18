@@ -486,11 +486,12 @@ summary{
 
 .toc {
   position: fixed;
-  display: block;
+  display: inline-block;
+  visibility: hidden;
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 8888;
   overflow-y: auto;
   overflow-x: auto;
   box-shadow: 0 0 4px #ccc;
@@ -499,7 +500,6 @@ summary{
   padding-top: 1em;
   padding-bottom:1em;
   background-color: #fff;
-  z-index: 9999;
 }
 
 .toc .toc-page-title{
@@ -535,4 +535,22 @@ summary{
 .toc a.selected {
   color: #fff;
   background-color: #0681ba;
+}
+
+.fixed-bar{
+  position: fixed;
+  display: inline-block;
+  right: 20px;
+  bottom: 10px;
+  z-index: 9999;
+  font-size: 24px;
+}
+
+.fixed-bar a{
+  display: block;
+  margin-top: 0.5em;
+}
+
+.toc.opened{
+  visibility: visible;
 }
