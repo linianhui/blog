@@ -368,6 +368,10 @@ summary{
   margin-top: 2em;
 }
 
+.article-comment .utterances{
+  max-width: unset;
+}
+
 .topic{
   margin-top: 32px;
 }
