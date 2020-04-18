@@ -1,4 +1,3 @@
-
 "use strict";
 
 (function (window, document, navigator) {
@@ -10,21 +9,59 @@
         return !isMobile();
     }
 
-    function addMobileCss(href) {
+    function addMobileCssFile(href) {
         document.write('<link href="' + href + '" rel="stylesheet">');
     }
 
-    function toggleClassNameCore(element, className) {
+    function getClassNameArray(element) {
+        if (element) {
+            return element.className.split(" ") || [];
+        }
+        return [];
+    }
+
+    function setClassNameArray(element, classNameArray) {
+        if (element) {
+            element.className = (classNameArray || []).join(" ").trim();
+        }
+    }
+
+    function hasClassName(element, className) {
         if (element && className) {
-            var classNameArray = element.className.split(" ") || [];
-            var index = classNameArray.indexOf(className);
-            if (index != -1) {
-                classNameArray.splice(index, 1);
-                element.className = classNameArray.join(" ").trim();
-            } else {
-                classNameArray.push(className);
-                element.className = classNameArray.join(" ").trim();
-            }
+            return getClassNameArray(element).indexOf(className) != -1;
+        }
+        return false;
+    }
+
+    function removeArrayItem(array, item) {
+        var index = array.indexOf(item);
+        if (index != -1) {
+            array.splice(index, 1);
+        }
+    }
+
+    function removeClassName(element, className) {
+        if (element && className) {
+            var classNameArray = getClassNameArray(element);
+            removeArrayItem(classNameArray, className);
+            setClassNameArray(element, classNameArray);
+        }
+    }
+
+    function appendClassName(element, className) {
+        if (element && className) {
+            var classNameArray = getClassNameArray(element);
+            removeArrayItem(classNameArray, className);
+            classNameArray.push(className);
+            setClassNameArray(element, classNameArray);
+        }
+    }
+
+    function toggleClassNameCore(element, className) {
+        if (hasClassName(element, className)) {
+            removeClassName(element, className);
+        } else {
+            appendClassName(element, className);
         }
     }
 
@@ -32,84 +69,85 @@
         var lastIndex = arguments.length - 1;
         var className = arguments[lastIndex];
         for (var i = 0; i < lastIndex; i++) {
-            toggleClassNameCore(document.getElementById(arguments[i]), className);
+            var element = document.getElementById(arguments[i]);
+            toggleClassNameCore(element, className);
         }
     }
 
-    function tocResetStyle() {
+    function getFragmentIdFromUrl(url) {
+        var fragmentIdIndex = (url || '').indexOf('#');
+        if (fragmentIdIndex != -1) {
+            return url.substr(fragmentIdIndex + 1);
+        }
+    }
+
+    function resetTocStyle() {
         var tocElement = document.getElementById('toc');
         var tocElementOffsetWidth = tocElement.offsetWidth;
         document.body.style.marginLeft = tocElementOffsetWidth + 'px';
     }
 
-    function tocGetAnchorIdFromUrl(url) {
-        var fragmentIndex = (url || '').lastIndexOf('#');
-        if (fragmentIndex != -1) {
-            return url.substr(fragmentIndex + 1);
-        }
-    }
-
-    function tocGetAnchorElementArray() {
-        var anchorElementArray = [];
+    function getTocItemArray() {
+        var tocItemArray = [];
         document.querySelectorAll('#toc a').forEach(function (aElement) {
-            var anchorId = tocGetAnchorIdFromUrl(aElement.href);
-            if (anchorId) {
-                var anchorElement = document.getElementById(anchorId);
-                if (anchorElement) {
-                    anchorElementArray.push({
-                        aElement: aElement,
-                        anchorElement: anchorElement,
-                        offsetTop: anchorElement.offsetTop
-                    });
-                }
+            var fragmentId = getFragmentIdFromUrl(aElement.href);
+            var anchorElement = document.getElementById(fragmentId);
+            if (anchorElement) {
+                tocItemArray.push({
+                    aElement: aElement,
+                    anchorElement: anchorElement
+                });
             }
         });
-        return anchorElementArray;
+        return tocItemArray;
     }
 
-    function tocSelectedTocItem(anchorElementArray, selectedItem) {
-        anchorElementArray.forEach(function (anchorElement) {
-            anchorElement.aElement.className = '';
+    function resetSelectedTocItemStyle(tocItemArray, selectedTocItem) {
+        tocItemArray.forEach(function (tocItem) {
+            removeClassName(tocItem.aElement, 'selected');
         });
-        selectedItem.aElement.className = 'selected';
+        appendClassName(selectedTocItem.aElement, 'selected');
     }
 
-    function tocSelectedToc(anchorElementArray, scrollTop) {
-        for (var i = 0; i < anchorElementArray.length; i++) {
-            var current = anchorElementArray[i];
-            var next = anchorElementArray[i + 1];
-            if (scrollTop > current.offsetTop) {
-                if (next && (scrollTop >= next.offsetTop)) {
+    function resetSelectedTocStyle(tocItemArray, scrollTop) {
+        for (var i = 0; i < tocItemArray.length; i++) {
+            var current = tocItemArray[i];
+            var next = tocItemArray[i + 1];
+            if (scrollTop > current.anchorElement.offsetTop) {
+                if (next && (scrollTop >= next.anchorElement.offsetTop)) {
                     continue;
                 }
-                tocSelectedTocItem(anchorElementArray, current);
+                resetSelectedTocItemStyle(tocItemArray, current);
                 break;
             }
         }
     }
 
 
-    function tocAnchorElementAddAElement(anchorElementArray) {
-        anchorElementArray.forEach(function (anchorElement) {
-            var element = anchorElement.anchorElement;
-            if (element) {
-                element.innerHTML = '<a href="#' + element.id + '" class="fa fa-hashtag article-h-a" aria-hidden="true"></a>' + element.innerHTML;
+    function tocAnchorElementAddAElement(tocItemArray) {
+        tocItemArray.forEach(function (tocItem) {
+            var anchorElement = tocItem.anchorElement;
+            if (anchorElement) {
+                anchorElement.innerHTML = '<a href="#'
+                + anchorElement.id
+                + '" class="fa fa-hashtag article-h-a" aria-hidden="true"></a>'
+                + anchorElement.innerHTML;
             }
         });
     }
 
-    function tocOnScroll(anchorElementArray) {
+    function tocOnScroll(tocItemArray) {
         var scrollTop = window.scrollY + 32;
-        tocSelectedToc(anchorElementArray, scrollTop);
+        resetSelectedTocStyle(tocItemArray, scrollTop);
     }
 
 
     function tocAddOnScorllEvent() {
-        var anchorElementArray = tocGetAnchorElementArray();
-        tocAnchorElementAddAElement(anchorElementArray);
-        if (anchorElementArray.length != 0) {
+        var tocItemArray = getTocItemArray();
+        tocAnchorElementAddAElement(tocItemArray);
+        if (tocItemArray.length != 0) {
             window.onscroll = function () {
-                tocOnScroll(anchorElementArray);
+                tocOnScroll(tocItemArray);
             };
         }
     }
@@ -117,9 +155,9 @@
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
-        addMobileCss: addMobileCss,
+        addMobileCssFile: addMobileCssFile,
         toggleClassName: toggleClassName,
-        resetTocStyle: tocResetStyle,
+        resetTocStyle: resetTocStyle,
         addOnScorllEvent: tocAddOnScorllEvent
     };
 
