@@ -90,12 +90,13 @@ summary{
   text-align: center;
 }
 
-.bing-search{
+.search{
   position: relative;
   display: block;
+  font-size: 0;
 }
 
-.bing-search-input{
+.search-input{
   position: absolute;
   top: 1px;
   right: 0;
@@ -109,7 +110,7 @@ summary{
   border-radius: 0;
 }
 
-.bing-search-input::-webkit-input-placeholder {
+.search-input::-webkit-input-placeholder {
   color: #aaa;
 }
 
