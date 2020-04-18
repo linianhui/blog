@@ -1,6 +1,25 @@
 {{ if .Params.toc }}
 <aside id="toc" class="toc">
-  {{ .TableOfContents }}
+  {{ range where $.Site.Menus.topic "Page.Section" "eq" .Section }}
+  <section class="toc-header">
+    <a href="{{ .URL }}" target="_blank">
+      {{ .Name }}
+    </a>
+  </section>
+  {{ end }}
+  {{ $currentRelPermalink := .RelPermalink}}
+  {{ range .Parent.Pages.ByDate }}
+    {{if eq .RelPermalink $currentRelPermalink}}
+      <section class="toc-page selected">
+        <span class="toc-page-title">{{.Title}}</span>
+        {{ .TableOfContents }}
+      </section>
+    {{- else -}}
+      <section class="toc-page">
+        <a class="toc-page-title" href="{{.RelPermalink}}" target="_blank">{{.Title}}</a>
+      </section>
+    {{- end -}}
+  {{ end }}
 </aside>
 <script type="text/javascript">
   if (blog.isPC()) {
