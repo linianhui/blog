@@ -7,6 +7,7 @@ body {
   background-color: #fff;
   color: #323232;
   word-break: break-word;
+  box-sizing: border-box;
 }
 
 h1,
@@ -88,30 +89,6 @@ summary{
   font-size: 16px;
   margin-left: 1em;
   text-align: center;
-}
-
-.search{
-  position: relative;
-  display: block;
-  font-size: 0;
-}
-
-.search-input{
-  position: absolute;
-  top: 1px;
-  right: 0;
-  display: inline-block;
-  width: 16em;
-  border-style:solid ;
-  border-color: #0681ba;
-  border-width: 0 1px 1px 1px;
-  font-size: 16px;
-  padding: 6px;
-  border-radius: 0;
-}
-
-.search-input::-webkit-input-placeholder {
-  color: #aaa;
 }
 
 .main {
@@ -486,6 +463,31 @@ summary{
   margin-left: 0.5em;
 }
 
+.search{
+  position: relative;
+  display: block;
+  font-size: 0;
+  box-sizing: border-box;
+}
+
+.search-input{
+  position: absolute;
+  top: 1px;
+  right: 0;
+  display: inline-block;
+  width: 16em;
+  border-style:solid ;
+  border-color: #0681ba;
+  border-width: 0 1px 1px 1px;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 0;
+}
+
+.search-input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
 .toc {
   position: fixed;
   display: inline-block;
@@ -501,6 +503,7 @@ summary{
   max-width: 360px;
   padding-top: 1em;
   background-color: #fff;
+  box-sizing: border-box;
 }
 
 .toc .toc-page-title{
@@ -545,6 +548,7 @@ summary{
   bottom: 10px;
   z-index: 9999;
   font-size: 24px;
+  box-sizing: border-box;
 }
 
 .toolbar a{
