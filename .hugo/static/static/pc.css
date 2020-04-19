@@ -51,6 +51,11 @@ summary{
   margin-top: 0.5em;
 }
 
+code {
+  color: #c0341d;
+  background-color: #fbe5e1;
+}
+
 .body {
   margin: 64px 64px 32px 64px;
 }
@@ -178,31 +183,16 @@ summary{
   margin-bottom: 0;
 }
 
-.article-content h1 code,
-.article-content h2 code,
-.article-content h3 code,
-.article-content h4 code,
-.article-content h5 code,
-.article-content h6 code,
-.article-content p code,
-.article-content li code,
-.article-content table code,
-.article-content blockquote code{
-  color: #c0341d;
-  background-color: #fbe5e1;
-}
-
 .article-content blockquote{
   font-size: 14px;
-  font-style: italic;
-  margin-left: 2em;
-  margin-top: 1em;
+  margin-left: 1em;
+  margin-top: 0.5em;
   margin-right: 0;
   margin-bottom: 0;
   border-left: 6px solid #eee;
   color: #333;
   line-height: 1.8;
-  padding: 0.5em;
+  padding-left: 0.5em;
   word-break: break-all;
 }
 
@@ -270,6 +260,11 @@ summary{
 .highlight pre {
   margin: 0;
   padding: 6px 8px;
+}
+
+.highlight code {
+  color: unset;
+  background-color: unset;
 }
 
 .highlight-file .highlight {
