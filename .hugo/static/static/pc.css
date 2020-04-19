@@ -487,10 +487,10 @@ summary{
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 8888;
+  z-index: 9999;
   overflow-y: auto;
   overflow-x: auto;
-  box-shadow: 0 0 4px #ccc;
+  box-shadow: 2px -2px 2px #ddd;
   font-size: 14px;
   max-width: 360px;
   padding-top: 1em;
@@ -538,9 +538,10 @@ summary{
   display: inline-block;
   right: 20px;
   bottom: 10px;
-  z-index: 9999;
+  z-index: 8888;
   font-size: 24px;
   box-sizing: border-box;
+  background-color: #fff;
 }
 
 .toolbar a{

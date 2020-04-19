@@ -29,10 +29,9 @@
   bottom: 0;
   height: 36px;
   padding: 6px 18px;
-  background-color: #eee;
-  line-height: 1;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 -2px 2px #ddd;
 }
 
 .toolbar a{
