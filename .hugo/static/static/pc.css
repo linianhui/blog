@@ -22,15 +22,7 @@ h4 {
 a {
   position: relative;
   text-decoration: none;
-}
-
-a:active,
-a:link {
   color: #0681ba;
-}
-
-a:visited {
-  color: #551a8b;
 }
 
 a:hover {
