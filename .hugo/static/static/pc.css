@@ -489,7 +489,7 @@ code {
   box-shadow: 0 0 4px #ccc;
   font-size: 14px;
   max-width: 360px;
-  padding-top: 1em;
+  padding-top: 16px;
   background-color: #fff;
   box-sizing: border-box;
 }
@@ -497,7 +497,7 @@ code {
 .toc .toc-page-title{
   display: block;
   white-space: nowrap;
-  padding: 4px 1em;
+  padding: 4px 16px;
 }
 
 .toc section.selected {
@@ -508,23 +508,19 @@ code {
   background-color: #ccc;
 }
 
-.toc nav{
-  padding-right: 1em;
-}
-
-.toc ul{
+.toc nav ul{
   list-style: none;
   margin: 0;
-  padding-left: 1em;
+  padding-left: 16px;
 }
 
-.toc a{
+.toc nav a{
   display: block;
   white-space: nowrap;
-  padding: 4px 1em;
+  padding: 4px 8px;
 }
 
-.toc a.selected {
+.toc nav a.selected {
   color: #fff;
   background-color: #0681ba;
 }

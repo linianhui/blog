@@ -2,7 +2,7 @@
 <aside id="toc" class="toc">
   {{ range where $.Site.Menus.topic "Page.Section" "eq" .Section }}
   <section class="toc-header">
-    <a href="{{ .URL }}" target="_blank">
+    <a class="toc-page-title" href="{{ .URL }}" target="_blank">
       {{ .Name }}
     </a>
   </section>
