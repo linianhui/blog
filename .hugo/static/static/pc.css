@@ -538,7 +538,7 @@ code {
 
 .toolbar a{
   display: block;
-  margin-top: 0.5em;
+  margin: 12px 20px;
 }
 
 .toc.opened{
