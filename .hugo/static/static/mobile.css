@@ -19,21 +19,18 @@
 .toc{
   top: unset;
   left: 0;
-  bottom: 36px;
+  bottom: 48px;
 }
 
 .toolbar{
   left: 0;
   right: 0;
   bottom: 0;
-  height: 36px;
-  padding: 6px 18px;
   display: flex;
   justify-content: space-between;
   box-shadow: 0 0 4px #ccc;
 }
 
 .toolbar a{
-  margin: 0;
   display: inline-block;
 }
