@@ -113,7 +113,7 @@ code {
 .article {
   position: relative;
   padding: 32px;
-  box-shadow: 0 0 2px #ebeef5;
+  box-shadow: 0 0 2px #ddd;
 }
 
 .topic-title,
@@ -486,7 +486,7 @@ code {
   z-index: 9999;
   overflow-y: auto;
   overflow-x: auto;
-  box-shadow: 2px -2px 2px #ddd;
+  box-shadow: 0 0 4px #ccc;
   font-size: 14px;
   max-width: 360px;
   padding-top: 1em;

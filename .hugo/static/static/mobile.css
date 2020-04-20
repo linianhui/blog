@@ -30,7 +30,7 @@
   padding: 6px 18px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 -2px 2px #ddd;
+  box-shadow: 0 0 4px #ccc;
 }
 
 .toolbar a{
