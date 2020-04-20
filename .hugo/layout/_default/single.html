@@ -8,11 +8,13 @@
   <section class="article-content">
     {{ .Content }}
   </section>
+  {{ if .Params.toc }}
   <script type="text/javascript">
    if (blog.isPC()) {
       blog.addOnScorllEvent();
     }
   </script>
+  {{ end }}
 
   {{ partial "article/meta.html" . }}
 
