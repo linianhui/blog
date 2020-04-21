@@ -528,8 +528,8 @@ code {
 .toolbar{
   position: fixed;
   display: inline-block;
-  right: 0;
-  bottom: 10px;
+  right: 20px;
+  bottom: 20px;
   z-index: 8888;
   font-size: 24px;
   box-sizing: border-box;
@@ -538,7 +538,7 @@ code {
 
 .toolbar a{
   display: block;
-  margin: 12px 20px;
+  margin-top: 20px;
 }
 
 .toc.opened{

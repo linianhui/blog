@@ -19,7 +19,7 @@
 .toc{
   top: unset;
   left: 0;
-  bottom: 48px;
+  bottom: 44px;
 }
 
 .toolbar{
@@ -33,4 +33,5 @@
 
 .toolbar a{
   display: inline-block;
+  margin: 10px 18px;
 }
