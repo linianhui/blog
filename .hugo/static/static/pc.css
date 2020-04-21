@@ -528,7 +528,7 @@ code {
 .toolbar{
   position: fixed;
   display: inline-block;
-  right: 20px;
+  right: 0;
   bottom: 10px;
   z-index: 8888;
   font-size: 24px;
