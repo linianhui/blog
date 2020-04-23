@@ -2,9 +2,9 @@
 title: '[Windows] terminal'
 created_at: 2017-07-29 09:42:01
 tag: ["Windows", "terminal"]
-toc: true
+toc: false
 ---
 
-# Default profiles
+# Windows Terminal
 
-{{<highlight-file file="default-windows-terminal-profiles.json" lang="json">}}
+https://github.com/microsoft/terminal
