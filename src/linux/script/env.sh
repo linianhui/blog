@@ -62,6 +62,7 @@ export VIRTUALBOX_UI_TYPE=headless
 export VIRTUALBOX_CPU_COUNT=1
 export VIRTUALBOX_MEMORY_SIZE=512
 export VIRTUALBOX_DISK_SIZE=5120
+export PATH=$PATH:$APP_DOCKER_DIR
 
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/
 APP_KUBECTL_DIR=$APP_DIR/_kubectl
