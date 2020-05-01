@@ -134,7 +134,7 @@
             if (anchorElement) {
                 anchorElement.innerHTML = '<a href="#'
                     + anchorElement.id
-                    + '" class="fa fa-hashtag article-h-a" aria-hidden="true"></a>'
+                    + '" class="fa fa-link article-h-a" aria-hidden="true"></a>'
                     + anchorElement.innerHTML;
             }
         });
