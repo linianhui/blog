@@ -81,7 +81,7 @@
         }
     }
 
-    function resetTocStyle() {
+    function resetBodyStyle() {
         var tocElement = document.getElementById('toc');
         if (hasClassName(tocElement, 'opened')) {
             var tocElementOffsetWidth = tocElement.offsetWidth;
@@ -158,9 +158,7 @@
 
     function toggleToc() {
         toggleClassNameCore(document.getElementById('toc'), 'opened');
-        if (isPC()) {
-            resetTocStyle();
-        }
+        resetBodyStyle();
     }
 
     window.blog = {
@@ -168,7 +166,6 @@
         isPC: isPC,
         addMobileCssFile: addMobileCssFile,
         toggleClassName: toggleClassName,
-        resetTocStyle: resetTocStyle,
         addOnScorllEvent: tocAddOnScorllEvent,
         toggleToc: toggleToc
     };
