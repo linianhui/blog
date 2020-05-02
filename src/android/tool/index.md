@@ -5,12 +5,12 @@ tag: ["android","adb","fastboot","wlan"]
 toc: true
 ---
 
-# 1 Platform Tools {#1-platform-tools}
+# 1 Platform Tools {#platform-tools}
 
 <https://developer.android.com/studio/releases/platform-tools>
 
 
-## 1.1 Download {#1-1-download}
+## 1.1 Download {#platform-tools-download}
 
 | platform | url                                                                          |
 | :------- | :--------------------------------------------------------------------------- |
@@ -18,7 +18,7 @@ toc: true
 | macOS    | <https://dl.google.com/android/repository/platform-tools-latest-darwin.zip>  |
 | Linux    | <https://dl.google.com/android/repository/platform-tools-latest-linux.zip>   |
 
-## 1.2 USB Driver {#1-2-usb-driver}
+## 1.2 USB Driver {#platform-tools-usb-driver}
 
 
 | platform          | url                                                                   |
@@ -28,7 +28,7 @@ toc: true
 |                   | <https://dl.google.com/android/repository/usb_driver_r12-windows.zip> |
 
 
-# 2 adb {#2-adb}
+## 1.3 adb {#adb}
 
 ```bash
 adb reboot bootloader
@@ -37,14 +37,19 @@ adb sideload rom.zip
 adb push rom.zip /sdcard/0/
 ```
 
-# 3 fastboot {#3-fastboot}
+## 1.4 fastboot {#fastboot}
 
 ```shbash
 fastboot flash recovery recovery.img
 fastboot flash logo logo.bin
 ```
 
-# 4 WLAN captive {#4-wlan-captive}
+# 2 TWRP {#twrp}
+
+<https://twrp.me/Devices/>
+
+
+# 3 WLAN captive {#wlan-captive}
 
 ```bash
 # 7.0
