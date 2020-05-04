@@ -149,7 +149,7 @@
         }
     }
 
-    function horizontalProgressOnScroll() {
+    function resetHorizontalProgressStyle() {
         var progress = (document.documentElement.clientHeight + window.scrollY)
             / document.body.offsetHeight
             * 100;
@@ -167,7 +167,7 @@
 
     function onScorllEventCore(tocItemArray) {
         tocOnScroll(tocItemArray);
-        horizontalProgressOnScroll();
+        resetHorizontalProgressStyle();
     }
 
     function addOnScorllEvent() {
@@ -176,6 +176,7 @@
         window.onscroll = function () {
             onScorllEventCore(tocItemArray);
         };
+        resetHorizontalProgressStyle();
     }
 
     function toggleToc() {
