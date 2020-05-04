@@ -149,11 +149,28 @@
         }
     }
 
+    function horizontalProgressOnScroll() {
+        var progress = (document.documentElement.clientHeight + window.scrollY)
+            / document.body.offsetHeight
+            * 100;
+
+        if (progress < 0) {
+            progress = 0;
+        }
+
+        if (progress > 100) {
+            progress = 100;
+        }
+
+        document.getElementById("horizontal-progress").style.width = progress + "%";
+    }
+
     function addOnScorllEvent() {
         var tocItemArray = getTocItemArray();
         tocAnchorElementAddAElement(tocItemArray);
         window.onscroll = function () {
             tocOnScroll(tocItemArray);
+            horizontalProgressOnScroll();
         };
     }
 
