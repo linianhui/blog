@@ -86,7 +86,7 @@
         if (hasClassName(tocElement, 'opened')) {
             var tocElementOffsetWidth = tocElement.offsetWidth;
             document.body.style.marginLeft = tocElementOffsetWidth + 'px';
-        }else{
+        } else {
             document.body.style.marginLeft = '0px';
         }
     }
@@ -129,31 +129,32 @@
 
 
     function tocAnchorElementAddAElement(tocItemArray) {
-        tocItemArray.forEach(function (tocItem) {
-            var anchorElement = tocItem.anchorElement;
-            if (anchorElement) {
-                anchorElement.innerHTML = '<a href="#'
-                    + anchorElement.id
-                    + '" class="fa fa-link article-h-a" aria-hidden="true"></a>'
-                    + anchorElement.innerHTML;
-            }
-        });
+        if (tocItemArray) {
+            tocItemArray.forEach(function (tocItem) {
+                var anchorElement = tocItem.anchorElement;
+                if (anchorElement) {
+                    anchorElement.innerHTML = '<a href="#'
+                        + anchorElement.id
+                        + '" class="fa fa-link article-h-a" aria-hidden="true"></a>'
+                        + anchorElement.innerHTML;
+                }
+            });
+        }
     }
 
     function tocOnScroll(tocItemArray) {
-        var scrollTop = window.scrollY + 32;
-        resetSelectedTocStyle(tocItemArray, scrollTop);
+        if (tocItemArray) {
+            var scrollTop = window.scrollY + 32;
+            resetSelectedTocStyle(tocItemArray, scrollTop);
+        }
     }
 
-
-    function tocAddOnScorllEvent() {
+    function addOnScorllEvent() {
         var tocItemArray = getTocItemArray();
         tocAnchorElementAddAElement(tocItemArray);
-        if (tocItemArray.length != 0) {
-            window.onscroll = function () {
-                tocOnScroll(tocItemArray);
-            };
-        }
+        window.onscroll = function () {
+            tocOnScroll(tocItemArray);
+        };
     }
 
     function toggleToc() {
@@ -166,7 +167,7 @@
         isPC: isPC,
         addMobileCssFile: addMobileCssFile,
         toggleClassName: toggleClassName,
-        addOnScorllEvent: tocAddOnScorllEvent,
+        addOnScorllEvent: addOnScorllEvent,
         toggleToc: toggleToc
     };
 
