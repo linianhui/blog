@@ -165,12 +165,16 @@
         document.getElementById("horizontal-progress").style.width = progress + "%";
     }
 
+    function onScorllEventCore(tocItemArray) {
+        tocOnScroll(tocItemArray);
+        horizontalProgressOnScroll();
+    }
+
     function addOnScorllEvent() {
         var tocItemArray = getTocItemArray();
         tocAnchorElementAddAElement(tocItemArray);
         window.onscroll = function () {
-            tocOnScroll(tocItemArray);
-            horizontalProgressOnScroll();
+            onScorllEventCore(tocItemArray);
         };
     }
 
