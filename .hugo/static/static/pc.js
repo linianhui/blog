@@ -9,7 +9,7 @@
         return !isMobile();
     }
 
-    function addMobileCssFile(href) {
+    function addMobileCssUrl(href) {
         document.write('<link href="' + href + '" rel="stylesheet">');
     }
 
@@ -81,7 +81,7 @@
         }
     }
 
-    function resetBodyStyle() {
+    function refreshBodyStyle() {
         var tocElement = document.getElementById('toc');
         if (hasClassName(tocElement, 'opened')) {
             var tocElementOffsetWidth = tocElement.offsetWidth;
@@ -106,14 +106,14 @@
         return tocItemArray;
     }
 
-    function resetSelectedTocItemStyle(tocItemArray, selectedTocItem) {
+    function refreshSelectedTocItemStyle(tocItemArray, selectedTocItem) {
         tocItemArray.forEach(function (tocItem) {
             removeClassName(tocItem.aElement, 'selected');
         });
         appendClassName(selectedTocItem.aElement, 'selected');
     }
 
-    function resetSelectedTocStyle(tocItemArray, scrollTop) {
+    function refreshSelectedTocStyle(tocItemArray, scrollTop) {
         for (var i = 0; i < tocItemArray.length; i++) {
             var current = tocItemArray[i];
             var next = tocItemArray[i + 1];
@@ -121,7 +121,7 @@
                 if (next && (scrollTop >= next.anchorElement.offsetTop)) {
                     continue;
                 }
-                resetSelectedTocItemStyle(tocItemArray, current);
+                refreshSelectedTocItemStyle(tocItemArray, current);
                 break;
             }
         }
@@ -145,11 +145,11 @@
     function tocOnScroll(tocItemArray) {
         if (tocItemArray) {
             var scrollTop = window.scrollY + 32;
-            resetSelectedTocStyle(tocItemArray, scrollTop);
+            refreshSelectedTocStyle(tocItemArray, scrollTop);
         }
     }
 
-    function resetHorizontalProgressStyle() {
+    function refreshHorizontalProgressStyle() {
         var progress = (document.documentElement.clientHeight + window.scrollY)
             / document.body.offsetHeight
             * 100;
@@ -167,7 +167,7 @@
 
     function onScorllEventCore(tocItemArray) {
         tocOnScroll(tocItemArray);
-        resetHorizontalProgressStyle();
+        refreshHorizontalProgressStyle();
     }
 
     function addOnScorllEvent() {
@@ -176,18 +176,18 @@
         window.onscroll = function () {
             onScorllEventCore(tocItemArray);
         };
-        resetHorizontalProgressStyle();
+        refreshHorizontalProgressStyle();
     }
 
     function toggleToc() {
         toggleClassNameCore(document.getElementById('toc'), 'opened');
-        resetBodyStyle();
+        refreshBodyStyle();
     }
 
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
-        addMobileCssFile: addMobileCssFile,
+        addMobileCssUrl: addMobileCssUrl,
         toggleClassName: toggleClassName,
         addOnScorllEvent: addOnScorllEvent,
         toggleToc: toggleToc
