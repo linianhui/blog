@@ -125,3 +125,8 @@ export PATH=$PATH:$APP_NODE_BIN_DIR
 # https://github.com/Homebrew/brew
 # https://developer.aliyun.com/mirror/homebrew
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
+
+
+# https://www.db.com/download-center/community
+APP_MONGO_DIR=$APP_DIR/_mongo
+export PATH=$PATH:$APP_MONGO_DIR
