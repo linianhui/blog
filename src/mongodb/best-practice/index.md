@@ -7,7 +7,7 @@ toc: true
 
 # 1 Connection String {#connection-string}
 
-```url
+```http
 mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin?replicaSet=test-replica-set&ssl=false&readConcernLevel=majority&readPreference=secondaryPreferred&w=3&wtimeoutMS=5000
 ```
 
