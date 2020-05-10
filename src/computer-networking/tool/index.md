@@ -123,7 +123,9 @@ preferences
 ```sh
 gui.column.format: 
 	"#", "%m",
-	"time", "%t",
+	"tcp.stream", "%Cus:tcp.stream:0:R",
+	"datetime", "%Yut",
+	"time", "%Aut",
 	"s.mac", "%uhs",
 	"s.ip", "%us",
 	"s.port", "%uS",
