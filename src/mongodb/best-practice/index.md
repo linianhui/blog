@@ -36,11 +36,17 @@ mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin?replicaSet=test-re
 
 1. https://docs.mongodb.com/manual/reference/glossary/
 2. https://docs.mongodb.com/manual/reference/command/nav-crud/
-3. https://docs.mongodb.com/manual/replication/
-4. https://docs.mongodb.com/manual/reference/connection-string/
-5. https://docs.mongodb.com/manual/reference/write-concern/
-6. https://docs.mongodb.com/manual/reference/read-concern/
-7. https://docs.mongodb.com/manual/core/read-preference/
-8. https://docs.mongodb.com/manual/reference/method/js-replication/
-9. https://docs.mongodb.com/manual/core/replica-set-hidden-member/
-10. https://docs.mongodb.com/manual/core/replica-set-sync/
+3. https://docs.mongodb.com/manual/reference/connection-string/
+4. https://docs.mongodb.com/manual/reference/write-concern/
+5. https://docs.mongodb.com/manual/reference/read-concern/
+7. https://docs.mongodb.com/manual/reference/method/js-replication/
+
+
+## 2.2 Replica Set {#reference-replica-set}
+
+1. https://docs.mongodb.com/manual/replication/
+2. https://docs.mongodb.com/manual/core/replica-set-hidden-member/
+3. https://docs.mongodb.com/manual/core/replica-set-sync/
+4. https://docs.mongodb.com/manual/applications/replication/
+5. https://docs.mongodb.com/manual/core/replica-set-write-concern/
+6. https://docs.mongodb.com/manual/core/read-preference/
