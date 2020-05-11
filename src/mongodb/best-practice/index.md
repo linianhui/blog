@@ -34,9 +34,13 @@ mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin?replicaSet=test-re
 
 # 2 Reference {#reference}
 
-1. https://docs.mongodb.com/v3.4/reference/method/js-replication/
-1. https://docs.mongodb.com/manual/reference/connection-string/
-1. https://docs.mongodb.com/manual/reference/write-concern/
-1. https://docs.mongodb.com/manual/reference/read-concern/
-1. https://docs.mongodb.com/manual/core/read-preference/
-1. https://docs.mongodb.com/manual/reference/command/nav-crud/
+1. https://docs.mongodb.com/manual/reference/glossary/
+2. https://docs.mongodb.com/manual/reference/command/nav-crud/
+3. https://docs.mongodb.com/manual/replication/
+4. https://docs.mongodb.com/manual/reference/connection-string/
+5. https://docs.mongodb.com/manual/reference/write-concern/
+6. https://docs.mongodb.com/manual/reference/read-concern/
+7. https://docs.mongodb.com/manual/core/read-preference/
+8. https://docs.mongodb.com/manual/reference/method/js-replication/
+9. https://docs.mongodb.com/manual/core/replica-set-hidden-member/
+10. https://docs.mongodb.com/manual/core/replica-set-sync/
