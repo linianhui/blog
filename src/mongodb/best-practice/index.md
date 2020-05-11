@@ -47,6 +47,8 @@ mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin?replicaSet=test-re
 1. https://docs.mongodb.com/manual/replication/
 2. https://docs.mongodb.com/manual/core/replica-set-hidden-member/
 3. https://docs.mongodb.com/manual/core/replica-set-sync/
-4. https://docs.mongodb.com/manual/applications/replication/
-5. https://docs.mongodb.com/manual/core/replica-set-write-concern/
-6. https://docs.mongodb.com/manual/core/read-preference/
+4. https://docs.mongodb.com/manual/core/replica-set-oplog/
+5. https://docs.mongodb.com/manual/applications/replication/
+6. https://docs.mongodb.com/manual/core/replica-set-write-concern/
+7. https://docs.mongodb.com/manual/core/read-preference/
+8. https://docs.mongodb.com/manual/reference/read-concern-majority/
