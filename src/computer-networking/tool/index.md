@@ -124,8 +124,8 @@ preferences
 gui.column.format: 
 	"#", "%m",
 	"tcp.stream", "%Cus:tcp.stream:0:R",
+	"time", "%t",
 	"datetime", "%Yut",
-	"time", "%Aut",
 	"s.mac", "%uhs",
 	"s.ip", "%us",
 	"s.port", "%uS",
