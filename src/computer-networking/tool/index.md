@@ -117,9 +117,10 @@ tcpdump port 80 -A -c 100
 
 
 
-# wireshark 
+# wireshark {#wireshark} 
 
-preferences
+## preferences {#wireshark-preferences}
+
 ```sh
 gui.column.format: 
 	"#", "%m",
@@ -136,3 +137,21 @@ gui.column.format:
 	"length", "%L",
 	"info", "%i"
 ```
+
+# Capture Phone Traffic {#capture-phone-traffic}
+
+1. 设置共享的WLAN
+    ```ps1
+    # 设置共享的WLAN
+    netsh wlan set hostednetwork mode=allow ssid=ssid1 key=12345678
+
+    # 启动共享的WLAN
+    netsh wlan start hostednetwork
+
+    # 停止共享的WLAN
+    netsh wlan stop hostednetwork
+    ```
+2. 共享联网的网卡给上述的WLAN的网卡
+    ![共享联网的网卡给上述的WLAN](./share-network.png)
+
+然后通过wireshark抓被共享的网卡即可。
