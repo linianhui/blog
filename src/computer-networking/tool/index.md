@@ -138,7 +138,7 @@ gui.column.format:
 	"info", "%i"
 ```
 
-# Capture Phone Traffic {#capture-phone-traffic}
+# 手机抓包 {#capture-phone-traffic}
 
 1. 设置共享的WLAN
     ```ps1
