@@ -5,13 +5,17 @@ tag: ["dig"]
 toc: true
 ---
 
-# dig {#dig}
+# 1 dns {#dns}
 
 ```sh
 dig bing.com
 ```
 
-# netsh {#netsh}
+```sh
+nslookup bing.com
+```
+
+# 2 netsh {#netsh}
 
 ```powershell
 # port forward 127.0.0.1:12345 to http://www.nghttp2.org
@@ -30,13 +34,13 @@ netsh interface portproxy delete v4tov4 listenport=12345
 netsh interface portproxy help
 ```
 
-# net-tools {#net-tools}
+# 3 net-tools {#net-tools}
 
 ```sh
 apt install -y net-tools
 ```
 
-## netstat {#netstat}
+## 3.1 netstat {#netstat}
 
 | short option | full option                                                                 |
 | ------------ | --------------------------------------------------------------------------- |
@@ -57,20 +61,13 @@ TIME_WAIT状态统计
 netstat -n | awk '/TIME_WAIT/ {++S[$4]} END {for(a in S) print a, S[a]}' | sort -r -n -k2 -t' '
 ```
 
-# nslookup {#nslookup}
-
-```sh
-nslookup bing.com
-```
-
-
-# iproute2 {#iproute2}
+# 4 iproute2 {#iproute2}
 
 ```sh
 apt install -y iproute2
 ```
 
-## ss
+## 4.1 ss
 
 | short option | full option |
 | ------------ | ----------- |
@@ -89,7 +86,7 @@ apt install -y iproute2
 ss -tan | awk 'NR>1 {++S[$1]} END {for (a in S) print a,S[a]}'
 ```
 
-# tcpdump {#tcpdump}
+# 5 tcpdump {#tcpdump}
 
 ```sh
 apt install -y tcpdump
@@ -117,9 +114,9 @@ tcpdump port 80 -A -c 100
 
 
 
-# wireshark {#wireshark} 
+# 6 wireshark {#wireshark} 
 
-## preferences {#wireshark-preferences}
+## 6.1 preferences {#wireshark-preferences}
 
 ```sh
 gui.column.format: 
@@ -138,7 +135,7 @@ gui.column.format:
 	"info", "%i"
 ```
 
-# 手机抓包 {#capture-phone-traffic}
+# 7 手机抓包 {#capture-phone-traffic}
 
 1. 设置共享的WLAN
     ```ps1
