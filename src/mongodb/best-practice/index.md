@@ -11,7 +11,7 @@ toc: true
 mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin?replicaSet=test-replica-set&ssl=false&readConcernLevel=majority&readPreference=secondaryPreferred&w=3&wtimeoutMS=5000
 ```
 
-# 1.1 Write Concern {#write-concern}
+## 1.1 Write Concern {#write-concern}
 
 写操作配置，作用于mongodb server。比如上面的`w=3`表示数据要至少写入到3个节点才返回到应用中，通常需搭配`wtimeoutMS`一起使用，如果不足3个节点，则会抛出如下错误。
 ```json
@@ -24,11 +24,11 @@ mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin?replicaSet=test-re
 
 也可以设置为`w=majority`, 让mongodb自动决定写入几个节点即返回。
 
-# 1.2 Read Preference {#read-preference}
+## 1.2 Read Preference {#read-preference}
 
 读操作配置，作用于mongodb client。指示客户端使用哪个节点进行读取操作。
 
-# 1.3 Read Concern {#read-concern}
+## 1.3 Read Concern {#read-concern}
 
 读操作配置，作用于mongodb server。待补充...
 
