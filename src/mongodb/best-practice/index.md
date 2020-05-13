@@ -126,7 +126,7 @@ db.test_collection.insert(
 | Secondary2   | t6前 | Writeprev |
 | Secondary2   | t6后 | `Write0`  |
 
-# 2 Reference {#reference}
+# 3 Reference {#reference}
 
 1. https://docs.mongodb.com/manual/reference/glossary/
 2. https://docs.mongodb.com/manual/reference/command/nav-crud/
@@ -136,7 +136,7 @@ db.test_collection.insert(
 7. https://docs.mongodb.com/manual/reference/method/js-replication/
 
 
-## 2.2 Replica Set {#reference-replica-set}
+## 3.1 Replica Set {#reference-replica-set}
 
 1. https://docs.mongodb.com/manual/replication/
 2. https://docs.mongodb.com/manual/core/replica-set-hidden-member/
