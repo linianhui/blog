@@ -61,7 +61,7 @@ db.test_collection.insert(
 | [primaryPreferred][read-preference-primaryPreferred]     | primary成员优先，当primary成员不可用时，读secondary成员。   |
 | [secondary][read-preference-secondaryPreferred]          | 使用secondary成员进行所有的读取操作。                       |
 | [secondaryPreferred][read-preference-secondaryPreferred] | secondary成员优先，当secondary成员不可用时，读primary成员。 |
-| [nearest][read-preference-nearest]                       | MongoDB Client根据网络延迟来决定使用哪个成员。              |
+| [nearest][read-preference-nearest]                       | `MongoDB Client`根据网络延迟来决定使用哪个成员。              |
 
 ![Read Preference](replica-set-read-preference.svg)
 
