@@ -23,7 +23,17 @@ mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin
 
 ## 2.1 Write Concern {#write-concern}
 
-**写操作配置，作用于`MongoDB Server`, 用于指示`MongoDB Server`写入多少个成员后才会返回给`MongoDB Client`**。可用的选项如下:
+**写操作配置，作用于`MongoDB Server`, 用于指示`MongoDB Server`写入多少个成员后才会返回给`MongoDB Client`**。
+
+```js
+{ w: <value>, j: <boolean>, wtimeout: <number> }
+```
+
+![Write Concern : w=majority](write-concern-w-majority.svg)
+
+### 2.1.1 w {#write-concern-w}
+
+`w`可用的选项如下:
 
 | 选项                                                                 | 描述说明                                                                                                                   |
 | :------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
@@ -40,16 +50,26 @@ mongodb://mongodb-server-1:27017,mongodb-server-2:27017/admin
 }
 ```
 
-比如上面的`w=3`表示至少写入到3个成员才返回到`MongoDB Client`中，通常需搭配`wtimeoutMS`一起使用。当然也可以设置为`w=majority`, 让mongodb自动决定。
+### 2.1.2 j {#write-concern-j}
 
+`j`可用的选项如下:
+
+| 选项  | 描述说明             |
+| :---- | :------------------- |
+| false | 日志写入内存后才返回 |
+| true  | 日志写入硬盘后才返回 |
+
+### 2.1.3 wtimeout {#write-concern-wtimeout}
+
+`wtimeout`只适用于大于`w>1`的时候，单位是`ms`。比如:
 ```js
 db.test_collection.insert(
    { name: "abc"},
-   { writeConcern: { w: "majority" , wtimeout: 5000 } }
+   { writeConcern: { w: 3 , wtimeout: 5000 } }
 )
 ```
 
-![Write Concern : w=majority](write-concern-w-majority.svg)
+如果`MongoDB Server`在`5000ms`内没有完成写入3个成员的操作，那么就会返回一个错误，但是并不影响数据最终的写入。如果不指定`wtimeout`, 则会一直阻塞到满足`w=3`的时间点。
 
 ## 2.2 Read Preference {#read-preference}
 
@@ -61,7 +81,7 @@ db.test_collection.insert(
 | [primaryPreferred][read-preference-primaryPreferred]     | primary成员优先，当primary成员不可用时，读secondary成员。   |
 | [secondary][read-preference-secondaryPreferred]          | 使用secondary成员进行所有的读取操作。                       |
 | [secondaryPreferred][read-preference-secondaryPreferred] | secondary成员优先，当secondary成员不可用时，读primary成员。 |
-| [nearest][read-preference-nearest]                       | `MongoDB Client`根据网络延迟来决定使用哪个成员。              |
+| [nearest][read-preference-nearest]                       | `MongoDB Client`根据网络延迟来决定使用哪个成员。            |
 
 ![Read Preference](replica-set-read-preference.svg)
 
@@ -85,7 +105,7 @@ db.test_collection.insert(
 时间线图例。
 ![Read Concern Write Timeline](read-concern-write-timeline.svg)
 
-| 时间 | 事件                                                            | 最新的写                                                              | 最新的`w: "majority"`写？                                                |
+| 时间 | 事件                                                            | 最新的写                                                              | 最新的`w: "majority"`写？                                              |
 | :--- | :-------------------------------------------------------------- | :-------------------------------------------------------------------- | :--------------------------------------------------------------------- |
 | t0   | Primary applies `Write0`                                        | Primary: `Write0` <br>Secondary1: Writeprev <br>Secondary2: Writeprev | Primary: Writeprev <br>Secondary1: Writeprev <br>Secondary2: Writeprev |
 | t1   | Secondary1 applies `Write0`                                     | Primary: `Write0` <br>Secondary1: `Write0` <br>Secondary2: Writeprev  | Primary: Writeprev <br>Secondary1: Writeprev <br>Secondary2: Writeprev |
