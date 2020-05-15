@@ -72,94 +72,28 @@ HTTP APIs主要由四部分组成 : [#HTTP](#http), [#URL](#url), `资源`，`�
 4. 使用[#JSON](#json)作为数据交换格式。
 
 
+# 2 URL {#url}
 
-# 2 版本化 {#versioning}
-
-在`Level 2`的HTTP APIs中，虽然我们推荐也努力使得我们的APIs不做不兼容的改动，但是依然无法彻底的避免不兼容的升级。这就使得我们不得不对APIs进行版本化管理。通常有以下 **3** 种方案 : 
-
-1. URL
-    ```http
-    GET http://api.linianhui.com/v1/weather HTTP/1.1
-    ```
-2. Request Header
-    ```http
-    GET http://api.linianhui.com/weather HTTP/1.1
-    Api-Version: v1
-    ```
-3. Request Header (Accept Header)
-    ```http
-    GET http://api.linianhui.com/weather HTTP/1.1
-    Accept: application/vnd.v1+json
-    ```
-
-**在`Level 2`的API中优先推荐使用方案1(`URL`)**。理由是其更直观，便于实现，便于日志追踪。
-
-
-
-
-# 3 命名规则 {#name-case}
-
-| 规则名称                    | 说明                  | 取值范围    |
-| --------------------------- | --------------------- | ----------- |
-| `all-lower-hyphen-case`     | 采用`-`分隔符的全小写 | `a-z 0-9 -` |
-| `all_lower_underscore_case` | 采用`_`分隔符的全小写 | `a-z 0-9 _` |
-| `ALL_UPPER_UNDERSCORE_CASE` | 采用`_`分隔符的全大写 | `A-Z 0-9 _` |
-
-## 3.1 URL {#name-case-url}
-
-| URL组件   | 命名规则                    |
-| --------- | --------------------------- |
-| scheme    | `all-lower-hyphen-case`     |
-| authority | `all-lower-hyphen-case`     |
-| path      | `all-lower-hyphen-case`     |
-| query     | `all_lower_underscore_case` |
-| fragment  | `all-lower-hyphen-case`     |
-
-URL的query部分是`name=value`而不是`key=value`，URL支持name重复存在，Web服务端框架绝大部分都支持直接映射为数组。
-
-此外命名规则约束的是`name`部分，而不关心`value`部分，`value`部分应该采用`urlencode`进行编码。示例 :
+URL遵循[RFC3986]规范，由以下几部分组成。
 
 ```http
-https://api.my-server.com/v1/user-stories?dipplay_names=abc&display_names=efg
+  https://api.linianhui.test:8080/user/disabled?first_name=li#title
+  \___/  \______________________/\_____________/\___________/\____/
+    |               |                   |             |          |
+  scheme        authority              path         query    fragment
 ```
 
-服务端会得到一个类型为数组的`dispaly_names`参数。
-```json
-display_names = [
-  "abc",
-  "efg"
-];
-```
-
-## 3.2 JSON {#name-case-json}
-
-| JSON             | 命名规则                    |
-| ---------------- | --------------------------- |
-| filed_name       | `all_lower_underscore_case` |
-| filed_value      | 无要求                      |
-| ENUM_FILED_VALUE | `ALL_UPPER_UNDERSCORE_CASE` |
-
-`ENUM_FILED_VALUE`用于表示枚举字段，用全大写和`_`分隔符，以示和普通的字符串进行区分。示例 :
-
-```json
-{
-  "first_name":"li",
-  "lase_name":"nianhui",
-  "gender":"MALE",
-  "remark":"描述信息",
-  "age":1234
-}
-```
+URL的命名规则[#URL命名规则](#name-case-url)。
 
 参考资料 : 
 
-1. https://support.google.com/webmasters/answer/76329
-2. https://stackoverflow.com/questions/5543490/json-naming-convention
-3. https://tools.ietf.org/html/rfc3986#section-2.4
+1. https://tools.ietf.org/html/rfc3986
 
-# 4 HTTP {#http}
+[RFC3986]:https://tools.ietf.org/html/rfc3986
 
-## 4.1 HTTP Method {#http-method}
+# 3 HTTP {#http}
+
+## 3.1 HTTP Method {#http-method}
 
 面向资源设计的HTTP APIs中，绝大部分的操作都是`CRUD(Create,Read,Update,Delete)`，都可以映射为某一个[HTTP Method][HTTP-Method]。其余的无法映射的操作一般存在两种解决方案 : 
 
@@ -172,7 +106,7 @@ display_names = [
    2. 取消禁用 : `DELETE /user/{user_id}/disable`。
    3. 获取被禁用的用户列表 : `GET /user?status=DISABLED`。
 
-### 4.1.1 Names {#http-method-names}
+### 3.1.1 Names {#http-method-names}
 
 | HTTP Method Name             | Safe | Idempotent | 描述说明                                     |
 | ---------------------------- | :--- | ---------- | -------------------------------------------- |
@@ -184,7 +118,7 @@ display_names = [
 
 [PATCH][HTTP-Method-PATCH]和[POST][HTTP-Method-POST]都是`不安全`且`不幂等`的，差异在于[PATCH][HTTP-Method-PATCH]仅是用于部分更新资源, 而且是一个可选支持的[HTTP Method][HTTP-Method]，可能会存在一些代理、网关等组件不支持的情况，所以推荐用[POST][HTTP-Method-POST]来代替它。
 
-### 4.1.2 Semantics {#http-method-semantics}
+### 3.1.2 Semantics {#http-method-semantics}
 
 每一个[HTTP Method][HTTP-Method]都具有一下3个HTTP协议层面的语义。
 
@@ -210,7 +144,7 @@ display_names = [
 [HTTP-Method-Semantics-Cacheable]:https://tools.ietf.org/html/rfc7231#section-4.2.3
 
 
-## 4.2 HTTP Header {#http-header}
+## 3.2 HTTP Header {#http-header}
 
 Http Header的用途在于携带`HTTP Request`和`HTTP Response`的元数据信息。
 
@@ -270,7 +204,7 @@ Request-Id: {id}
 [HTTP-Header-Location]:https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location
 
 
-## 4.3 HTTP Stauts Code {#http-status-code}
+## 3.3 HTTP Stauts Code {#http-status-code}
 
 [HTTP Status Code][HTTP-Status-Code]用来指示`HTTP协议层面的请求状态`。它由一个数字和一个描述消息构成，比如`200 OK`。有以下几类状态码 : 
 
@@ -322,7 +256,7 @@ Request-Id: {id}
 [HTTP-Status-Code-503]:https://tools.ietf.org/html/rfc7231#section-6.6.4
 
 
-## 4.4 HTTP Error Response {#http-error-response}
+## 3.4 HTTP Error Response {#http-error-response}
 
 虽然[#HTTP Stauts Code](#http-status-code)有`4xx`和`5xx`的状态码来表示哪里出错了，但是其代表的只是`HTTP协议层面`的错误描述，它无法提供和业务相关的更具体错误描述。基于此种情况，我们需要设计一套描述业务层面错误的数据结构 : 
 
@@ -370,26 +304,8 @@ Request-Id: {id}
 
 1. Problem Details for HTTP APIs : https://tools.ietf.org/html/rfc7807
 
-# 5 URL {#url}
 
-URL遵循[RFC3986]规范，由以下几部分组成。
-
-<pre>
-  https://api.linianhui.test:8080/user/disabled?first_name=li#title
-  \___/  \______________________/\_____________/\___________/\____/
-    |               |                   |             |          |
-  scheme        authority              path         query    fragment
-</pre>
-
-URL的命名规则[#URL命名规则](#name-case-url)。
-
-参考资料 : 
-
-1. https://tools.ietf.org/html/rfc3986
-
-[RFC3986]:https://tools.ietf.org/html/rfc3986
-
-# 6 JSON {#json}
+# 4 JSON {#json}
 
 [JSON][JSON]是一种应用非常广泛的数据交换格式。其包含6种基本的数据类型。
 
@@ -432,6 +348,89 @@ JSON示例 :
 2. https://tools.ietf.org/html/rfc7159
 
 [JSON]:http://json.org/
+
+
+# 5 版本化 {#versioning}
+
+在`Level 2`的HTTP APIs中，虽然我们推荐也努力使得我们的APIs不做不兼容的改动，但是依然无法彻底的避免不兼容的升级。这就使得我们不得不对APIs进行版本化管理。通常有以下 **3** 种方案 : 
+
+1. URL
+    ```http
+    GET http://api.linianhui.com/v1/weather HTTP/1.1
+    ```
+2. Request Header
+    ```http
+    GET http://api.linianhui.com/weather HTTP/1.1
+    Api-Version: v1
+    ```
+3. Request Header (Accept Header)
+    ```http
+    GET http://api.linianhui.com/weather HTTP/1.1
+    Accept: application/vnd.v1+json
+    ```
+
+**在`Level 2`的API中优先推荐使用方案1(`URL`)**。理由是其更直观，便于实现，便于日志追踪。
+
+
+# 6 命名规则 {#name-case}
+
+| 规则名称                    | 说明                  | 取值范围    |
+| --------------------------- | --------------------- | ----------- |
+| `all-lower-hyphen-case`     | 采用`-`分隔符的全小写 | `a-z 0-9 -` |
+| `all_lower_underscore_case` | 采用`_`分隔符的全小写 | `a-z 0-9 _` |
+| `ALL_UPPER_UNDERSCORE_CASE` | 采用`_`分隔符的全大写 | `A-Z 0-9 _` |
+
+## 6.1 URL {#name-case-url}
+
+| URL组件   | 命名规则                    |
+| --------- | --------------------------- |
+| scheme    | `all-lower-hyphen-case`     |
+| authority | `all-lower-hyphen-case`     |
+| path      | `all-lower-hyphen-case`     |
+| query     | `all_lower_underscore_case` |
+| fragment  | `all-lower-hyphen-case`     |
+
+URL的query部分是`name=value`而不是`key=value`，URL支持name重复存在，Web服务端框架绝大部分都支持直接映射为数组。
+
+此外命名规则约束的是`name`部分，而不关心`value`部分，`value`部分应该采用`urlencode`进行编码。示例 :
+
+```http
+https://api.my-server.com/v1/user-stories?dipplay_names=abc&display_names=efg
+```
+
+服务端会得到一个类型为数组的`dispaly_names`参数。
+```json
+display_names = [
+  "abc",
+  "efg"
+];
+```
+
+## 6.2 JSON {#name-case-json}
+
+| JSON             | 命名规则                    |
+| ---------------- | --------------------------- |
+| filed_name       | `all_lower_underscore_case` |
+| filed_value      | 无要求                      |
+| ENUM_FILED_VALUE | `ALL_UPPER_UNDERSCORE_CASE` |
+
+`ENUM_FILED_VALUE`用于表示枚举字段，用全大写和`_`分隔符，以示和普通的字符串进行区分。示例 :
+
+```json
+{
+  "first_name":"li",
+  "lase_name":"nianhui",
+  "gender":"MALE",
+  "remark":"描述信息",
+  "age":1234
+}
+```
+
+参考资料 : 
+
+1. https://support.google.com/webmasters/answer/76329
+2. https://stackoverflow.com/questions/5543490/json-naming-convention
+3. https://tools.ietf.org/html/rfc3986#section-2.4
 
 
 # 7 Date Time {#date-time}
