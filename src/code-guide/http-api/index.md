@@ -358,8 +358,8 @@ Request-Id: {id}
   "errors": [
     {
       "code": "NO_PREMISSION",
-      "value": "user.delete",
-      "message": "没有user.delete的权限"
+      "value": "USER:DELETE",
+      "message": "没有USER:DELETE的权限"
     }
   ],
   "extra": null
