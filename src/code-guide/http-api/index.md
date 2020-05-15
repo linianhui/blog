@@ -349,7 +349,7 @@ Request-Id: {id}
 
 **以上这个数据结构仅在状态码为`4xx`和`5xx`出现的时候才会使用；`2xx`的时候则不包含此数据结构。**
 
-`code`字段可以是一些出错的字段名、某一错误类别（比如`NO_PREMISSION`这种全局唯一的常量字符串）等等。
+`code`字段可以是一些出错的字段名、某一错误类别（比如`NO_PERMISSION`这种全局唯一的常量字符串）等等。
 ```json
 {
   "method": "DELETE",
@@ -357,7 +357,7 @@ Request-Id: {id}
   "statusCode": 403,
   "errors": [
     {
-      "code": "NO_PREMISSION",
+      "code": "NO_PERMISSION",
       "value": "BOOK:DELETE",
       "message": "没有BOOK:DELETE的权限"
     }
