@@ -3,16 +3,16 @@
 
   <h1 class="article-title">{{ .Title }}</h1>
 
-  {{ partial "article/meta.html" . }}
+  {{ partial "article-meta.html" . }}
 
   <section class="article-content">
     {{ .Content }}
   </section>
 
-  {{ partial "article/meta.html" . }}
+  {{ partial "article-meta.html" . }}
 
-  {{ partial "article/page.html" . }}
+  {{ partial "article-page.html" . }}
 
 </article>
-{{ partial "article/comment.html" . }}
+{{ partial "article-comment.html" . }}
 {{ end }}

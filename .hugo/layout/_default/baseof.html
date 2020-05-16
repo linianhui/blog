@@ -2,10 +2,9 @@
 <html lang="{{ .Site.LanguageCode }}">
 
 <head>
-  {{ partial "head/meta.html" . }}
-  {{ partial "head/link.html" . }}
-  {{ partial "head/title.html" . }}
-  {{ partial "head/script.html" . }}
+  {{ partial "head-meta.html" . }}
+  {{ partial "head-link.html" . }}
+  {{ partial "head-title.html" . }}
 </head>
 
 <body>
@@ -13,14 +12,14 @@
   {{ partial "toc.html" . }}
   <main class="body">
 
-    {{ partial "body/header.html" . }}
+    {{ partial "body-header.html" . }}
 
     <main class="main">
       {{ block "main" . }}
       {{ end }}
     </main>
 
-    {{ partial "body/footer.html" . }}
+    {{ partial "body-footer.html" . }}
 
   </main>
   {{ partial "toolbar.html" . }}
