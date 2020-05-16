@@ -8,7 +8,7 @@ toc: true
 根据REST APIs的成熟度模型 ，此规范关注的是`Level 2`的APIs。
 ![REST APIs 成熟度模型](richardson-maturity-model.png)  
 
-# 1 设计指南 {design-guide}
+# 1 设计指南 {#design-guide}
 
 HTTP APIs主要由四部分组成 : [#HTTP](#http), [#URL](#url), `资源`，`资源的表述`。
 
