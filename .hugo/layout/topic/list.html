@@ -1,4 +1,4 @@
-{{ define "main" }}
+{{ define "content" }}
 <section class="topics">
   {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
   <section class="topic">
