@@ -1,6 +1,10 @@
 "use strict";
 
 (function (window, document, navigator) {
+    function id(id){
+        return document.getElementById(id);
+    }
+
     function isMobile() {
         return /.*Mobile.*/.test(navigator.userAgent);
     }
@@ -69,7 +73,7 @@
         var lastIndex = arguments.length - 1;
         var className = arguments[lastIndex];
         for (var i = 0; i < lastIndex; i++) {
-            var element = document.getElementById(arguments[i]);
+            var element = id(arguments[i]);
             toggleClassNameCore(element, className);
         }
     }
@@ -82,7 +86,7 @@
     }
 
     function refreshBodyStyle() {
-        var tocElement = document.getElementById('toc');
+        var tocElement = id('toc');
         if (hasClassName(tocElement, 'opened')) {
             var tocElementOffsetWidth = tocElement.offsetWidth;
             document.body.style.marginLeft = tocElementOffsetWidth + 'px';
@@ -95,7 +99,7 @@
         var tocItemArray = [];
         document.querySelectorAll('#toc a').forEach(function (aElement) {
             var fragmentId = getFragmentIdFromUrl(aElement.href);
-            var anchorElement = document.getElementById(fragmentId);
+            var anchorElement = id(fragmentId);
             if (anchorElement) {
                 tocItemArray.push({
                     aElement: aElement,
@@ -162,7 +166,7 @@
             progress = 100;
         }
 
-        document.getElementById("horizontal-progress").style.width = progress + "%";
+        id("horizontal-progress").style.width = progress + "%";
     }
 
     function onScorllEventCore(tocItemArray) {
@@ -180,7 +184,7 @@
     }
 
     function toggleToc() {
-        toggleClassNameCore(document.getElementById('toc'), 'opened');
+        toggleClassNameCore(id('toc'), 'opened');
         refreshBodyStyle();
     }
 
