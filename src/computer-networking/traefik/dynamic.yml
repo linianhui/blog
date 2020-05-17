@@ -1,0 +1,28 @@
+http:
+  routers:
+    example.test.router:
+      rule: Host(`example.test`)
+      service: example.test.service
+  services:
+    example.test.service:
+      loadBalancer:
+        servers:
+          - url: http://192.168.2.201:5000
+        healthCheck:
+          scheme: http
+          path: /
+          interval: 10s
+          timeout: 3s
+
+tcp:
+  routers:
+    mysql.router:
+      entryPoints:
+        - mysql
+      rule: HostSNI(`mysql`)
+      service: mysql.service
+  services:
+    mysql.service:
+      loadBalancer:
+        servers:
+          - address: 192.168.2.201:3306

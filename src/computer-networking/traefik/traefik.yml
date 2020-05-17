@@ -1,0 +1,27 @@
+# https://docs.traefik.io/v2.2/reference/static-configuration/file/
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+log:
+  level: DEBUG
+
+# https://docs.traefik.io/v2.2/operations/api
+api:
+  dashboard: true
+  insecure: true
+  debug: true
+
+# https://docs.traefik.io/v2.2/routing/entrypoints
+entryPoints:
+  http:
+    address: :80
+  mysql:
+    address: :3306
+
+providers:
+  providersThrottleDuration: 2s
+  # https://docs.traefik.io/v2.2/providers/file/
+  file:
+    watch: true
+    filename: dynamic.yml
