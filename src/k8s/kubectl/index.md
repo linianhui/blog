@@ -41,3 +41,5 @@ kubectl依赖一个yml格式的文件来配置需要管理的k8s集群的相关�
 # 2. Reference {#reference}
 
 1. <https://kubernetes.io/docs/tasks/tools/install-kubectl>
+
+{{<highlight-file file="terminated-pod.txt" lang="csv">}}

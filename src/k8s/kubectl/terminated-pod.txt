@@ -1,0 +1,2 @@
+NAME          RESTART_COUNT                            LAST_TERMINATED_AT                                          LAST_TERMINATED_EXIT_CODE                                 LAST_TERMINATED_REASON
+metadata.name status.containerStatuses[*].restartCount status.containerStatuses[*].lastState.terminated.finishedAt status.containerStatuses[*].lastState.terminated.exitCode status.containerStatuses[*].lastState.terminated.reason
