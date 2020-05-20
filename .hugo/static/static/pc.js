@@ -131,21 +131,6 @@
         }
     }
 
-
-    function tocAnchorElementAddAElement(tocItemArray) {
-        if (tocItemArray) {
-            tocItemArray.forEach(function (tocItem) {
-                var anchorElement = tocItem.anchorElement;
-                if (anchorElement) {
-                    anchorElement.innerHTML = '<a href="#'
-                        + anchorElement.id
-                        + '" class="fa fa-link article-h-a" aria-hidden="true"></a>'
-                        + anchorElement.innerHTML;
-                }
-            });
-        }
-    }
-
     function tocOnScroll(tocItemArray) {
         if (tocItemArray) {
             var scrollTop = window.scrollY + 32;
@@ -176,7 +161,6 @@
 
     function addOnScorllEvent() {
         var tocItemArray = getTocItemArray();
-        tocAnchorElementAddAElement(tocItemArray);
         window.onscroll = function () {
             onScorllEventCore(tocItemArray);
         };

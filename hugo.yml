@@ -105,7 +105,7 @@ markup:
       typographer: false
     parser:
       attribute: true
-      autoHeadingID: false
+      autoHeadingID: true
     renderer:
       hardWraps: true
       unsafe: true
