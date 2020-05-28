@@ -1,7 +1,7 @@
 ---
 title: "[计算机网络] Tool"
 created_at: 2020-02-20 21:52:00
-tag: ["dig"]
+tag: ["dns","dig","nslookup","netsh","port forwarding","netstat","tcpdump","wireshark","phone"]
 toc: true
 ---
 
