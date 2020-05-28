@@ -1,0 +1,6 @@
+tcp
+-p ":2375,:9000"
+-T tcp
+-P "192.168.2.201:0"
+--log proxy.log
+--daemon
