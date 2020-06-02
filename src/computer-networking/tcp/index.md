@@ -15,8 +15,8 @@ toc: true
 
 Server端 (`destination_ip`, `destination_port`) 固定，最大连接数=`source_ip`的数量乘以`source_port`的数量。
 
-1. IPv4 : <code>$2^{32} \times 2^{16} = 2^{48}$</code>
-2. IPv6 : <code>$2^{128} \times 2^{16} = 2^{144}$</code>
+1. IPv4 : $2^{32} \times 2^{16} = 2^{48}$
+2. IPv6 : $2^{128} \times 2^{16} = 2^{144}$
 
 
 # 2 TCP连接 {#tcp-connection}
