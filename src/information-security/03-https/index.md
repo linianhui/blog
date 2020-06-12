@@ -5,7 +5,7 @@ tag: ["HTTPS", "SSLKEYLOGFILE", "会话密钥"]
 toc: true
 ---
 
-# 1 简单回顾 {#1-review}
+# 1 简单回顾 {#review}
 
 在前面两篇博客中介绍了密码相关的一些基本工具，包括([对称密码]，[公钥密码]，[密码散列函数]，[混合密码系统]，[消息认证码]，[数字签名]，[伪随机数]，[数字证书])这几个。其中它们之间也是互相依赖的，我们来简单的梳理一下它们的依赖关系。
 
@@ -20,7 +20,7 @@ toc: true
 
 这篇要介绍的HTTPS，则把以上这些全都派上场了。
 
-# 2 HTTPS 简史 {#2-https-history}
+# 2 HTTPS 简史 {#https-history}
 
 在早期HTTP诞生的这几年间，1990年~1994年，HTTP作为一个应用层协议，它是这样工作的 :  
 ![HTTP](http.png)
@@ -30,7 +30,7 @@ toc: true
 
 后来爆发了与IE的世纪大战，网景败北，SSL移交给了[IETF(Internat Engineering Task Force)互联网工程任务组](https://en.wikipedia.org/wiki/Transport_Layer_Security)，标准化之后变成了现在的TLS，现在一般会把它们两个放在一起称为[SSL/TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security)。本篇并不关注SSL/TLS具体是如何工作的，只是抽象的解释下HTTPS的一个工作流程。
 
-# 3 HTTPS 工作流程 {#3-https-flow}
+# 3 HTTPS 工作流程 {#https-flow}
 
 ![HTTPS 工作流程](https-flow.png)
 
@@ -55,7 +55,7 @@ toc: true
 
 如有错误之处，欢迎指正！
 
-# 4 参考资料 {#4-summary}
+# 4 参考资料 {#summary}
 
 SSL/TLS :  https://en.wikipedia.org/wiki/Transport_Layer_Security
 
@@ -75,13 +75,13 @@ SSLKEYLOGFILE :  https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/K
 
 
 
-[对称密码]:../01-cryptography-toolbox-1/#1-symmetric-cryptography
-[公钥密码]:../01-cryptography-toolbox-1/#2-asymmetric-cryptography
-[密码散列函数]:../01-cryptography-toolbox-1/#3-cryptographic-hash-function
-[消息认证码]:../01-cryptography-toolbox-1/#4-message-authentication-code
-[数字签名]:../01-cryptography-toolbox-1/#5-digital-signature
-[上篇的数字签名遗留的问题]:../01-cryptography-toolbox-1/#5-3-leftover-problem
-[伪随机数]:../02-cryptography-toolbox-2/#1-pseudo-random-number
-[混合密码系统]:../02-cryptography-toolbox-2/#2-hybrid-cryptosystem
-[数字证书]:../02-cryptography-toolbox-2/#3-certificate
-[公钥证书]:../02-cryptography-toolbox-2/#3-2-public-key-certificate
+[对称密码]:../01-cryptography-toolbox-1/#symmetric-cryptography
+[公钥密码]:../01-cryptography-toolbox-1/#asymmetric-cryptography
+[密码散列函数]:../01-cryptography-toolbox-1/#cryptographic-hash-function
+[消息认证码]:../01-cryptography-toolbox-1/#message-authentication-code
+[数字签名]:../01-cryptography-toolbox-1/#digital-signature
+[上篇的数字签名遗留的问题]:../01-cryptography-toolbox-1/#leftover-problem
+[伪随机数]:../02-cryptography-toolbox-2/#pseudo-random-number
+[混合密码系统]:../02-cryptography-toolbox-2/#hybrid-cryptosystem
+[数字证书]:../02-cryptography-toolbox-2/#certificate
+[公钥证书]:../02-cryptography-toolbox-2/#public-key-certificate

@@ -6,7 +6,7 @@ toc: true
 ---
 
 
-# 1 OpenJdk {#1-openjdk}
+# 1 OpenJdk {#openjdk}
 
 下载地址 : 
 1. <https://adoptopenjdk.net/upstream.html>
@@ -20,7 +20,7 @@ Env-SetJavaEnvironmentVariable
 java -v
 ```
 
-# 2 Maven {#2-maven}
+# 2 Maven {#maven}
 
 下载地址 : <https://maven.apache.org/download.cgi>
 
@@ -36,7 +36,7 @@ mvn -v
 # https://github.com/takari/maven-wrapper
 mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.6.3
 ```
-## 2.1 settings.xml {#2-1-settings-xml}
+## 2.1 settings.xml {#settings-xml}
 
 复制`settings.xml`配置文件到`HOME/.m2/`目录。
 
@@ -61,21 +61,21 @@ gradle -v
 gradle wrapper --gradle-version 6.0.1 --distribution-type all
 ```
 
-## 3.1 gradle.properties {#3-1-gradle-properties}
+## 3.1 gradle.properties {#gradle-properties}
 
 复制`gradle.properties`配置文件到`GRADLE_USER_HOME`目录。
 
 {{<highlight-file file="gradle.properties" lang="ini">}}
 
 
-## 3.2 init.gradle {#3-2-init-gradle}
+## 3.2 init.gradle {#init-gradle}
 
 复制`init.gradle`配置文件到`GRADLE_USER_HOME`目录。
 
 {{<highlight-file file="init.gradle" lang="groovy">}}
 
 
-## 3.2 settings.gradle {#3-3-settings.gradle}
+## 3.2 settings.gradle {#settings.gradle}
 
 复制`settings.gradle`配置文件到`GRADLE_USER_HOME`目录。
 

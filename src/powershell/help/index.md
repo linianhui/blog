@@ -5,7 +5,7 @@ tag: ["PowerShell", "ExecutionPolicy"]
 toc: true
 ---
 
-# 1 PowerShell 执行策略 {#1-execution-policy}
+# 1 PowerShell 执行策略 {#execution-policy}
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser

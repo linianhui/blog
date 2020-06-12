@@ -7,11 +7,11 @@ toc: true
 
 1969年11月美国国防部建立了一个名为**ARPANET**(Internet的雏形)的**分组交换**网络，当前时间是2019年，50年过去了，如今的网络已经融入了社会的方方面面，其重要性不言而喻。本系列博客专注于**计算机网络**的核心概念和体系结构，并不涉及网络编程的概念。
 
-# 1 标准化 {#1-standardization} 
+# 1 标准化 {#standardization} 
 
 **计算机网络** 由 **节点(node : 计算机、集线器、交换机或路由器)** 和连接它们的 **链路(link)** 组成。这些众多的设备之间如何通信？其中离不开各种各样的标准，标准的意义在于统一的规则，遵循相同标准的设备之间可以互联互通，从而避免一些不兼容的问题。[IETF(Internet Engineering Task Force)][ietf]是负责标准化的一个重要机构，IP、TCP、UDP、DNS、HTTP等等众多协议都是由IETF标准化的。
 
-# 2 常见的分类 {#2-categories}
+# 2 常见的分类 {#categories}
 
 按照地理上的区域位置来划分，有如下几个分类 :
 
@@ -19,7 +19,7 @@ toc: true
 2. `WAN` : Wide Area Network(广域网)，比如路由器经过`PPPoE`连接到的宽带运营商的网络环境。
 3. `WLAN` : Wireless LAN(无线局域网)，比如WiFi或WAPI。
 
-# 3 分组交换(Packet Switching) {#3-packet-switching}
+# 3 分组交换(Packet Switching) {#packet-switching}
 
 计算机网络没有采用传统的电话网络的~~**电路交换**~~的通信方式，而是采用了**分组交换**。理解**分组交换**是理解计算机网络最重要的一步(没有之一)。
 
@@ -28,11 +28,11 @@ toc: true
 
 也正是**分组交换**这种设计思想，才得以支撑互联网的爆炸式增长。
 
-# 4 性能指标 {#4-performance}
+# 4 性能指标 {#performance}
 
 计算机网络的性能表现在一下几个指标上。
 
-## 4.1 速率(Bit Rate) {#4-1-bit-rate}
+## 4.1 速率(Bit Rate) {#bit-rate}
 
 速率是数据传输的比特率(bit rate): **单位时间(秒)内传输的bit(binary digit)数量**。单位是`bit/s`、`b/s`或者`bps`。
 
@@ -40,19 +40,19 @@ toc: true
 2. `Mbps` : 每秒**10<sup>6</sup>**个bit。
 3. `Gbps` : 每秒**10<sup>9</sup>**个bit。
 
-## 4.2 带宽(Bandwidth) {#4-2-bandwidth}
+## 4.2 带宽(Bandwidth) {#bandwidth}
 
 带宽原指信号的频带宽度，比如**300Hz～600Hz**, 此时的单位是**赫兹(Hz)**。
 
-在计算机网络中，带宽通常指的是链路的**最高速率**，对，就是上面提到的[# 4.1 速率(Bit Rate)](#4-1-bit-rate)。
+在计算机网络中，带宽通常指的是链路的**最高速率**，对，就是上面提到的[# 4.1 速率(Bit Rate)](#bit-rate)。
 
-## 4.3 吞吐量(Throughput) {#4-3-throughput}
+## 4.3 吞吐量(Throughput) {#throughput}
 
-吞吐量是单位时间(秒)内通过某个链路的实际的数据量。它的单位通常也是和[# 4.1 速率(Bit Rate)](#4-1-bit-rate)是一样的。
+吞吐量是单位时间(秒)内通过某个链路的实际的数据量。它的单位通常也是和[# 4.1 速率(Bit Rate)](#bit-rate)是一样的。
 
 比如对于一个`10Gb/s`的网络，它的实际吞吐量可能是`100Mb/s`，但是最高不可能超过`10Gb/s`。
 
-## 4.4 延迟(Delay) {#4-4-delay}
+## 4.4 延迟(Delay) {#delay}
 
 延迟是指数据从链路的一端到另一端所消耗的时间。延迟由几个不同的部分组成 : 
 
@@ -63,11 +63,11 @@ toc: true
 
 **总延迟** = `排队延迟 + 处理延迟 + 发送延迟 + 传播延迟` 。速率相同的情况下，延迟越低越好。在速率不同的情况下，有时候一个**低速率 + 低延迟**的网络也优于一个**高速率 + 高延迟**的网络。
 
-## 4.5 往返时间(RTT) {#4-5-round-trip-time}
+## 4.5 往返时间(RTT) {#round-trip-time}
 
-一次往返通信所需的时间，粗略的等于2个([# 4.4 延迟(Delay)](#4-4-delay))的时间。
+一次往返通信所需的时间，粗略的等于2个([# 4.4 延迟(Delay)](#delay))的时间。
 
-## 4.6 信道利用率(Channel Utilization) {#4-6-channel-utilization}
+## 4.6 信道利用率(Channel Utilization) {#channel-utilization}
 
 公式 : **信道利用率** = `发送延迟 / (发送延迟 + 往返传播延迟)`。比如要发送`10kb`的数据, 发送速率是`1000kb/s`, 光纤长度`20km`。那么 : 
 
@@ -76,7 +76,7 @@ toc: true
 3. **信道利用率** = `10ms / (10ms + 20ms)` = `33.33%`。
 
 
-# 5 分层的体系结构 {#5-layered-architecture}
+# 5 分层的体系结构 {#layered-architecture}
 
 在计算机领域解决复杂问题时，有两个屡试不爽的手段 : **抽象**和**分层**。如今现实中的计算机网络通常是如下的一个层次结构。
 ![](layer.svg)

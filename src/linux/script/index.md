@@ -5,6 +5,6 @@ tag: ["Linux", "sh"]
 toc: true
 ---
 
-# 1 Script File List {#1-script-highlight-files}
+# 1 Script File List {#script-highlight-files}
 
 {{<highlight-files title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}

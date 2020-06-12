@@ -22,17 +22,17 @@ toc: true
 {{<highlight-file file="daemon.json" lang="json">}}
 
 
-# 2 Dokcer Compose {#2-docker-compose}
+# 2 Dokcer Compose {#docker-compose}
 
 {{<highlight-file file="docker-compose.sh" lang="bash">}}
 
 
-# 3 Dokcer Machine {#3-docker-machine}
+# 3 Dokcer Machine {#docker-machine}
 
 {{<highlight-file file="docker-machine.sh" lang="bash">}}
 
 
-# 4 Reference {#4-reference}
+# 4 Reference {#reference}
 
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
 

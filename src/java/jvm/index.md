@@ -6,11 +6,11 @@ toc: true
 ---
 
 
-# 1 自制JVM {#1-my-jvm}
+# 1 自制JVM {#my-jvm}
 
 <https://github.com/linianhui/div>
 
-# 2 Options {#2-options}
+# 2 Options {#options}
 
 | name                             | JEP       | version    | usage                                                |
 | :------------------------------- | :-------- | :--------- | :--------------------------------------------------- |

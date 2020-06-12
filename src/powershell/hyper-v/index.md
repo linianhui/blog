@@ -5,7 +5,7 @@ tag: ["PowerShell", "ExecutionPolicy"]
 toc: true
 ---
 
-# 1 Enable Hyper-V {#1-enable-hyper-v}
+# 1 Enable Hyper-V {#enable-hyper-v}
 
 
 ```powershell
@@ -15,7 +15,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName:Microsoft-Hyper-V -All
 https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v#enable-hyper-v-using-powershell
 
 
-# 2 Create virtual switch {#2-create-virtual-switch}
+# 2 Create virtual switch {#create-virtual-switch}
 
 
 ```powershell
@@ -27,7 +27,7 @@ https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/c
 https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vmswitch?view=win10-ps
 
 
-# 3 Create virtual hard disk {#2-create-virtual-hard-disk}
+# 3 Create virtual hard disk {#create-virtual-hard-disk}
 
 
 ```powershell
@@ -38,7 +38,7 @@ New-VHD -Path $VHDFilePath -Dynamic -SizeBytes 32GB
 https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vhd?view=win10-ps
 
 
-# 4 Create virtual machine {#2-create-virtual-machine}
+# 4 Create virtual machine {#create-virtual-machine}
 
 ```powershell
 $VMName = 'test_vm'
@@ -62,7 +62,7 @@ Set-VMFirmware -VMName $VMName -FirstBootDevice $DVDDrive
 ```
 
 
-# 5 参考引用 {#5-reference}
+# 5 参考引用 {#reference}
 
 https://docs.microsoft.com/en-us/virtualization/index#pivot=main&panel=server
 

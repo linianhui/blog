@@ -5,7 +5,7 @@ tag: ["Git","gitattributes"]
 toc: true
 ---
 
-# 1 `.gitattributes` 的作用 {#1-effects}
+# 1 `.gitattributes` 的作用 {#effects}
 
 位于Git Repo根目录的`.gitattributes`文件，用来为Git管理的文件配置一些属性。这些属性控制着Git管理的如下三个区域的文件。
 
@@ -13,7 +13,7 @@ toc: true
 
 通常主要用来统一`EOL=end of line`（在Windows上默认是`crlf`, 在Linux和macOS上则是`lf`）。
 
-## 1.1 语法 {#1-1-syntax}
+## 1.1 语法 {#syntax}
 
 `.gitattributes`是一个文本文件，每一行使用`pattern`匹配一些文件，然后设置对应的属性:
 
@@ -37,7 +37,7 @@ pattern
 ```
 
 
-## 1.2 `text` 属性 {#1-2-text-attribute}
+## 1.2 `text` 属性 {#text-attribute}
 
 `text`属性指示Git如何处理 **.git directory** 区域中的文本文件的EOL。比如:
 
@@ -49,7 +49,7 @@ pattern
 *.sh -text
 ```
 
-## 1.3 eol 属性 {#1-3-eol-attribute}
+## 1.3 eol 属性 {#eol-attribute}
 
 `eol`属性指示Git如何处理 **working directory** 区域中的文本文件的EOL。比如:
 
@@ -61,12 +61,12 @@ pattern
 *.cs  text eol=crlf
 ```
 
-# 2 MACRO 属性 {#2-macro-attribute}
+# 2 MACRO 属性 {#macro-attribute}
 
 内置的宏属性`binary`等价于`-diff -merge -text`
 
 
-# 3 最佳实践 {#3-best-practice}
+# 3 最佳实践 {#best-practice}
 
 当前站点项目所使用的配置如下:
 
@@ -88,7 +88,7 @@ git add --renormalize .
 上述命令会检查git仓库中不符合配置的一些文件，然后再把这些文件commit到仓库中即可。
 
 
-# 4 参考 {#4-reference}
+# 4 参考 {#reference}
 
 https://git-scm.com/docs/gitattributes
 

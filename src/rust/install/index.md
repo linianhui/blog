@@ -5,7 +5,7 @@ tag: ["Rust", "Install"]
 toc: true
 ---
 
-# 1 rustup-init {#1-rustup-init}
+# 1 rustup-init {#rustup-init}
 
 | platform     | download url                                                                      |
 | :----------- | :-------------------------------------------------------------------------------- |
@@ -22,7 +22,7 @@ Env-SetRustEnvironmentVariable
 rustup-init.exe -y --verbose --default-toolchain stable --profile complete --no-modify-path
 ```
 
-# 2 Reference {#2-reference}
+# 2 Reference {#reference}
 
 <https://www.rust-lang.org/tools/install>
 

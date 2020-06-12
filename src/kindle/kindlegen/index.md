@@ -6,7 +6,7 @@ toc: true
 ---
 
 
-# 1 Download {#1-download}
+# 1 Download {#download}
 
 主页 : <https://www.amazon.com/gp/feature.html?docId=1000765211>。**美国IP打开才能看到下载地址。打开后的地址如下表格** : 
 
@@ -17,7 +17,7 @@ toc: true
 | linux   | <http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz> |
 
 
-# 2 EPUB to MOBI {#2-epub-to-mobi}
+# 2 EPUB to MOBI {#epub-to-mobi}
 
 
 ```powershell
@@ -27,7 +27,7 @@ kindlegen.exe xxx.epub
 
 {{<highlight-file file="epub-to-mobi.bat"  lang="cmd">}}
 
-# 3 help {#3-help}
+# 3 help {#help}
 
 ```powershell
 kindlegen.exe

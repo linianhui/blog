@@ -5,7 +5,7 @@ tag: ["Linux", "Expansion"]
 toc: true
 ---
 
-# Tilde Expansion `~` {#1-tilde-expansion}
+# Tilde Expansion `~` {#tilde-expansion}
 
 `~` : `/home` or `/users` or `/Users`.
 ```sh
@@ -17,7 +17,7 @@ echo ~lnh/.bash_profile
 echo ~
 ```
 
-# Brace Expansion `{}` {#2-brace-expansion}
+# Brace Expansion `{}` {#brace-expansion}
 
 ```sh
 # a b c

@@ -6,7 +6,7 @@ toc: true
 ---
 
 
-# 1 Commands, Parameters/Arguments, Options {#1-commands-parameters-arguments-options}
+# 1 Commands, Parameters/Arguments, Options {#commands-parameters-arguments-options}
 
 ```sh
 # show the current shell.
@@ -20,7 +20,7 @@ cat -n /etc/shells
 2. option : `-n`
 3. parameters/arguments : `/etc/shells`
 
-# 2 Special Characters {#2-special-characters}
+# 2 Special Characters {#special-characters}
 
 | Character      | Meaning                        |
 | -------------- | ------------------------------ |
@@ -39,7 +39,7 @@ cat -n /etc/shells
 | `!`            | Pipeline logical NOT           |
 
 
-## 2.1 Wildcard Character {#2-1-wildcard-characters}
+## 2.1 Wildcard Character {#wildcard-characters}
 
 | Character | Meaning                      |
 | --------- | ---------------------------- |
@@ -49,7 +49,7 @@ cat -n /etc/shells
 | `]`       | End character-set wildcard   |
 
 
-## 2.2 Path Character {#2-2-path-characters}
+## 2.2 Path Character {#path-characters}
 
 | Character | Meaning                      |
 | --------- | ---------------------------- |
@@ -58,7 +58,7 @@ cat -n /etc/shells
 | `~`       | Home directory               |
 
 
-## 2.3 I/O Character {#2-3-io-characters}
+## 2.3 I/O Character {#io-characters}
 
 | Character | Meaning                          |
 | --------- | -------------------------------- |

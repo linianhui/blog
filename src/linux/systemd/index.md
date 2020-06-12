@@ -5,7 +5,7 @@ tag: ["Linux", "systemd", "systemctl"]
 toc: true
 ---
 
-# 1 systemctl {#1-systemctl}
+# 1 systemctl {#systemctl}
 
 ```sh
 # help

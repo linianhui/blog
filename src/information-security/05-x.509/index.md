@@ -7,7 +7,7 @@ toc: true
 
 [X.509][X.509]是[# 公钥证书](#public-key-certificate)的格式标准, 广泛用于TLS/SSL安全通信或者其他需要认证的环境中。X.509证书可以由[# CA](#certificate-authority)颁发，也可以自签名产生。
 
-# 1 Overview {#1-overview}
+# 1 Overview {#overview}
 
 X.509证书中主要含有`公钥`、`身份信息`、`签名信息`和`有效性信息`等信息。这些信息用于构建一个验证公钥的体系，用来保证客户端得到的公钥正是它期望的公钥。
 
@@ -16,15 +16,15 @@ X.509证书中主要含有`公钥`、`身份信息`、`签名信息`和`有效�
 3. `签名信息` : 对公钥进行签名的信息，提供公钥的验证链。可以是CA的签名或者是自签名，不同之处在于CA证书的根证书大都内置于操作系统或者浏览器中，而自签名证书的公钥验证链则需要自己维护（手动导入到操作系统中或者再验证流程中单独提供自签名的根证书）。
 4. `有效性信息`：证书的有效时间区间，以及[# CRL](#certificate-revocation-list)等相关信息。
 
-X.509证书的标准规范[RFC5280][rfc5280]中详细描述了证书的[# 1.1 Encoding Format](#1-1-encoding-format)和[# 1.2 Structure](#1-2-structure)。
+X.509证书的标准规范[RFC5280][rfc5280]中详细描述了证书的[# 1.1 Encoding Format](#encoding-format)和[# 1.2 Structure](#structure)。
 
 
-## 1.1 Encoding Format {#1-1-encoding-format}
+## 1.1 Encoding Format {#encoding-format}
 
 1. [# DER](#distinguished-encoding-rules)格式 : `二进制`格式。
 2. [# PEM](#privacy-enhanced-mail)格式 : `ASCII文本`格式。在DER格式或者其他二进制数据的基础上，使用[base64][base64]编码为ASCII文本，以便于在仅支持ASCII的环境中使用`二进制的DER编码的数据`。
 
-## 1.2 Structure {#1-2-structure}
+## 1.2 Structure {#structure}
 
 一个具体的X.509 v3数字证书结构大致如下 : 
 
@@ -49,7 +49,7 @@ Certificate Signature Algorithm
 Certificate Signature
 ```
 
-# 2 File Extension {#2-file-extension}
+# 2 File Extension {#file-extension}
 
 X.509有很多种常用的扩展名。不过这些扩展名有时候也是其他类型文件的扩展名，也就是说具有这个扩展名的文件并不一定是X.509证书。也可能只是保存了私钥的文件。
 
@@ -186,5 +186,5 @@ c3DGMNR+oUmSjKZ0jIhAYmeLxaPHfQwR
 [rfc5280]:<https://tools.ietf.org/html/rfc5280>
 [rfc7468]:<https://tools.ietf.org/html/rfc7468>
 
-[base64]:../01-cryptography-toolbox-1/#6-2-base64
-[asymmetric-cryptography]:../01-cryptography-toolbox-1/#2-asymmetric-cryptography
+[base64]:../01-cryptography-toolbox-1/#base64
+[asymmetric-cryptography]:../01-cryptography-toolbox-1/#asymmetric-cryptography
