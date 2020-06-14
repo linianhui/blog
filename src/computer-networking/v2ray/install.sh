@@ -8,13 +8,13 @@ apt install -y wget gettext-base
 
 bash <(wget -q -O - https://install.direct/go.sh)
 
-CRET_NAME=$(cat /proc/sys/kernel/random/uuid)
-CRET_ORG=$(cat /proc/sys/kernel/random/uuid)
+CRET_NAME=$(/usr/bin/v2ray/v2ctl uuid)
+CRET_ORG=$(/usr/bin/v2ray/v2ctl uuid)
 
 export TEMPLATE_SERVER_IP=$1
-export TEMPLATE_SERVER_DOMAIN_NAME="$(cat /proc/sys/kernel/random/uuid).test"
-export TEMPLATE_CLIENT_ID=$(cat /proc/sys/kernel/random/uuid)
-export TEMPLATE_CERTIFICATE_JSON=$(/usr/bin/v2ray/v2ctl cert -json --domain=$TEMPLATE_SERVER_DOMAIN_NAME --expire=24000h --name=$CRET_NAME --org=$CRET_ORG)
+export TEMPLATE_SERVER_DOMAIN_NAME="$(/usr/bin/v2ray/v2ctl uuid).test"
+export TEMPLATE_CLIENT_ID=$(/usr/bin/v2ray/v2ctl uuid)
+export TEMPLATE_CERTIFICATE_JSON=$(/usr/bin/v2ray/v2ctl cert --ca --json --domain=$TEMPLATE_SERVER_DOMAIN_NAME --expire=24000h --name=$CRET_NAME --org=$CRET_ORG)
 
 wget -q -O - https://linianhui.github.io/computer-networking/v2ray/server-config.template.json | envsubst > /etc/v2ray/config.json
 
