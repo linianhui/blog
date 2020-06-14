@@ -14,19 +14,19 @@ toc: true
 
 下载客户端<https://github.com/v2ray/v2ray-core/releases/download/v4.24.2/v2ray-windows-64.zip>。
 
-然后用[服务器安装](#server-install)中生成的`client/config.json`替换zip解压后的`config.json`即可。
+然后用[服务器安装](#server-install)中生成的`client-config.json`替换zip解压后的`config.json`即可。
 
 ## 2.2 macOS {#client-install-macos}
 
 下载客户端<https://github.com/v2ray/v2ray-core/releases/download/v4.24.2/v2ray-macos.zip>。
 
-然后用[服务器安装](#server-install)中生成的`client/config.json`替换zip解压后的`config.json`即可。
+然后用[服务器安装](#server-install)中生成的`client-config.json`替换zip解压后的`config.json`即可。
 
 ## 2.3 Andorid {#client-install-android}
 
 下载APK<https://github.com/2dust/v2rayNG/releases>。
 
-然后用[服务器安装](#server-install)中生成的`client/config.json`中的参数填写配置即可。
+然后用[服务器安装](#server-install)中生成的`client-config.json`中的参数填写配置即可。
 
 # 3 浏览器扩展 {#browser-extensions}
 
