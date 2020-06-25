@@ -26,11 +26,8 @@
         "security": "tls",
         "tlsSettings": {
           "serverName": "$TEMPLATE_SERVER_DOMAIN_NAME",
-          "alpn": [
-            "h2"
-          ],
           "allowInsecure": false,
-          "allowInsecureCiphers": false,
+          "allowInsecureCiphers": true,
           "disableSystemRoot": true,
           "certificates": [
             $TEMPLATE_CERTIFICATE_JSON
