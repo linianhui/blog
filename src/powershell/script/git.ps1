@@ -24,10 +24,10 @@ function Git-Pull-Rebase-Recurse () {
 
         Log-Debug 'git symbolic-ref HEAD'
         git symbolic-ref HEAD
-        
+
         Log-Debug "git pull --rebase"
         git pull --rebase
-        
+
         Set-Location -Path ..
     }
 }
@@ -93,9 +93,9 @@ function Git-GetBigFiles([int]$top = 20) {
     $begin = Get-Date
     Log-Debug "begin..." $begin
 
-    Git-GetAllBlobObjects | 
-    Sort-Object size -Descending | 
-    Select-Object -First $top | 
+    Git-GetAllBlobObjects |
+    Sort-Object size -Descending |
+    Select-Object -First $top |
     Format-Table -Property sha, @{Label = "size"; Expression = { ($_.size / 1MB).ToString(('0.000')) + 'MB' } }, path -Wrap
 
     $end = Get-Date
@@ -140,8 +140,8 @@ function Git-SetGlobalAlias () {
 
     # reflog
     git config --global alias.rl "reflog --format='%cd %h %gs' --date=format:'%Y-%m-%d %H:%M:%S'"
-    
-    # gc 
+
+    # gc
     git config --global alias.warn-expire-reflog "reflog expire --expire=now --all"
     git config --global alias.warn-gc-now "gc --prune=now --aggressive"
 
@@ -158,11 +158,11 @@ function Git-SetGlobalConfig () {
 
     # gui
     git config --global gui.encoding 'utf-8'
-    
+
     # i18n
     git config --global i18n.commitencoding 'utf-8'
     git config --global core.quotepath false
-    
+
     # editor
     git config --global core.editor "code -w"
     git config --global core.autocrlf false
@@ -171,14 +171,14 @@ function Git-SetGlobalConfig () {
 
     # color
     git config --global color.ui true
-    
+
     # branch pager
     git config --global pager.branch false
 }
 
 # set git global user
 function Git-SetGlobalUser (
-    [string] $UserName = $(throw "UserName is null!"), 
+    [string] $UserName = $(throw "UserName is null!"),
     [string] $UserEmail = $(throw "UserEmail is null!")
 ) {
 
@@ -219,15 +219,15 @@ function Git-Proxy(
     [switch]$unset = $False
 ) {
     if ($set) {
-        git config --global http.proxy 'socks5://127.0.0.1:10001'
-        git config --global https.proxy 'socks5://127.0.0.1:10001'
+        git config --global http.proxy 'socks5://127.0.0.1:1080'
+        git config --global https.proxy 'socks5://127.0.0.1:1080'
     }
 
     if ($unset) {
         git config --global --unset http.proxy
         git config --global --unset https.proxy
     }
-    
+
     if ($get) {
         git config --global --get http.proxy
         git config --global --get https.proxy
