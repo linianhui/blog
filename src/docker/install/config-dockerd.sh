@@ -4,9 +4,9 @@
 set -eux
 # https://docs.docker.com/engine/reference/commandline/dockerd//#daemon-configuration-file
 
-wget https://linianhui.github.io/docker/install/daemon.json -O daemon.json
+mkdir /etc/docker
 
-cp daemon.json /etc/docker/
+wget -O /etc/docker/daemon.json https://linianhui.github.io/docker/install/daemon.json
 
 cat /etc/docker/daemon.json
 
