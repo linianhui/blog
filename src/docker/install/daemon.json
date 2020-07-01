@@ -3,6 +3,7 @@
   "tls": false,
   "ipv6": false,
   "registry-mirrors": [
+    "http://hub-mirror.c.163.com/",
     "https://registry.docker-cn.com",
     "https://reg-mirror.qiniu.com",
     "https://docker.mirrors.ustc.edu.cn"
@@ -17,5 +18,10 @@
   "log-opts": {
     "max-size": "100m"
   },
-  "storage-driver": "overlay2"
+  "storage-driver": "overlay2",
+  "data-root": "/data/dockerd",
+  "hosts": [
+    "unix:///var/run/docker.sock",
+    "tcp://0.0.0.0:2375"
+  ]
 }
