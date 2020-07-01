@@ -1,27 +1,35 @@
 {
+  "data-root": "/data/dockerd",
   "debug": true,
-  "tls": false,
+  "default-shm-size": "64M",
+  "exec-opts": [
+    "native.cgroupdriver=systemd"
+  ],
+  "group": "docker",
+  "hosts": [
+    "unix:///var/run/docker.sock",
+    "tcp://0.0.0.0:2375"
+  ],
+  "insecure-registries": [
+    "registry.test"
+  ],
+  "ip": "0.0.0.0",
+  "ip-forward": true,
   "ipv6": false,
+  "log-driver": "json-file",
+  "log-level": "info",
+  "log-opts": {
+    "max-file": "5",
+    "max-size": "32m"
+  },
+  "max-concurrent-downloads": 6,
+  "max-concurrent-uploads": 6,
   "registry-mirrors": [
     "http://hub-mirror.c.163.com/",
     "https://registry.docker-cn.com",
     "https://reg-mirror.qiniu.com",
     "https://docker.mirrors.ustc.edu.cn"
   ],
-  "insecure-registries": [
-    "registry.test"
-  ],
-  "exec-opts": [
-    "native.cgroupdriver=systemd"
-  ],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
   "storage-driver": "overlay2",
-  "data-root": "/data/dockerd",
-  "hosts": [
-    "unix:///var/run/docker.sock",
-    "tcp://0.0.0.0:2375"
-  ]
+  "tls": false
 }
