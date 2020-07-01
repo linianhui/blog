@@ -25,7 +25,8 @@ yum-config-manager \
 yum install -y docker-ce
 
 groupadd docker
-usermod -aG docker lnh
+
+#usermod -aG docker lnh
 
 systemctl enable docker
 
