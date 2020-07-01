@@ -1,5 +1,5 @@
 # wget https://linianhui.github.io/docker/install/config-dockerd.sh
-# sudo bash config.dockerd.sh
+# sudo bash config-dockerd.sh
 
 set -eux
 # https://docs.docker.com/engine/reference/commandline/dockerd//#daemon-configuration-file
