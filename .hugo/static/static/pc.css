@@ -521,8 +521,7 @@ code {
 }
 
 .toc nav a.selected {
-  color: #fff;
-  background-color: #0681ba;
+  color: #f60;
 }
 
 .toolbar{
