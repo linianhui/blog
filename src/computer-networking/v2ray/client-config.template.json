@@ -37,7 +37,7 @@
         "tlsSettings": {
           "serverName": "$TEMPLATE_SERVER_DOMAIN_NAME",
           "allowInsecure": false,
-          "allowInsecureCiphers": false,
+          "allowInsecureCiphers": true,
           "disableSystemRoot": true,
           "certificates": [
             $TEMPLATE_CERTIFICATE_JSON
