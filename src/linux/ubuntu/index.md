@@ -5,6 +5,24 @@ tag: ["Linux", "Ubuntu"]
 toc: true
 ---
 
-# 1 Script File List {#script-highlight-files}
+# 1 Install {#install}
+
+| iso      | url                                           |
+| -------- | --------------------------------------------- |
+| official | http://releases.ubuntu.com                    |
+| 163      | http://mirrors.163.com/ubuntu-releases        |
+| aliyun   | https://mirrors.aliyun.com/ubuntu-releases    |
+| old      | http://old-releases.ubuntu.com                |
+| vm       | http://cloud-images.ubuntu.com/bionic/current |
+
+
+| source | url                                               |
+| ------ | ------------------------------------------------- |
+| 163    | http://mirrors.163.com/.help/ubuntu.html          |
+| aliyun | http://mirrors.aliyun.com/ubuntu/                 |
+| dde    | https://www.deepin.org/original/deepin-boot-maker |
+
+
+# 2 Reference {#reference}
 
 {{<highlight-files title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}
