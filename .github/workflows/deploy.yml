@@ -32,7 +32,7 @@ jobs:
           git config user.name 'GitHub Actions'
           git config user.email 'lnhcode@outlook.com'
           git add .
-          git commit -m "GitHub Actions Auto Deploy"
+          git commit -m "GitHub Actions Auto Deploy" -m "https://github.com/linianhui/blog/commit/${GITHUB_SHA}"
 
       - name: add deploy private key
         env:
