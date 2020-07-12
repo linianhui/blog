@@ -26,7 +26,7 @@ toc: true
 
 下载APK<https://github.com/2dust/v2rayNG/releases>。
 
-然后用[服务器安装](#server-install)中生成的`client-config.json`中的参数填写配置即可。
+然后用[服务器安装](#server-install)中生成的`client-config.v2rayng.json`复制到剪切板或者生成二维码。用v2rayNG这个APP从剪切板导入或者扫描二维码都可以。
 
 # 3 浏览器扩展 {#browser-extensions}
 
@@ -39,6 +39,10 @@ SwitchyOmega : <https://chrome.google.com/webstore/detail/proxy-switchyomega/pad
 
 {{<highlight-file file="server-config.template.json" lang="json">}}
 
-## 4.2 客户端配置模板 {#client-config-template}
+## 4.2 客户端配置模板(v2ray-core) {#client-config-template}
 
 {{<highlight-file file="client-config.template.json" lang="json">}}
+
+## 4.3 客户端配置模板(v2rayNG) {#client-config-v2rayng-template}
+
+{{<highlight-file file="client-config.v2rayng.template.json" lang="json">}}
