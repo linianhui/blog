@@ -1,0 +1,13 @@
+{
+  "add": "$TEMPLATE_SERVER_IP",
+  "port": "443",
+  "host": "$TEMPLATE_SERVER_DOMAIN_NAME",
+  "id": "$TEMPLATE_CLIENT_ID",
+  "aid": "16",
+  "net": "tcp",
+  "path": "",
+  "ps": "abc",
+  "tls": "tls",
+  "type": "none",
+  "v": "2"
+}

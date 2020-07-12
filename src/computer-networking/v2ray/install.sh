@@ -20,6 +20,8 @@ wget -q -O - https://linianhui.github.io/computer-networking/v2ray/server-config
 
 wget -q -O - https://linianhui.github.io/computer-networking/v2ray/client-config.template.json | envsubst > client-config.json
 
+echo "vmess://$(wget -q -O - https://linianhui.github.io/computer-networking/v2ray/client-config.v2rayng.template.json | envsubst | base64 -w 0)" > client-config.v2rayng.json
+
 service v2ray restart
 service v2ray status
 
