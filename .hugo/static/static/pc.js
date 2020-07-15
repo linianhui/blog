@@ -166,17 +166,9 @@
         var scrollTop = getScrollTop();
         var clientHeight = getClientHeight();
         var bodyHeight = getBodyHeight();
-        var progress = (scrollTop + clientHeight) / bodyHeight * 100;
+        var progress = Math.min(1, Math.max(0, (scrollTop + clientHeight) / bodyHeight));
 
-        if (progress < 0) {
-            progress = 0;
-        }
-
-        if (progress > 100) {
-            progress = 100;
-        }
-
-        id("horizontal-progress").style.width = progress + "%";
+        id("horizontal-progress").style.width = (progress * document.body.offsetWidth) + "px";
     }
 
     function onScorllEventCore(tocItemArray) {
