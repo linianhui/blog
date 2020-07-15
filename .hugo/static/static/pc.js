@@ -110,11 +110,13 @@
         return tocItemArray;
     }
 
-    function refreshSelectedTocItemStyle(tocItemArray, selectedTocItem) {
+    function refreshSelectedTocItemStyle(tocItemArray, selectedTocItemArray) {
         tocItemArray.forEach(function (tocItem) {
             removeClassName(tocItem.aElement, 'selected');
         });
-        appendClassName(selectedTocItem.aElement, 'selected');
+        selectedTocItemArray.forEach(function (tocItem) {
+            appendClassName(tocItem.aElement, 'selected');
+        });
     }
 
     function refreshSelectedTocStyle(tocItemArray, scrollTop) {
@@ -125,7 +127,7 @@
                 if (next && (scrollTop >= next.anchorElement.offsetTop)) {
                     continue;
                 }
-                refreshSelectedTocItemStyle(tocItemArray, current);
+                refreshSelectedTocItemStyle(tocItemArray, [current]);
                 break;
             }
         }
@@ -168,7 +170,7 @@
     }
 
     function toggleToc() {
-        toggleClassNameCore(id('toc'), 'opened');
+        toggleClassName('toc', 'opened');
         refreshBodyStyle();
     }
 
