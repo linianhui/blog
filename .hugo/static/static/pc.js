@@ -1,7 +1,7 @@
 "use strict";
 
 (function (window, document, navigator) {
-    function id(id){
+    function id(id) {
         return document.getElementById(id);
     }
 
@@ -11,6 +11,18 @@
 
     function isPC() {
         return !isMobile();
+    }
+
+    function getScrollTop() {
+        return window.scrollY;
+    }
+
+    function getClientHeight() {
+        return document.documentElement.clientHeight;
+    }
+
+    function getBodyHeight() {
+        return document.body.offsetHeight;
     }
 
     function addMobileCssUrl(href) {
@@ -110,7 +122,7 @@
         return tocItemArray;
     }
 
-    function refreshSelectedTocItemStyle(tocItemArray, selectedTocItemArray) {
+    function refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray) {
         tocItemArray.forEach(function (tocItem) {
             removeClassName(tocItem.aElement, 'selected');
         });
@@ -119,31 +131,42 @@
         });
     }
 
-    function refreshSelectedTocStyle(tocItemArray, scrollTop) {
+    function refreshSelectedTocStyle(tocItemArray, scrollTop, clientHeight) {
+        var selectedTocItemArray = [];
         for (var i = 0; i < tocItemArray.length; i++) {
             var current = tocItemArray[i];
             var next = tocItemArray[i + 1];
-            if (scrollTop > current.anchorElement.offsetTop) {
-                if (next && (scrollTop >= next.anchorElement.offsetTop)) {
-                    continue;
-                }
-                refreshSelectedTocItemStyle(tocItemArray, [current]);
-                break;
+            if (inViewport(current, next, scrollTop, clientHeight)) {
+                selectedTocItemArray.push(current);
             }
         }
+
+        refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray);
+    }
+
+    function inViewport(currentTocItem, nextTocItem, scrollTop, clientHeight) {
+        var clientEndHight = scrollTop + clientHeight;
+        var currentOffsetTop = currentTocItem.anchorElement.offsetTop;
+        if (currentOffsetTop > clientEndHight) {
+            return false;
+        }
+        var nextOffsetTop = (nextTocItem && nextTocItem.anchorElement.offsetTop) || clientEndHight;
+        return Math.max(currentOffsetTop, scrollTop) < Math.min(nextOffsetTop, clientEndHight);
     }
 
     function tocOnScroll(tocItemArray) {
         if (tocItemArray) {
-            var scrollTop = window.scrollY + 32;
-            refreshSelectedTocStyle(tocItemArray, scrollTop);
+            var scrollTop = getScrollTop() - 128;
+            var clientHeight = getClientHeight();
+            refreshSelectedTocStyle(tocItemArray, scrollTop, clientHeight);
         }
     }
 
     function refreshHorizontalProgressStyle() {
-        var progress = (document.documentElement.clientHeight + window.scrollY)
-            / document.body.offsetHeight
-            * 100;
+        var scrollTop = getScrollTop();
+        var clientHeight = getClientHeight();
+        var bodyHeight = getBodyHeight();
+        var progress = (scrollTop + clientHeight) / bodyHeight * 100;
 
         if (progress < 0) {
             progress = 0;
