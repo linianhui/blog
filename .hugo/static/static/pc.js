@@ -156,7 +156,7 @@
 
     function tocOnScroll(tocItemArray) {
         if (tocItemArray) {
-            var scrollTop = getScrollTop() - 128;
+            var scrollTop = getScrollTop();
             var clientHeight = getClientHeight();
             refreshSelectedTocStyle(tocItemArray, scrollTop, clientHeight);
         }
