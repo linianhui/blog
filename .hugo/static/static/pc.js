@@ -29,10 +29,6 @@
         return document.body.offsetWidth;
     }
 
-    function addMobileCssUrl(href) {
-        document.write('<link href="' + href + '" rel="stylesheet">');
-    }
-
     function getClassNameArray(element) {
         if (element) {
             return element.className.split(" ") || [];
@@ -197,7 +193,6 @@
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
-        addMobileCssUrl: addMobileCssUrl,
         toggleClassName: toggleClassName,
         addOnScorllEvent: addOnScorllEvent,
         toggleToc: toggleToc

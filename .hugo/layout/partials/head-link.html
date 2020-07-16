@@ -1,16 +1,17 @@
 <link rel="icon" type="image/png" href="/favicon.png">
+
 {{- range .AlternativeOutputFormats -}}
 <link rel="{{.Rel}}" type="{{.MediaType.Type}}" href="{{.Permalink}}" title="{{$.Site.Title | safeHTML }}" />
 {{- end -}}
 
-{{ $time:= now.Format "2006-01-02T15:04:05-0700" }}
-
 <link href="//cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+{{ $time:= now.Unix }}
 <link href='/static/pc.css?time={{$time}}' rel="stylesheet">
 <script src='/static/pc.js?time={{$time}}' type="text/javascript"></script>
 <script type="text/javascript">
   if (blog.isMobile()) {
-    blog.addMobileCssUrl('/static/mobile.css?time={{$time}}');
+    document.write('<link href="/static/mobile.css?time={{$time}}" rel="stylesheet">');
   }
 </script>
