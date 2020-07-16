@@ -115,11 +115,11 @@
         var tocItemArray = [];
         document.querySelectorAll('#toc a').forEach(function (aElement) {
             var fragmentId = getFragmentIdFromUrl(aElement.href);
-            var anchorElement = id(fragmentId);
-            if (anchorElement) {
+            var locationElement = id(fragmentId);
+            if (locationElement) {
                 tocItemArray.push({
                     aElement: aElement,
-                    anchorElement: anchorElement
+                    locationElement: locationElement
                 });
             }
         });
@@ -149,11 +149,11 @@
     }
 
     function inViewport(currentTocItem, nextTocItem, viewportY1, viewportY2) {
-        var currentElementY1 = currentTocItem.anchorElement.offsetTop;
+        var currentElementY1 = currentTocItem.locationElement.offsetTop;
         if (currentElementY1 > viewportY2) {
             return false;
         }
-        var nextElementY1 = (nextTocItem && nextTocItem.anchorElement.offsetTop) || viewportY2;
+        var nextElementY1 = (nextTocItem && nextTocItem.locationElement.offsetTop) || viewportY2;
         return Math.max(currentElementY1, viewportY1) < Math.min(nextElementY1, viewportY2);
     }
 
