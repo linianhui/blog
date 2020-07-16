@@ -13,16 +13,20 @@
         return !isMobile();
     }
 
-    function getScrollTop() {
+    function getViewportY1() {
         return window.scrollY;
     }
 
-    function getClientHeight() {
+    function getViewportHeight() {
         return document.documentElement.clientHeight;
     }
 
-    function getBodyHeight() {
+    function getWindowHeight() {
         return document.body.offsetHeight;
+    }
+
+    function getWindowWidth() {
+        return document.body.offsetWidth;
     }
 
     function addMobileCssUrl(href) {
@@ -131,12 +135,12 @@
         });
     }
 
-    function refreshSelectedTocStyle(tocItemArray, scrollTop, clientHeight) {
+    function refreshSelectedTocStyle(tocItemArray, viewportY1, viewportY2) {
         var selectedTocItemArray = [];
         for (var i = 0; i < tocItemArray.length; i++) {
             var current = tocItemArray[i];
             var next = tocItemArray[i + 1];
-            if (inViewport(current, next, scrollTop, clientHeight)) {
+            if (inViewport(current, next, viewportY1, viewportY2)) {
                 selectedTocItemArray.push(current);
             }
         }
@@ -144,31 +148,32 @@
         refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray);
     }
 
-    function inViewport(currentTocItem, nextTocItem, scrollTop, clientHeight) {
-        var clientEndHight = scrollTop + clientHeight;
-        var currentOffsetTop = currentTocItem.anchorElement.offsetTop;
-        if (currentOffsetTop > clientEndHight) {
+    function inViewport(currentTocItem, nextTocItem, viewportY1, viewportY2) {
+        var currentElementY1 = currentTocItem.anchorElement.offsetTop;
+        if (currentElementY1 > viewportY2) {
             return false;
         }
-        var nextOffsetTop = (nextTocItem && nextTocItem.anchorElement.offsetTop) || clientEndHight;
-        return Math.max(currentOffsetTop, scrollTop) < Math.min(nextOffsetTop, clientEndHight);
+        var nextElementY1 = (nextTocItem && nextTocItem.anchorElement.offsetTop) || viewportY2;
+        return Math.max(currentElementY1, viewportY1) < Math.min(nextElementY1, viewportY2);
     }
 
     function tocOnScroll(tocItemArray) {
         if (tocItemArray) {
-            var scrollTop = getScrollTop();
-            var clientHeight = getClientHeight();
-            refreshSelectedTocStyle(tocItemArray, scrollTop, clientHeight);
+            var viewportY1 = getViewportY1();
+            var viewportHeight = getViewportHeight();
+            var viewportY2 = viewportY1 + viewportHeight;
+            refreshSelectedTocStyle(tocItemArray, viewportY1, viewportY2);
         }
     }
 
     function refreshHorizontalProgressStyle() {
-        var scrollTop = getScrollTop();
-        var clientHeight = getClientHeight();
-        var bodyHeight = getBodyHeight();
-        var progress = Math.min(1, Math.max(0, (scrollTop + clientHeight) / bodyHeight));
-
-        id("horizontal-progress").style.width = (progress * document.body.offsetWidth) + "px";
+        var viewportY1 = getViewportY1();
+        var viewportHeight = getViewportHeight();
+        var viewportY2 = viewportY1 + viewportHeight;
+        var windowHeight = getWindowHeight();
+        var windowWidth = getWindowWidth();
+        var progress = Math.min(1, Math.max(0, viewportY2 / windowHeight));
+        id("horizontal-progress").style.width = (progress * windowWidth) + "px";
     }
 
     function onScorllEventCore(tocItemArray) {
