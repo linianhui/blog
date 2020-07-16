@@ -115,7 +115,7 @@
         var tocItemArray = [];
         document.querySelectorAll('#toc a').forEach(function (aElement) {
             var fragmentId = getFragmentIdFromUrl(aElement.href);
-            var locationElement = id(fragmentId);
+            var locationElement = id('location-' + fragmentId);
             if (locationElement) {
                 tocItemArray.push({
                     aElement: aElement,
