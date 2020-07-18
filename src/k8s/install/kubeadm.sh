@@ -1,8 +1,8 @@
 set -eux
 
 
-apt-get update -y
-apt-get install -y apt-transport-https
+apt update -y
+apt install -y apt-transport-https
 
 
 curl -fsSL https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
@@ -13,6 +13,6 @@ deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
 EOF
 
 
-apt-get update -y
+apt update -y
 # 安装kubeadm kubelet kubectl
-apt-get install -y kubeadm-1.18.3 kubelet-1.18.3 kubectl-1.18.3
+apt install -y kubeadm-1.18.3 kubelet-1.18.3 kubectl-1.18.3

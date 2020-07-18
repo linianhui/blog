@@ -26,4 +26,3 @@ indent_size = 4
 [*.reg]
 charset               = utf-16le
 end_of_line           = crlf
-insert_final_newline  = false
