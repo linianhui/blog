@@ -228,8 +228,6 @@ function Git-Proxy(
         git config --global --unset https.proxy
     }
 
-    if ($get) {
-        git config --global --get http.proxy
-        git config --global --get https.proxy
-    }
+    git config --global --get http.proxy
+    git config --global --get https.proxy
 }
