@@ -68,7 +68,7 @@ kubectl get nodes
 
 # 输出
 NAME           STATUS     ROLES    AGE   VERSION
-k8s-master-1   NotReady   master   2m    v1.18.1
+k8s-master-1   Ready      master   2m    v1.18.1
 
 # 获取kubeadm join命令
 kubeadm token create --print-join-command
