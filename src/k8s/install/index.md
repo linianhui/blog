@@ -1,7 +1,7 @@
 ---
 title: '[K8S] Install'
 created_at: 2018-12-13 23:21:01
-tag: ["K8S", "kubeadm","flannel"]
+tag: ["K8S", "kubeadm", "flannel", "dashboard"]
 toc: true
 ---
 
@@ -11,9 +11,9 @@ kubeadm是k8s的command-line工具，用来创建和维护k8s集群。
 
 | role   | hostname     | fixed ip      | os                    | cpu  | memory |
 | :----- | :----------- | :------------ | :-------------------- | :--- | :----- |
-| master | k8s-master-1 | 192.168.2.220 | ubuntu server 18.04.4 | 2    | 4G     |
-| worker | k8s-worker-1 | 192.168.2.221 | ubuntu server 18.04.4 | 2    | 4G     |
-| worker | k8s-worker-2 | 192.168.2.222 | ubuntu server 18.04.4 | 2    | 4G     |
+| master | k8s-master-1 | 192.168.2.211 | ubuntu server 18.04.4 | 2    | 4G     |
+| worker | k8s-worker-1 | 192.168.2.212 | ubuntu server 18.04.4 | 2    | 4G     |
+| worker | k8s-worker-2 | 192.168.2.213 | ubuntu server 18.04.4 | 2    | 4G     |
 
 ## 1.1 硬件要求 {#requirements-hardware}
 
@@ -88,9 +88,9 @@ kubectl get nodes
 
 # 输出
 NAME           STATUS   ROLES    AGE     VERSION
-k8s-master-1   Ready    master   3m21s   v1.18.1
-k8s-worker-1   Ready    <none>   112s    v1.18.1
-k8s-worker-2   Ready    <none>   108s    v1.18.1
+k8s-master-1   Ready    master   3m21s   v1.18.3
+k8s-worker-1   Ready    <none>   112s    v1.18.3
+k8s-worker-2   Ready    <none>   108s    v1.18.3
 ```
 
 # 6. 部署网络插件 {#cni}
@@ -118,7 +118,7 @@ kubectl apply -f https://linianhui.github.io/k8s/install/metrics-server.yml
 kubectl apply -f https://linianhui.github.io/k8s/install/dashboard.yml
 ```
 
-部署完成后dashboard的端口号为`30080`。笔者的地址为 : <http://192.168.2.220:30080>
+部署完成后dashboard的端口号为`30080`。笔者的地址为 : <http://192.168.2.211:30080>
 
 ```bash
 # 获取访问dashboard的token
