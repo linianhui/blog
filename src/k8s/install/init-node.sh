@@ -3,7 +3,7 @@
 set -x
 
 cat <<-EOF >> /etc/hosts
-192.168.2.220 api-server.k8s.test
+192.168.2.211 api-server.k8s.test
 EOF
 
 # 禁用防火墙
