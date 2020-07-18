@@ -4,7 +4,7 @@
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
 # 版本
-kubernetesVersion: v1.18.5
+kubernetesVersion: v1.18.3
 # 集群名称
 clusterName: k8s
 # 内部组件的镜像仓库

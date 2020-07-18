@@ -1,13 +1,17 @@
 # https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
 
-set -eux
+set -x
 
 cat <<-EOF >> /etc/hosts
 192.168.2.220 api-server.k8s.test
 EOF
 
 # 禁用防火墙
+# ubuntu
 ufw disable
+# centos
+systemctl stop firewalld
+systemctl disable firewalld
 
 
 # 禁用swap
@@ -20,7 +24,7 @@ cat /etc/fstab
 
 # 永久禁用SELINUX
 tee <<-EOF /etc/selinux/config
-SELINUX=permissive
+SELINUX=disabled
 EOF
 
 # 开启overlay和br_netfilter模块

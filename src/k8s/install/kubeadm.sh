@@ -15,4 +15,4 @@ EOF
 
 apt-get update -y
 # 安装kubeadm kubelet kubectl
-apt-get install -y kubeadm kubelet kubectl
+apt-get install -y kubeadm-1.18.3 kubelet-1.18.3 kubectl-1.18.3
