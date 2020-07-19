@@ -177,12 +177,7 @@ code {
   font-size: 16px;
 }
 
-.article-content h1 i,
-.article-content h2 i,
-.article-content h3 i,
-.article-content h4 i,
-.article-content h5 i,
-.article-content h6 i{
+.article-content .header-locator{
   position: fixed;
   display: inline-block;
   width: 0;
