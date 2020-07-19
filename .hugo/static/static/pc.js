@@ -174,7 +174,7 @@
         window.onscroll = function () {
             onScorllEventCore(tocItemArray);
         };
-        refreshHorizontalProgressStyle();
+        onScorllEventCore(tocItemArray);
     }
 
     function toggleToc() {
