@@ -13,20 +13,21 @@
         return !isMobile();
     }
 
-    function getViewportY1() {
-        return window.scrollY;
+    function getViewportYAxis() {
+        var viewportY1 = window.scrollY;
+        var viewportHeight = document.documentElement.clientHeight;
+        var viewportY2 = viewportY1 + viewportHeight;
+        return {
+            y1: viewportY1,
+            y2: viewportY2
+        };
     }
 
-    function getViewportHeight() {
-        return document.documentElement.clientHeight;
-    }
-
-    function getWindowHeight() {
-        return document.body.offsetHeight;
-    }
-
-    function getWindowWidth() {
-        return document.body.offsetWidth;
+    function getWindowSize() {
+        return {
+            width: document.body.offsetWidth,
+            height: document.body.offsetHeight,
+        };
     }
 
     function getClassNameArray(element) {
@@ -122,6 +123,31 @@
         return tocItemArray;
     }
 
+    function refreshSelectedTocStyle(tocItemArray) {
+        var selectedTocItemArray = [];
+        var viewportYAxis = getViewportYAxis();
+        for (var i = 0; i < tocItemArray.length; i++) {
+            var current = tocItemArray[i];
+            var next = tocItemArray[i + 1];
+            var locatorYAxis = {
+                y1: current.locatorElement.offsetTop,
+                y2: (next && next.locatorElement.offsetTop) || viewportYAxis.y2
+            };
+            if (inViewport(locatorYAxis, viewportYAxis)) {
+                selectedTocItemArray.push(current);
+            }
+        }
+
+        refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray);
+    }
+
+    function inViewport(locatorYAxis, viewportYAxis) {
+        if (locatorYAxis.y1 > viewportYAxis.y2) {
+            return false;
+        }
+        return Math.max(locatorYAxis.y1, viewportYAxis.y1) < Math.min(locatorYAxis.y2, viewportYAxis.y2);
+    }
+
     function refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray) {
         tocItemArray.forEach(function (tocItem) {
             removeClassName(tocItem.aElement, 'selected');
@@ -131,49 +157,15 @@
         });
     }
 
-    function refreshSelectedTocStyle(tocItemArray, viewportY1, viewportY2) {
-        var selectedTocItemArray = [];
-        for (var i = 0; i < tocItemArray.length; i++) {
-            var current = tocItemArray[i];
-            var next = tocItemArray[i + 1];
-            if (inViewport(current, next, viewportY1, viewportY2)) {
-                selectedTocItemArray.push(current);
-            }
-        }
-
-        refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray);
-    }
-
-    function inViewport(currentTocItem, nextTocItem, viewportY1, viewportY2) {
-        var currentElementY1 = currentTocItem.locatorElement.offsetTop;
-        if (currentElementY1 > viewportY2) {
-            return false;
-        }
-        var nextElementY1 = (nextTocItem && nextTocItem.locatorElement.offsetTop) || viewportY2;
-        return Math.max(currentElementY1, viewportY1) < Math.min(nextElementY1, viewportY2);
-    }
-
-    function tocOnScroll(tocItemArray) {
-        if (tocItemArray) {
-            var viewportY1 = getViewportY1();
-            var viewportHeight = getViewportHeight();
-            var viewportY2 = viewportY1 + viewportHeight;
-            refreshSelectedTocStyle(tocItemArray, viewportY1, viewportY2);
-        }
-    }
-
     function refreshHorizontalProgressStyle() {
-        var viewportY1 = getViewportY1();
-        var viewportHeight = getViewportHeight();
-        var viewportY2 = viewportY1 + viewportHeight;
-        var windowHeight = getWindowHeight();
-        var windowWidth = getWindowWidth();
-        var progress = Math.min(1, Math.max(0, viewportY2 / windowHeight));
-        id("horizontal-progress").style.width = (progress * windowWidth) + "px";
+        var viewportYAxis = getViewportYAxis();
+        var windowSize = getWindowSize();
+        var percentage = Math.min(1, Math.max(0, viewportYAxis.y2 / windowSize.height));
+        id('horizontal-progress').style.width = (percentage * windowSize.width) + 'px';
     }
 
     function onScorllEventCore(tocItemArray) {
-        tocOnScroll(tocItemArray);
+        refreshSelectedTocStyle(tocItemArray);
         refreshHorizontalProgressStyle();
     }
 
