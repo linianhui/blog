@@ -110,13 +110,13 @@
 
     function getTocItemArray() {
         var tocItemArray = [];
-        document.querySelectorAll('#toc a').forEach(function (aElement) {
-            var fragmentId = getFragmentIdFromUrl(aElement.href);
-            var locatorElement = id('locator-' + fragmentId);
-            if (locatorElement) {
+        document.querySelectorAll('#toc a').forEach(function (a) {
+            var fragmentId = getFragmentIdFromUrl(a.href);
+            var locator = id('locator-' + fragmentId);
+            if (locator) {
                 tocItemArray.push({
-                    aElement: aElement,
-                    locatorElement: locatorElement
+                    a: a,
+                    locator: locator
                 });
             }
         });
@@ -130,8 +130,8 @@
             var current = tocItemArray[i];
             var next = tocItemArray[i + 1];
             var locatorYAxis = {
-                y1: current.locatorElement.offsetTop,
-                y2: (next && next.locatorElement.offsetTop) || viewportYAxis.y2
+                y1: current.locator.offsetTop,
+                y2: (next && next.locator.offsetTop) || viewportYAxis.y2
             };
             if (inViewport(locatorYAxis, viewportYAxis)) {
                 selectedTocItemArray.push(current);
@@ -150,10 +150,10 @@
 
     function refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray) {
         tocItemArray.forEach(function (tocItem) {
-            removeClassName(tocItem.aElement, 'selected');
+            removeClassName(tocItem.a, 'selected');
         });
         selectedTocItemArray.forEach(function (tocItem) {
-            appendClassName(tocItem.aElement, 'selected');
+            appendClassName(tocItem.a, 'selected');
         });
     }
 
