@@ -29,3 +29,5 @@ Set-Alias -Name yj -Value Yaml-ToJson
 Set-Alias -Name jy -Value Yaml-FromJson
 
 Set-Alias -Name grep -Value Select-String
+
+Set-Alias -Name k8sgtp -Value Kubernetes-GetTerminatedPod
