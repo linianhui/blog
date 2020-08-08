@@ -7,6 +7,6 @@
   <rect x="750" width="50" height="100%" fill="#800080" />
   <text x="10" y="24">SOH</text>
   <text x="300" y="24" font-size="18">Frame</text>
-  <text x="710" y="24">CRC</text>
+  <text x="710" y="24">FCS</text>
   <text x="760" y="24">EOT</text>
 </svg>
