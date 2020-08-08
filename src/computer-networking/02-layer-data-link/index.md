@@ -26,6 +26,8 @@ toc: true
 
 ![封装成帧](encapsulation-into-frame.svg)
 
+发送方会在Frame前后插入`SOH`和`EOT`。接受方会读取这2个标记中间的数据。每一个链路层协议对`Frame`的长度都有约束，称为`MTU(Maximum Transfer Unit)`.
+
 ## 2.2 透明传输 {#transparent-transmission}
 
 有了`SOH`和`EOT`还是远远不够的，设想一下当你要传输的数据中正好也包含这两个标记，那么我们的起始和结束岂不就错乱了？对的，正是如此，所以就需要找一个办法来识别出这种数据。这个办法就是转义，即通过添加一个新的符号来改变`SOH`和`EOT`的含义。
@@ -34,9 +36,11 @@ toc: true
 
 ![透明传输](transparent-transmission.svg)
 
+发送方会检查Frame，然后在需要转义的地方加入`ESC`。接受方读取`Frame`时会检查是否同时出现了`ESC SOH`、`ESC ESC`和`ESC EOT`,有的话就移除`ESC`，然后把后续的一个`Octet`当作正常的数据。
+
 ## 2.3 差错检测 {#error-detection}
 
-终于可以完成的对下层的`01`进行分组了。但是在传输过程中可能会发生差错，比如把`0`处理成了`1`，或者过来，再或者丢了一些数据，为了保证其完整性，就需要对其进行差错检测。广泛使用的方式是`CRC(Cyclic Redundancy Check)`。
+终于可以完成的对下层的`01`进行分组了。但是在传输过程中可能会发生差错，比如把`0`处理成了`1`，或者过来，再或者丢了一些数据，为了保证其完整性，就需要对其进行差错检测。广泛使用的方式是`CRC(Cyclic Redundancy Check)`，具体的算法就不展开了。
 
 ![差错检测](error-detection.svg)
 
