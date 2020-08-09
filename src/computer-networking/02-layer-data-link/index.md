@@ -38,26 +38,26 @@ toc: true
 
 ![透明传输](transparent-transmission.svg)
 
-发送方会检查Frame，然后在需要转义的地方加入`ESC`。接受方读取`Frame`时会检查是否同时出现了`ESC SOH`、`ESC ESC`和`ESC EOT`,有的话就移除`ESC`，然后把后续的一个`Octet`当作正常的数据。
+发送方会检查Frame，然后在需要转义的地方加入`ESC`。接受方读取`Frame`时会检查是否同时出现了`ESC SOH`、`ESC ESC`和`ESC EOT`，有的话就移除`ESC`，然后把后续的一个`Octet`当作正常的数据。
 
 ## 2.3 差错检测 {#error-detection}
 
-终于可以完成的对下层的`01`进行分组了。但是在传输过程中可能会发生差错，比如把`0`处理成了`1`，或者过来，再或者丢了一些数据，为了保证其完整性，就需要对其进行差错检测。这时就需要把一些校验码放在`Frame`的后面(`EOT`的前面)，这种方式称为帧检测序列`FCS(Frame Check Sequence)`。生成校验码的方式通常是是`CRC(Cyclic Redundancy Check)`，具体的算法就不展开了。
+终于可以完成的对下层的`01`进行分组了。但是在传输过程中可能会发生差错，比如把`0`处理成了`1`，或者过来，再或者丢了一些数据，为了保证其完整性，就需要对其进行差错检测。这时就需要把一些校验码放在`Frame`的后面(`EOT`的前面)，这个校验码称为帧检测序列`FCS(Frame Check Sequence)`。生成校验码的方式通常是`CRC(Cyclic Redundancy Check)`，具体的算法就不展开了。
 
 ![差错检测](error-detection.svg)
 
-如果接受方接收到数据后检测发现校验码对不上，则会丢弃这个`Frame`。从这个差错检测也可以反向推断出来，如果不分组成`Frame`，则就无法进行差错检测了。
+如果接受方接收到数据后检测发现`FCS`对不上，则会丢弃这个`Frame`。从这个差错检测也可以反向推断出来，如果不分组成`Frame`，则就无法进行差错检测了。
 
 # 3 MAC {#mac}
 
-在`LAN`中，通信双方需要一个标识符来标识通信双方，这个标识符就是`MAC Address(Media Access Control Address)`，也称为物理地址，后续就称为`MAC`了。这个标识符长度为`48bit`，是固化到硬件中的。前`24`位由IEEE负责分配（硬件厂商向其购买），后`24`位硬件厂商自己分配。MAC地址并不是全球唯一的，也不需要全球唯一，在一个`LAN`内唯一即可。
+在`LAN`中，通信双方需要一个标识符来标识通信双方，这个标识符就是`MAC Address(Media Access Control Address)`[^mac]，也称为物理地址，后续就称为`MAC`了。这个标识符长度为`48bit`，是固化到硬件中的。前`24`位由IEEE负责分配（硬件厂商向其购买），后`24`位硬件厂商自己分配。MAC地址并不是全球唯一的，也不需要全球唯一，在一个`LAN`内唯一即可。
 
 
 # 4 Ethernet Frame {#ethernet-frame}
 
 `Enternet(以太网)`是美国施乐(Xerox)公司在1975年开发出来的一种`LAN(Local Area Network)局域网`技术。`Enter(以太)`来自于当时物理学中的一个`以太`理论(当时的科学家任务电磁波的传播介质就是以太)。
 
-1980年9月，DEC、Intel和Xerox三家公司联合制定了一个10Mbit/s的协议`DIX V1`。1982年又做了一些修改，也就是目前所使用的`DIX V2`。
+1980年9月，DEC、Intel和Xerox三家公司联合制定了一个10Mbit/s的协议`DIX V1`。1982年又做了一些修改，也就是目前所使用的`DIX V2`[^ethernet-frame]。
 
 ## 4.1 DIX Ethernet V2 Frame {#dic-ethernet-v2-frame}
 
@@ -65,22 +65,22 @@ toc: true
 
 <pre>
 |                DIX Ethernet V2 Frame                          |
-|- - - - - - - -+- - - 32 bits(4 octets) - - - -+- - - - - - - -|
+|- - - - - - - -+- - - 32 bits(4 octet) - - - -+- - - - - - - - |
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|           Destination MAC Address (6 octets)                  |
+|           Destination MAC Address (6 octet)                   |
 |                               +- - - - - - - -+- - - - - - - -|
 |                               |                               |
 |- - - - - - - -+- - - - - - - -+                               |
-|           Source MAC Address (6 octets)                       |
+|           Source MAC Address (6 octet)                        |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|        Type (2 octets)        |                               |
+|        Type (2 octet)        |                                |
 |- - - - - - - -+- - - - - - - -+                               |
 |                                                               |
-|               Payload (46-1500 octets)                        |
+|               Payload (46-1500 octet)                         |
 |                                                               |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                        CRC (4 octets)                         |
+|                        CRC (4 octet)                          |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 </pre>
 
@@ -138,15 +138,15 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^wireshark-vlan]。
 <pre>
 |                          IEEE 802.1Q                          |
-|- - - - - - - -+- - - 32 bits(4 octets) - - - -+- - - - - - - -|
+|- - - - - - - -+- - - 32 bits(4 octet) - - - -+- - - - - - - - |
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 | PCP |D| VID (VLAN identifier) |                               |
-|3bits|E| 12 bits               +        Type (2 octets)        |
+|3bits|E| 12 bits               +        Type (2 octet)         |
 |     |I| max = 0xFFF = 4096    |                               |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |                                                               |
-|               Payload (46-1500 octets)                        |
+|               Payload (46-1500 octet)                         |
 |                                                               |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 PCP = Priority code point
@@ -179,3 +179,5 @@ DEI = Drop eligible indicator
 [^icmpv6]:ICMPv6 : <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6>
 [^vlan]:VLAN(IEEE 802.1Q) : <https://en.wikipedia.org/wiki/IEEE_802.1Q>
 [^wireshark-vlan]: Wireshark VLAN : <https://wiki.wireshark.org/VLAN>
+[^mac]:MAC Address : <https://en.wikipedia.org/wiki/MAC_address>
+[^ethernet-frame]: Ethernet Frame : <https://en.wikipedia.org/wiki/Ethernet_frame>
