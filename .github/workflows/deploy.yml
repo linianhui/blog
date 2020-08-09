@@ -34,7 +34,7 @@ jobs:
           git add .
           git commit -m "GitHub Actions Auto Deploy" -m "https://github.com/linianhui/blog/commit/${GITHUB_SHA}"
 
-      - name: add deploy private key
+      - name: add github deploy private key
         env:
           DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
         run: |
@@ -43,9 +43,22 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      - name: push to linianhui/linianhui.github.io master branch
+      - name: push to https://github.com/linianhui/linianhui.github.io master branch
         working-directory: .www
-        run: git push --force git@github.com:/linianhui/linianhui.github.io HEAD:master
+        run: git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:master
+
+      - name: add gitee deploy private key
+        env:
+          DEPLOY_GITEE_PRIVATE_KEY: ${{ secrets.DEPLOY_GITEE_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${DEPLOY_GITEE_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan gitee.com >> ~/.ssh/known_hosts
+
+      - name: push to https://gitee.com/linianhui/linianhui master branch
+        working-directory: .www
+        run: git push --force git@gitee.com:linianhui/linianhui.git HEAD:master
 
       - name: submit sitemap to bing
         # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
