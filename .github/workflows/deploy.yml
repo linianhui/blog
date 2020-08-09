@@ -34,7 +34,7 @@ jobs:
           git add .
           git commit -m "GitHub Actions Auto Deploy" -m "https://github.com/linianhui/blog/commit/${GITHUB_SHA}"
 
-      - name: add github deploy private key
+      - name: add github ssh private key
         env:
           PUSH_GITHUB_SSH_PRIVATE_KEY: ${{secrets.PUSH_GITHUB_SSH_PRIVATE_KEY}}
         run: |
@@ -47,7 +47,7 @@ jobs:
         working-directory: .www
         run: git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:master
 
-      - name: add gitee deploy private key
+      - name: add gitee ssh private key
         env:
           PUSH_GITEE_SSH_PRIVATE_KEY: ${{secrets.PUSH_GITEE_SSH_PRIVATE_KEY}}
         run: |
