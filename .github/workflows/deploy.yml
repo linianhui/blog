@@ -36,10 +36,10 @@ jobs:
 
       - name: add github deploy private key
         env:
-          DEPLOY_PRIVATE_KEY: ${{secrets.DEPLOY_PRIVATE_KEY}}
+          PUSH_GITHUB_SSH_PRIVATE_KEY: ${{secrets.PUSH_GITHUB_SSH_PRIVATE_KEY}}
         run: |
           mkdir -p ~/.ssh/
-          echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          echo "${PUSH_GITHUB_SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
@@ -49,20 +49,20 @@ jobs:
 
       - name: add gitee deploy private key
         env:
-          DEPLOY_GITEE_PRIVATE_KEY: ${{secrets.DEPLOY_GITEE_PRIVATE_KEY}}
+          PUSH_GITEE_SSH_PRIVATE_KEY: ${{secrets.PUSH_GITEE_SSH_PRIVATE_KEY}}
         run: |
           mkdir -p ~/.ssh/
-          echo "${DEPLOY_GITEE_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          echo "${PUSH_GITEE_SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan gitee.com >> ~/.ssh/known_hosts
 
       - name: deploy to https://linianhui.gitee.io
         env:
-          GITEE_AUTO_DEPLOY_TOKEN: ${{secrets.GITEE_AUTO_DEPLOY_TOKEN}}
+          DEPLOY_GITEE_PAGES_TOKEN: ${{secrets.DEPLOY_GITEE_PAGES_TOKEN}}
         working-directory: .www
         run: |
           git push --force git@gitee.com:linianhui/linianhui.git HEAD:master
-          curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data access_token=$GITEE_AUTO_DEPLOY_TOKEN
+          curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data access_token=$DEPLOY_GITEE_PAGES_TOKEN
 
       - name: submit sitemap to bing
         # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
