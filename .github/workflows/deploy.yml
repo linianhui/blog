@@ -62,7 +62,7 @@ jobs:
         working-directory: .www
         run: |
           git push --force git@gitee.com:linianhui/linianhui.git HEAD:master
-          curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data "access_token=${GITEE_AUTO_DEPLOY_TOKEN}"
+          curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data "access_token=$GITEE_AUTO_DEPLOY_TOKEN"
 
       - name: submit sitemap to bing
         # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
