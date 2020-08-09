@@ -36,7 +36,7 @@ jobs:
 
       - name: add github deploy private key
         env:
-          DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+          DEPLOY_PRIVATE_KEY: ${{secrets.DEPLOY_PRIVATE_KEY}}
         run: |
           mkdir -p ~/.ssh/
           echo "${DEPLOY_PRIVATE_KEY}" > ~/.ssh/id_rsa
@@ -49,7 +49,7 @@ jobs:
 
       - name: add gitee deploy private key
         env:
-          DEPLOY_GITEE_PRIVATE_KEY: ${{ secrets.DEPLOY_GITEE_PRIVATE_KEY }}
+          DEPLOY_GITEE_PRIVATE_KEY: ${{secrets.DEPLOY_GITEE_PRIVATE_KEY}}
         run: |
           mkdir -p ~/.ssh/
           echo "${DEPLOY_GITEE_PRIVATE_KEY}" > ~/.ssh/id_rsa
@@ -58,7 +58,7 @@ jobs:
 
       - name: deploy to https://linianhui.gitee.io
         env:
-          GITEE_AUTO_DEPLOY_TOKEN: ${{ secrets.GITEE_AUTO_DEPLOY_TOKEN }}
+          GITEE_AUTO_DEPLOY_TOKEN: ${{secrets.GITEE_AUTO_DEPLOY_TOKEN}}
         working-directory: .www
         run: |
           git push --force git@gitee.com:linianhui/linianhui.git HEAD:master
