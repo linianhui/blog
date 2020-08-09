@@ -257,6 +257,13 @@ code {
   visibility: visible;
 }
 
+.article-content .footnotes{
+  position: relative;
+}
+
+.article-content .footnotes hr{
+  display: none;
+}
 
 .highlight {
   margin-top: 16px;

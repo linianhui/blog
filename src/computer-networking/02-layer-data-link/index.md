@@ -1,7 +1,7 @@
 ---
 title: "[计算机网络] 02 [Layer] Data Link"
 created_at: 2019-09-22 08:12:00
-tag: ["封装成帧","透明传输","差错检测","Frame","MTU","SOH","EOT","ESC","CRC","FCS","MAC"]
+tag: ["封装成帧","透明传输","差错检测","Frame","MTU","SOH","EOT","ESC","CRC","FCS","MAC","ARP","ICMPv6"]
 toc: true
 ---
 
@@ -48,18 +48,21 @@ toc: true
 
 如果接受方接收到数据后检测发现校验码对不上，则会丢弃这个`Frame`。从这个差错检测也可以反向推断出来，如果不分组成`Frame`，则就无法进行差错检测了。
 
-# 3 Ethernet Frame {#ethernet-frame}
+# 3 MAC {#mac}
 
-`Enternet(以太网)`是美国施乐(Xerox)公司在1975年开发出来的一种`LAN(Local Area Network)局域网`技术。
+在`LAN`中，通信双方需要一个标识符来标识通信双方，这个标识符就是`MAC Address(Media Access Control Address)`，也称为物理地址，后续就称为`MAC`了。这个标识符长度为`48bit`，是固化到硬件中的。前`24`位由IEEE负责分配（硬件厂商向其购买），后`24`位硬件厂商自己分配。MAC地址并不是全球唯一的，也不需要全球唯一，在一个`LAN`内唯一即可。
 
->`Enter(以太)`来自于当时物理学中的一个`以太`理论(当时的科学家任务电磁波的传播介质就是以太)。
 
-1980年9月，DEC、Intel和Xerox三家公司联合制定了一个10Mbit/s的协议`DIX V1`。
+# 4 Ethernet Frame {#ethernet-frame}
 
-1982年又做了一些修改，也就是目前所使用的`DIX V2`。
+`Enternet(以太网)`是美国施乐(Xerox)公司在1975年开发出来的一种`LAN(Local Area Network)局域网`技术。`Enter(以太)`来自于当时物理学中的一个`以太`理论(当时的科学家任务电磁波的传播介质就是以太)。
 
-## 3.1 DIX Ethernet V2 Frame {#dic-ethernet-v2-frame}
-下面看一下DIX V2的Frame格式:
+1980年9月，DEC、Intel和Xerox三家公司联合制定了一个10Mbit/s的协议`DIX V1`。1982年又做了一些修改，也就是目前所使用的`DIX V2`。
+
+## 4.1 DIX Ethernet V2 Frame {#dic-ethernet-v2-frame}
+
+下面看一下`DIX V2`的Frame布局格式[^frame-layout]:
+
 <pre>
 |                DIX Ethernet V2 Frame                          |
 |- - - - - - - -+- - - 32 bits(4 octets) - - - -+- - - - - - - -|
@@ -81,33 +84,98 @@ toc: true
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 </pre>
 
->Frame解析 : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink/EthernetFrame.Layout.cs>
-
 这个协议中规定了Frame所包含的一些字段以及其字节布局，包括:
-1. 目标MAC地址。
-2. 源MAC地址。
-3. PayLoad的类型字段。
-4. PayLoad，`MTU=1500`。
-5. CRC（这部分并不会出现在链路层，而是底层使用的）。
+1. Destination MAC Address (6 octet) : 目标MAC地址。
+2. Source MAC Address (6 octet) : 源MAC地址。
+3. Type (2 octet) : PayLoad的类型字段。
+4. PayLoad : `MTU=1500`。
+5. CRC (4 octet) : 这部分并不会出现在链路层，而是底层使用的。
 
-## 3.2 IEEE 802.3 Frame {#ieee-802-3-frame}
+### 4.1.1 Enter Type {#entre-type}
 
-在`DIX V2`的基础上,IEEE 802委员会的802.3工作组制定了IEEE的Enternet标准`IEEE 802.3`。其并未对`DIX V2`的`Frame`格式做出变动，而只是扩充了一下`Type`字段的含义，是完全兼容`DIV V2`的。
-> `IEEE 802.3`中`Type`字段表示两个含义，当它的值大于`0x0600`时，代表类型；小于时则代表Payload的长度。
+常用到的几种Enter Type[^enter-type]。
 
-# 4 MAC {#mac}
+| Enter Type | Protocol                                         |
+| :--------- | :----------------------------------------------- |
+| 0x_08_00   | `IPv4`(Internet Protocol Version 4)              |
+| 0x_08_06   | `ARP`(Addreee Resolution Protocal)               |
+| 0x_81_00   | `VLAN`(Virtual Local Area Network),`IEEE 802.1Q` |
+| 0x_86_DD   | `IPv6`(Internet Protocal Version 6)              |
+| 0x_88_63   | PPPoE Discovery Stage                            |
+| 0x_88_64   | PPPoE Session Stage                              |
 
-在`LAN`中，通信双方需要一个标识符来标识通信双方，这个标识符就是`MAC Address`，也称为物理地址。这个标识符长度为`48bit`，是固化到硬件中的。前`24`位由IEEE负责分配（硬件厂商向其购买），后`24`位硬件厂商自己分配。
-> MAC地址并不是全球唯一的，也不需要全球唯一，在一个`LAN`内唯一即可。
+## 4.2 IEEE 802.3 Frame {#ieee-802-3-frame}
 
-# 5 设备 {#device}
+在`DIX V2`的基础上,IEEE 802委员会的802.3工作组制定了IEEE的Enternet标准`IEEE 802.3`。其并未对`DIX V2`的`Frame`格式做出变动，而只是扩充了一下`Type`字段的含义，是完全兼容`DIV V2`的。`IEEE 802.3`中`Type`字段表示两个含义，当它的值大于`0x0600`时，代表类型；小于时则代表Payload的长度。
 
-## 5.1 交换机 {#switch}
+## 4.3 Frame Type {#frame-type}
 
-# 6 总结 {#summary}
+这里的`Frame Type`和上文中的`Enter Type`不是一个概念。`Enter Type`指的指一个`Frame`内的`Payload`是什么类型的协议。而`Frame Type`指的是接收方收到的`Frame`属于哪种类型 :
+
+1. `Unicast`单播 : 1:1, 发给本LAN的一个节点。
+2. `Broadcast`广播 : 1:N(全体), 发给本LAN所有节点。
+3. `Multicast`组播 : 1:N, 发给本LAN指定的多个节点。
+
+# 5 ARP {#arp}
+
+有了`MAC`和`Frame`就可以在LAN内进行通信了，但是有个问题，发送发怎么知道对方的`MAC`呢？这时候就需要专门的协议来解决这个问题了：
+
+1. IPv4 : `Broadcast`协议`ARP`(Addreee Resolution Protocal)[^arp]。
+2. IPv6 : `Multicast`协议`ICMPv6`(Internet Control Message Protocol for IPv6)[^icmpv6]中的`NDP`(Neighbor Discovery Protocol)负责。
+
+协议不同，但是解决的问题是同一个，一下有个简单的动图可以描述这个过程。
+
+![MAC地址解析过程](arp.gif)
+
+>如果`LAN`中充斥着大量的`Broadcast`时，就很容易形成广播风暴，严重影响正常的`LAN`通信。所以在`IPv6`协议中，已经抛弃了对`Broadcast`的使用，而是使用`Multicast`替代。
+
+# 6 VLAN {#valn}
+
+VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其作用是可以在物理的LAN上建立一个虚拟的LAN。把原本一个LAN的广播域隔离为一个个的虚拟的广播域。`IEEE 802.1Q`是`IEEE 802`委员会制定的VLAN标准。
+
+## 6.1 IEEE 802.1Q Frame {#ieee-802-1q-frame}
+
+当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^wireshark-vlan]。
+<pre>
+|                          IEEE 802.1Q                          |
+|- - - - - - - -+- - - 32 bits(4 octets) - - - -+- - - - - - - -|
+|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+| PCP |D| VID (VLAN identifier) |                               |
+|3bits|E| 12 bits               +        Type (2 octets)        |
+|     |I| max = 0xFFF = 4096    |                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|                                                               |
+|               Payload (46-1500 octets)                        |
+|                                                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+PCP = Priority code point
+DEI = Drop eligible indicator
+</pre>
+
+# 7 设备 {#device}
+
+链路层中目前大量使用的设备是二层交换机。
+
+## 7.1 交换机 {#switch}
+
+交换机识别`Frame`，根据协议中的目标`MAC`进行转发来通信（目前有专门的硬件来负责，效率非常高）。交换机内置有一个MAC地址表，动态的记录着每一个接口对应的`MAC`地址。
+
+![二层交换机](switch.png)
+
+# 8 总结 {#summary}
 
 链路层关注的是分组 : 把物理层的`01`bit流分组成`Frame`，以及对`Frame`的差错检测。完成了`分组&交换`的第一步`分组`。
 
-# 7 遗留问题 {#leftover-problem}
+# 9 遗留问题 {#leftover-problem}
 
 但是如果传输过程中`Frame`丢失了、重复了或者乱序了等等，链路层对这种错误则是无能为力的，所以链路层并不能对上层提供**可靠传输(发送方按序发送，接收方按序接收)**。这些问题就留给了更高层的协议来完成了。
+
+# 10 Reference {#reference}
+
+[^enter-type]:Enter Type : <https://en.wikipedia.org/wiki/EtherType>
+[^frame-layout]:Frame Layout : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink>
+[^arp]:ARP : <https://en.wikipedia.org/wiki/Address_Resolution_Protocol>
+[^icmpv6]:ICMPv6 : <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6>
+[^vlan]:VLAN(IEEE 802.1Q) : <https://en.wikipedia.org/wiki/IEEE_802.1Q>
+[^wireshark-vlan]: Wireshark VLAN : <https://wiki.wireshark.org/VLAN>
