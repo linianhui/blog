@@ -48,18 +48,66 @@ toc: true
 
 如果接受方接收到数据后检测发现校验码对不上，则会丢弃这个`Frame`。从这个差错检测也可以反向推断出来，如果不分组成`Frame`，则就无法进行差错检测了。
 
-# 3 Frame {#freame}
+# 3 Ethernet Frame {#ethernet-frame}
 
-未完待续...
+`Enternet(以太网)`是美国施乐(Xerox)公司在1975年开发出来的一种`LAN(Local Area Network)局域网`技术。
 
-# 4 设备 {#device}
+>`Enter(以太)`来自于当时物理学中的一个`以太`理论(当时的科学家任务电磁波的传播介质就是以太)。
 
-## 4.1 交换机 {#switch}
+1980年9月，DEC、Intel和Xerox三家公司联合制定了一个10Mbit/s的协议`DIX V1`。
 
-# 5 总结 {#summary}
+1982年又做了一些修改，也就是目前所使用的`DIX V2`。
+
+## 3.1 DIX Ethernet V2 Frame {#dic-ethernet-v2-frame}
+下面看一下DIX V2的Frame格式:
+<pre>
+|                DIX Ethernet V2 Frame                          |
+|- - - - - - - -+- - - 32 bits(4 octets) - - - -+- - - - - - - -|
+|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|           Destination MAC Address (6 octets)                  |
+|                               +- - - - - - - -+- - - - - - - -|
+|                               |                               |
+|- - - - - - - -+- - - - - - - -+                               |
+|           Source MAC Address (6 octets)                       |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|        Type (2 octets)        |                               |
+|- - - - - - - -+- - - - - - - -+                               |
+|                                                               |
+|               Payload (46-1500 octets)                        |
+|                                                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|                        CRC (4 octets)                         |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+</pre>
+
+>Frame解析 : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink/EthernetFrame.Layout.cs>
+
+这个协议中规定了Frame所包含的一些字段以及其字节布局，包括:
+1. 目标MAC地址。
+2. 源MAC地址。
+3. PayLoad的类型字段。
+4. PayLoad，`MTU=1500`。
+5. CRC（这部分并不会出现在链路层，而是底层使用的）。
+
+## 3.2 IEEE 802.3 Frame {#ieee-802-3-frame}
+
+在`DIX V2`的基础上,IEEE 802委员会的802.3工作组制定了IEEE的Enternet标准`IEEE 802.3`。其并未对`DIX V2`的`Frame`格式做出变动，而只是扩充了一下`Type`字段的含义，是完全兼容`DIV V2`的。
+> `IEEE 802.3`中`Type`字段表示两个含义，当它的值大于`0x0600`时，代表类型；小于时则代表Payload的长度。
+
+# 4 MAC {#mac}
+
+在`LAN`中，通信双方需要一个标识符来标识通信双方，这个标识符就是`MAC Address`，也称为物理地址。这个标识符长度为`48bit`，是固化到硬件中的。前`24`位由IEEE负责分配（硬件厂商向其购买），后`24`位硬件厂商自己分配。
+> MAC地址并不是全球唯一的，也不需要全球唯一，在一个`LAN`内唯一即可。
+
+# 5 设备 {#device}
+
+## 5.1 交换机 {#switch}
+
+# 6 总结 {#summary}
 
 链路层关注的是分组 : 把物理层的`01`bit流分组成`Frame`，以及对`Frame`的差错检测。完成了`分组&交换`的第一步`分组`。
 
-# 6 遗留问题 {#leftover-problem}
+# 7 遗留问题 {#leftover-problem}
 
 但是如果传输过程中`Frame`丢失了、重复了或者乱序了等等，链路层对这种错误则是无能为力的，所以链路层并不能对上层提供**可靠传输(发送方按序发送，接收方按序接收)**。这些问题就留给了更高层的协议来完成了。
