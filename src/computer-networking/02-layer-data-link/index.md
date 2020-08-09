@@ -61,7 +61,7 @@ toc: true
 
 ## 4.1 DIX Ethernet V2 Frame {#dic-ethernet-v2-frame}
 
-下面看一下`DIX V2`的Frame布局格式[^frame-layout]:
+下面看一下`DIX V2`的Frame布局格式[^frame-parse]:
 
 <pre>
 |                DIX Ethernet V2 Frame                          |
@@ -174,7 +174,7 @@ DEI = Drop eligible indicator
 # 10 Reference {#reference}
 
 [^enter-type]:Enter Type : <https://en.wikipedia.org/wiki/EtherType>
-[^frame-layout]:Frame Layout : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink>
+[^frame-parse]:Frame Parse : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink>
 [^arp]:ARP : <https://en.wikipedia.org/wiki/Address_Resolution_Protocol>
 [^icmpv6]:ICMPv6 : <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6>
 [^vlan]:VLAN(IEEE 802.1Q) : <https://en.wikipedia.org/wiki/IEEE_802.1Q>
