@@ -55,7 +55,7 @@ toc: true
 
 # 4 Ethernet Frame {#ethernet-frame}
 
-`Enternet(以太网)`是美国施乐(Xerox)公司在1975年开发出来的一种`LAN(Local Area Network)局域网`技术。`Enter(以太)`来自于当时物理学中的一个`以太`理论(当时的科学家任务电磁波的传播介质就是以太)。
+`Enternet(以太网)`是美国施乐(Xerox)公司在1975年开发出来的一种`LAN(Local Area Network)局域网`技术。`Enter(以太)`来自于当时物理学中的`以太`理论(当时的科学家认为电磁波的传播介质是以太)。
 
 1980年9月，DEC、Intel和Xerox三家公司联合制定了一个10Mbit/s的协议`DIX V1`。1982年又做了一些修改，也就是目前所使用的`DIX V2`[^ethernet-frame]。
 
@@ -63,7 +63,7 @@ toc: true
 
 下面看一下`DIX V2`的Frame布局格式[^frame-parse]:
 
-<pre>
+```txt
 |                DIX Ethernet V2 Frame                          |
 |- - - - - - - -+- - - 32 bits(4 octet) - - - -+- - - - - - - - |
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
@@ -82,7 +82,7 @@ toc: true
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |                        CRC (4 octet)                          |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-</pre>
+```
 
 这个协议中规定了Frame所包含的一些字段以及其字节布局，包括:
 1. Destination MAC Address (6 octet) : 目标MAC地址。
@@ -136,7 +136,7 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 ## 6.1 IEEE 802.1Q Frame {#ieee-802-1q-frame}
 
 当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^wireshark-vlan]。
-<pre>
+```txt
 |                          IEEE 802.1Q                          |
 |- - - - - - - -+- - - 32 bits(4 octet) - - - -+- - - - - - - - |
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
@@ -151,7 +151,7 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 PCP = Priority code point
 DEI = Drop eligible indicator
-</pre>
+```
 
 # 7 设备 {#device}
 
