@@ -161,9 +161,11 @@ DEI = Drop eligible indicator
 
 ## 7.1 交换机 {#switch}
 
-一个交换机可以组建一个星型以太网，交换机识别`Frame`，根据协议中的目标`MAC`进行转发来通信（目前有专门的硬件来负责，效率非常高）。交换机内置有一个MAC地址表，通过自学习的方式积累记录着每一个接口对应的`MAC`地址。
+一个交换机可以组建一个星型以太网，交换机识别`Frame`，根据协议中的目标`MAC`进行转发来通信（目前有专门的硬件来负责，效率非常高）。交换机内置有一个`MAC Address Table`，通过自学习的方式积累记录着每个`MAC`对应的`Port`。
 
 ![二层交换机](switch.png)
+
+> 注意`MAC Address Table`中`MAC`和`Port`的对应关系。其中`MAC`可以认为是key，`MAC`:`Port`是`1:1`; 但是反过`Port`:`MAC`则是1:N（也就是可能有N个`MAC`的`Port`是同一个）。
 
 # 8 总结 {#summary}
 
