@@ -4,7 +4,7 @@
 
 set -eux
 
-yum install -y wget gettext
+yum install -y wget gettext lsof
 
 bash <(wget -q -O - https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
