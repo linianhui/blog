@@ -24,6 +24,7 @@ wget -q -O - https://linianhui.github.io/tool/v2ray/client-config.template.json 
 
 echo "vmess://$(wget -q -O - https://linianhui.github.io/tool/v2ray/client-config.v2rayng.template.json | envsubst | base64 -w 0)" > client-config.v2rayng.json
 
+systemctl daemon-reload
 systemctl enable v2ray
 systemctl restart v2ray
 systemctl status v2ray
