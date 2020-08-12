@@ -1,0 +1,12 @@
+[Unit]
+Description=V2Ray Service
+After=network.target nss-lookup.target
+
+[Service]
+User=root
+Environment=V2RAY_LOCATION_ASSET=/usr/local/lib/v2ray/
+ExecStart=/usr/local/bin/v2ray -config /etc/v2ray.json
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
