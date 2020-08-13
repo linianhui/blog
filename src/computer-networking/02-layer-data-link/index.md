@@ -65,7 +65,7 @@ toc: true
 
 ```txt
 |                DIX Ethernet V2 Frame                          |
-|- - - - - - - -+- - - 32 bits(4 octet) - - - -+- - - - - - - - |
+|- - - - - - - -+- - - 32 bit(4 octet) - - - - -+- - - - - - - -|
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |           Destination MAC Address (6 octet)                   |
@@ -138,11 +138,11 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^wireshark-vlan]。
 ```txt
 |                          IEEE 802.1Q                          |
-|- - - - - - - -+- - - 32 bits(4 octet) - - - -+- - - - - - - - |
+|- - - - - - - -+- - - 32 bit (4 octet)- - - - -+- - - - - - - -|
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 | PCP |D| VID (VLAN identifier) |                               |
-|3bits|E| 12 bits               +        Type (2 octet)         |
+|3 bit|E| 12 bit                +        Type (2 octet)         |
 |     |I| max = 0xFFF = 4096    |                               |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |                                                               |

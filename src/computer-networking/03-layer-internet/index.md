@@ -33,25 +33,25 @@ toc: true
 1. IPv4[^ipv4] : 长度`4 octet = 32 bit`，可容纳2<sup>32</sup>=`4,294,967,296`个地址，42亿+。
 2. IPv6[^ipv6] : 长度`16 octet = 128 bit`，可容纳2<sup>128</sup>=`340,282,366,920,938,463,463,374,607,431,768,211,456`个地址，我数不过来了。。。
 
-## 2.1 IPv4 {#ipv4}
+## 2.1 IPv4 Packet {#ipv4-packet}
 
 看一下IPv4的`Packet`[^ipv4-packet]的格式是怎样的:
 
 ```txt
 |                          IPv4 Packet                          |
-|- - - - - - - -+- - - 32 bits(4 oxtet)- - - - -+- - - - - - - -|
+|- - - - - - - -+- - - 32 bit(4 octet)- - - - -+- - - - - - - - |
 |0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |Version|  IHL  |   DSCP    |ECN|     Total Length              |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |      Identification           | |D|M|    Fragment Offset      |
-|      (2 oxtet)                | |F|F|    (13 bit)             |
+|      (2 octet)                | |F|F|    (13 bit)             |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |      TTL      |   Protocol    |          Checksum             |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|           Source IP Address (4 oxtet)                         |
+|           Source IP Address (4 octet)                         |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|           Destination IP Address (4 oxtet)                    |
+|           Destination IP Address (4 octet)                    |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |                                                               |
 |                                                               |
@@ -72,11 +72,11 @@ toc: true
 5. Destination IP Address : 目标IP地址
 6. Payload : 有效的负载数据部分。
 
-### 2.1.1 TTL Field {ipv4-ttl-field}
+### 2.1.1 TTL Field {#ipv4-packet-ttl-field}
 
 为了防止`Packet`在转发过程中出现死循环回路，设置的一个值，一般默认是64，转发一次就减1，直到为0就丢弃掉。
 
-### 2.1.2 Protocol Field {ipve-protocol-field}
+### 2.1.2 Protocol Field {#ipve-packet-protocol-field}
 
 常见到的几个Protocol的值如下:
 
@@ -87,9 +87,34 @@ toc: true
 | 6     | TCP Transmission Control Protocol       |
 | 17    | UDP User Datagram Protocol              |
 
-## 2.2 IPv6 {#ipv6}
+## 2.2 IPv6 Packet {#ipv6-packet}
 
-随着互联网的迅猛发展，`IPv4`的2<sup>32</sup>=`4,294,967,296`个地址(42亿+)是远远不够的，期间开发出了`NAT`来缓解IPv4的问题，但是始终不是彻底解决问题的办法。故而早在1992年IEEE就着手开发下一代的`IP`了，于1996年发布了`IPv6`[^ipv6]，把地址长度从32bit扩充到了128bit。同时也改进了一些之前`IPv4`协议族相关的一些不足之处。比如固定了协议的Header部分的长度(便于转发交换`Packet`)等等。这里就不详细展开了。
+随着互联网的迅猛发展，`IPv4`的2<sup>32</sup>=`4,294,967,296`个地址(42亿+)是远远不够的，期间开发出了[NAT][nat]来缓解IPv4的问题，但是始终不是彻底解决问题的办法。故而早在1992年IEEE就着手开发下一代的`IP`了，于1996年发布了`IPv6`[^ipv6]，把地址长度从32bit扩充到了128bit。同时也改进了一些之前`IPv4`协议族相关的一些不足之处。比如固定了协议的Header部分的长度(便于转发交换`Packet`)等等。
+
+```txt
+|                          IPv6 Packet                          |
+|- - - - - - - -+- - - 32 bit(4 octet) - - - - -+- - - - - - - -|
+|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|Version| Traffic Class |            Flow Label                 |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|      Payload Length           | Next Header   | Hop Limit     |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|                                                               |
+|                                                               |
+|           Source IP Address (16 octet)                        |
+|                                                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|                                                               |
+|                                                               |
+|           Destination IP Address (16 octet)                   |
+|                                                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|                   Payload                                     |
+|                                                               |
+|                                                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+```
 
 
 待补充...
@@ -100,3 +125,5 @@ toc: true
 [^ipv4]:IPv4 : <https://en.wikipedia.org/wiki/IPv4>
 [^ipv4-packet]: IPv4 Packet : <https://en.wikipedia.org/wiki/IPv4#Packet_structure>
 [^ipv6]:IPv6 : <https://en.wikipedia.org/wiki/IPv6>
+
+[nat]:<../nat>
