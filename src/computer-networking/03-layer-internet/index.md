@@ -35,33 +35,9 @@ toc: true
 
 ## 2.1 IPv4 Packet {#ipv4-packet}
 
-看一下IPv4的`Packet`[^ipv4-packet]的格式是怎样的:
+IPv4的Packet[^ipv4-packet]:
 
-```txt
-|                          IPv4 Packet                          |
-|- - - - - - - -+- - - 32 bit(4 octet)- - - - -+- - - - - - - - |
-|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|Version|  IHL  |   DSCP    |ECN|     Total Length              |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|      Identification           | |D|M|    Fragment Offset      |
-|      (2 octet)                | |F|F|    (13 bit)             |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|      TTL      |   Protocol    |          Checksum             |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|           Source IP Address (4 octet)                         |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|           Destination IP Address (4 octet)                    |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                                                               |
-|                                                               |
-|                   Options (if IHL > 5)                        |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                   Payload                                     |
-|                                                               |
-|                                                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-```
+{{<highlight-file file="ipv4-packet.txt" lang="txt">}}
 
 看起来很复杂的样子(其实就是很复杂...)，我们这里只关注几个重点的就可以了。
 
@@ -91,30 +67,9 @@ toc: true
 
 随着互联网的迅猛发展，`IPv4`的2<sup>32</sup>=`4,294,967,296`个地址(42亿+)是远远不够的，期间开发出了[NAT][nat]来缓解IPv4的问题，但是始终不是彻底解决问题的办法。故而早在1992年IEEE就着手开发下一代的`IP`了，于1996年发布了`IPv6`[^ipv6]，把地址长度从32bit扩充到了128bit。同时也改进了一些之前`IPv4`协议族相关的一些不足之处。比如固定了协议的Header部分的长度(便于转发交换`Packet`)等等。
 
-```txt
-|                          IPv6 Packet                          |
-|- - - - - - - -+- - - 32 bit(4 octet) - - - - -+- - - - - - - -|
-|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|Version| Traffic Class |            Flow Label                 |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|      Payload Length           | Next Header   | Hop Limit     |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                                                               |
-|                                                               |
-|           Source IP Address (16 octet)                        |
-|                                                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                                                               |
-|                                                               |
-|           Destination IP Address (16 octet)                   |
-|                                                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                   Payload                                     |
-|                                                               |
-|                                                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-```
+IPv6的Packet[^ipv6-packet]:
+
+{{<highlight-file file="ipv6-packet.txt" lang="txt">}}
 
 
 待补充...
@@ -123,7 +78,8 @@ toc: true
 
 [^ip]:Internet Protocol: <https://en.wikipedia.org/wiki/Internet_Protocol>
 [^ipv4]:IPv4 : <https://en.wikipedia.org/wiki/IPv4>
-[^ipv4-packet]: IPv4 Packet : <https://en.wikipedia.org/wiki/IPv4#Packet_structure>
+[^ipv4-packet]: IPv4 Packet : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/Internet/IPv4Packet.Layout.cs>
 [^ipv6]:IPv6 : <https://en.wikipedia.org/wiki/IPv6>
+[^ipv6-packet]: IPv6 Packet : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/Internet/IPv6Packet.Layout.cs>
 
 [nat]:<../nat>

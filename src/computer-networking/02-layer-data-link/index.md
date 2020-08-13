@@ -61,28 +61,9 @@ toc: true
 
 ## 4.1 DIX Ethernet V2 Frame {#dic-ethernet-v2-frame}
 
-下面看一下`DIX V2`的Frame布局格式[^frame-parse]:
+DIX V2的Frame[^ethernet-frame]:
 
-```txt
-|                DIX Ethernet V2 Frame                          |
-|- - - - - - - -+- - - 32 bit(4 octet) - - - - -+- - - - - - - -|
-|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|           Destination MAC Address (6 octet)                   |
-|                               +- - - - - - - -+- - - - - - - -|
-|                               |                               |
-|- - - - - - - -+- - - - - - - -+                               |
-|           Source MAC Address (6 octet)                        |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|        Type (2 octet)        |                                |
-|- - - - - - - -+- - - - - - - -+                               |
-|                                                               |
-|               Payload (46-1500 octet)                         |
-|                                                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                        CRC (4 octet)                          |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-```
+{{<highlight-file file="dix-ethernet-v2-frame.txt" lang="txt">}}
 
 这个协议中规定了Frame所包含的一些字段以及其字节布局，包括:
 1. Destination MAC Address (6 octet) : 目标MAC地址。
@@ -135,23 +116,9 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 
 ## 6.1 IEEE 802.1Q Frame {#ieee-802-1q-frame}
 
-当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^wireshark-vlan]。
-```txt
-|                          IEEE 802.1Q                          |
-|- - - - - - - -+- - - 32 bit (4 octet)- - - - -+- - - - - - - -|
-|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-| PCP |D| VID (VLAN identifier) |                               |
-|3 bit|E| 12 bit                +        Type (2 octet)         |
-|     |I| max = 0xFFF = 4096    |                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-|                                                               |
-|               Payload (46-1500 octet)                         |
-|                                                               |
-|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
-PCP = Priority code point
-DEI = Drop eligible indicator
-```
+当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^vlan-frame]。
+
+{{<highlight-file file="vlan-frame.txt" lang="txt">}}
 
 # 7 设备 {#device}
 
@@ -178,10 +145,9 @@ DEI = Drop eligible indicator
 # 10 Reference {#reference}
 
 [^enter-type]:Enter Type : <https://en.wikipedia.org/wiki/EtherType>
-[^frame-parse]:Frame Parse : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink>
+[^ethernet-frame]:DIX Ethernet V2 Frame : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink/EthernetFrame.Layout.cs>
 [^arp]:ARP : <https://en.wikipedia.org/wiki/Address_Resolution_Protocol>
 [^icmpv6]:ICMPv6 : <https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol_for_IPv6>
 [^vlan]:VLAN(IEEE 802.1Q) : <https://en.wikipedia.org/wiki/IEEE_802.1Q>
-[^wireshark-vlan]: Wireshark VLAN : <https://wiki.wireshark.org/VLAN>
 [^mac]:MAC Address : <https://en.wikipedia.org/wiki/MAC_address>
-[^ethernet-frame]: Ethernet Frame : <https://en.wikipedia.org/wiki/Ethernet_frame>
+[^vlan-frame]: VLAN Frame : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/DataLink/VLANFrame.Layout.cs>

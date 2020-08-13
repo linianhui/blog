@@ -1,0 +1,14 @@
+|                          IEEE 802.1Q                          |
+|- - - - - - - -+- - - 32 bit (4 octet)- - - - -+- - - - - - - -|
+|0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7+0 1 2 3 4 5 6 7|
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+| PCP |D| VID (VLAN identifier) |                               |
+|3 bit|E| 12 bit                +        Type (2 octet)         |
+|     |I| max = 0xFFF = 4096    |                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+|                                                               |
+|               Payload (46-1500 octet)                         |
+|                                                               |
+|- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
+PCP = Priority code point
+DEI = Drop eligible indicator
