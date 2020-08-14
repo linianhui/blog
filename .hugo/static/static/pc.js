@@ -89,6 +89,7 @@
             var element = id(arguments[i]);
             toggleClassNameCore(element, className);
         }
+        refreshHorizontalProgressStyle();
     }
 
     function getFragmentIdFromUrl(url) {
@@ -180,6 +181,7 @@
     function toggleToc() {
         toggleClassName('toc', 'opened');
         refreshBodyStyle();
+        refreshHorizontalProgressStyle();
     }
 
     window.blog = {
