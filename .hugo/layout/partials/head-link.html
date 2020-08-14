@@ -8,10 +8,10 @@
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 {{ $time:= now.Unix }}
-<link href='/static/pc.css?time={{$time}}' rel="stylesheet">
-<script src='/static/pc.js?time={{$time}}' type="text/javascript"></script>
+<link href='/asset/pc.css?time={{$time}}' rel="stylesheet">
+<script src='/asset/pc.js?time={{$time}}' type="text/javascript"></script>
 <script type="text/javascript">
   if (blog.isMobile()) {
-    document.write('<link href="/static/mobile.css?time={{$time}}" rel="stylesheet">');
+    document.write('<link href="/asset/mobile.css?time={{$time}}" rel="stylesheet">');
   }
 </script>
