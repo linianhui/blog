@@ -91,6 +91,7 @@ IPv4长度为4octet=32bit。按照传统的网络分类[^classful-network]方式
 ### 3.1.1 Private IPv4 Addtess {#private-ipv4-addtess}
 
 私有网络地址[^private-network]:
+
 | Class | Network Count | IP Range                    | IP Count                  | Default Subnet Mask |
 | :---- | :------------ | :-------------------------- | :------------------------ | :------------------ |
 | A     | 1             | 10.0.0.0~10.255.255.255     | 16,777,216=2<sup>24</sup> | 255.0.0.0           |
