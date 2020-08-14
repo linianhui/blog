@@ -72,14 +72,51 @@ IPv6的Packet[^ipv6-packet]:
 {{<highlight-file file="ipv6-packet.txt" lang="txt">}}
 
 
+# 3 IP Address {#ip-address}
+
+IP Address由网络号和主机号两部分组成。由Internet NIC负责其分配，其中有一部分`Private IP`可以不用向NIC申请就可以直接使用
+
+## 3.1 IPv4 Address {#ipv4-address}
+
+IPv4长度为4octet=32bit。按照传统的网络分类[^classful-network]方式把IP分为了ABCDE五类，其中ABC三类的网络号依次是1、2、3octet。
+
+| Class | Network Bit Count | Network Lead Bit | Network Count            | IP Count                  | IP Range                  | Default Subnet Mask |
+| :---- | :---------------- | :--------------- | :----------------------- | :------------------------ | :------------------------ | :------------------ |
+| A     | 8 bit             | `0b_0`           | 128=2<sup>7</sup>        | 16,777,216=2<sup>24</sup> | 0.0.0.0~127.255.255.255   | 255.0.0.0           |
+| B     | 16 bit            | `0b_10`          | 16,384=2<sup>14</sup>    | 65,536=2<sup>16</sup>     | 128.0.0.0~191.255.255.255 | 255.255.0.0         |
+| C     | 24 bit            | `0b_110`         | 2,097,152=2<sup>21</sup> | 256=2<sup>8</sup>         | 192.0.0.0~223.255.255.255 | 255.255.255.0       |
+| D     | N/A               | `0b_1110`        | N/A                      | N/A                       | 224.0.0.0~239.255.255.255 | N/A                 |
+| E     | N/A               | `0b_1111`        | N/A                      | N/A                       | 240.0.0.0~255.255.255.255 | N/A                 |
+
+### 3.1.1 Private IPv4 Addtess {#private-ipv4-addtess}
+
+私有网络地址[^private-network]:
+| Class | Network Count | IP Range                    | IP Count                  | Default Subnet Mask |
+| :---- | :------------ | :-------------------------- | :------------------------ | :------------------ |
+| A     | 1             | 10.0.0.0~10.255.255.255     | 16,777,216=2<sup>24</sup> | 255.0.0.0           |
+| B     | 16            | 172.16.0.0~172.31.255.255   | 1,048,576=2<sup>20</sup>  | 255.240.0.0         |
+| C     | 256           | 192.168.0.0~192.168.255.255 | 65,536=2<sup>16</sup>     | 255.255.0.0         |
+
+## 3.2 CIDR {#cidr}
+
+在IPv4 Addres的ABCEDE分类方式过于死板，网络号只能是8、16、24位，无法有效的对IP地址进行分类和路由。故而在1993年推出了CIDR(Classless Inter-Domain Routing)[^cidr]，中文含义是**无类别域间路由**。CIDR使用VLSM(可变长度子网掩码)来对网络号进行划分。
+
+比如`192.168.1.0/29`地址块（前`29`bit是网络号，后`3`bit是主机号，子网掩码是`255.255.255.248`）: 包含2<sup>3</sup>=8个IP(`192.168.1.0`~`192.168.1.7`)。
+
+## 3.3 IPv6 Address {#ipv6-address}
+
+
 待补充...
 
-# 3 Referance {#reference}
+# 4 Referance {#reference}
 
 [^ip]:Internet Protocol: <https://en.wikipedia.org/wiki/Internet_Protocol>
 [^ipv4]:IPv4 : <https://en.wikipedia.org/wiki/IPv4>
-[^ipv4-packet]: IPv4 Packet : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/Internet/IPv4Packet.Layout.cs>
+[^ipv4-packet]:IPv4 Packet : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/Internet/IPv4Packet.Layout.cs>
 [^ipv6]:IPv6 : <https://en.wikipedia.org/wiki/IPv6>
-[^ipv6-packet]: IPv6 Packet : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/Internet/IPv6Packet.Layout.cs>
+[^ipv6-packet]:IPv6 Packet : <https://github.com/linianhui/networking/blob/master/1-src/networking.model/Internet/IPv6Packet.Layout.cs>
+[^classful-network]:Classful Network : <https://en.wikipedia.org/wiki/Classful_network>
+[^private-network]:Private Network : <https://en.wikipedia.org/wiki/Private_network>
+[^cidr]:Classless Internet Domain Routing : <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing>
 
 [nat]:<../nat>
