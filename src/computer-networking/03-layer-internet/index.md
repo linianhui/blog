@@ -23,7 +23,7 @@ toc: true
 
 基于以上两个核心的问题，二层的交换机如果想要完成我们想要的转发和交换，那么它的`MAC Address Table`将会多么的巨大（`MAC`地址有2<sup>48</sup>个，因为`MAC`没有层级，所以就无法分层处理转发和交换）。当然还有其他的原因，这里只是笔者的理解的一部分。
 
-所以我们需要一个像邮编一样的**包含位置信息的并且分层的地址**来处理数据的转发和交换。**那么网络层的用途就是实现转发和交换**。
+所以我们需要一个像邮编一样的**包含位置信息的并且分层的地址**来处理数据的转发和交换。**那么网络层的用途就是实现转发和交换，向上层提供无连接的、尽最大努力交付的分组数据报服务**。
 
 # 2 IP(Internet Protocol) {#internet-protocol}
 
@@ -74,35 +74,128 @@ IPv6的Packet[^ipv6-packet]:
 
 # 3 IP Address {#ip-address}
 
-IP Address由网络号和主机号两部分组成。由Internet NIC负责其分配，其中有一部分`Private IP`可以不用向NIC申请就可以直接使用
+IP Address由`Network Id`(网络号)和`Host Id`(主机号)两部分组成，所以IP不仅仅是一个唯一标识一台主机，也包含其所在的网络。这就是开篇所提到的分层的地址，这样划分有2个重要的意义：
+
+1. IP的分组数据报只根据`Network Id`进行路由转发，而且`Network Id`也是分层级处理的，这就使得路由可以不必处理所有的IP。不然现实世界是无法实现这样的路由转发设备的。
+2. IP地址的分配机构只管分配`Network Id`部分即可。
+
 
 ## 3.1 IPv4 Address {#ipv4-address}
 
-IPv4长度为4octet=32bit。按照传统的网络分类[^classful-network]方式把IP分为了ABCDE五类，其中ABC三类的网络号依次是1、2、3octet。
+IPv4长度为4octet=32bit。按照传统的网络分类[^classful-network]方式把IP分为了ABCDE五类。划分方式:
+<table style="text-align: center;">
+    <tr>
+        <th rowspan="3">Class</th>
+        <th colspan="32">32bit IP</th>
+    </tr>
+    <tr>
+        <td colspan="8">Octet 1</td>
+        <td colspan="8">Octet 2</td>
+        <td colspan="8">Octet 3</td>
+        <td colspan="8">Octet 4</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td>32</td>
+    </tr>
+    <tr>
+        <th>A</th>
+        <td style="color:#F00">0</td>
+        <td colspan="7"><font color="#F00">8</font>bit Network Id</td>
+        <td colspan="24"><font color="#F00">24</font>bit Host Id</td>
+    </tr>
+    <tr>
+        <th>B</th>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">0</td>
+        <td colspan="14" ><font color="#F00">16</font>bit Network Id</td>
+        <td colspan="16"><font color="#F00">16</font>bit Host Id</td>
+    </tr>
+    <tr>
+        <th>C</th>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">0</td>
+        <td colspan="21" ><font color="#F00">24</font>bit Network Id</td>
+        <td colspan="8"><font color="#F00">8</font>bit Host Id</td>
+    </tr>
+    <tr>
+        <th>D</th>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">0</td>
+        <td colspan="28" >Multicast</td>
+    </tr>
+    <tr>
+        <th>E</th>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">1</td>
+        <td style="color:#F00">1</td>
+        <td colspan="28" >Reserved</td>
+    </tr>
+</table>
 
-| Class | Network Bit Count | Network Lead Bit | Network Count            | IP Count                  | IP Range                  | Default Subnet Mask |
-| :---- | :---------------- | :--------------- | :----------------------- | :------------------------ | :------------------------ | :------------------ |
-| A     | 8 bit             | `0b_0`           | 128=2<sup>7</sup>        | 16,777,216=2<sup>24</sup> | 0.0.0.0~127.255.255.255   | 255.0.0.0           |
-| B     | 16 bit            | `0b_10`          | 16,384=2<sup>14</sup>    | 65,536=2<sup>16</sup>     | 128.0.0.0~191.255.255.255 | 255.255.0.0         |
-| C     | 24 bit            | `0b_110`         | 2,097,152=2<sup>21</sup> | 256=2<sup>8</sup>         | 192.0.0.0~223.255.255.255 | 255.255.255.0       |
-| D     | N/A               | `0b_1110`        | N/A                      | N/A                       | 224.0.0.0~239.255.255.255 | N/A                 |
-| E     | N/A               | `0b_1111`        | N/A                      | N/A                       | 240.0.0.0~255.255.255.255 | N/A                 |
+地址数量和范围:
+
+| Class | Network Count            | One Network IP Count      | IP Range                  | Default Subnet Mask |
+| :---- | :----------------------- | :------------------------ | :------------------------ | :------------------ |
+| A     | 128=2<sup>7</sup>        | 16,777,216=2<sup>24</sup> | 0.0.0.0~127.255.255.255   | 255.0.0.0           |
+| B     | 16,384=2<sup>14</sup>    | 65,536=2<sup>16</sup>     | 128.0.0.0~191.255.255.255 | 255.255.0.0         |
+| C     | 2,097,152=2<sup>21</sup> | 256=2<sup>8</sup>         | 192.0.0.0~223.255.255.255 | 255.255.255.0       |
+| D     | N/A                      | N/A                       | 224.0.0.0~239.255.255.255 | N/A                 |
+| E     | N/A                      | N/A                       | 240.0.0.0~255.255.255.255 | N/A                 |
 
 ### 3.1.1 Private IPv4 Addtess {#private-ipv4-addtess}
 
-私有网络地址[^private-network]:
+IP地址中保留了一部分私有网络地址[^private-network]，可以不用申请就可以直接使用:
 
-| Class | Network Count | IP Range                    | IP Count                  | Default Subnet Mask |
-| :---- | :------------ | :-------------------------- | :------------------------ | :------------------ |
-| A     | 1             | 10.0.0.0~10.255.255.255     | 16,777,216=2<sup>24</sup> | 255.0.0.0           |
-| B     | 16            | 172.16.0.0~172.31.255.255   | 1,048,576=2<sup>20</sup>  | 255.240.0.0         |
-| C     | 256           | 192.168.0.0~192.168.255.255 | 65,536=2<sup>16</sup>     | 255.255.0.0         |
+| CIDR           | Network Count | IP Range                    | Default Subnet Mask | Total IP Count            | Class |
+| :------------- | :------------ | :-------------------------- | :------------------ | :------------------------ | :---- |
+| 10.0.0.0/8     | 1             | 10.0.0.0~10.255.255.255     | 255.0.0.0           | 16,777,216=2<sup>24</sup> | A     |
+| 172.16.0.0/12  | 16            | 172.16.0.0~172.31.255.255   | 255.240.0.0         | 1,048,576=2<sup>20</sup>  | B     |
+| 192.168.0.0/16 | 256           | 192.168.0.0~192.168.255.255 | 255.255.0.0         | 65,536=2<sup>16</sup>     | C     |
 
 ## 3.2 CIDR {#cidr}
 
-在IPv4 Addres的ABCEDE分类方式过于死板，网络号只能是8、16、24位，无法有效的对IP地址进行分类和路由。故而在1993年推出了CIDR(Classless Inter-Domain Routing)[^cidr]，中文含义是**无类别域间路由**。CIDR使用VLSM(可变长度子网掩码)来对网络号进行划分。
+在IPv4 Addres的ABCEDE分类方式过于死板，网络号只能是8、16、24位，无法有效的对IP地址进行分类和路由。故而在1993年推出了CIDR(Classless Inter-Domain Routing)[^cidr]，中文含义是**无类别域间路由**。CIDR使用VLSM(可变长度子网掩码)来进行子网划分，可以按照IP的每一个bit来分割子网，比传统的ABCDE的方式灵活太多了。而且可以方便的进行网络的聚合。比如:
 
-比如`192.168.1.0/29`地址块（前`29`bit是网络号，后`3`bit是主机号，子网掩码是`255.255.255.248`）: 包含2<sup>3</sup>=8个IP(`192.168.1.0`~`192.168.1.7`)。
+1. `192.168.1.0/29`: 子网掩码是`255.255.255.248`）, 包含2<sup>32-29=3</sup>=8个IP(`192.168.1.0`~`192.168.1.7`)。
+2. `192.168.1.8/29`: 子网掩码是`255.255.255.248`）, 包含2<sup>32-29=3</sup>=8个IP(`192.168.1.8`~`192.168.1.15`)。
+
+`192.168.1.0/29`和`192.168.1.8/29`可以聚合为`192.168.1.0/28`，聚合后的子网掩码是`255.255.255.240`, 包含2<sup>32-28=4</sup>=16个IP(`192.168.1.1`~`192.168.1.15`)
+
 
 ## 3.3 IPv6 Address {#ipv6-address}
 
