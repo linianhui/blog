@@ -1,9 +1,6 @@
-<script>
-  var _hmt = _hmt || [];
-  (function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b2cc3cea316e1f7a8def1bab8dc98fad";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-  })();
+<script src='/asset/pc.js?time={{now.Unix}}' type="text/javascript"></script>
+<script type="text/javascript">
+  if (blog.isMobile()) {
+    document.write('<link href="/asset/mobile.css?time={{now.Unix}}" rel="stylesheet">');
+  }
 </script>
