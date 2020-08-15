@@ -42,11 +42,11 @@ menu:
       url: /archive/
       weight: 4
       pre: '<i class="fa fa-archive"></i>'
-    - identifier: github
-      name: GitHub
-      url: https://github.com/linianhui/blog
+    - identifier: mirror
+      name: 镜像
+      url: https://linianhui.gitee.io
       weight: 5
-      pre: '<i class="fa fa-github"></i>'
+      pre: '<i class="fa fa-database"></i>'
   topic: []
 taxonomies:
   tag: tag

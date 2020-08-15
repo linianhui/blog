@@ -5,7 +5,11 @@
   </hgroup>
   <nav class="header-nav">
     {{ range .Site.Menus.main }}
-    <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}">
+      {{- $Url := .URL -}}
+      {{- if eq .Identifier "mirror" -}}
+          {{- $Url = print $Url $.Page.RelPermalink -}}
+      {{- end -}}
+    <a class="header-nav-item" href="{{$Url}}" title="{{ .Name }}">
       {{ .Pre }}
       {{ .Name }}
     </a>
