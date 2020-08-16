@@ -1,0 +1,59 @@
+<table style="text-align: left;">
+  <tr>
+    <th colspan="2">Type</th>
+    <th>Source &gt; Destination</th>
+    <th>NAPT</th>
+    <th>NAPT Allowed IP</th>
+    <th>NAPT Allowed Port</th>
+  </tr>
+  <tr>
+    <td rowspan="6">Cone</td>
+    <td rowspan="2">Full</td>
+    <td>192.168.2.2:6666 &gt; 9.9.9.9:80</td>
+    <td rowspan="2">1.1.1.1:7777</td>
+    <td>any</td>
+    <td>any</td>
+  </tr>
+  <tr>
+    <td>192.168.2.2:6666 &gt; 2.2.2.2:33</td>
+    <td>any</td>
+    <td>any</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Address Restricted</td>
+    <td>192.168.2.2:6666 &gt; 9.9.9.9:80</td>
+    <td rowspan="2">1.1.1.1:7777</td>
+    <td>9.9.9.9</td>
+    <td>any</td>
+  </tr>
+  <tr>
+    <td>192.168.2.2:6666 &gt; 2.2.2.2:33</td>
+    <td>2.2.2.2</td>
+    <td>any</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Address Port Restricted</td>
+    <td>192.168.2.2:6666 &gt; 9.9.9.9:80</td>
+    <td rowspan="2">1.1.1.1:7777</td>
+    <td>9.9.9.9</td>
+    <td>80</td>
+  </tr>
+  <tr>
+    <td>192.168.2.2:6666 &gt; 2.2.2.2:33</td>
+    <td>2.2.2.2</td>
+    <td>33</td>
+  </tr>
+  <tr>
+    <td rowspan="2" colspan="2">Symmetric</td>
+    <td>192.168.2.2:6666 &gt; 9.9.9.9:80</td>
+    <td>1.1.1.1:7777</td>
+    <td>9.9.9.9</td>
+    <td>80</td>
+  </tr>
+  <tr>
+    <td>192.168.2.2:6666 &gt; 2.2.2.2:33</td>
+    <td>1.1.1.1:7878</td>
+    <td>2.2.2.2</td>
+    <td>33</td>
+  </tr>
+</table>

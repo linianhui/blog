@@ -73,69 +73,7 @@ toc: true
 
 根据NAPT设备对转换的策略，可以得到一下4种类型的NAPT。示例如下 : 
 
-<table>
-    <thead>
-        <tr>
-            <th align="left" colspan="2">Type</th>
-            <th align="left">Source &gt; Destination</th>
-            <th align="left">NAPT</th>
-            <th align="left">NAPT Allowed IP</th>
-            <th align="left">NAPT Allowed Port</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="left" rowspan="6">Cone</td>
-            <td align="left" rowspan="2">Full</td>
-            <td align="left">192.168.2.2:6666 &gt; 9.9.9.9:80</td>
-            <td align="left" rowspan="2">1.1.1.1:7777</td>
-            <td align="left">any</td>
-            <td align="left">any</td>
-        </tr>
-        <tr>
-            <td align="left">192.168.2.2:6666 &gt; 2.2.2.2:33</td>
-            <td align="left">any</td>
-            <td align="left">any</td>
-        </tr>
-        <tr>
-            <td align="left" rowspan="2">Address Restricted</td>
-            <td align="left">192.168.2.2:6666 &gt; 9.9.9.9:80</td>
-            <td align="left" rowspan="2">1.1.1.1:7777</td>
-            <td align="left">9.9.9.9</td>
-            <td align="left">any</td>
-        </tr>
-        <tr>
-            <td align="left">192.168.2.2:6666 &gt; 2.2.2.2:33</td>
-            <td align="left">2.2.2.2</td>
-            <td align="left">any</td>
-        </tr>
-        <tr>
-            <td align="left" rowspan="2">Address Port Restricted</td>
-            <td align="left">192.168.2.2:6666 &gt; 9.9.9.9:80</td>
-            <td align="left" rowspan="2">1.1.1.1:7777</td>
-            <td align="left">9.9.9.9</td>
-            <td align="left">80</td>
-        </tr>
-        <tr>
-            <td align="left">192.168.2.2:6666 &gt; 2.2.2.2:33</td>
-            <td align="left">2.2.2.2</td>
-            <td align="left">33</td>
-        </tr>
-        <tr>
-            <td align="left" rowspan="2" colspan="2">Symmetric</td>
-            <td align="left">192.168.2.2:6666 &gt; 9.9.9.9:80</td>
-            <td align="left">1.1.1.1:7777</td>
-            <td align="left">9.9.9.9</td>
-            <td align="left">80</td>
-        </tr>
-        <tr>
-            <td align="left">192.168.2.2:6666 &gt; 2.2.2.2:33</td>
-            <td align="left">1.1.1.1:7878</td>
-            <td align="left">2.2.2.2</td>
-            <td align="left">33</td>
-        </tr>
-    </tbody>
-</table>
+{{<inline-html file="napt.html">}}
 
 ## 3.1 Cone NAT {#cone-nat}
 

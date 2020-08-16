@@ -445,78 +445,7 @@ static void Main()
 
 具体的编码流程 :  
 
-<table>
-<tbody>
-<tr>
-<td>原始数据</td>
-<td colspan="24">李</td>
-</tr>
-<tr>
-<td>(1).转成byte数组(UTF8)</td>
-<td colspan="8">230</td>
-<td colspan="8">157</td>
-<td colspan="8">142</td>
-</tr>
-<tr>
-<td>(2).二进制形式</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>(3).按照4bit一组分割</td>
-<td colspan="4">1110</td>
-<td colspan="4">0110</td>
-<td colspan="4">1001</td>
-<td colspan="4">1101</td>
-<td colspan="4">1000</td>
-<td colspan="4">1110</td>
-</tr>
-<tr>
-<td>(4).对应的10进制数值</td>
-<td colspan="4">14</td>
-<td colspan="4">6</td>
-<td colspan="4">9</td>
-<td colspan="4">13</td>
-<td colspan="4">8</td>
-<td colspan="4">14</td>
-</tr>
-<tr>
-<td>(5).对应的16进制字母</td>
-<td colspan="4">E</td>
-<td colspan="4">6</td>
-<td colspan="4">9</td>
-<td colspan="4">D</td>
-<td colspan="4">8</td>
-<td colspan="4">E</td>
-</tr>
-<tr>
-<td>(6).16进制编码</td>
-<td colspan="24">E69D8E</td>
-</tr>
-</tbody>
-</table>
+{{<inline-html file="base16.html">}}
 
 其中核心步骤在(2)-(5)，下面详细解释以下 :  
 
@@ -552,72 +481,7 @@ static void Main()
 ```
 具体的编码流程如下 :  
 
-<table>
-<tbody>
-<tr>
-<td>原始数据</td>
-<td colspan="24">李</td>
-</tr>
-<tr>
-<td>(1).转成byte数组(GB2312)</td>
-<td colspan="8">192</td>
-<td colspan="8">238</td>
-<td colspan="8">&nbsp;</td>
-</tr>
-<tr>
-<td>(2).二进制形式</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>补0</td>
-<td>补0</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>(3).按照6bit一组分割</td>
-<td colspan="6">110000</td>
-<td colspan="6">001110</td>
-<td colspan="6">111000</td>
-<td colspan="6">&nbsp;</td>
-</tr>
-<tr>
-<td>(4).对应的10进制数值</td>
-<td colspan="6">48</td>
-<td colspan="6">14</td>
-<td colspan="6">56</td>
-<td colspan="6">&nbsp;</td>
-</tr>
-<tr>
-<td>(5).对应的base64字母</td>
-<td colspan="6">w</td>
-<td colspan="6">O</td>
-<td colspan="6">4</td>
-<td colspan="6">补=</td>
-</tr>
-<tr>
-<td>(6).base64编码</td>
-<td colspan="24">wO4=</td>
-</tr>
-</tbody>
-</table>
+{{<inline-html file="base64.html">}}
 
 这个过程就不再详细解释了，和上面的16进制是一样的，不同之处在于对齐补上`=`。
 

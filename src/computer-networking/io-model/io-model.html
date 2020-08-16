@@ -1,0 +1,51 @@
+<table>
+  <tr>
+    <td style="width:2em">1</td>
+    <td colspan="3">
+      等待数据准备好后再返回。此时：
+      <br />
+      对于<code>application</code>是<code>Blocking</code>的。
+      <br />
+      对于<code>kernel</code>的<code>read</code>函数是<code>Synchronous</code>的。
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="5">2</td>
+    <td colspan="3">
+      立即返回，告知<code>application</code>数据还未准备好。此时：
+      <br />
+      对于<code>application</code>是<code>Non-Blocking</code>的；
+      <br />
+      对于<code>kernel</code>的<code>read</code>函数是<code>Asynchronous</code>的。
+      <br />
+      <br />
+      由于<code>read</code>函数没有返回<code>application</code>期望读到的数据，那么就必须通过另外的方式把数据给到<code>application</code>。那么此时，也有2种处理方式：
+    </td>
+  </tr>
+  <td style="width:2em">2.1</td>
+  <td colspan="2">
+    <code>application</code>一直不停的调用<code>read</code>函数，直到返回了期望读到的数据。此时<code>read</code>函数虽然没有<code>Blocking</code>到<code>application</code>，但是<code>application</code>也无法处理其他事情，只能不停的调用<code>read</code>。
+  </td>
+  </tr>
+  </tr>
+  <td rowspan="3">2.2</td>
+  <td colspan="2">
+    <code>read</code>函数要求<code>application</code>调用时提供一个<code>callback_function</code>，在数据准备好时通过<code>callback_function</code>告知<code>application</code>。此时<code>application</code>就可以继续做其他事情，直到<code>callback_function</code>被调用。
+    <br />
+    <br />
+    在处理<code>callback_function</code>时，也还有2种处理方式。
+  </td>
+  </tr>
+  </tr>
+  <td>2.2.1</td>
+  <td>
+    数据准备好时调用<code>callback_function</code>，交由<code>application</code>去读取。
+  </td>
+  </tr>
+  </tr>
+  <td>2.2.2</td>
+  <td>
+    数据准备好并且写入到<code>application</code>提供的缓冲区，调用<code>callback_function</code>。
+  </td>
+  </tr>
+</table>
