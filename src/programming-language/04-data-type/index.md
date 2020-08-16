@@ -205,75 +205,15 @@ end
 
 一个记录的各个域通常被放入内存中的相邻位置。编译器在符号表中保存每个域的偏移量，装载和保存的时候通过基址寄存器和偏移量即可得到域的内存地址。类型`element`在32位的机器中可能的布局如下 : 
 
-<table>
-  <tbody>
-    <tr>
-      <td colspan="3">4 byte/32bits(黑色表示空洞-可能会有脏数据)</td>
-    </tr>
-    <tr>
-      <td style="background-color: #0f0; width: 50%;" colspan="2">name(2个字节)</td>
-      <td style="background-color: #000; color: #fff;">2个字节的空洞</td>
-    </tr>
-    <tr>
-      <td style="background-color: #f00;" colspan="3">number(4个字节)</td>
-    </tr>
-    <tr>
-      <td style="background-color: #00f;" colspan="3">weight(8个字节)</td>
-    </tr>
-    <tr>
-      <td style="width: 25%; background-color: #555;">metallic(1个字节)</td>
-      <td style="background-color: #000; color: #fff;" colspan="2">3个字节的空洞</td>
-    </tr>
-  </tbody>
-</table>
+{{<inline-html file="table-1.html">}}
 
 总的算来`element`占据`5*4=20byte`(未压缩)，其中空洞占据5个字节。如果记录的相等性判断按照按位比较的话，空洞中的可能会有一些脏数据出现，从而影响到程序的正常行为。那么解决办法大致有2种，1是压缩布局，消除空洞；2是把空洞位置置0。记录的上面的Pascal代码中有个packed关键字，不知大家注意到木有，它的意思就是说告诉编译器，对这段定义优先优化空间而不是时间，那么它优化后的结果可能如下 : 
 
-<table>
-  <tbody>
-    <tr>
-      <td colspan="3">4 byte/32bits</td>
-    </tr>
-    <tr>
-      <td style="background-color: #0f0; width: 50%;">name(2个字节)</td>
-      <td style="color: #fff; background-color: #ff0000;" colspan="2">number(4个字节)</td>
-    </tr>
-    <tr>
-      <td style="color: #fff; background-color: #ff0000;">&nbsp;</td>
-      <td style="color: #fff; background-color: #0000ff;" colspan="2">&nbsp;</td>
-    </tr>
-    <tr>
-      <td style="color: #fff; background-color: #0000ff;" colspan="3">weight(8个字节)</td>
-    </tr>
-    <tr>
-      <td style="color: #fff; background-color: #0000ff;">&nbsp;</td>
-      <td style="width: 25%; background-color: #555; color: #fff;">metalic(1个字节)</td>
-      <td style="background-color: #000; color: #fff; width: 25%;">1个字节的空洞</td>
-    </tr>
-  </tbody>
-</table>
+{{<inline-html file="table-2.html">}}
 
 这样的布局`element`占据`4*4=16byte`(已压缩)。空间是节省了，但是带来的后果却是运行时上的时间开销(对于未对齐的域的存取需要多条指令方可取出)。如是大家找到一种折中的方案(保证对齐的情况下进行压缩)，效果如下 : 
 
-<table style="width: 100%; text-align: center;">
-  <tbody>
-    <tr>
-      <td colspan="3">4 byte/32bits</td>
-    </tr>
-    <tr>
-      <td style="background-color: #0f0; width: 50%;">name(2个字节)</td>
-      <td style="width: 25%; background-color: #555; color: #fff;">metalic(1个字节)
-      </td>
-      <td style="background-color: #000; color: #fff; width: 25%;">1个字节的空洞</td>
-    </tr>
-    <tr>
-      <td style="color: #fff; background-color: #ff0000;" colspan="3">number(4个字节)</td>
-    </tr>
-    <tr>
-      <td style="color: #fff; background-color: #0000ff;" colspan="3">weight(8个字节)</td>
-    </tr>
-  </tbody>
-</table>
+{{<inline-html file="table-3.html">}}
 
 这种方案会打乱域的排列顺序，不过这也无所谓，必经这种行为属于实现层面的，对程序员来说是属于透明的，除非特殊情况不必去关心编译器是怎么安排的。
 
