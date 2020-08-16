@@ -2,4 +2,4 @@
 {{- with .Title -}}
     {{- $title = . -}}
 {{- end -}}
-<img src="{{ .Destination | safeURL }}" loading="lazy" decoding="async" alt="{{ .Text }}" title="{{ $title }}"/>
+<img src="{{ .Destination | safeURL }}" loading="lazy" decoding="auto" alt="{{ .Text }}" title="{{ $title }}"/>
