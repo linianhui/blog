@@ -1,26 +1,20 @@
 <footer class="footer">
   <section>
-    <span> Copyright © {{ now.Format "2006" }} blackheart </span>
+    Copyright © {{ now.Format "2006" }} blackheart
   </section>
   <section>
     {{ if ne $.Site.Params.GitLastHash "" }}
-    <span>
     <a class="fa fa-code-fork article-git-commit"
       href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
       {{substr $.Site.Params.GitLastHash 0 7}}
     </a>
-    </span>
-    <span> | </span>
     {{ end }}
-    <span>
-      Powered by
-      <a href="https://github.com/actions" target="_blank">GitHub Actions</a>
-      ,
-      <a href="https://github.com/gohugoio/hugo" target="_blank">Hugo</a>
-      and
-      <a href="https://github.com/utterance/utterances" target="_blank">utterances</a>
-    </span>
-    <span> | </span>
-    <span>Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></span>
+    Powered by
+    <a href="https://github.com/actions" target="_blank">GitHub Actions</a>
+    ,
+    <a href="https://github.com/gohugoio/hugo" target="_blank">Hugo</a>
+    and
+    <a href="https://github.com/utterance/utterances" target="_blank">utterances</a>
+    Hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
     <section>
 </footer>
