@@ -61,4 +61,4 @@ What's different/better/worse than other JSON hypermedia media types? : https://
 COAP (Constrained Application Protocol) :  http://coap.technology/
 
 
-REST APIs Design Guidelines : https://github.com/linianhui/code.guide
+HTTP APIs 设计规范/指南 : https://linianhui.github.io/code-guide/http-api/
