@@ -20,6 +20,7 @@ $CODE_PATH_ALIAS = @{
     ns  = $CODE_PATH + 'nuget.server';
     oe  = $CODE_PATH + 'oidc.example';
     se  = $CODE_PATH + 'spring.example';
+    je  = $CODE_PATH + 'java.example';
 }
 
 function Code-ChangeDirectory ([string] $Alias) {

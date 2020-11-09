@@ -15,3 +15,4 @@ git clone https://github.com/linianhui/networking
 git clone https://github.com/linianhui/nuget.server
 git clone https://github.com/linianhui/oidc.example
 git clone https://github.com/linianhui/spring.example
+git clone https://github.com/linianhui/java.example
