@@ -16,7 +16,10 @@
     {{ range .Pages.ByDate.Reverse }}
     <li class="topic-article">
       <time class="topic-article-time">{{ .Date.Format "2006-01-02" }}</time>
-      <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">{{.Title}}</a>
+      <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">
+        {{.Title}}
+        {{ partial "article-weight.html" . }}
+      </a>
     </li>
     {{ end }}
   </ol>

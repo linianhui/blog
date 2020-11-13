@@ -1,7 +1,10 @@
 {{ define "content" }}
 <article class="article">
 
-  <h1 class="article-title">{{ .Title }}</h1>
+  <h1 class="article-title">
+    {{ .Title }}
+    {{ partial "article-weight.html" . }}
+  </h1>
 
   {{ partial "article-meta.html" . }}
 
