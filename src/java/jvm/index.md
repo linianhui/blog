@@ -29,12 +29,29 @@ Java是一个跨平台的语言，当初的口号**编译一次，到处运行**
    
 ClassLoader采用双亲委派的模型来装载class文件。即先用父类加载器去加载，加载不到时才让自己加载。
 ![ClassLoader加载顺序](class-loader.png)
+
+```mermaid
+graph TB
+    ExtClassLoader --委托--> BootstrapClassLoader
+    AppClassLoader --委托--> ExtClassLoader
+    CustomClassLoader1 --继承--> AppClassLoader
+    CustomClassLoader2 --继承--> AppClassLoader
+```
 这样做可以有一下好处：
 1. 避免重复加载某些类型。
 2. 避免核心类型不被随意替换。
 
 一个class文件的完整生命周期如下：
 ![class文件的完整生命周期](class-loader-life-cycle.png)
+```mermaid
+graph LR
+    加载Loading --> 验证Verification
+    验证Verification --> 准备Preparation
+    准备Preparation --> 解析Resolution
+    解析Resolution --> 初始化Initialization
+    初始化Initialization --> 使用Using
+    使用Using --> 卸载Unloading
+```
 1. 加载: 从磁盘文件或者网络中得到class文件的二进制数据，生成一个`java.lang.Class`文件。
 2. 验证：检查Class是否符合当前虚拟机的要求，有没有危害。
 3. 准备：为类变量分配内存。在方法区给这些变量分配内存并且设置零值。
