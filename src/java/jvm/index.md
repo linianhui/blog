@@ -9,7 +9,7 @@ Java是一个跨平台的语言，当初的口号**编译一次，到处运行**
 
 我们知道计算机是无法直接运行我们编写的程序设计语言[^pl]的代码的，需要编译为计算机可理解的特定底层汇编或者机器码指令才可以。所以Java从诞生之初就没有编译成平台相关的代码，而是编译为了平台无关的`bytecode`字节码（文件扩展名`.class`）。然后交由Java虚拟机JVM(Java Virtual Machine)来执行字节码文件，而JVM则需要在每个支持的平台上独立的编写，由它充当我们的**中间层**，以此达到我们编写的代码跨平台运行的目的。
 
-故而，我们编写的Java代码从面向特定的平台而转换为了编写JVM平台。JVM[^jvms]来负责加载编译后的`.calss`文件、并且执行它们，它就是我们Java代码运行的一个假象计算机。
+故而，我们编写的Java代码从面向特定的平台而转换为了编写JVM平台。JVM[^jvms]来负责加载编译后的`.class`文件、并且执行它们，它就是我们Java代码运行的一个假象计算机。
 
 # 1 Data Type {#date-type}
 
@@ -69,6 +69,57 @@ Method int add12and13()
 
 如果`addTwo`方法是静态方法时，也是不需要this的。
 
+## 2.2 Synchronization {#synchronization}
+
+如果一个方法是用`synchronized`标记的[^synchronization]，那么这个方法的的访问修饰符标记上就会添加一项`ACC_SYNCHRONIZED`。
+
+```java
+synchronized void onlyMe() {
+}
+
+// javap -p xxx.class
+synchronized void onlyMe();
+  descriptor: ()V
+  flags: ACC_SYNCHRONIZED
+  Code:
+    stack=0, locals=1, args_size=1
+        0: return
+    LineNumberTable:
+      line 3: 0
+```
+
+如果是用`synchronized(obj)`，编译器则会安插进去一些额外的指令`monitorenter`和`monitorexit`,来指示JVM如何加锁和释放锁。
+
+```java
+void onlyMe(Foo f) {
+    synchronized(f) {
+        doSomething();
+    }
+}
+
+// 编译后
+Method void onlyMe(Foo)
+0   aload_1             // Push f
+1   dup                 // Duplicate it on the stack
+2   astore_2            // Store duplicate in local variable 2
+3   monitorenter        // Enter the monitor associated with f
+4   aload_0             // Holding the monitor, pass this and...
+5   invokevirtual #5    // ...call Example.doSomething()V
+8   aload_2             // Push local variable 2 (f)
+9   monitorexit         // Exit the monitor associated with f
+10  goto 18             // Complete the method normally
+13  astore_3            // In case of any throw, end up here
+14  aload_2             // Push local variable 2 (f)
+15  monitorexit         // Be sure to exit the monitor!
+16  aload_3             // Push thrown value...
+17  athrow              // ...and rethrow value to the invoker
+18  return              // Return in the normal case
+Exception table:
+From    To      Target      Type
+4       10      13          any
+13      16      13          any
+```
+
 # 3 Runtime Data Areas {#runtime-data-areas}
 
 JVM定义了一些在程序执行期间使用的各种运行时数据区域。其中一些区域是随着Java虚拟机启动而创建的，只有在Java虚拟机退出时才会销毁。而其他的一些区域则是随着线程的创建而创建，在随着线程的退出而销毁。
@@ -123,11 +174,48 @@ class文件、运行时常量、静态字段、代码等存放在此区域。大
 2. 堆
 3. 栈
 
-# 4 class File Format {#class-file-format}
+# 4 Class File Format {#class-file-format}
 
-笔者之前用Rust语言编写过一个class文件的解析器[^class-file-div](还未完工)。在编写的过程中对字节码又了更进一步的理解。字节码其实就是我们编写的java代码，只是它是基于栈的一种类似汇编语言的二进制格式。JVM规范中规定了这个二进制文件的结构。
+笔者之前用Rust语言编写过一个class文件的解析器[^class-file-div](还未完工)。在编写的过程中对字节码又了更进一步的理解。字节码其实就是我们编写的java代码，只是它是基于栈的一种类似汇编语言的二进制格式。JVM规范中规定了这个二进制文件的结构。一个完整的Class文件结构如下（采用大端/网络字节序存储）：
+```java
+ClassFile {
+    u4             magic;
+    u2             minor_version;
+    u2             major_version;
+    u2             constant_pool_count;
+    cp_info        constant_pool[constant_pool_count-1];
+    u2             access_flags;
+    u2             this_class;
+    u2             super_class;
+    u2             interfaces_count;
+    u2             interfaces[interfaces_count];
+    u2             fields_count;
+    field_info     fields[fields_count];
+    u2             methods_count;
+    method_info    methods[methods_count];
+    u2             attributes_count;
+    attribute_info attributes[attributes_count];
+}
+```
 
-这个文件结构是Java得以跨平台的根基。详细的信息就不展开了，具体细节可以参考JVM规范[^jvms-class-format]和上面提到的我编写的一个解析器。
+1. `magic` : 文件魔数,标识此文件是一个class文件，固定值: 0xCA_FE_BA_BE。
+2. `minor_version`：次版本号，
+3. `major_version`：主版本号，比如Java 8是52，版本号标识着JVM支持的规范的版本，以及Class文件的结构。
+4. `constant_pool_count`：常量池元素数量
+5. `constant_pool[constant_pool_count-1]`：常量池数组, 索引从1开始，0代表无效的。
+6. `access_flags`：类的访问标识符，比如:是否public,interface,abstract等等
+7. `this_class`：当前类符号信息在常量池中的索引
+8. `super_class`：父类符号信息在常量池中的索引
+9. `interfaces_count`：实现的接口的数量。
+10. `interfaces[interfaces_count]`：接口的数组，数组中的元素也是指向常量池中的索引。
+11. `fields_count`：字段的数量。
+12. `fields[fields_count]`: 字段信息的数组。
+13. `methods_count`：方法的数量。
+14. `methods[methods_count]`: 方法信息的数组。
+15. `attributes_count`：attribute的数量。
+16. `attributes[attributes_count]`: attribute信息的数组。
+
+其中field,method,attribute这些数组中的信息记录着的也是指向`constant_pool`的索引。除此之外是`attributes`这个数组，我们的代码最终是体现在这里的（也包括我们的代码行号等信息）。这个文件结构是Java得以跨平台的根基。更详细的信息就不展开了，具体细节可以参考JVM规范[^jvms-class-format]和上面提到的我编写的一个解析器。
 
 # 5 Loading Linking and Initializing  {#loading-linking-and-initializing}
 
@@ -201,7 +289,7 @@ java -XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.00 -jar app.j
 
 [^jvms]: Java® Virtual Machine Specification : <https://docs.oracle.com/javase/specs/jvms/se8/html/index.html> 
 
-[^jvms-class-format]: Java® Virtual Machine Specification - Chapter 4. The class File Format : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html>
+[^jvms-class-format]: JVMS - Chapter 4. The class File Format : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html>
 
 [^class-file-div]: class file 解析器 : <https://github.com/linianhui/div/tree/master/src/class>
 
@@ -209,8 +297,9 @@ java -XX:+UseG1GC -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.00 -jar app.j
 
 [^first-class]: First-class citizen : <https://en.wikipedia.org/wiki/First-class_citizen>
 
-[^this-argument]: this Argument : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.7>
+[^this-argument]: JVMS - Chapter 3. Compiling for the Java Virtual Machine - this Argument : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.7>
 
+[^synchronization]: JVMS - Chapter 3. Compiling for the Java Virtual Machine - Synchronization : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.14>
 
 [JEP-307]:<https://openjdk.java.net/jeps/307>
 [JEP-346]:<https://openjdk.java.net/jeps/346>
