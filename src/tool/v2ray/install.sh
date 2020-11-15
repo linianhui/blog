@@ -8,12 +8,13 @@ yum install -y wget gettext lsof
 
 bash <(wget -q -O - https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
-CRET_NAME=$(v2ctl uuid)
-CRET_ORG=$(v2ctl uuid)
+UUID=$(v2ctl uuid)
+CRET_NAME=${UUID:0:8}
+CRET_ORG=${UUID:9:4}
 
 export TEMPLATE_SERVER_IP=$1
-export TEMPLATE_SERVER_DOMAIN_NAME="$(v2ctl uuid).test"
-export TEMPLATE_CLIENT_ID=$(v2ctl uuid)
+export TEMPLATE_SERVER_DOMAIN_NAME="${UUID:24:12}.test"
+export TEMPLATE_CLIENT_ID=$UUID
 export TEMPLATE_CERTIFICATE_JSON=$(v2ctl cert --ca --json --domain=$TEMPLATE_SERVER_DOMAIN_NAME --expire=24000h --name=$CRET_NAME --org=$CRET_ORG)
 
 mkdir -p /usr/local/etc/v2ray
