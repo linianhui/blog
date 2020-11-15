@@ -59,7 +59,7 @@ alias hugo='hugo --config hugo.yml'
 
 alias mvn-wrapper='mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.6.3'
 
-alias gradle-wrapper='gradle wrapper --distribution-type all --gradle-version 6.0.1'
+alias gradle-wrapper='gradle wrapper --distribution-type all --gradle-version 6.7'
 
 alias mvn-help='./mvnw help:describe -Ddetail'
 
