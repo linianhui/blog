@@ -24,7 +24,7 @@ java -v
 
 下载地址 : <https://maven.apache.org/download.cgi>
 
-下载二进制包 : `apache-maven-3.6.1-bin.zip`解压至`d:\.app\.maven\`目录下。 
+下载二进制包 : `apache-maven-3.6.3-bin.zip`解压至`d:\.app\.maven\`目录下。 
 ```powershell
 # 设置环境变量
 Env-SetMavenEnvironmentVariable
@@ -34,7 +34,7 @@ mvn -v
 
 # wrapper
 # https://github.com/takari/maven-wrapper
-mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.6.3
+mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven='3.6.3'
 ```
 ## 2.1 settings.xml {#settings-xml}
 
@@ -47,7 +47,7 @@ mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.6.3
 
 下载地址 : <https://gradle.org/releases/>
 
-下载二进制包 : `gradle-6.0.1-bin.zip`解压至`d:\.app\.gradle\`目录下。
+下载二进制包 : `gradle-6.7-bin.zip`解压至`d:\.app\.gradle\`目录下。
 设置环境变量 : 
 ```powershell
 # 设置环境变量
@@ -58,7 +58,7 @@ gradle -v
 
 # wrapper
 # https://docs.gradle.org/current/userguide/gradle_wrapper.html
-gradle wrapper --gradle-version 6.0.1 --distribution-type all
+gradle wrapper --gradle-version 6.7 --distribution-type all
 ```
 
 ## 3.1 gradle.properties {#gradle-properties}
