@@ -8,6 +8,8 @@ yum install -y wget gettext lsof
 
 bash <(wget -q -O - https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
+setcap cap_net_bind_service=+eip /usr/local/bin/v2ray
+
 UUID=$(v2ctl uuid)
 CRET_NAME=${UUID:0:8}
 CRET_ORG=${UUID:9:4}
