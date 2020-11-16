@@ -8,8 +8,6 @@ yum install -y wget gettext lsof
 
 bash <(wget -q -O - https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh)
 
-setcap cap_net_bind_service=+eip /usr/local/bin/v2ray
-
 UUID=$(v2ctl uuid)
 CRET_NAME=${UUID:0:8}
 CRET_ORG=${UUID:9:4}
@@ -19,9 +17,9 @@ export TEMPLATE_SERVER_DOMAIN_NAME="${UUID:24:12}.test"
 export TEMPLATE_CLIENT_ID=$UUID
 export TEMPLATE_CERTIFICATE_JSON=$(v2ctl cert --ca --json --domain=$TEMPLATE_SERVER_DOMAIN_NAME --expire=24000h --name=$CRET_NAME --org=$CRET_ORG)
 
-mkdir -p /usr/local/etc/v2ray
+wget -q https://linianhui.github.io/tool/v2ray/v2ray.service -O /etc/systemd/system/v2ray.service
 
-wget -q -O - https://linianhui.github.io/tool/v2ray/server-config.template.json | envsubst > /usr/local/etc/v2ray/config.json
+wget -q -O - https://linianhui.github.io/tool/v2ray/server-config.template.json | envsubst > /etc/v2ray.json
 
 wget -q -O - https://linianhui.github.io/tool/v2ray/client-config.template.json | envsubst > client-config.json
 
