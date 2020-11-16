@@ -17,6 +17,8 @@ export TEMPLATE_SERVER_DOMAIN_NAME="${UUID:24:12}.test"
 export TEMPLATE_CLIENT_ID=$UUID
 export TEMPLATE_CERTIFICATE_JSON=$(v2ctl cert --ca --json --domain=$TEMPLATE_SERVER_DOMAIN_NAME --expire=24000h --name=$CRET_NAME --org=$CRET_ORG)
 
+rm -rf /etc/systemd/system/v2ray.service.d
+
 wget -q https://linianhui.github.io/tool/v2ray/v2ray.service -O /etc/systemd/system/v2ray.service
 
 wget -q -O - https://linianhui.github.io/tool/v2ray/server-config.template.json | envsubst > /etc/v2ray.json
