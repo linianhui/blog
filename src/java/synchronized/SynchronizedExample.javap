@@ -1,0 +1,123 @@
+public class SynchronizedExample
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #5.#22         // java/lang/Object."<init>":()V
+   #2 = Methodref          #4.#23         // SynchronizedExample.instanceMethod:()V
+   #3 = Methodref          #4.#24         // SynchronizedExample.staticMethod:()V
+   #4 = Class              #25            // SynchronizedExample
+   #5 = Class              #26            // java/lang/Object
+   #6 = Utf8               <init>
+   #7 = Utf8               ()V
+   #8 = Utf8               Code
+   #9 = Utf8               LineNumberTable
+  #10 = Utf8               instanceSynchronizedStatementMethod
+  #11 = Utf8               (Ljava/lang/Object;)V
+  #12 = Utf8               StackMapTable
+  #13 = Class              #25            // SynchronizedExample
+  #14 = Class              #26            // java/lang/Object
+  #15 = Class              #27            // java/lang/Throwable
+  #16 = Utf8               synchronizedInstanceMethod
+  #17 = Utf8               instanceMethod
+  #18 = Utf8               synchronizedStaticMethod
+  #19 = Utf8               staticMethod
+  #20 = Utf8               SourceFile
+  #21 = Utf8               SynchronizedExample.java
+  #22 = NameAndType        #6:#7          // "<init>":()V
+  #23 = NameAndType        #17:#7         // instanceMethod:()V
+  #24 = NameAndType        #19:#7         // staticMethod:()V
+  #25 = Utf8               SynchronizedExample
+  #26 = Utf8               java/lang/Object
+  #27 = Utf8               java/lang/Throwable
+{
+  public SynchronizedExample();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+
+  public void instanceSynchronizedStatementMethod(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=4, args_size=2
+         0: aload_1
+         1: dup
+         2: astore_2
+         3: monitorenter
+         4: aload_0
+         5: invokevirtual #2                  // Method instanceMethod:()V
+         8: aload_2
+         9: monitorexit
+        10: goto          18
+        13: astore_3
+        14: aload_2
+        15: monitorexit
+        16: aload_3
+        17: athrow
+        18: return
+      Exception table:
+         from    to  target type
+             4    10    13   any
+            13    16    13   any
+      LineNumberTable:
+        line 6: 0
+        line 7: 4
+        line 8: 8
+        line 9: 18
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 13
+          locals = [ class SynchronizedExample, class java/lang/Object, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public synchronized void synchronizedInstanceMethod();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokevirtual #2                  // Method instanceMethod:()V
+         4: return
+      LineNumberTable:
+        line 12: 0
+        line 13: 4
+
+  public void instanceMethod();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=0, locals=1, args_size=1
+         0: return
+      LineNumberTable:
+        line 16: 0
+
+  public static synchronized void synchronizedStaticMethod();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC, ACC_SYNCHRONIZED
+    Code:
+      stack=0, locals=0, args_size=0
+         0: invokestatic  #3                  // Method staticMethod:()V
+         3: return
+      LineNumberTable:
+        line 19: 0
+        line 20: 3
+
+  public static void staticMethod();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=0, locals=0, args_size=0
+         0: return
+      LineNumberTable:
+        line 23: 0
+}
+SourceFile: "SynchronizedExample.java"
