@@ -1,0 +1,117 @@
+<table style="text-align: center;">
+  <thead>
+    <tr>
+      <th rowspan="4">State</th>
+      <th colspan="32">Mark Word (32 bit)</th>
+    </tr>
+    <tr>
+      <th colspan="8">Octet 1</th>
+      <th colspan="8">Octet 2</th>
+      <th colspan="8">Octet 3</th>
+      <th colspan="8">Octet 4</th>
+    </tr>
+    <tr>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+    </tr>
+    <tr>
+      <th colspan="23">23 bit</th>
+      <th colspan="2">2 bit</th>
+      <th colspan="4">4 bit</th>
+      <th colspan="1">Is Biased Lock</th>
+      <th colspan="2">Flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        unlocked
+      </td>
+      <td colspan="25">
+        identity hashcode
+      </td>
+      <td colspan="4">
+        age
+      </td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>
+        biased lock
+      </td>
+      <td colspan="23">
+        thread id
+      </td>
+      <td colspan="2">
+        epoch
+      </td>
+      <td colspan="4">age</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>
+        lightweight lock
+      </td>
+      <td colspan="30">
+        pointer to stack lock record
+      </td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>
+        heavyweight lock
+      </td>
+      <td colspan="30">
+        pointer to monitor
+      </td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>
+        marked for gc
+      </td>
+      <td colspan="30"></td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+  <tfoot>
+
+  </tfoot>
+</table>
