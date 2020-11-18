@@ -39,7 +39,17 @@ toc: true
 
 而`synchronizedInstanceMethod`和`synchronizedStaticMethod`两个方法就比较简单了，只是增加来一个标记`ACC_SYNCHRONIZED`。当JVM遇见这个标记的方法时，会使用和上面一样的`monitorenter`和`monitorexit`一样的方式来执行加锁和解锁行为。
 
-# 3 Monitor {#monitor}
+# 3 实现原理 {#}
+
+JVM底层是依赖Java的对象头中的`Mark Word`和`Monitor`来实现的`synchronized`。
+
+## 3.1 Mark Word {#mark-word} 
+
+锁的四种状态体现在下面的表格中。
+
+{{<inline-html file="mark-word.32bit.html">}}
+
+## 3.2 Monitor {#monitor}
 
 我们通过上述的字节码已经得知了`monitorenter`和`monitorexit`指令以及附加到方法上的`ACC_SYNCHRONIZED`标记。在文章开头提到`synchronized`是由JVM层面提供的`Monitor`来实现，那么这些指令和标记就是为Monitor而准备的，在JVM中通过C++实现的`ObjectMonitor`[^object-monitor-cpp]来提供支持。
 
@@ -54,12 +64,33 @@ toc: true
 4. `_recursions`：锁的重入次数。
 5. `_count`：线程获取锁的次数。
 
-# 参考资料 {#reference}
+## 3.3 Heavyweight Lock {#heavyweight-lock}
+
+Jdk1.6之前，`synchronized`在JVM底层就只是传统意义上的依赖OS内核mutex结合`Mark Word`和`Monitor`实现的传统意义上的锁，现在称之为重量级锁。
+
+在上面的`Mark Word`表格中，当`Flag`是`10`时，代表前面的30bit是指向Monitor对象的指针。
+
+## 3.4 Lightweight Lock {#lightweight-lock}
+
+在Jdk1.6时，引入了轻量级锁。自旋锁，自适应锁。
+
+## 3.5 Biased Lock {#biased-lock}
+
+在Jdk1.6时，引入了偏向锁。
+
+# 4 遗留问题 {#problem}
+
+使用`synchronized`来进行同步是非常方便的，JVM也在进行持续的优化，性能也可以得到满足。但是因为这一切都是JVM内部实现的，有些个别的需求它依然无法满足。
+
+1. 有些情况下效率达不到要求。
+2. 获取锁的状态。
+3. 不可中断。
+4. 不够灵活。
+
+# 5 参考资料 {#reference}
 
 [^jls-synchronization]: JLS-Synchronization : <https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.1>
 
 [^jvm-synchronization]: JVM-Synchronization : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.14>
 
 [^object-monitor-cpp]: ObjectMonitor.hpp : <http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/runtime/objectMonitor.hpp#l140>
-
-待补充。
