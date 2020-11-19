@@ -94,3 +94,7 @@ Jdk1.6之前，`synchronized`在JVM底层就只是传统意义上的依赖OS内�
 [^jvm-synchronization]: JVM-Synchronization : <https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-3.html#jvms-3.14>
 
 [^object-monitor-cpp]: ObjectMonitor.hpp : <http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/runtime/objectMonitor.hpp#l140>
+
+《Eliminating Synchronization-Related Atomic Operations withBiased Locking and Bulk Rebiasing》 : <https://www.oracle.com/technetwork/java/biasedlocking-oopsla2006-wp-149958.pdf>
+
+Synchronization and Object Locking : <https://wiki.openjdk.java.net/display/HotSpot/Synchronization>
