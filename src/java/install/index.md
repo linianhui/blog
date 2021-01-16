@@ -75,7 +75,7 @@ gradle wrapper --gradle-version 6.7 --distribution-type all
 {{<highlight-file file="init.gradle" lang="groovy">}}
 
 
-## 3.2 settings.gradle {#settings.gradle}
+## 3.3 settings.gradle {#settings.gradle}
 
 复制`settings.gradle`配置文件到`GRADLE_USER_HOME`目录。
 
