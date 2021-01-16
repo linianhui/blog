@@ -9,11 +9,9 @@
     {{- if $isAbsolutePath -}}
       <span>{{$fileParam}}</span>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
-      <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawUrl}}{{$filePath}}" title="文本"></a>
     {{- else -}}
-      <a target="_blank" href="{{$filePath}}" download>{{$fileParam}}</a>
+      <a class="fa fa-download" target="_blank" href="{{$filePath}}" download> {{$fileParam}}</a>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
-      <a class="fa fa-file-text" target="_blank" href="{{$.Site.Params.RepositoryRawSrcUrl}}{{$filePath}}" title="文本"></a>
     {{- end -}}
   </div>
   <div class="highlight-file-content">
