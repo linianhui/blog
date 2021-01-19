@@ -4,7 +4,7 @@
   },
   "inbounds": [
     {
-      "listen": "$TEMPLATE_SERVER_IP",
+      "listen": "$TEMPLATE_LISTEN_IP",
       "port": 443,
       "protocol": "vmess",
       "settings": {
