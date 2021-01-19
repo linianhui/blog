@@ -1,6 +1,5 @@
 # wget https://linianhui.github.io/tool/v2ray/install.sh
-# 把0.0.0.0换成服务器IP
-# bash install.sh '0.0.0.0' '1.2.3.4'
+# bash install.sh '监听IP' '服务器IP'
 
 set -eux
 
