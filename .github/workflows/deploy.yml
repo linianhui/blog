@@ -30,7 +30,7 @@ jobs:
         run: |
           git init
           git config user.name 'GitHub Actions'
-          git config user.email 'lnhcode@outlook.com'
+          git config user.email 'lnhdyx@outlook.com'
           git add .
           git commit -m "GitHub Actions Auto Deploy" -m "https://github.com/linianhui/blog/commit/${GITHUB_SHA}"
 

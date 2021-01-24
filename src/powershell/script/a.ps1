@@ -6,7 +6,7 @@
 Param(
     [switch]$Init = $False,
     [string]$GitUserName = 'lnh',
-    [string]$GitUserEmail = 'lnhcode@outlook.com'
+    [string]$GitUserEmail = 'lnhdyx@outlook.com'
 )
 
 @(
