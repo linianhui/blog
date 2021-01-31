@@ -38,6 +38,7 @@ TWRP: <https://twrp.me/Devices/>
 ## 2.1 fastboot {#fastboot}
 
 ```bash
+fastboot flashing unlock
 fastboot flash recovery recovery.img
 fastboot flash logo logo.bin
 ```
