@@ -39,6 +39,8 @@ TWRP: <https://twrp.me/Devices/>
 
 ```bash
 fastboot flashing unlock
+# fix fastboot error ：unsupported command 
+fwtool vbnv write dev_boot_fastboot_full_cap 1
 fastboot flash recovery recovery.img
 fastboot flash logo logo.bin
 ```
