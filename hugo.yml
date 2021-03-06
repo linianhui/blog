@@ -104,7 +104,9 @@ markup:
       taskList: true
       typographer: false
     parser:
-      attribute: true
+      attribute:
+        block: false
+        title: true
       autoHeadingID: true
     renderer:
       hardWraps: true
