@@ -65,3 +65,6 @@ alias mvn-help='./mvnw help:describe -Ddetail'
 
 alias java-x='java -X'
 alias java-xx='java -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -XX:+PrintFlagsFinal -version'
+
+alias proxy='export ALL_PROXY=socks5://127.0.0.1:1080'
+alias unproxy='unset ALL_PROXY'
