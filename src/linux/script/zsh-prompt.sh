@@ -3,7 +3,7 @@
 # Prompt-Expansion http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
 # __posh_git_echo  https://github.com/lyze/posh-git-sh
 
-autoload -U colors && colors
+unsetopt PROMPT_SP
 
 setopt prompt_subst
 
