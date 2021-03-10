@@ -1,7 +1,8 @@
-APP_DIR=$HOME/_app
-CACHE_DIR=$HOME/_cache
-CONFIG_DIR=$HOME/_config
-DATA_DIR=$HOME/_data
+MY_HOME=/lnh
+APP_DIR=$MY_HOME/_app
+CACHE_DIR=$MY_HOME/_cache
+CONFIG_DIR=$MY_HOME/_config
+DATA_DIR=$MY_HOME/_data
 
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_CACHE_HOME=$CACHE_DIR
