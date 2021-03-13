@@ -156,6 +156,8 @@ function Git-SetGlobalAlias () {
 # set global config
 function Git-SetGlobalConfig () {
 
+    git config --global init.defaultBranch main
+
     # gui
     git config --global gui.encoding 'utf-8'
 
