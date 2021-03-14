@@ -70,7 +70,7 @@ pattern
 
 当前站点项目所使用的配置如下:
 
-{{<highlight-file file="/.gitattributes" lang="ini">}}
+{{<highlight-file path="/.gitattributes" lang="ini">}}
 
 这样以来存储到Git中的文本文件都统一采用`lf`，而针对个别文件在工作区中采用`crlf`(亦可灵活的调整工作区中的EOL,而无需改动存储区已经存在的文件)，需同时进行如下设置
 ```bash

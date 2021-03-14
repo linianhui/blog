@@ -37,7 +37,7 @@ toc: true
 
 IPv4的Packet[^ipv4-packet]:
 
-{{<highlight-file file="ipv4-packet.txt" lang="txt">}}
+{{<highlight-file path="ipv4-packet.txt" lang="txt">}}
 
 看起来很复杂的样子(其实就是很复杂...)，我们这里只关注几个重点的就可以了。
 
@@ -69,7 +69,7 @@ IPv4的Packet[^ipv4-packet]:
 
 IPv6的Packet[^ipv6-packet]:
 
-{{<highlight-file file="ipv6-packet.txt" lang="txt">}}
+{{<highlight-file path="ipv6-packet.txt" lang="txt">}}
 
 
 # 3 IP Address {#ip-address}
@@ -84,7 +84,7 @@ IP Address由`Network Id`(网络号)和`Host Id`(主机号)两部分组成，所
 
 IPv4长度为4octet=32bit。按照传统的网络分类[^classful-network]方式把IP分为了ABCDE五类。划分方式:
 
-{{<inline-html file="classful-network.html">}}
+{{<inline-html path="classful-network.html">}}
 
 地址数量和范围:
 

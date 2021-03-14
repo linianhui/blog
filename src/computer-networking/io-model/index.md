@@ -8,7 +8,7 @@ toc: true
 
 在I/O模型中，设想如此场景 : **`application`通过`kernel`的`read`函数读取数据，但是`kernel`还未准备好数据**。那么此时`read`函数有两种处理方式（大致的流程）：
 
-{{<inline-html file="io-model.html">}}
+{{<inline-html path="io-model.html">}}
 
 ![I/O Model](io-model.gif)
 

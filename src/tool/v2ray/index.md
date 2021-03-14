@@ -6,7 +6,7 @@ toc: true
 
 # 1 服务器安装 {#server-install}
 
-{{<highlight-file file="install.sh" lang="sh">}}
+{{<highlight-file path="install.sh" lang="sh">}}
 
 # 2 客户端安装 {#client-install}
 
@@ -37,12 +37,12 @@ SwitchyOmega : <https://chrome.google.com/webstore/detail/proxy-switchyomega/pad
 
 ## 4.1 服务器配置模板 {#server-config-template}
 
-{{<highlight-file file="server-config.template.json" lang="json">}}
+{{<highlight-file path="server-config.template.json" lang="json">}}
 
 ## 4.2 客户端配置模板(v2ray-core) {#client-config-template}
 
-{{<highlight-file file="client-config.template.json" lang="json">}}
+{{<highlight-file path="client-config.template.json" lang="json">}}
 
 ## 4.3 客户端配置模板(v2rayNG) {#client-config-v2rayng-template}
 
-{{<highlight-file file="client-config.v2rayng.template.json" lang="json">}}
+{{<highlight-file path="client-config.v2rayng.template.json" lang="json">}}

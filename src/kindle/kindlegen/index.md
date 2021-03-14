@@ -25,7 +25,7 @@ toc: true
 kindlegen.exe xxx.epub
 ```
 
-{{<highlight-file file="epub-to-mobi.bat"  lang="cmd">}}
+{{<highlight-file path="epub-to-mobi.bat"  lang="cmd">}}
 
 # 3 help {#help}
 

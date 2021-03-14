@@ -9,27 +9,27 @@ toc: true
 
 ## 1.1 Ubuntu {#docker-on-ubuntu} 
 
-{{<highlight-file file="docker-on-ubuntu.sh" lang="bash">}}
+{{<highlight-file path="docker-on-ubuntu.sh" lang="bash">}}
 
 ## 1.2 CentOS {#docker-on-centos}
 
-{{<highlight-file file="docker-on-centos.sh" lang="bash">}}
+{{<highlight-file path="docker-on-centos.sh" lang="bash">}}
 
 ## 1.3 Config dockerd {#config-dockerd}
 
-{{<highlight-file file="config-dockerd.sh" lang="bash">}}
+{{<highlight-file path="config-dockerd.sh" lang="bash">}}
 
-{{<highlight-file file="daemon.json" lang="json">}}
+{{<highlight-file path="daemon.json" lang="json">}}
 
 
 # 2 Dokcer Compose {#docker-compose}
 
-{{<highlight-file file="docker-compose.sh" lang="bash">}}
+{{<highlight-file path="docker-compose.sh" lang="bash">}}
 
 
 # 3 Dokcer Machine {#docker-machine}
 
-{{<highlight-file file="docker-machine.sh" lang="bash">}}
+{{<highlight-file path="docker-machine.sh" lang="bash">}}
 
 
 # 4 Reference {#reference}

@@ -40,7 +40,7 @@ mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven='3.6.3'
 
 复制`settings.xml`配置文件到`HOME/.m2/`目录。
 
-{{<highlight-file file="settings.xml" lang="xml">}}
+{{<highlight-file path="settings.xml" lang="xml">}}
 
 
 # 3 Gradle {#3.gradle}
@@ -65,18 +65,18 @@ gradle wrapper --gradle-version 6.7 --distribution-type all
 
 复制`gradle.properties`配置文件到`GRADLE_USER_HOME`目录。
 
-{{<highlight-file file="gradle.properties" lang="ini">}}
+{{<highlight-file path="gradle.properties" lang="ini">}}
 
 
 ## 3.2 init.gradle {#init-gradle}
 
 复制`init.gradle`配置文件到`GRADLE_USER_HOME`目录。
 
-{{<highlight-file file="init.gradle" lang="groovy">}}
+{{<highlight-file path="init.gradle" lang="groovy">}}
 
 
 ## 3.3 settings.gradle {#settings.gradle}
 
 复制`settings.gradle`配置文件到`GRADLE_USER_HOME`目录。
 
-{{<highlight-file file="settings.gradle" lang="groovy">}}
+{{<highlight-file path="settings.gradle" lang="groovy">}}

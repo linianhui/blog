@@ -63,7 +63,7 @@ toc: true
 
 DIX V2的Frame[^ethernet-frame]:
 
-{{<highlight-file file="dix-ethernet-v2-frame.txt" lang="txt">}}
+{{<highlight-file path="dix-ethernet-v2-frame.txt" lang="txt">}}
 
 这个协议中规定了Frame所包含的一些字段以及其字节布局，包括:
 1. Destination MAC Address (6 octet) : 目标MAC地址。
@@ -118,7 +118,7 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 
 当`DIX V2`的`Type`字段的值为`0x_81_00`时，代表其Payload是VLAN(IEEE 802.1Q)[^vlan]的帧格式[^vlan-frame]。
 
-{{<highlight-file file="vlan-frame.txt" lang="txt">}}
+{{<highlight-file path="vlan-frame.txt" lang="txt">}}
 
 # 7 设备 {#device}
 

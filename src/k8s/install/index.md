@@ -38,7 +38,7 @@ ip a
 2. 为k8s相关的服务配置防火墙，这里图省事，直接关闭防火墙。
 3. 关闭Swap内存（k8s为了性能考虑，不允许开启Swap）。
 
-{{<highlight-file file="init-node.sh" lang="bash">}}
+{{<highlight-file path="init-node.sh" lang="bash">}}
 
 
 # 2. 安装Docker {#docker}
@@ -47,13 +47,13 @@ ip a
 
 # 3. 安装Kubeadm {#kubeadm}
 
-{{<highlight-file file="kubeadm.sh" lang="bash">}}
+{{<highlight-file path="kubeadm.sh" lang="bash">}}
 
 # 4. 初始化Master节点 {#master}
 
 上述步骤需要在每个node上都执行。本步骤只需在master上执行即可。集群配置文件
 
-{{<highlight-file file="kubeadm.init-config.yml" lang="yml">}}
+{{<highlight-file path="kubeadm.init-config.yml" lang="yml">}}
 
 初始化命令:
 ```bash

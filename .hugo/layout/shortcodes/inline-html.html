@@ -1,3 +1,3 @@
-{{- $fileParam := .Get "file" -}}
-{{- $filePath := ((path.Join $.Page.File.Dir $fileParam) | relURL) }}
+{{- $pathParam := .Get "path" -}}
+{{- $filePath := ((path.Join $.Page.File.Dir $pathParam) | relURL) }}
 {{- safeHTML ($filePath | readFile) -}}

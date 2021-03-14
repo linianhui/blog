@@ -11,7 +11,7 @@ toc: true
 
 `synchronized`关键字在语法层面[^jls-synchronization]有两种形式。请看如下的示例代码：
 
-{{<highlight-file file="SynchronizedExample.java" lang="java">}}
+{{<highlight-file path="SynchronizedExample.java" lang="java">}}
 
 ## 1.1 修饰代码快 {#statement}
 
@@ -33,7 +33,7 @@ toc: true
 
 通过字节码来看一下编译后的代码。
 
-{{<highlight-file file="SynchronizedExample.javap" lang="ini">}}
+{{<highlight-file path="SynchronizedExample.javap" lang="ini">}}
 
 可以看出`instanceSynchronizedStatementMethod`比`instanceMethod`中多来很多的指令，主要是`monitorenter`和`monitorexit`这两个，前者代表加锁，后者代表释放锁，由于不知掉内部会不会抛出异常，故而编译器自动添加来`finaly`块来保证锁的释放。
 
@@ -47,7 +47,7 @@ JVM底层是依赖Java的对象头中的`Mark Word`和`Monitor`来实现的`sync
 
 锁的四种状态体现在下面的表格中。
 
-{{<inline-html file="mark-word.32bit.html">}}
+{{<inline-html path="mark-word.32bit.html">}}
 
 ## 3.2 Monitor {#monitor}
 
@@ -55,7 +55,7 @@ JVM底层是依赖Java的对象头中的`Mark Word`和`Monitor`来实现的`sync
 
 > `java.lang.Object`的`wait`、`notify`和`notifyAll`这些native方法也是由`ObjectMonitor`实现的。
 
-{{<highlight-file file="ObjectMonitor.hpp" lang="cpp">}}
+{{<highlight-file path="ObjectMonitor.hpp" lang="cpp">}}
 
 这里由几个重要的字段：
 1. `_owner`：拥有当前对象的线程地址。

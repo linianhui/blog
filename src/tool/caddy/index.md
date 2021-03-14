@@ -7,7 +7,7 @@ toc: true
 
 # 1 概述 {#overview}
 
-{{<highlight-file file="Caddyfile" lang="ini">}}
+{{<highlight-file path="Caddyfile" lang="ini">}}
 
 # 2 参考 {#reference}
 

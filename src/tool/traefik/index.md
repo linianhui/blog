@@ -11,6 +11,6 @@ toc: true
 下载: <https://github.com/containous/traefik/releases>
 
 配置:
-{{<highlight-file file="traefik.yml" lang="yml">}}
+{{<highlight-file path="traefik.yml" lang="yml">}}
 
-{{<highlight-file file="dynamic.yml" lang="yml">}}
+{{<highlight-file path="dynamic.yml" lang="yml">}}

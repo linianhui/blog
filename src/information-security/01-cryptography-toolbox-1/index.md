@@ -445,7 +445,7 @@ static void Main()
 
 具体的编码流程 :  
 
-{{<inline-html file="base16.html">}}
+{{<inline-html path="base16.html">}}
 
 其中核心步骤在(2)-(5)，下面详细解释以下 :  
 
@@ -481,7 +481,7 @@ static void Main()
 ```
 具体的编码流程如下 :  
 
-{{<inline-html file="base64.html">}}
+{{<inline-html path="base64.html">}}
 
 这个过程就不再详细解释了，和上面的16进制是一样的，不同之处在于对齐补上`=`。
 

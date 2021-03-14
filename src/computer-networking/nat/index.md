@@ -73,7 +73,7 @@ toc: true
 
 根据NAPT设备对转换的策略，可以得到一下4种类型的NAPT。示例如下 : 
 
-{{<inline-html file="napt.html">}}
+{{<inline-html path="napt.html">}}
 
 ## 3.1 Cone NAT {#cone-nat}
 

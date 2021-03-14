@@ -25,7 +25,7 @@ Server端 (`destination_ip`, `destination_port`) 固定，最大连接数=`sourc
 
 答：TCP是一个全双工协议，通信双方需要确认`自身`和`对方`都具备`发送`和`接收`数据的能力。而 *`3步`* 握手是确认上述能力的最小交互步数。如下图，`A`和`B`是通信双方：
 
-{{<inline-html file="3-step-handshake.html">}}
+{{<inline-html path="3-step-handshake.html">}}
 
 ## 2.2 TCP 关闭连接为什么需要 *`4步`* 挥手? {#why-tcp-need-4-step-handshake-to-close-connection}
 

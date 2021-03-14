@@ -10,7 +10,7 @@ toc: true
 
 代码风格配置文件 :
 
-{{<highlight-file file="cs.editorconfig" lang="ini">}}
+{{<highlight-file path="cs.editorconfig" lang="ini">}}
 
 # 2 项目结构
 

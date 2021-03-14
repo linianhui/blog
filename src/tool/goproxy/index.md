@@ -17,7 +17,7 @@ toc: true
 proxy @config.txt
 ```
 
-{{<highlight-file file="config.txt" lang="bash">}}
+{{<highlight-file path="config.txt" lang="bash">}}
 
 # 2 参考 {#reference}
 

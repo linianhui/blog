@@ -82,7 +82,7 @@ X.509有很多种常用的扩展名。不过这些扩展名有时候也是其他
 `DER`=`Distinguished Encoding Rules`是[# X.690](#x690)标准中的一种二进制编码格式。
 
 下面的文件是<https://google.com>所使用的DER编码的二进制公钥证书文件(由于是二进制，故而显示乱码)。
-{{<highlight-file file="google.com.der.cer" lang="txt">}}
+{{<highlight-file path="google.com.der.cer" lang="txt">}}
 
 参考资料 : <https://en.wikipedia.org/wiki/X.690#DER_encoding>。
 
@@ -111,7 +111,7 @@ base64 string...
 5. `X509 CRL` : X509证书吊销列表文件。
 
 下面的文件是上面的`google.com.der.cer`的PEM编码形式 :
-{{<highlight-file file="google.com.pem.crt" lang="txt">}}
+{{<highlight-file path="google.com.pem.crt" lang="txt">}}
 
 
 参考资料 :
