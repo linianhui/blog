@@ -11,6 +11,9 @@ toc: true
 
 {{<highlight-file title="~/.zshrc" path="zshrc" lang="sh">}}
 
+# mount {#mount}
+
+{{<highlight-file title="/etc/synthetic.conf" path="synthetic.conf" lang="ini">}}
 
 
 ```bash
