@@ -1,5 +1,7 @@
+{{- $titleParam := .Get "title" -}}
 {{- $pathParam := .Get "path" -}}
 {{- $langParam := .Get "lang" -}}
+{{- $title := default $pathParam $titleParam}}
 {{- $isAbsolutePath := (hasPrefix $pathParam "/") -}}
 {{- $filePath := cond $isAbsolutePath $pathParam ((path.Join $.Page.File.Dir $pathParam) | relURL) }}
 {{- $id := md5 $filePath -}}
@@ -7,10 +9,10 @@
   <div class="highlight-file-header">
     <a class="fa fa-plus highlight-file-switch" onclick="blog.toggleClassName('hf-{{$id}}','highlight-file_opened')"></a>
     {{- if $isAbsolutePath -}}
-      <span>{{$pathParam}}</span>
+      <span title="{{$title}}">{{$pathParam}}</span>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobUrl}}{{$filePath}}" title="源码"></a>
     {{- else -}}
-      <a class="fa fa-download" target="_blank" href="{{$filePath}}" download> {{$pathParam}}</a>
+      <a class="fa fa-download" target="_blank" href="{{$filePath}}" title="{{$title}}" download> {{$pathParam}}</a>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.RepositoryBlobSrcUrl}}{{$filePath}}" title="源码"></a>
     {{- end -}}
   </div>

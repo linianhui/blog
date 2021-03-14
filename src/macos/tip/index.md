@@ -9,7 +9,7 @@ toc: true
 
 ## .zshrc {#zshrc}
 
-{{<highlight-file path="zshrc" lang="sh">}}
+{{<highlight-file title="~/.zshrc" path="zshrc" lang="sh">}}
 
 
 
