@@ -1,9 +1,9 @@
 # 代码的根目录
-$CODE_PATH = 'd:\.code\';
+$CODE_PATH = 'd:\_code\';
 
 $CODE_PATH_ALIAS = @{
-    ps  = 'd:\.powershell\';
-    w   = 'd:\.work\';
+    ps  = 'd:\_powershell\';
+    w   = 'd:\_work\';
     ae  = $CODE_PATH + 'aspnetcore.example';
     ce  = $CODE_PATH + 'cake.example';
     c9d = $CODE_PATH + 'channel9.downloader';
