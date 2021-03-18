@@ -131,3 +131,7 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottl
 # https://www.db.com/download-center/community
 APP_MONGO_DIR=$APP_DIR/_mongo
 export PATH=$PATH:$APP_MONGO_DIR
+
+# https://linianhui.github.io/redis/00-install
+APP_REDIS_DIR=$APP_DIR/_redis
+export PATH=$PATH:$APP_REDIS_DIR
