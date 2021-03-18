@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -45,7 +45,7 @@ jobs:
 
       - name: deploy to https://linianhui.github.io
         working-directory: .www
-        run: git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:master
+        run: git push --force git@github.com:linianhui/linianhui.github.io.git HEAD:main
 
       - name: add gitee ssh private key
         env:
@@ -61,7 +61,7 @@ jobs:
           DEPLOY_GITEE_PAGES_TOKEN: ${{secrets.DEPLOY_GITEE_PAGES_TOKEN}}
         working-directory: .www
         run: |
-          git push --force git@gitee.com:linianhui/linianhui.git HEAD:master
+          git push --force git@gitee.com:linianhui/linianhui.git HEAD:main
           curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data access_token=$DEPLOY_GITEE_PAGES_TOKEN
 
       - name: submit sitemap to bing
