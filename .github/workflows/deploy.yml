@@ -56,14 +56,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan gitee.com >> ~/.ssh/known_hosts
 
-      - name: deploy to https://linianhui.gitee.io
-        env:
-          DEPLOY_GITEE_PAGES_TOKEN: ${{secrets.DEPLOY_GITEE_PAGES_TOKEN}}
-        working-directory: .www
-        run: |
-          git push --force git@gitee.com:linianhui/linianhui.git HEAD:main
-          curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data access_token=$DEPLOY_GITEE_PAGES_TOKEN
-
       - name: submit sitemap to bing
         # https://www.bing.com/webmaster/help/how-to-submit-sitemaps-82a15bd4
         run: curl http://www.bing.com/ping?sitemap=https%3A%2F%2Flinianhui.github.io/sitemap.xml
@@ -71,3 +63,11 @@ jobs:
       - name: submit sitemap to google
         # https://support.google.com/webmasters/answer/183668
         run: curl http://www.google.com/ping?sitemap=https%3A%2F%2Flinianhui.github.io/sitemap.xml
+
+      - name: deploy to https://linianhui.gitee.io
+        env:
+          DEPLOY_GITEE_PAGES_TOKEN: ${{secrets.DEPLOY_GITEE_PAGES_TOKEN}}
+        working-directory: .www
+        run: |
+          git push --force git@gitee.com:linianhui/linianhui.git HEAD:main
+          curl --request POST --url https://gitee.com/api/v5/repos/linianhui/linianhui/pages/builds --header 'content-type: application/x-www-form-urlencoded' --data access_token=$DEPLOY_GITEE_PAGES_TOKEN
