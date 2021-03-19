@@ -1,0 +1,10 @@
+{{- $langParam := .Get "lang" -}}
+{{- $hrefParam := .Get "href" -}}
+<div class="code-snippet">
+  <div class="title">
+    <a href="{{$hrefParam }}" target="_blank">{{$hrefParam}}</a>
+  </div>
+  <div class="inner-code">
+    {{- highlight (trim .Inner "\n") $langParam "" -}}
+  </div>
+</div>
