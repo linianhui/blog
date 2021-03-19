@@ -10,3 +10,4 @@ scaffolds/
 .vscode/
 .vs/
 .hugo/resource
+*.rdb
