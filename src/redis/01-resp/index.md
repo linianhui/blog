@@ -1,5 +1,5 @@
 ---
-title: '[redis] 01-RESP(REdis Serialization Protocol)'
+title: '[redis] 01 RESP(REdis Serialization Protocol)'
 created_at: 2021-03-19 13:07:23
 tag: ["cache", "redis", "resp","telnet"]
 toc: true
@@ -71,7 +71,7 @@ name
 $1
 a
 ```
-可以看出其响应的数据是以上文介绍的格式存储的。
+可以看出其响应的数据是以上文介绍的格式返回的。
 
 # 4 参考 {#reference}
 
