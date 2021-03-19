@@ -57,7 +57,7 @@ Redis的Request/Response通信方式：
 
 # 3 Telnet {#telnet}
 
-`Telnet`[^telnet]是一个类似于SSH的协议，默认端口号是23，不过它是明文的协议。直接基于`TCP`[^tcp]协议。故而我们这里直接用不它来链接redis-server的6379端口。
+`Telnet`[^telnet]是一个类似于SSH的协议，默认端口号是23，不过它是明文的协议。直接基于`TCP`[^tcp]协议。故而我们这里直接用它来连接redis-server的6379端口，然后手动构造序列化后的命令发送给server。
 
 
 ```sh
