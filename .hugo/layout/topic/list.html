@@ -3,7 +3,7 @@
   {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
   <section class="topic">
     <h1 class="topic-title">
-      <a href="{{ .URL }}" title="{{ .Name }}" target="_blank">
+      <a id="{{.Identifier}}" href="{{ .URL }}" title="{{ .Name }}" target="_blank">
         {{ .Name }}
       </a>
       <span class="topic-articles-count">（{{len .Page.Pages}}篇）</span>
