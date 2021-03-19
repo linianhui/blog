@@ -68,3 +68,5 @@ alias java-xx='java -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOpti
 
 alias proxy='export ALL_PROXY=socks5://127.0.0.1:1080'
 alias unproxy='unset ALL_PROXY'
+
+alias redis-server='redis-server /lnh/_code/blog/src/redis/00-install/redis.conf'

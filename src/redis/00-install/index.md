@@ -31,6 +31,8 @@ docker run --name redis -d redis:6.2
 
 # 3 本地运行 {#run}
 
+{{<highlight-file path="redis.conf" lang="ini">}}
+
 ## 3.1 运行服务端 {#run-server}
 
 ```sh
