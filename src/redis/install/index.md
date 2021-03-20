@@ -1,7 +1,7 @@
 ---
 title: '[redis] install'
 created_at: 2021-03-19 03:24:23
-tag: ["cache", "redis", "install"]
+tag: ["cache", "redis", "install","ops"]
 toc: true
 ---
 

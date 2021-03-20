@@ -1,7 +1,7 @@
 ---
 title: '[redis] persistence'
 created_at: 2021-03-19 19:50:23
-tag: ["cache", "redis", "persistence","rdb","aof"]
+tag: ["cache", "redis", "persistence","rdb","aof","ops"]
 toc: true
 ---
 

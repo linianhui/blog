@@ -1,7 +1,7 @@
 ---
-title: '[redis] RESP(REdis Serialization Protocol)'
+title: '[redis] resp'
 created_at: 2021-03-19 13:07:23
-tag: ["cache", "redis", "resp","telnet"]
+tag: ["cache", "redis", "resp","telnet","dev"]
 toc: true
 ---
 

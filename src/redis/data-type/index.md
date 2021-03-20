@@ -1,7 +1,7 @@
 ---
 title: '[redis] data type'
 created_at: 2021-03-19 19:50:23
-tag: ["cache", "redis", "string","list","set","sorted set","hash","module","stream","bitmap","hyperloglog"]
+tag: ["cache", "redis", "string","list","set","sorted set","hash","module","stream","bitmap","hyperloglog","dev"]
 toc: true
 ---
 
