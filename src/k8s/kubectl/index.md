@@ -8,7 +8,7 @@ toc: true
 kubectl是k8s的command-line工具，用来管理k8s中的各种资源。kubectl是一个go编写的单文件可执行程序，支持Windows、Linux、macOS。kubectl通过HTTPS APIs和k8s的集群的API Service进行通信，使用这些APIs来提供管理功能。
 
 
-# 1. kubectl的安装和配置 {#install}
+# 1 kubectl的安装和配置 {#install}
 
 因为kubectl是一个单文件可执行程序，安装非常简单，直接下载即可（或者通过yum、apt、brew、choco等包管理器来安装）。
 
@@ -38,7 +38,7 @@ clientVersion:
 
 kubectl依赖一个yml格式的文件来配置需要管理的k8s集群的相关信息。配置文件默认路径为`$HOME/.kube/config`，默认路径可以通过`$KUBECONFIG`环境变量来更改。也可以在执行命令时通过`--kubeconfig='config-path'`来指定。
 
-# 2. Reference {#reference}
+# 2 Reference {#reference}
 
 1. <https://kubernetes.io/docs/tasks/tools/install-kubectl>
 

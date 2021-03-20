@@ -8,7 +8,7 @@ toc: true
 
 抽象层面 : `Pod = random-ip:fixed-port`
 
-# 1. 概述 {#overview}
+# 1 概述 {#overview}
 
 K8S中调度的最小单元。可以简单的类比:
 
@@ -18,7 +18,7 @@ K8S中调度的最小单元。可以简单的类比:
 | Docker | Container    |
 | K8s    | Pod          |
 
-# 2. 容器的资源限制 {#container-resources}
+# 2 容器的资源限制 {#container-resources}
 
 ```yml
 resources:            # 资源限制
@@ -35,7 +35,7 @@ resources:            # 资源限制
 <https://www.youtube.com/watch?v=mxEvAPQRwhw&list=PLIivdWyY5sqL3xfXz5xJvwzFW_tlQB_GB&index=3>
 
 
-# 3. 容器的健康检查探针 {#container-probes}
+# 3 容器的健康检查探针 {#container-probes}
 
 ```yml
 readinessProbe:            # 启动后检查，检查通过后才能接收流量。

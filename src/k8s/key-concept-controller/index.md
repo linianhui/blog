@@ -3,6 +3,7 @@ title: '[K8S] 核心概念 03 - Controller'
 created_at: 2020-03-31 17:07:01
 tag: ["K8S", "Pod", "Controller"]
 toc: true
+draft: true
 ---
 
 # 1. 概述 {#overview}
