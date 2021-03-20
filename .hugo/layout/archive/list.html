@@ -13,7 +13,6 @@
     <ol class="archive-group-items" reversed>
       {{ range .Pages.ByDate.Reverse }}
       <li class="archive-group-item">
-        <time class="archive-group-item-time">{{ .Date.Format "2006-01-02" }}</time>
         <a class="archive-group-item-title" href="{{.RelPermalink}}" target="_blank">
           {{.Title}}
           {{ partial "article-weight.html" . }}

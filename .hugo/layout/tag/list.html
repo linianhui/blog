@@ -5,7 +5,6 @@
 <ol class="tag-articles" reversed>
   {{ range .Page.Pages.ByDate.Reverse }}
   <li class="tag-article">
-    <time class="tag-article-time">{{ .Date.Format "2006-01-02" }}</time>
     <a class="tag-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">
       {{.Title}}
       {{ partial "article-weight.html" . }}
