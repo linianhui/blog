@@ -1,6 +1,6 @@
 {{ with .Params.tag }}
 <section class="article-tags">
-  {{ range . }}
+  {{ range sort . "value" "asc" }}
   <a class="fa fa-tag article-tag" href="/tag/{{ . | urlize }}" target="_blank">
     {{ . }}
   </a>
