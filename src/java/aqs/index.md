@@ -3,6 +3,7 @@ title: '[Java] AQS(AbstractQueuedSynchronizer)'
 created_at: 2020-11-08 19:33:01
 tag: ["Java", "AQS","CAS","lock"]
 toc: true
+draft: true
 ---
 
 在Java中，除了JVM级别支持的[synchronized](../synchronized/)锁之外，还有一种锁，其顶层接口是`java.util.concurrent.locks.Lock`[^lock]。

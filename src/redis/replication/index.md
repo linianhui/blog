@@ -3,6 +3,7 @@ title: '[redis] replication'
 created_at: 2021-03-20 09:29:23
 tag: ["cache", "redis", "replication","ops"]
 toc: true
+draft: true
 ---
 
 待完善。
