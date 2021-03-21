@@ -60,7 +60,7 @@ Value at:0x7fe7b0c2e790 refcount:1 encoding:embstr serializedlength:4 lru:554985
 
 常用命令：
 1. `SET key value`[^command-set]：O(1)。设置一个。
-2. `MSET key value [key value ...]`[^command-mset]：O(N)，N=k/v数量。批量设置多个。
+2. `MSET key value [key value ...]`[^command-mset]：O(N)，N=key/value数量。批量设置多个。
 3. `GET key`[^command-get]：O(1)。获取一个。
 4. `MGET key [key ...]`[^command-mget]：O(N)，N=key数量。批量获取多个。
 5. `DEL key [key ...]`[^command-del]：O(N)，N=key数量。批量删除多个。
@@ -69,25 +69,25 @@ Value at:0x7fe7b0c2e790 refcount:1 encoding:embstr serializedlength:4 lru:554985
 
 ## 1.2 List {#list}
 
-list是一个有序的string元素序列，它类似于java中的linkedlist。最大元素数量为<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。实现代码如下：
+list是一个有序的string元素序列，它类似于java中的linkedlist。最大元素数量是<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。实现代码如下：
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/adlist.h#L34-L55">}}
 typedef struct listNode {
-    struct listNode *prev;
-    struct listNode *next;
-    void *value;
+    struct listNode *prev;  // 前一个元素指针
+    struct listNode *next;  // 后一个元素指针
+    void *value;            // 值的指针
 } listNode;
 
 typedef struct list {
-    listNode *head;
-    listNode *tail;
+    listNode *head;                      // 头部指针
+    listNode *tail;                      // 尾部指针
     void *(*dup)(void *ptr);
     void (*free)(void *ptr);
     int (*match)(void *ptr, void *key);
-    unsigned long len;
+    unsigned long len;                   // 长度
 } list;
 {{</code-snippet>}}
 
-可以看出它的底层数据结构是一个双向链表，那么其时间复杂度也就等同于链表。演示一下常用的操作：
+可以看出它的底层数据结构是一个双向链表，那么其时间复杂度也就等效于链表。演示一下常用的操作：
 ```sh
 127.0.0.1:6379> LPUSH l 1
 (integer) 1
@@ -118,42 +118,84 @@ Value at:0x7f8990405c20 refcount:1 encoding:quicklist serializedlength:17 lru:57
 3. `LEN key`[^command-llen]：O(1)。获取长度。
 4. `LRANGE key start_index stop_index`[^command-lrange]：O(N)。返回指定的范围的元素序列，索引从0开始，负数表示从最后一个元素倒数，比如-1是最后一个元素，-2是倒数第二个元素。
 
-## 1.3 Set {#set}
+## 1.3 Hash {#hash}
 
-### 1.3.1 实现方式 {#set-implementation}
+hash是一个K/V集合，类似于java中的hashmap。最大元素数量也是<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。实现代码如下：
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/dict.h#L50-L100">}}
+typedef struct dictEntry {
+    void *key;                // key
+    union {                   // vaue
+        void *val;
+        uint64_t u64;
+        int64_t s64;
+        double d;
+    } v;
+    struct dictEntry *next;   // 下一个元素（key的hash相同时，这些元素构成一个单向链表）
+} dictEntry;
 
-### 1.3.2 常用命令 {#set-command}
+typedef struct dictht {
+    dictEntry **table;      // entry数组
+    unsigned long size;     // 容量大小
+    unsigned long sizemask; // hash掩码
+    unsigned long used;     // 已用大小
+} dictht;
+{{</code-snippet>}}
 
-## 1.4 Sorted Set {#sorted-set}
+可以看出它的底层实现和java的hashmap很相似，那么其时间复杂度也就等效于hashmap。实际演示如下。
+```sh
+127.0.0.1:6379> HSET h k1 v1
+OK
+127.0.0.1:6379> HSET h k2 v2
+OK
+127.0.0.1:6379> HGET h k1
+"v1"
+127.0.0.1:6379> HMGET h k1 k2
+1) "v1"
+2) "v2"
+127.0.0.1:6379> HEXISTs h k1
+(integer) 1
+127.0.0.1:6379> HEXISTs h k2
+(integer) 1
+127.0.0.1:6379> HEXISTs h k3
+(integer) 0
+127.0.0.1:6379> HKEYS h
+1) "k1"
+2) "k2"
+127.0.0.1:6379> HVALS h
+1) "v1"
+2) "v2"
+127.0.0.1:6379> HLEN h
+(integer) 2
+127.0.0.1:6379> HGETALL h
+1) "k1"
+2) "v1"
+3) "k2"
+4) "v2"
+127.0.0.1:6379> DEBUG OBJECT h
+Value at:0x7f8990637db0 refcount:1 encoding:ziplist serializedlength:28 lru:5709958 lru_seconds_idle:9
+```
 
-### 1.4.1 实现方式 {#sorted-set-implementation}
+常用命令：
+1. `HSET key field value [field value ...]`[^command-hset]：O(N)，N=field/value数量。设置一个或多个。
+2. `HGET key field`[^command-hget]：O(1)。获取用一个。
+3. `HMGET key field [field ...]`[^command-hmget]：O(N)，N=field数量。获取一个或多个。
+4. `HLEN key`[^command-hlen]：O(1)。获取长度。
+4. `HEXISTS key field`[^command-hexists]：O(1)。检查field是否存在。
+5. `HKEYS key`[^command-hlen]：O(N)，实际元素数量。获取所有key。
+6. `HVALS key`[^command-hlen]：O(N)，实际元素数量。获取所有value。
+6. `HGETALL key`[^command-hlen]：O(N)，实际元素数量。获取所有key/value。
 
-### 1.4.2 常用命令 {#sorted-set-command}
+## 1.4 Set {#set}
 
-## 1.5 Hash {#hash}
+于上述的list不同的是，set是一个无序string元素的集合，但是它可以确保其中的元素的唯一性。最大元素数量也是<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。实现代码如下：
 
-### 1.5.1 实现方式 {#hash-implementation}
-
-### 1.5.2 常用命令 {#hash-command}
 ## 1.6 Stream {#stream}
-
-### 1.6.1 实现方式 {#stream-implementation}
-
-### 1.6.2 常用命令 {#stream-command}
 
 # 2 高级数据类型 {#advanced}
 
 ## 2.1 Bitmap {#bitmap}
 
-### 2.1.1 实现方式 {#bitmap-implementation}
-
-### 2.1.2 常用命令 {#bitmap-command}
-
 ## 2.2 HyperLogLog {#hyperloglog}
-
-### 2.2.1 实现方式 {#hyperloglog-implementation}
-
-### 2.2.2 常用命令 {#hyperloglog-command}
 
 # 3 总结 {#summary}
 
@@ -162,6 +204,7 @@ Value at:0x7f8990405c20 refcount:1 encoding:quicklist serializedlength:17 lru:57
 [^data-type]:<https://redis.io/topics/data-types>
 [^data-type-intro]:<https://redis.io/topics/data-types-intro>
 [^data-type-stream]:<https://redis.io/topics/streams-intro>
+
 [^command-set]:<https://redis.io/commands/set>
 [^command-mset]:<https://redis.io/commands/mset>
 [^command-get]:<https://redis.io/commands/get>
@@ -169,9 +212,18 @@ Value at:0x7f8990405c20 refcount:1 encoding:quicklist serializedlength:17 lru:57
 [^command-del]:<https://redis.io/commands/del>
 [^command-getdel]:<https://redis.io/commands/getdel>
 [^command-strlen]:<https://redis.io/commands/strlen>
+
 [^command-lpush]:<https://redis.io/commands/lpush>
 [^command-rpush]:<https://redis.io/commands/rpush>
 [^command-lpop]:<https://redis.io/commands/lpop>
 [^command-rpop]:<https://redis.io/commands/rpop>
 [^command-llen]:<https://redis.io/commands/llen>
 [^command-lrange]:<https://redis.io/commands/lrange>
+
+[^command-hset]:<https://redis.io/commands/hset>
+[^command-hget]:<https://redis.io/commands/hget>
+[^command-hmget]:<https://redis.io/commands/hmget>
+[^command-hlen]:<https://redis.io/commands/hlen>
+[^command-hkeys]:<https://redis.io/commands/hkeys>
+[^command-hvals]:<https://redis.io/commands/hvals>
+[^command-hexists]:<https://redis.io/commands/hexists>
