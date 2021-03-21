@@ -29,7 +29,7 @@ redis支持通过两种方式清理过期的key[^delete-way]：
 
 # 2 内存管理 {#menmory-management}
 
-有了以上的过期删除方式的支持，redis就可以帮我们删除失效的数据。但是现实中通常内存通常不是无限大的，所以就需要对内存进行管理，以便在内存不足时提供可供选择的解决方案。在开始之前，我们先看一下redis是如何在内存中管理我们的数据库的吧。
+有了以上的过期删除方式的支持，redis就可以帮我们删除失效的数据。但是现实中通常内存通常不是无限大的，所以就需要对内存进行管理[^lru]，以便在内存不足时提供可供选择的解决方案。在开始之前，我们先看一下redis是如何在内存中管理我们的数据库的吧。
 
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L702-L716">}}
 typedef struct redisDb {
