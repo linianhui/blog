@@ -188,6 +188,7 @@ Value at:0x7f8990637db0 refcount:1 encoding:ziplist serializedlength:28 lru:5709
 ## 1.4 Set {#set}
 
 于上述的list不同的是，set是一个无序string元素的集合，但是它可以确保其中的元素的唯一性。最大元素数量也是<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。实现代码如下：
+## 1.5 Sorted Set {#sorted-set}
 
 ## 1.6 Stream {#stream}
 
