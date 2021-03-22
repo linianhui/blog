@@ -21,7 +21,7 @@ toc: true
     2. 在一次request中塞进去多条命令。比如把100条命令按照顺序放在一个request中发给server，server则按照顺序在一个response中包含100个处理结果。
 
 如何优化网络这里我们不关注，这里重点关注的是redis提供的`pipelining`[^piplining]功能（在一次request中塞进去多条命令）。在网络延迟和server处理能力不变的前提下，我们一次性发送100个命令，这时的时间总和就是`1ms*100+100ms=200ms`，从而大大的改善了client网络性能和效率。
-> 和HTTP/1.1中的pipliing是类似的技术。
+> 和HTTP/1.1中的pipelining是类似的技术。
 
 `pipelining`[^piplining]功能需要redis-server端的支持，但是无序单独的命令来开启，client一次性把多个命令一块发出去就是了。常用到的client库通常都直接支持，比如`Jedis`[^jedis]：
 ```java
