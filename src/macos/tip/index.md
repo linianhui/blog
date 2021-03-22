@@ -16,6 +16,7 @@ toc: true
 {{<highlight-file title="/etc/synthetic.conf" path="synthetic.conf" lang="ini">}}
 
 
+# 禁用应用验证 {#disable-app-verify}
 ```bash
 sudo spctl --master-disable
 ```
