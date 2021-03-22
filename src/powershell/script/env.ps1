@@ -450,3 +450,16 @@ function Env-SetSslKeyLogFileEnvironmentVariable() {
 
     Env-TrySetVariable -Variable 'SSLKEYLOGFILE' -Value $SSLKEYLOGFILE
 }
+
+# https://dev.mysql.com/downloads/mysql/
+# https://dev.mysql.com/doc/refman/8.0/en/environment-variables.html
+function Env-SetMySqlEnvironmentVariable() {
+    $APP_MYSQL_DIR = $APP_DIR + '_mysql\';
+    $CACHE_MYSQL_DIR = $CACHE_DIR + '_mysql\';
+    $APP_MYSQL_BIN_DIR = $APP_MYSQL_DIR + 'bin\';
+    $MYSQL_HISTFILE = $CACHE_MYSQL_DIR + '.history';
+
+    Env-TrySetVariable -Variable 'MYSQL_HOME' -Value $APP_MYSQL_DIR
+    Env-TrySetVariable -Variable 'MYSQL_HISTFILE' -Value $MYSQL_HISTFILE
+    Env-TryAppendPathVariable -Value $APP_MYSQL_BIN_DIR
+}

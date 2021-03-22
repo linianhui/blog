@@ -135,3 +135,12 @@ export PATH=$PATH:$APP_MONGO_DIR
 # https://linianhui.github.io/redis/00-install
 APP_REDIS_DIR=$APP_DIR/_redis
 export PATH=$PATH:$APP_REDIS_DIR
+
+# https://dev.mysql.com/downloads/mysql/
+# https://dev.mysql.com/doc/refman/8.0/en/environment-variables.html
+APP_MYSQL_DIR=$APP_DIR/_mysql
+CACHE_MYSQL_CONFIG_DIR=$XDG_CACHE_HOME/_mysql
+export MYSQL_HOME=$APP_MYSQL_DIR
+APP_MYSQL_BIN_DIR=$MYSQL_HOME/bin
+export MYSQL_HISTFILE=$CACHE_MYSQL_CONFIG_DIR/.history
+export PATH=$PATH:$APP_MYSQL_BIN_DIR
