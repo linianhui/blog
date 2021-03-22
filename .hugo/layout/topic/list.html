@@ -1,11 +1,10 @@
 {{ define "content" }}
 <section class="topics">
   {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
+  {{- if ne (len .Page.Pages) 0 }}
   <section class="topic">
     <h1 class="topic-title">
-      <a id="{{.Identifier}}" href="{{ .URL }}" title="{{ .Name }}" target="_blank">
-        {{ .Name }}
-      </a>
+      <a id="{{.Identifier}}" href="{{.URL}}" title="{{.Name}}" target="_blank">{{.Name}}</a>
       <span class="topic-articles-count">（{{len .Page.Pages}}篇）</span>
     </h1>
     <section class="article-meta">
@@ -17,14 +16,14 @@
     <ol class="topic-articles" reversed>
       {{ range .Page.Pages.ByDate.Reverse }}
       <li class="topic-article">
-        <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">
-          {{.Title}}
-          {{ partial "article-weight.html" . }}
+        <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{.Title}}">
+          {{.Title}}{{ partial "article-weight.html" . }}
         </a>
       </li>
       {{ end }}
     </ol>
   </section>
+  {{- end -}}
   {{ end }}
 </section>
 {{ end }}
