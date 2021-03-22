@@ -1,30 +1,23 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
-
+<html lang="{{.Site.LanguageCode}}">
 <head>
   {{ partial "head-title.html" . }}
   {{ partial "head-meta.html" . }}
   {{ partial "head-link.html" . }}
   {{ partial "head-script.html" . }}
 </head>
-
 <body>
   <div id="horizontal-progress" class="horizontal-progress"></div>
   {{ partial "toc.html" . }}
   <main class="main">
-
     {{ partial "body-header.html" . }}
-
     <main class="content">
       {{ block "content" . }}
       {{ end }}
     </main>
-
     {{ partial "body-footer.html" . }}
-
   </main>
   {{ partial "toolbar.html" . }}
   {{ partial "body-script.html" . }}
 </body>
-
 </html>
