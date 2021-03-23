@@ -35,7 +35,8 @@ alias ipl='ipconfig getifaddr en0'
 alias hs='miniserve --color-scheme squirrel --qrcode'
 alias hsu='hs --upload-files'
 
-alias pf='rinetd --foreground --conf-file /lnh/_code/blog/src/tool/rinetd/rinetd.conf'
+alias pfd='rinetd --conf-file /lnh/_code/blog/src/tool/rinetd/rinetd.conf'
+alias pf='pfd --foreground'
 
 alias env='env | sort'
 
