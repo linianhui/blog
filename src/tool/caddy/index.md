@@ -7,6 +7,8 @@ toc: true
 
 # 1 概述 {#overview}
 
+go语言开发的开源的Http Server。可以作为反向代理服务器和Http静态文件文件服务器。
+
 {{<highlight-file path="Caddyfile" lang="ini">}}
 
 # 2 参考 {#reference}

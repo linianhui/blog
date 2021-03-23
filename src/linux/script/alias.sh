@@ -32,7 +32,7 @@ alias ping='ping -c 5'
 alias ipe='curl http://ifconfig.me/ip'
 alias ipl='ipconfig getifaddr en0'
 
-alias hs='caddy -port 2015 browse markdown'
+alias hs='caddy run --config /lnh/_code/blog/src/tool/caddy/Caddyfile'
 
 alias env='env | sort'
 

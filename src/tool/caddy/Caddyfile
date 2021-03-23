@@ -1,6 +1,9 @@
+{
+  auto_https off
+}
+
 :2015
 
-browse
-errors visible
-tls off
-markdown
+file_server browse
+
+templates
