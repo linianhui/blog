@@ -148,3 +148,8 @@ export PATH=$PATH:$APP_MYSQL_BIN_DIR
 # https://github.com/svenstaro/miniserve
 APP_MINISERVE_DIR=$APP_DIR/_miniserve
 export PATH=$PATH:$APP_MINISERVE_DIR
+
+# http://www.rinetd.com/
+# https://github.com/samhocevar/rinetd
+APP_RINETD_DIR=$APP_DIR/_rinetd
+export PATH=$PATH:$APP_RINETD_DIR

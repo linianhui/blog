@@ -1,7 +1,7 @@
 ---
 title: "[工具] goproxy"
 created_at: 2020-05-28 13:12:00
-tag: ["proxy","go","port forwarding"]
+tag: ["proxy","go","port-forward",'tool']
 toc: true
 ---
 

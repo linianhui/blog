@@ -1,7 +1,7 @@
 ---
 title: "[工具] miniserve"
 created_at: 2021-03-12 17:07:03
-tag: ["caddy","http server"]
+tag: ["miniserve","rust","http server",'network','static-file','tool']
 toc: true
 ---
 
