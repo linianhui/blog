@@ -14,7 +14,7 @@ c语言开发的一个端口转发转发工具，非常小巧方便，比`iptabl
 # 查看帮助
 rinetd -h
 
-# 前台运行，并且指定配置文件
+# 前台运行(默认运行在background)，并且指定配置文件
 rinetd --foreground --conf-file rinetd.conf
 ```
 
