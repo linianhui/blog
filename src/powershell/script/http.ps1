@@ -1,5 +1,5 @@
 
 function Http-Server() {
-    Log-Debug "caddy run --config d:\_code\blog\src\tool\caddy\Caddyfile" $Args
-    caddy run --config d:\_code\blog\src\tool\caddy\Caddyfile $Args
+    Log-Debug "miniserve --color-scheme squirrel --qrcode --upload-files[-u]" $Args
+    miniserve --color-scheme squirrel --qrcode $Args
 }

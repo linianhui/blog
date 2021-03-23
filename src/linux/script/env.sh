@@ -144,3 +144,7 @@ export MYSQL_HOME=$APP_MYSQL_DIR
 APP_MYSQL_BIN_DIR=$MYSQL_HOME/bin
 export MYSQL_HISTFILE=$CACHE_MYSQL_CONFIG_DIR/.history
 export PATH=$PATH:$APP_MYSQL_BIN_DIR
+
+# https://github.com/svenstaro/miniserve
+APP_MINISERVE_DIR=$APP_DIR/_miniserve
+export PATH=$PATH:$APP_MINISERVE_DIR

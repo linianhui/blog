@@ -463,3 +463,10 @@ function Env-SetMySqlEnvironmentVariable() {
     Env-TrySetVariable -Variable 'MYSQL_HISTFILE' -Value $MYSQL_HISTFILE
     Env-TryAppendPathVariable -Value $APP_MYSQL_BIN_DIR
 }
+
+# https://github.com/svenstaro/miniserve
+function Env-SetMiniServeEnvironmentVariable() {
+    $APP_MINISERVE_DIR = $APP_DIR + '_miniserve\';
+
+    Env-TryAppendPathVariable -Value $APP_MINISERVE_DIR
+}
