@@ -1,7 +1,7 @@
 ---
 title: "[工具] rinetd"
 created_at: 2021-03-23 23:01:03
-tag: ["port","port-forward","rinetd","netsh","iptables",'network','tool']
+tag: ["port-forward","rinetd","netsh","iptables",'network','tool']
 toc: true
 ---
 
