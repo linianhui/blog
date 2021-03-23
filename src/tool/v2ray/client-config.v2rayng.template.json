@@ -6,7 +6,7 @@
   "aid": "16",
   "net": "tcp",
   "path": "",
-  "ps": "abc",
+  "ps": "$TEMPLATE_SERVER_DOMAIN_NAME",
   "tls": "tls",
   "type": "none",
   "v": "2"
