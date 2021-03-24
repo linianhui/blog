@@ -9,7 +9,7 @@ toc: true
 
 ## .zshrc {#zshrc}
 
-{{<highlight-file title="~/.zshrc" path="zshrc" lang="sh">}}
+{{<highlight-file path="zshrc.sh" lang="sh">}}
 
 # mount {#mount}
 
