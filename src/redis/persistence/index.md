@@ -26,16 +26,17 @@ redis是基于内存存储数据的，当server意外宕机或者重启时，内
 # 配置保存快照的时间间隔，以下配置是在300s内超过100次写操作就执行保存。
 save 300 100
 
-# 在保存失败时禁用主进程的写操作（尽快提醒用户发现备份失败）
+# 在background进程保存失败时禁用主进程的写操作（尽快提醒用户发现备份失败）
+# 在background进程再次开启保存时会自动允许写操作。
 stop-writes-on-bgsave-error yes
 
-# 是否开启压缩，如果你想节省一些CPU资源，那么可以设置为no，但是可能会造成文件过大。
+# 是否开启LZF压缩string对象，如果你想节省一些CPU资源，那么可以设置为no，但是可能会造成文件过大。
 rdbcompression yes
 
-# 开启CRC校验
-rdbchecksum yes
+# rdb文件CRC校验，10%的性能消耗。关闭以提升性能。
+rdbchecksum no
 
-# 
+# 删除没有持久化的复制实例中使用的RDB文件
 rdb-del-sync-files no
 
 # 保存的文件名
@@ -53,10 +54,11 @@ dir ./
 # 2 AOF {#aof}
 
 AOF(Append Only File)通过记录server接收到的每一个write命令，在下次启动时重放这些指令，以此达到恢复数据的目的。它具备一下特点：
-1. 更小的保存时间间隔，比如1s。大大的减少丢失数据的可能性。
-2. 更快的保存速度（相比RDB）。但是重建数据时不如RDB。
-3. 可以针对保存的命令进行重写来减小文件大小。比如`SET name lnh`被调用来10次，其实保存最后一个命令即可。
-4. 采用`RESP`[^resp]协议保存，具备可读性。可以便于人工修复意外受损的数据。
+1. 于RDB工作在子进程中不同，AOF是工作在主进程中的，也就意味着它可能会阻塞正常的业务调用。
+2. 更小的保存时间间隔，比如1s。大大的减少丢失数据的可能性。
+3. 更快的保存速度（相比RDB）。但是重建数据时不如RDB。
+4. 可以针对保存的命令进行重写来减小文件大小。比如`SET name lnh`被调用来10次，其实保存最后一个命令即可。
+5. 采用`RESP`[^resp]协议保存，具备可读性。可以便于人工修复意外受损的数据。
 
 ## 2.1 配置 {#aof-config}
 
@@ -67,20 +69,29 @@ appendonly yes
 # 文件名
 appendfilename "appendonly.aof"
 
-# 
+# 配置何时调用fsync()，有如下3个选项：
+# no        让OS决定，最快最不安全。
+# always    每秒，最慢最安全。
+# everysec  每次都调用，均衡的做法，也是官方推荐的默认配置
 appendfsync everysec
 
-# 
-no-appendfsync-on-rewrite no
-
-# 
-auto-aof-rewrite-percentage 100
+# 开启自动AOF重写
+# 当AOF文件的大小大于64mb时，才会触发AOF重写。
 auto-aof-rewrite-min-size 64mb
+# 当前AOF文件比上次重写后的增长的比例，超过此比例后触发下次重写。
+auto-aof-rewrite-percentage 100
 
-#
+# 在redis自动启动一个子进程来进行AOF重写时，会涉及到频繁的disk fsync() I/O操作，这可能会造成主进程中的AOF操作被长时间阻塞。
+# 那么此时，如果设置为yes，就相当于appendfsync=no的效果，交由OS来处理何时fsync()，从而避免阻塞主进程的append操作。但是如果期间出现意外宕机，在linux上则会丢失30s左后的数据操作。
+# 如果设置为no，则是阻塞主进程的操作，但是保证数据的安全性。
+no-appendfsync-on-rewrite yes
+
+# 在载入AOF恢复数据时，忽略最后一条有可能出问题的指令（可能因为意外导致命令没有写入完整）。
+# 如果完整则不会忽略的。可以使用redis-check-aof –fix来修复。
 aof-load-truncated yes
 
-#
+# 同时开启RDB和AOF
+# 开启后AOF文件前半段可能是RDB格式的全量数据，而后半段是AOF格式的增量数据。
 aof-use-rdb-preamble yes
 {{</code-snippet>}}
 
@@ -91,8 +102,8 @@ aof-use-rdb-preamble yes
 
 # 3 总结 {#sumamry}
 
-RDB和AOF是redis提供的两种持久化数据的方式，都是对COW(copy-on-write)技术的巧妙使用。二者有不同的特点，可以按照不同的场景选择不同
-的方案或者同时使用它们。
+RDB和AOF是redis提供的两种持久化数据的方式，都是对COW(copy-on-write)技术的巧妙使用。 
+二者有不同的特点，可以按照不同的场景选择不同的方案或者同时使用它们。
 
 # 4 参考 {#reference}
 
