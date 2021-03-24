@@ -424,6 +424,7 @@ code {
 
 .tags .tag{
   list-style: decimal-leading-zero;
+  margin-top: 6px;
 }
 
 .tags .tag .tag-link{
