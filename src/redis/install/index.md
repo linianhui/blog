@@ -29,6 +29,8 @@ make
 docker run --name redis -d redis:6.2
 ```
 
+{{<highlight-file path="Dockerfile" lang="Dockerfile">}}
+
 # 3 本地运行 {#run}
 
 {{<highlight-file path="redis.conf" lang="ini">}}
