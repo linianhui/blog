@@ -153,3 +153,7 @@ export PATH=$PATH:$APP_MINISERVE_DIR
 # https://github.com/samhocevar/rinetd
 APP_RINETD_DIR=$APP_DIR/_rinetd
 export PATH=$PATH:$APP_RINETD_DIR
+
+# https://github.com/wagoodman/dive
+APP_DIVE_DIR=$APP_DIR/_dive
+export PATH=$PATH:$APP_DIVE_DIR
