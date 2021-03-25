@@ -5,7 +5,7 @@ tag: ["docker","docker-compose","docker-machine","Install"]
 toc: true
 ---
 
-# 1 Dokcer {#docker}
+# 1 dokcerd {#dockerd}
 
 ## 1.1 Ubuntu {#docker-on-ubuntu} 
 
@@ -17,22 +17,29 @@ toc: true
 
 ## 1.3 Config dockerd {#config-dockerd}
 
+<https://docs.docker.com/engine/reference/commandline/dockerd/>
+
 {{<highlight-file path="config-dockerd.sh" lang="bash">}}
 
 {{<highlight-file path="daemon.json" lang="json">}}
 
+# 2 docker {#docker}
 
-# 2 Dokcer Compose {#docker-compose}
+<https://docs.docker.com/engine/install/binaries/>
+
+<https://download.docker.com/mac/static/stable/x86_64/>
+
+# 3 dokcer-compose {#docker-compose}
 
 {{<highlight-file path="docker-compose.sh" lang="bash">}}
 
 
-# 3 Dokcer Machine {#docker-machine}
+# 4 dokcer-machine {#docker-machine}
 
 {{<highlight-file path="docker-machine.sh" lang="bash">}}
 
 
-# 4 Reference {#reference}
+# 5 reference {#reference}
 
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
