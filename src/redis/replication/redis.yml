@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  master.test:
+    image: redis:6.2
+    restart: always
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - volume_master:/data
+
+  slave1.test:
+    image: redis:6.2
+    restart: always
+    command: redis-server --slaveof master.test 6379
+    ports:
+      - '16379:6379'
+    volumes:
+      - volume_slave1:/data
+
+  slave2.test:
+    image: redis:6.2
+    restart: always
+    command: redis-server --slaveof master.test 6379
+    ports:
+      - '26379:6379'
+    volumes:
+      - volume_slave2:/data
+
+volumes:
+  volume_master:
+  volume_slave1:
+  volume_slave2:
