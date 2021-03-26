@@ -1,6 +1,6 @@
 ---
 title: '[redis] expire'
-created_at: 2021-03-20 09:45:23
+created_at: 2021-03-19 19:52:12
 tag: ["cache", "redis", "expire","lru","lfu","ttl","dev"]
 toc: true
 ---
