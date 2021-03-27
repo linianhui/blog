@@ -7,7 +7,7 @@ toc: true
 
 绝大多数的情况下，redis中的数据都是读取远远多于写入。为了提供更高的读取QPS的支持，所以redis提供了`Replication`[^replication]的支持。
 > ⚠️ 注意事项：
-> 1. 单纯的Replication并不能处理redis意外宕机等导致的不可用问题。高可用`Sentinel`[^sentinel]来提供支持。
+> 1. 单纯的Replication并不能处理redis意外宕机等导致的不可用问题。高可用需要`Sentinel`[^sentinel]来提供支持。
 > 2. 单纯的Replication也不能提升redis的存储容量，比如master原本是提供8G的存储上限，那么搭配两个slave则依然是8G。扩容需要`Cluster`[^cluster]来提供支持。
 
 # 1 搭建环境 {#install}
@@ -52,7 +52,7 @@ repl_backlog_histlen:28
 docker exec -it replication_slave2.test_1 redis-cli GET name
 "lnh"
 
-# 主节点查看一下主从复制信息
+# 主节点再查看一下主从复制信息
 127.0.0.1:6379> INFO replication
 # Replication
 role:master
@@ -110,5 +110,5 @@ repl_backlog_histlen:643
 # 4 参考 {#reference}
 
 [^replication]:<https://redis.io/topics/replication>
-[^sentinel]:<https://linianhui.github.io/redis/replication>
+[^sentinel]:<https://linianhui.github.io/redis/sentinel>
 [^cluster]:<https://linianhui.github.io/redis/cluster>
