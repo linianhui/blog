@@ -60,6 +60,27 @@ livenessProbe:             # 启动后周期性检查，检查失败时则kill P
     path: /.health-check
 ```
 
+# 4 Service Accounts {#service-account}
+
+当Pod被创建或更新时k8s进行以下操作：
+1. 如果Pod没有设置`serviceAccountName`，将其`serviceAccountName`设为`default`。
+2. 如果服务账号的`automountServiceAccountToken`或Pod的`automountServiceAccountToken`都为设置为 false，则为Pod创建一个`volume`，**在其中包含用来访问API的令牌**。
+3. 如果前一步中为服务账号令牌创建了`volume`，则为`Pod`中的每个容器添加一个`volumeSource`，挂载在其`/var/run/secrets/kubernetes.io/serviceaccount`目录下。
+    ```sh
+    # 查看目录
+    tree /var/run/secrets/kubernetes.io/serviceaccount
+    /var/run/secrets/kubernetes.io/serviceaccount
+    ├── ca.crt -> ..data/ca.crt
+    ├── namespace -> ..data/namespace
+    └── token -> ..data/token
+
+    0 directories, 3 files
+    # 查看namespace
+    cat /var/run/secrets/kubernetes.io/serviceaccount/namespace
+    YOUR-POD-NAMESPACW
+    ```
+
+
 <https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit>
 
 <https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/#exceed-a-container-s-memory-limit>
