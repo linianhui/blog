@@ -14,9 +14,9 @@ kubectl是k8s的command-line工具，用来管理k8s中的各种资源。kubectl
 
 >可以通过<https://storage.googleapis.com/kubernetes-release/release/stable.txt> 来获取最新的版本号。
 
-1. Windows : <https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/windows/amd64/kubectl.exe>
-2. Linux : <https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/linux/amd64/kubectl>
-3. macOS : <https://storage.googleapis.com/kubernetes-release/release/v1.18.1/bin/darwin/amd64/kubectl>
+1. Windows : <https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/windows/amd64/kubectl.exe>
+2. Linux : <https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl>
+3. macOS : <https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/darwin/amd64/kubectl>
 
 下载后将其文件夹加入到系统的`$PATH`即可。
 ```bash
