@@ -161,7 +161,7 @@ code {
 .article-content h6 {
   position: relative;
   margin-left: -32px;
-  margin-top: 2em;
+  margin-top: 1em;
   margin-right: 0;
   margin-bottom: 0;
   padding-left: 32px;
@@ -200,14 +200,14 @@ code {
 
 .article-content blockquote{
   font-size: 14px;
-  margin-left: 1em;
-  margin-top: 0.5em;
+  margin-left: 0;
+  margin-top: 8px;
   margin-right: 0;
   margin-bottom: 0;
   border-left: 6px solid #eee;
   color: #333;
   line-height: 1.8;
-  padding-left: 0.5em;
+  padding-left: 8px;
   word-break: break-all;
 }
 
@@ -234,11 +234,12 @@ code {
 }
 
 .article-content ol{
-  margin-top: 0.5em;
+  margin-top: 8px;
+  margin-bottom: 0;
 }
 
 .article-content ol li{
-  padding-left: 0.5em;
+  padding-left: 8px;
   word-break: break-all;
 }
 
@@ -271,8 +272,25 @@ code {
   display: none;
 }
 
+.article-content .footnotes p{
+  margin-top: 8px;
+}
+
+.article-content .footnotes a{
+  margin-left: 0;
+}
+
+.article-content .footnote-backref{
+  margin: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
 .article-content .footnote-ref{
   font-size: 14px;
+  margin: 0;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .highlight {
