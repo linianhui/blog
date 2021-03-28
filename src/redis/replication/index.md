@@ -95,20 +95,69 @@ repl_backlog_histlen:643
 
 # 2 运行原理 {#theory}
 
-注意上面的信息中出现的`role`、`master_replid`和`master_repl_offset`。
+Replication支持的功能特性：
+1. master可以有多个slave，slave之间也可以级链。比如master->slave1->slave2这种方式。
+2. slave启动后自动连接master开始同步。
+3. 同步过程是异步的，不会影响master的主线程。
+4. 意外断开后会自动重连，然后再次同步。
+5. 支持全量和增量同步。无法增量同步时，则会触发全量同步流程。
 
-。。。
+想要支持以上的功能特性，核心点在于master处理全量以及增量同步的实现机制。每个节点在启动时都有一个`master_replid`（一个伪随机的字符串，每次启动都会重新生成一个）和一个`master_repl_offset`（同步的数据的偏移量）信息，还有一个`master_replid2`来保存上次的`master_replid`。
+
+当slave第一次连接到master事，会使用`PSYNC replicationid offset`[^psync]命令取请求master。
+
+当master接收的id匹配时：**触发增量同步**。master发送offset之后的增量部分的数据（这部分数据位于内存缓存区中，无需读disk）给slave。
+
+当master接收到id不匹配时：**触发全量同步**。master开启一个后台保存线程，用来产生一个`RDB`[^rdb]文件；同时开始缓冲所有从客户端接收到的新的写入命令。当后台保存完成时，master将rdb文件传输给slave，slave将之保存在磁盘上，然后加载文件到内存。再然后master会发送所有缓冲的命令发给slave。这个过程以指令流的形式完成并且和Redis协议本身的格式相同。
+
+当slave意外重启后，slave记录的`master_replid`就会变成`master_replid2`，它自己会产生一个新的`master_replid`，这是它会用`master_replid2`和记录的offset去增量同步自身意外重启这段时间内丢失的数据。
+
+> ⚠️ 注意事项：
+> 当master关闭rdb并且开启来自动重启时。会有这么一种情况，master没有rdb，并且意外自动重启了。那么重启后slave也会被迫清空。
+
 # 3 详细配置 {#config}
 
 {{<code-snippet lang="ini" href="https://github.com/redis/redis/blob/6.2/redis.conf#L446-L710">}}
-# replicaof <masterip> <masterport>
+# master的地址和端口号
+replicaof 192.168.2.2 6379
+# master用户名
+masteruser test
+# master密码
+masterauth 1234
+
+# 配置为只读节点，2.6+后默认是只读的。
+replica-read-only yes
+
+# 当同步断开时，是否继续接收client的请求。
+# yes 依然接收请求，但是因为同步断开了，所以数据可能是陈旧的。
+# no  返回一个错误'SYNC with master in progress'给client。
+replica-serve-stale-data yes
+
+repl-diskless-sync no
+repl-diskless-sync-delay 5
+repl-diskless-load disabled
+repl-ping-replica-period 10
+repl-timeout 60
+repl-disable-tcp-nodelay no
+repl-backlog-size 1mb
+repl-backlog-ttl 3600
+replica-priority 100
+
+
+min-replicas-to-write 3
+min-replicas-max-lag 10
+
+replica-announce-ip 5.5.5.5
+replica-announce-port 1234
 
 {{</code-snippet>}}
-
-。。。
 
 # 4 参考 {#reference}
 
 [^replication]:<https://redis.io/topics/replication>
 [^sentinel]:<https://linianhui.github.io/redis/sentinel>
 [^cluster]:<https://linianhui.github.io/redis/cluster>
+[^rdb]:<https://linianhui.github.io/redis/persistence/#rdb>
+
+[^command-sync]:<https://redis.io/commands/sync>
+[^command-psync]:<https://redis.io/commands/psync>
