@@ -1,3 +1,18 @@
+# 查看启动后的redis主从复制+Sentinel的容器
+docker-compose -f redis.yml ps
+
+          Name                         Command               State          Ports
+----------------------------------------------------------------------------------------
+sentinel_master.test_1      docker-entrypoint.sh redis ...   Up      6379/tcp
+sentinel_slave1.test_1      docker-entrypoint.sh redis ...   Up      6379/tcp
+sentinel_slave2.test_1      docker-entrypoint.sh redis ...   Up      6379/tcp
+sentinel_sentinel1.test_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp
+sentinel_sentinel2.test_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp
+sentinel_sentinel3.test_1   docker-entrypoint.sh redis ...   Up      26379/tcp, 6379/tcp
+
+# 进入其中一个sentinel
+docker exec -it sentinel_sentinel1.test_1 redis-cli -p 26379
+
 127.0.0.1:26379> SENTINEL master master1
  1) "name"
  2) "master1"
