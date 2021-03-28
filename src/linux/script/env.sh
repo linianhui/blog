@@ -52,18 +52,24 @@ export PATH=$PATH:$APP_SPRING_BOOT_CLI_BIN_DIR
 # export MONO_HOME_BIN=$MONO_HOME/bin
 # export PATH=$PATH:$MONO_HOME_BIN
 
+
+# https://docs.docker.com/engine/reference/commandline/cli/
+# https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
+APP_DOCKER_DIR=$APP_DIR/_docker
+export PATH=$PATH:$APP_DOCKER_DIR
+export DOCKER_HOST='tcp://127.0.0.1:2375'
+export DOCKER_CONFIG='/lnh/_code/blog/src/docker/install/'
+
 # https://docs.docker.com/machine/
 # https://docs.docker.com/machine/drivers/virtualbox/
-APP_DOCKER_DIR=$APP_DIR/_docker
-DATA_DOCKER_DIR=$DATA_DIR/_docker
-export DOCKER_HOME=$APP_DOCKER_DIR
-export MACHINE_STORAGE_PATH=$DATA_DOCKER_DIR
-export VIRTUALBOX_BOOT2DOCKER_URL=$DOCKER_HOME/boot2docker.iso
-export VIRTUALBOX_UI_TYPE=headless
-export VIRTUALBOX_CPU_COUNT=1
-export VIRTUALBOX_MEMORY_SIZE=512
-export VIRTUALBOX_DISK_SIZE=5120
-export PATH=$PATH:$APP_DOCKER_DIR
+# DATA_DOCKER_DIR=$DATA_DIR/_docker
+#export DOCKER_HOME=$APP_DOCKER_DIR
+#export MACHINE_STORAGE_PATH=$DATA_DOCKER_DIR
+#export VIRTUALBOX_BOOT2DOCKER_URL=$DOCKER_HOME/boot2docker.iso
+#export VIRTUALBOX_UI_TYPE=headless
+#export VIRTUALBOX_CPU_COUNT=1
+#export VIRTUALBOX_MEMORY_SIZE=512
+#export VIRTUALBOX_DISK_SIZE=5120
 
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/
 APP_KUBECTL_DIR=$APP_DIR/_kubectl
@@ -95,9 +101,6 @@ export PATH=$PATH:$APP_CADDY_DIR
 # https://github.com/v2ray/v2ray-core
 APP_V2RAY_DIR=$APP_DIR/_v2ray
 export PATH=$PATH:$APP_V2RAY_DIR
-
-# https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
-export DOCKER_HOST='tcp://127.0.0.1:2375'
 
 
 # https://www.rust-lang.org/
