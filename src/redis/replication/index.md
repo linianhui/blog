@@ -21,11 +21,11 @@ toc: true
 # 查看启动后的redis主从复制的容器
 docker-compose -f redis.yml ps
 
-          Name                         Command               State            Ports         
---------------------------------------------------------------------------------------------
-replication_master.test_1   docker-entrypoint.sh redis ...   Up      0.0.0.0:6379->6379/tcp 
-replication_slave1.test_1   docker-entrypoint.sh redis ...   Up      0.0.0.0:16379->6379/tcp
-replication_slave2.test_1   docker-entrypoint.sh redis ...   Up      0.0.0.0:26379->6379/tcp
+          Name                         Command               State    Ports  
+-----------------------------------------------------------------------------
+replication_master.test_1   docker-entrypoint.sh redis ...   Up      6379/tcp
+replication_slave1.test_1   docker-entrypoint.sh redis ...   Up      6379/tcp
+replication_slave2.test_1   docker-entrypoint.sh redis ...   Up      6379/tcp
 
 # 进入master节点
 docker exec -it replication_master.test_1 redis-cli
