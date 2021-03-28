@@ -1,11 +1,13 @@
 {{- $titleParam := .Get "title" -}}
 {{- $pathParam := .Get "path" -}}
 {{- $langParam := .Get "lang" -}}
+{{- $hideParam := .Get "hide" -}}
 {{- $title := default $pathParam $titleParam}}
 {{- $isAbsolutePath := (hasPrefix $pathParam "/") -}}
 {{- $filePath := cond $isAbsolutePath $pathParam ((path.Join $.Page.File.Dir $pathParam) | relURL) }}
 {{- $id := md5 $filePath -}}
-<div class="highlight-file highlight-file_opened" id="hf-{{$id}}">
+{{- $collapseClass := cond (eq $hideParam "true") " " " highlight-file_opened" -}}
+<div class="highlight-file{{$collapseClass}}" id="hf-{{$id}}">
   <div class="highlight-file-header">
     <a class="fa fa-plus highlight-file-switch" onclick="blog.toggleClassName('hf-{{$id}}','highlight-file_opened')"></a>
     {{- if $isAbsolutePath -}}
