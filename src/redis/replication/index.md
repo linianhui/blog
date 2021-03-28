@@ -104,7 +104,7 @@ Replication支持的功能特性：
 
 想要支持以上的功能特性，核心点在于master处理全量以及增量同步的实现机制。每个节点在启动时都有一个`master_replid`（一个伪随机的字符串，每次启动都会重新生成一个）和一个`master_repl_offset`（同步的数据的偏移量）信息，还有一个`master_replid2`来保存上次的`master_replid`。
 
-当slave第一次连接到master事，会使用`PSYNC replicationid offset`[^psync]命令取请求master。
+当slave第一次连接到master事，会使用`PSYNC replicationid offset`[^command-psync]命令取请求master。
 
 当master接收的id匹配时：**触发增量同步**。master发送offset之后的增量部分的数据（这部分数据位于内存缓存区中，无需读disk）给slave。
 
