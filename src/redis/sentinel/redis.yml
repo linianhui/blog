@@ -1,0 +1,60 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/
+version: '3'
+
+services:
+  master.test:
+    image: redis:6.2
+    restart: on-failure
+    command: redis-server
+    volumes:
+      - volume_master:/data
+
+  slave1.test:
+    image: redis:6.2
+    restart: on-failure
+    command: redis-server --slaveof master.test 6379
+    depends_on:
+      - master.test
+    volumes:
+      - volume_slave1:/data
+
+  slave2.test:
+    image: redis:6.2
+    restart: on-failure
+    command: redis-server --slaveof master.test 6379
+    depends_on:
+      - master.test
+    volumes:
+      - volume_slave2:/data
+
+  sentinel1.test:
+    build: .
+    restart: on-failure
+    command: redis-server /etc/redis/sentinel.conf --sentinel
+    depends_on:
+      - master.test
+      - slave1.test
+      - slave2.test
+
+  sentinel2.test:
+    build: .
+    restart: on-failure
+    command: redis-server /etc/redis/sentinel.conf --sentinel
+    depends_on:
+      - master.test
+      - slave1.test
+      - slave2.test
+
+  sentinel3.test:
+    build: .
+    restart: on-failure
+    command: redis-server /etc/redis/sentinel.conf --sentinel
+    depends_on:
+      - master.test
+      - slave1.test
+      - slave2.test
+
+volumes:
+  volume_master:
+  volume_slave1:
+  volume_slave2:
