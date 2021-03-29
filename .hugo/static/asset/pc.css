@@ -62,6 +62,7 @@ code {
 }
 
 .header {
+  position: relative;
   box-sizing: border-box;
 }
 
@@ -88,6 +89,16 @@ code {
   font-size: 16px;
   margin-left: 1em;
   text-align: center;
+}
+
+.stats{
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  bottom: -20px;
+  color: #999;
+  font-size: 12px;
+  font-style: italic;
 }
 
 .content {
