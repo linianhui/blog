@@ -199,8 +199,9 @@ code {
 }
 
 .article-content blockquote{
+  position: relative;
   font-size: 14px;
-  margin-left: 0;
+  margin-left: 1em;
   margin-top: 8px;
   margin-right: 0;
   margin-bottom: 0;
@@ -209,6 +210,14 @@ code {
   line-height: 1.8;
   padding-left: 8px;
   word-break: break-all;
+  font-style: italic;
+}
+
+.article-content blockquote::before{
+  position: relative;
+  display: block;
+  content: "⚠️ 注意事项";
+  font-size: 14px;
 }
 
 .article-content blockquote p{
@@ -399,7 +408,7 @@ code {
 .topic-content{
   font-size: 14px;
   font-style: italic;
-  margin: 0;
+  margin-top: 1em;
   border-left: 6px solid #eee;
   color: #333;
   line-height: 1.8;

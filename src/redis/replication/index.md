@@ -6,7 +6,6 @@ toc: true
 ---
 
 绝大多数的情况下，redis中的数据都是读取远远多于写入。为了提供更高的读取QPS的支持，所以redis提供了`Replication`[^replication]的支持。
-> ⚠️ 注意事项：
 > 1. 单纯的Replication并不能处理redis意外宕机等导致的不可用问题。高可用需要`Sentinel`[^sentinel]来提供支持。
 > 2. 单纯的Replication也不能提升redis的存储容量，比如master原本是提供8G的存储上限，那么搭配两个slave则依然是8G。扩容需要`Cluster`[^cluster]来提供支持。
 
@@ -38,7 +37,6 @@ Replication支持的功能特性：
 
 当slave意外重启后，slave记录的`master_replid`就会变成`master_replid2`，它自己会产生一个新的`master_replid`，这是它会用`master_replid2`和记录的offset去增量同步自身意外重启这段时间内丢失的数据。
 
-> ⚠️ 注意事项：
 > 当master关闭rdb并且开启来自动重启时。会有这么一种情况，master没有rdb，并且意外自动重启了。那么重启后slave也会被迫清空。
 
 # 3 详细配置 {#config}
