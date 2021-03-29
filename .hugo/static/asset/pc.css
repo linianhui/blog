@@ -52,8 +52,9 @@ summary{
 }
 
 code {
-  color: #c0341d;
-  background-color: #fbe5e1;
+  background-color: #eee;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .main {
