@@ -57,6 +57,12 @@ code {
   padding-right: 4px;
 }
 
+mark{
+  background-color: #FF0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 .main {
   margin: 48px 64px 32px 64px;
 }

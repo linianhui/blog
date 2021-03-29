@@ -76,7 +76,16 @@ replica-announce-port 1234
 
 {{</code-snippet>}}
 
-# 4 参考 {#reference}
+# 4 常见问题 {#faq}
+
+1. <mark>slave脏读</mark>：因为master和slave之间的同步是异步的，master不会确保写入操作被所有slave都正确同步后才返回，故而如果在slave还未写完成时去读取，是会读取到脏数据的。这个无法避免，毕竟还有db托底。不过也可以通过在client这一侧用`INFO replication`去检查master和slave，对比其中的offset，如果diff结果差别超过了容忍范围，则移除client端对这个slave的访问，待恢复到合适的范围内后再添加回来，不过这种办法有些繁琐。
+2. <mark>maxmemory配置不一致导致的数据丢失</mark>：比如master是4G，而slave是2G。但现在有3G数据需要同步给slave时，slave会因为内存不足而启动数据淘汰策略，从而被动丢失一部分数据。应该不设限slave的内存大小，至少大于master。
+3. <mark>全量复制的庞大开销</mark>：当master的数据量比较大时，比如10G。那么增加一个slave，就会导致master需要发送10G左右的数据到slave，会严重消耗master节点的资源，也会使网络变得拥堵。应该选择业务低峰时间时增加slave。
+4. <mark>master重启导致的数据丢失</mark>：master节点在意外重启后，如果没有rdb，则会导致清空slave的数据。不应关闭master的rdb。或者搭配sentinel提升slave为新的master。
+5. <mark>缓冲区不足导致的循环全量复制</mark>：当master进行全量复制时，在生产rdb文件期间，会把所有的写命令保存在缓冲区中，如果缓冲区很小（默认1m）。那么即使slave已经完成了rdb的装载，但是offet不在缓冲区内，就会再次触发全量复制这么一个恶性循环。应估算复制耗时和写入量大小来调大缓冲区`rel_backlog_size`大小。
+
+
+# 5 参考 {#reference}
 
 [^replication]:<https://redis.io/topics/replication>
 [^sentinel]:<https://linianhui.github.io/redis/sentinel>
