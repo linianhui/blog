@@ -336,6 +336,8 @@ mark{
 .highlight code {
   color: unset;
   background-color: unset;
+  padding-left: unset;
+  padding-right: unset;
 }
 
 .highlight-file .highlight {
