@@ -194,7 +194,7 @@ typedef struct redisDb {
 
 ## 2.2 redisObject {#redisobject}
 
-所有数据都是存放在这个巨大的[dict](#dict)中，其中key是固定的[string](#string)类型，但是value却是各种个样的，那么dict如何使用统一的方式来存储value呢？这就需要一个统一的结构来表示dict种的对象，这个结构就是`redisObject`。
+所有数据都是存放在这个巨大的[dict](#dict)中，其中key是固定的[string](#string)类型，但是value却是各种各样的，那么dict如何使用统一的方式来存储value呢？这就需要一个统一的结构来表示dict中的对象，这个结构就是`redisObject`。
 
 redis源码中定义了7中基本类型，redis正是用这7种基本数据类型实现了上述的9种数据类型。
 
@@ -211,15 +211,21 @@ redis源码中定义了7中基本类型，redis正是用这7种基本数据类�
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L667-L675">}}
 typedef struct redisObject {
     unsigned type:4;       // 上面的7种基本数据类型。
-    unsigned encoding:4;   // 下面的11种具体编码类型。
+    unsigned encoding:4;   // 下面的11种具体encoding类型。
     unsigned lru:LRU_BITS; // expire信息
     int refcount;          // 引用计数
     void *ptr;             // 数据指针，指向具体的encoding数据
 } robj;
 {{</code-snippet>}}
 
-{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L645-L58">}}
-#define OBJ_ENCODING_RAW 0        /* Raw representation */
+`redisObject`的用途是作为一个桥梁，一段映射到7种基本数据类型上面，一端映射到底层的编码存储结构上，同时也保存着expire信息。
+
+## 2.3 encoding {#encoding}
+
+源码中定义的11中encoding类型：
+
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L645-L658">}}
+#define OBJ_ENCODING_RAW 0        /* Raw representation : sds */
 #define OBJ_ENCODING_INT 1        /* Encoded as integer */
 #define OBJ_ENCODING_HT 2         /* Encoded as hash table */
 #define OBJ_ENCODING_ZIPMAP 3     /* Encoded as zipmap */
@@ -231,11 +237,6 @@ typedef struct redisObject {
 #define OBJ_ENCODING_QUICKLIST 9  /* Encoded as linked list of ziplists */
 #define OBJ_ENCODING_STREAM 10    /* Encoded as a radix tree of listpacks */
 {{</code-snippet>}}
-
-它的用途是作为一个桥梁，一段映射到7种基本数据类型上面，一端链接到底层的编码存储上，同时也保存着expire信息。
-
-## 2.3 encoding {#encoding}
-
 ### 2.3.0 sds {#sds}
 
 为了实现二进制安全的字符串，redis并没有直接采用c语言中的string类型，而是自定义了一个sds(Simple Dynamic String)的数据结构。其中一个定义如下（8，16，32，64的区别）：
