@@ -5,26 +5,11 @@ tag: ["cache", "redis", "string","list","set","sorted set","hash","module","stre
 toc: true
 ---
 
-redis支持丰富的数据类型[^data-type]。大致可以分为两大类：
-1. 基本数据类型：redis底层定义支持的基本类型。
-2. 高级数据类型：基于基本类型组合而成的高级数据类型。
+redis支持丰富的数据类型[^data-type]。我们这里从两个角度来介绍：
+1. client使用：client可以使用到的数据类型。
+2. server实现：server内部的具体实现。
 
-# 1 基本数据类型 {#basic}
-
-redis源码中定义了7中基本类型[^data-type]。
-
-{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L499-L521">}}
-#define OBJ_STRING 0    /* String object. */
-#define OBJ_LIST 1      /* List object. */
-#define OBJ_SET 2       /* Set object. */
-#define OBJ_ZSET 3      /* Sorted set object. */
-#define OBJ_HASH 4      /* Hash object. */
-#define OBJ_MODULE 5    /* Module object. */
-#define OBJ_STREAM 6    /* Stream object. */
-{{</code-snippet>}}
-
-其中最常见和用到的有6种：[string](#string),[list](#list),[set](#set),[zset](#zset),[hash](#hash),[stream](#stream)。`module`是server内部使用的，站在client的角度不可见，我们这里也就不关心它了。
-
+# 1 client使用 {#client}
 ## 1.1 String {#string}
 
 string是一个**二进制安全的**字符串，类似于java的String，但是它是可以修改的。value最大长度不能超过**512MB**。
@@ -40,12 +25,14 @@ redis中的key是string类型的，key的命名规则的通常采用`:`分割的
 6. `STRLEN key`：O(1)。获取长度。
 7. `GETDEL key`：O(1)。获取并且删除。
 
-底层实现：
-1. [SDS](#sds)
+底层encoding：
+1. [int](#int)
+2. [sds](#sds)
+3. [embstr](#embstr)
 
 ## 1.2 List {#list}
 
-list是一个有序的string元素序列，它类似于java中的LinkedList。最大元素数量是<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。
+list是一个有序的string元素序列，它类似于java中的linkedlist。最大元素数量是<code>2<sup>32</sup>-1=4294967295(40亿+)</code>。
 
 常用命令：
 1. `LPUSH key element [element ...]`：O(N)，N=element数量。在左侧添加一个或多个。
@@ -55,10 +42,10 @@ list是一个有序的string元素序列，它类似于java中的LinkedList。�
 5. `LLEN key`：O(1)。获取长度。
 6. `LRANGE key start_index stop_index`：O(N)。返回指定的范围的元素序列，索引从0开始，负数表示从最后一个元素倒数，比如-1是最后一个元素，-2是倒数第二个元素。
 
-底层实现：
-1. [QuickList](#quicklist)
-2. [LinkedList](#linkedlist)
-3. [ZipList](#ziplist)
+底层encoding：
+1. [quicklist](#quicklist)
+2. [linkedlist](#linkedlist)
+3. [ziplist](#ziplist)
 
 ## 1.3 Set {#set}
 
@@ -78,17 +65,17 @@ set是一个无序string元素的集合，但是其中的元素的具有唯一�
 11. `SINTER key [key ...]`: O(N*M)，N=key的数量，M=元素数。交集。
 12. `SUNION key [key ...]`: O(N)，N=key的数量，M=元素数。并集。
 
-底层实现：
-1. [IntSet](#intset)
-2. [Dict](#dict)
+底层encoding：
+1. [intset](#intset)
+2. [dict](#dict)
 
 ## 1.4 ZSet {#zset}
 
 类似set，不同之处它是有序的。
 
-底层实现：
-1. [ZipList](#ziplist)
-2. [SkipList](#skiplist)
+底层encoding：
+1. [ziplist](#ziplist)
+2. [skiplist](#skiplist)
 
 ## 1.5 Hash {#hash}
 
@@ -104,15 +91,13 @@ hash是一个K/V集合（K/V都是string），类似于java中的HashMap。最�
 7. `HVALS key`：O(N)，实际元素数量。获取所有value。
 8. `HGETALL key`：O(N)，实际元素数量。获取所有key/value。
 
-底层实现：
-1. [ZipList](#ziplist)
-2. [Dict](#dict)
+底层encoding：
+1. [ziplist](#ziplist)
+2. [dict](#dict)
 
 ## 1.6 Stream {#stream}
 
-# 2 高级数据类型 {#advanced}
-
-## 2.1 Bitmap {#bitmap}
+## 1.7 Bitmap {#bitmap}
 
 Bitmap是一个由`01`bit构成的有序序列，可以对其进行**位运算**[^bitwise-operation]。Bitmap的优点是它非常节约存储空间（这和其底层实现有关）。对Bitmap的操作可以分为两类，一类是单个bit的操作，一类是一段bit区间的操作。可以用它来实现布隆过滤器。
 
@@ -148,15 +133,21 @@ Bitmap是一个由`01`bit构成的有序序列，可以对其进行**位运算**
 Value at:0x7fd8fc616a80 refcount:1 encoding:raw serializedlength:9 lru:6589153 lru_seconds_idle:13
 ```
 
-底层实现：Bitmap底层是[string](#string)类型，因为string最大长度为512MB，故而Bitmap最多可以表示<code>512MB =2<sup>29</sup>byte = 2<sup>32</sup>bit=4294967295(40亿+)</code>。
+底层encoding：
+1. Bitmap底层是[string](#string)类型，因为string最大长度为512MB，故而Bitmap最多可以表示<code>512MB =2<sup>29</sup>byte = 2<sup>32</sup>bit=4294967295(40亿+)</code>。
 
-## 2.2 HyperLogLog {#hyperloglog}
+## 1.8 HyperLogLog {#hyperloglog}
 
-## 2.3 Geospatial Index {#geospatial-index}
+## 1.9 Geospatial Index {#geospatial-index}
 
-# 3 底层实现 {#implementation}
+# 2 server实现 {#server}
+
+上面介绍了从client使用者的角度可以使用的9种数据类型。下面介绍下server端是如何实现的。
+
+## 2.1 redisDb {#redisdb}
 
 我们来看一下redis-server的db数据存储结构。
+
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L1158-L1613">}}
 struct redisServer {
     // redisDb数组。
@@ -198,11 +189,56 @@ typedef struct redisDb {
     list *defrag_later;         /* List of key names to attempt to defrag one by one, gradually. */
 } redisDb;
 {{</code-snippet>}}
-可以看到它包含了`id`来标识数据库，然后使用[Dict](#dict)来存储我们的数据。
 
-## 3.1 SDS(Simple Dynamic String) {#sds}
+可以看到它包含了`id`来标识数据库，然后使用[dict](#dict)来存储我们的数据。
 
-为了实现二进制安全的字符串以及支持局部的修改，redis并没有直接采用c语言中的string类型，而是自定义了一个SDS的数据结构。其中一个定义如下（8，16，32，64的区别）：
+## 2.2 redisObject {#redisobject}
+
+所有数据都是存放在这个巨大的[dict](#dict)中，其中key是固定的[string](#string)类型，但是value却是各种个样的，那么dict如何使用统一的方式来存储value呢？这就需要一个统一的结构来表示dict种的对象，这个结构就是`redisObject`。
+
+redis源码中定义了7中基本类型，redis正是用这7种基本数据类型实现了上述的9种数据类型。
+
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L499-L521">}}
+#define OBJ_STRING 0    /* String object. */
+#define OBJ_LIST 1      /* List object. */
+#define OBJ_SET 2       /* Set object. */
+#define OBJ_ZSET 3      /* Sorted set object. */
+#define OBJ_HASH 4      /* Hash object. */
+#define OBJ_MODULE 5    /* Module object. */
+#define OBJ_STREAM 6    /* Stream object. */
+{{</code-snippet>}}
+
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L667-L675">}}
+typedef struct redisObject {
+    unsigned type:4;       // 上面的7种基本数据类型。
+    unsigned encoding:4;   // 下面的11种具体编码类型。
+    unsigned lru:LRU_BITS; // expire信息
+    int refcount;          // 引用计数
+    void *ptr;             // 数据指针，指向具体的encoding数据
+} robj;
+{{</code-snippet>}}
+
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L645-L58">}}
+#define OBJ_ENCODING_RAW 0        /* Raw representation */
+#define OBJ_ENCODING_INT 1        /* Encoded as integer */
+#define OBJ_ENCODING_HT 2         /* Encoded as hash table */
+#define OBJ_ENCODING_ZIPMAP 3     /* Encoded as zipmap */
+#define OBJ_ENCODING_LINKEDLIST 4 /* No longer used: old list encoding. */
+#define OBJ_ENCODING_ZIPLIST 5    /* Encoded as ziplist */
+#define OBJ_ENCODING_INTSET 6     /* Encoded as intset */
+#define OBJ_ENCODING_SKIPLIST 7   /* Encoded as skiplist */
+#define OBJ_ENCODING_EMBSTR 8     /* Embedded sds string encoding */
+#define OBJ_ENCODING_QUICKLIST 9  /* Encoded as linked list of ziplists */
+#define OBJ_ENCODING_STREAM 10    /* Encoded as a radix tree of listpacks */
+{{</code-snippet>}}
+
+它的用途是作为一个桥梁，一段映射到7种基本数据类型上面，一端链接到底层的编码存储上，同时也保存着expire信息。
+
+## 2.3 encoding {#encoding}
+
+### 2.3.0 sds {#sds}
+
+为了实现二进制安全的字符串，redis并没有直接采用c语言中的string类型，而是自定义了一个sds(Simple Dynamic String)的数据结构。其中一个定义如下（8，16，32，64的区别）：
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/sds.h#L45-L74">}}
 struct __attribute__ ((__packed__)) sdshdr64 {
     uint64_t len;         /* used */
@@ -218,65 +254,88 @@ struct __attribute__ ((__packed__)) sdshdr64 {
 4. `buf`：实际的数据。
 
 ```sh
-127.0.0.1:6379> SET name lnh
+127.0.0.1:6379> SET name 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGH
 OK
-127.0.0.1:6379> TYPE name
-string
+127.0.0.1:6379> GET name
+"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGH"
 127.0.0.1:6379> STRLEN name
-(integer) 3
+(integer) 44
 127.0.0.1:6379> DEBUG OBJECT name
-Value at:0x7fe7b0c2e790 refcount:1 encoding:embstr serializedlength:4 lru:5549855 lru_seconds_idle:74
+Value at:0x7fcb9f8346f0 refcount:1 encoding:raw serializedlength:45 lru:6671789 lru_seconds_idle:3
 ```
 
-在`DEBUG OBJECT name`命令的响应中显示了`name`相关的存储信息，其中`serializedlength:4`看起来有点奇怪，我们的value的长度明明是`3`，怎么实际是4呢？这是因为方便兼容使用`glibc`的函数库，而在结尾处自动补了一个`\0`的结束符。而且sds的指针的位置实际是指向`buf`字段的位置，这使得它可以当作一个正常的c字符串来使用。
+在`DEBUG OBJECT name`命令的响应中显示了`name`相关的存储信息：`encoding:raw`指的就是sds；其中`serializedlength:4`看起来有点奇怪，我们的value的长度明明是`44`，怎么实际是`45`呢？这是因为方便兼容使用`glibc`的函数库，而在结尾处自动补了一个`\0`的结束符。而且sds的指针的位置实际是指向`buf`字段的位置，这使得它可以当作一个正常的c字符串来使用。
 
 当追加新的数据时，如果`alloc`的容量不足，则会触发扩容。当字符串在长度小于1M之前，扩容采用加倍的策略。当长度超过1M后，为了避免加倍后的冗余空间过大而导致浪费，每次扩容只会多分配1M大小的冗余空间。
 
-## 3.2 LinkedList {#linkedlist}
+### 2.3.1 int {#int}
 
-实现代码如下：
-{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/adlist.h#L34-L55">}}
-typedef struct listNode {
-    struct listNode *prev;  // 前一个元素指针
-    struct listNode *next;  // 后一个元素指针
-    void *value;            // 值的指针
-} listNode;
+当string是一个整数时，会采用int方式进行存储。其实际范围是int64。
 
-typedef struct list {
-    listNode *head;                      // 头部指针
-    listNode *tail;                      // 尾部指针
-    void *(*dup)(void *ptr);
-    void (*free)(void *ptr);
-    int (*match)(void *ptr, void *key);
-    unsigned long len;                   // 长度
-} list;
-{{</code-snippet>}}
-
-可以看出它的底层数据结构是一个双向链表，那么其时间复杂度也就等效于链表。演示一下常用的操作：
 ```sh
-127.0.0.1:6379> LPUSH l 1
-(integer) 1
-127.0.0.1:6379> LPUSH l 2
-(integer) 2
-127.0.0.1:6379> RPUSH l 3
-(integer) 3
-127.0.0.1:6379> LLEN l
-(integer) 3
-127.0.0.1:6379> LRANGE l 0 -1
-1) "2"
-2) "1"
-3) "3"
-127.0.0.1:6379> RPOP l
-"3"
-127.0.0.1:6379> LRANGE l 0 -1
-1) "2"
-2) "1"
-127.0.0.1:6379> DEBUG OBJECT l
-Value at:0x7f8990405c20 refcount:1 encoding:quicklist serializedlength:17 lru:5706395 lru_seconds_idle:15 ql_nodes:1 ql_avg_node:2.00 ql_ziplist_max:-2 ql_compressed:0 ql_uncompressed_size:15
+# 最小整数
+127.0.0.1:6379> SET minnumber -9223372036854775808
+OK
+# encoding:int
+127.0.0.1:6379> DEBUG OBJECT minnumber
+Value at:0x7fcb9ef0e7d0 refcount:1 encoding:int serializedlength:21 lru:6671270 lru_seconds_idle:15
+
+# 比int64最小值还小，就变成了encoding:embstr
+127.0.0.1:6379> SET minnumber -9223372036854775809
+OK
+127.0.0.1:6379> DEBUG OBJECT minnumber
+Value at:0x7fcb9ec18b00 refcount:1 encoding:embstr serializedlength:21 lru:6671297 lru_seconds_idle:2
+
+# 最大整数
+127.0.0.1:6379> SET maxnumber 9223372036854775807
+OK
+# encoding:int
+127.0.0.1:6379> DEBUG OBJECT maxnumber
+Value at:0x7fcb9ec15950 refcount:1 encoding:int serializedlength:20 lru:6671334 lru_seconds_idle:10
+
+# 比int64最大值还大，也变成了encoding:embstr
+127.0.0.1:6379> SET maxnumber 9223372036854775808
+OK
+127.0.0.1:6379> DEBUG OBJECT maxnumber
+Value at:0x7fcb9f8346c0 refcount:1 encoding:embstr serializedlength:20 lru:6671350 lru_seconds_idle:2
+
+# 浮点数也是encoding:embstr
+127.0.0.1:6379> SET floatnumber 1.1
+OK
+127.0.0.1:6379> DEBUG OBJECT floatnumber
+Value at:0x7fcb9ec296e0 refcount:1 encoding:embstr serializedlength:4 lru:6671548 lru_seconds_idle:14
 ```
-## 3.3 Dict {#dict}
+
+### 2.3.2 dict {#dict}
+
+底层实现和java的hashmap很相似。
 
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/dict.h#L50-L100">}}
+typedef struct dict {
+    dictType *type;         
+    void *privdata;
+    dictht ht[2];
+    long rehashidx;          // /* rehashing not in progress if rehashidx == -1 */
+    int16_t pauserehash;     //* If >0 rehashing is paused (<0 indicates coding error) */
+} dict;
+
+typedef struct dictType {
+    uint64_t (*hashFunction)(const void *key);
+    void *(*keyDup)(void *privdata, const void *key);
+    void *(*valDup)(void *privdata, const void *obj);
+    int (*keyCompare)(void *privdata, const void *key1, const void *key2);
+    void (*keyDestructor)(void *privdata, void *key);
+    void (*valDestructor)(void *privdata, void *obj);
+    int (*expandAllowed)(size_t moreMem, double usedRatio);
+} dictType;
+
+typedef struct dictht {
+    dictEntry **table;      // entry数组
+    unsigned long size;     // 容量大小
+    unsigned long sizemask; // hash掩码
+    unsigned long used;     // 已用大小
+} dictht;
+
 typedef struct dictEntry {
     void *key;                // key
     union {                   // vaue
@@ -287,16 +346,9 @@ typedef struct dictEntry {
     } v;
     struct dictEntry *next;   // 下一个元素（key的hash相同时，这些元素构成一个单向链表）
 } dictEntry;
-
-typedef struct dictht {
-    dictEntry **table;      // entry数组
-    unsigned long size;     // 容量大小
-    unsigned long sizemask; // hash掩码
-    unsigned long used;     // 已用大小
-} dictht;
 {{</code-snippet>}}
 
-可以看出它的底层实现和java的hashmap很相似，那么其时间复杂度也就等效于hashmap。实际演示如下。
+实际演示如下。
 ```sh
 127.0.0.1:6379> HSET h k1 v1
 OK
@@ -330,17 +382,68 @@ OK
 Value at:0x7f8990637db0 refcount:1 encoding:ziplist serializedlength:28 lru:5709958 lru_seconds_idle:9
 ```
 
-## 3.4 QuickList {#quicklist}
+### 2.3.3 zipmap {#zipmap}
 
-## 3.5 ZipList {#ziplist}
 
-## 3.6 SkipList {#skiplist}
+### 2.3.4 linkedlist {#linkedlist}
 
-## 3.7 IntSet {#intset}
+linkedlist的底层数据结构是一个双向链表。
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/adlist.h#L34-L55">}}
+typedef struct listNode {
+    struct listNode *prev;  // 前一个元素指针
+    struct listNode *next;  // 后一个元素指针
+    void *value;            // 值的指针
+} listNode;
 
-# 4 总结 {#summary}
+typedef struct list {
+    listNode *head;                      // 头部指针
+    listNode *tail;                      // 尾部指针
+    void *(*dup)(void *ptr);
+    void (*free)(void *ptr);
+    int (*match)(void *ptr, void *key);
+    unsigned long len;                   // 长度
+} list;
+{{</code-snippet>}}
 
-# 5 参考 {#reference}
+演示一下常用的操作：
+```sh
+127.0.0.1:6379> LPUSH l 1
+(integer) 1
+127.0.0.1:6379> LPUSH l 2
+(integer) 2
+127.0.0.1:6379> RPUSH l 3
+(integer) 3
+127.0.0.1:6379> LLEN l
+(integer) 3
+127.0.0.1:6379> LRANGE l 0 -1
+1) "2"
+2) "1"
+3) "3"
+127.0.0.1:6379> RPOP l
+"3"
+127.0.0.1:6379> LRANGE l 0 -1
+1) "2"
+2) "1"
+127.0.0.1:6379> DEBUG OBJECT l
+Value at:0x7f8990405c20 refcount:1 encoding:quicklist serializedlength:17 lru:5706395 lru_seconds_idle:15 ql_nodes:1 ql_avg_node:2.00 ql_ziplist_max:-2 ql_compressed:0 ql_uncompressed_size:15
+```
+
+### 2.3.5 ziplist {#ziplist}
+
+### 2.3.6 intset {#intset}
+
+### 2.3.7 skiplist {#skiplist}
+
+### 2.3.8 embstr {#embstr}
+
+### 2.3.9 quicklist {#quicklist}
+
+### 2.3.10 stream {#stream}
+
+
+# 3 总结 {#summary}
+
+# 4 参考 {#reference}
 
 [^data-type]:<https://redis.io/topics/data-types>
 [^data-type-intro]:<https://redis.io/topics/data-types-intro>
