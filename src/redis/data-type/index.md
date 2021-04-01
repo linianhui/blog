@@ -156,9 +156,53 @@ Value at:0x7fd8fc616a80 refcount:1 encoding:raw serializedlength:9 lru:6589153 l
 
 # 3 底层实现 {#implementation}
 
+我们来看一下redis-server的db数据存储结构。
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L1158-L1613">}}
+struct redisServer {
+    // redisDb数组。
+    redisDb *db;
+    // 配置的db数量。
+    int dbnum;
+}
+{{</code-snippet>}}
+
+一个redis-server的实例在默认会维护16个db，默认是`db 0`，可以使用`SELECT <dbid>`来切换。
+{{<code-snippet lang="ini" href="https://github.com/redis/redis/blob/6.2/redis.conf#L314-L317">}}
+databases 16
+{{</code-snippet>}}
+
+db之间是完全隔离的。比如：
+```sh
+127.0.0.1:6379> SET name lnh0
+OK
+127.0.0.1:6379> GET name
+"lnh0"
+127.0.0.1:6379> SELECT 1
+OK
+127.0.0.1:6379[1]> GET name
+(nil)
+127.0.0.1:6379[1]> 
+```
+
+再看一下`redisDb`的结构。
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/server.h#L702-L715">}}
+typedef struct redisDb {
+    dict *dict;                 /* The keyspace for this DB */
+    dict *expires;              /* Timeout of keys with a timeout set */
+    dict *blocking_keys;        /* Keys with clients waiting for data (BLPOP)*/
+    dict *ready_keys;           /* Blocked keys that received a PUSH */
+    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */
+    int id;                     /* Database ID */
+    long long avg_ttl;          /* Average TTL, just for stats */
+    unsigned long expires_cursor; /* Cursor of the active expire cycle. */
+    list *defrag_later;         /* List of key names to attempt to defrag one by one, gradually. */
+} redisDb;
+{{</code-snippet>}}
+可以看到它包含了`id`来标识数据库，然后使用[Dict](#dict)来存储我们的数据。
+
 ## 3.1 SDS(Simple Dynamic String) {#sds}
 
-redis中的string是可以修改的，底层是用char数组存储的，这就使得它可以对指定的位置进行操作，而又无需创建新的string，可以极大的提升性能。string的完整实现是对应到redis中的sds(Simple Dynamic String)。其中一个定义如下（8，16，32，64的区别）：
+为了实现二进制安全的字符串以及支持局部的修改，redis并没有直接采用c语言中的string类型，而是自定义了一个SDS的数据结构。其中一个定义如下（8，16，32，64的区别）：
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/sds.h#L45-L74">}}
 struct __attribute__ ((__packed__)) sdshdr64 {
     uint64_t len;         /* used */
@@ -167,6 +211,11 @@ struct __attribute__ ((__packed__)) sdshdr64 {
     char buf[];           /* data */
 };
 {{</code-snippet>}}
+
+1. `len`：代表的是string的实际长度，这就使得`STRLEN`的时间复杂度可以达到`O(1)`。
+2. `alloc`：预先分配的长度。
+3. `flags`：标记位，前三bit代表类型。
+4. `buf`：实际的数据。
 
 ```sh
 127.0.0.1:6379> SET name lnh
@@ -179,9 +228,7 @@ string
 Value at:0x7fe7b0c2e790 refcount:1 encoding:embstr serializedlength:4 lru:5549855 lru_seconds_idle:74
 ```
 
-`len`字段代表的是string的实际长度，这就使得`STRLEN`的时间复杂度可以达到`O(1)`。
-
-在`DEBUG OBJECT name`命令的响应中显示了`name`相关的存储信息，其中`serializedlength:4`看起来有点奇怪，我们的value的长度明明是`3`，怎么实际是4呢？这是因为方便兼容使用`glibc`的函数库，而在结尾处自动补了一个`\0`的结束符。
+在`DEBUG OBJECT name`命令的响应中显示了`name`相关的存储信息，其中`serializedlength:4`看起来有点奇怪，我们的value的长度明明是`3`，怎么实际是4呢？这是因为方便兼容使用`glibc`的函数库，而在结尾处自动补了一个`\0`的结束符。而且sds的指针的位置实际是指向`buf`字段的位置，这使得它可以当作一个正常的c字符串来使用。
 
 当追加新的数据时，如果`alloc`的容量不足，则会触发扩容。当字符串在长度小于1M之前，扩容采用加倍的策略。当长度超过1M后，为了避免加倍后的冗余空间过大而导致浪费，每次扩容只会多分配1M大小的冗余空间。
 
