@@ -437,6 +437,33 @@ Value at:0x7f8990405c20 refcount:1 encoding:quicklist serializedlength:17 lru:57
 
 ### 2.3.8 embstr {#embstr}
 
+当字符串的长度`<=44`byte时，会采用embstr的方式编码string。
+{{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/object.c#L112-L124">}}
+#define OBJ_ENCODING_EMBSTR_SIZE_LIMIT 44
+robj *createStringObject(const char *ptr, size_t len) {
+    if (len <= OBJ_ENCODING_EMBSTR_SIZE_LIMIT)
+        return createEmbeddedStringObject(ptr,len);
+    else
+        return createRawStringObject(ptr,len);
+}
+{{</code-snippet>}}
+
+为什么是44呢？是因为embstr的内存布局导致的。redis把大于64byte的string视为长字符串，采用sds方式来编码。而embstr其实也是sds，不过是一个紧凑的sds，采用一次性申请一块连续的内存，分配给`redisObject`+`sdshdr8`这2个结构使用。`redisObject`占用16byte，`sdshdr8`占用3byte，那么64-16-3=45，45就是sds的buf的最大大小，减去结尾自动添加的`\0`1个byte。则就是44byte。
+
+但是embstr不支持修改，一旦修改，就会转成标准的sds。
+```sh
+127.0.0.1:6379> SET name abc
+OK
+127.0.0.1:6379> DEBUG OBJECT name
+Value at:0x7fcb9f835140 refcount:1 encoding:embstr serializedlength:4 lru:6675667 lru_seconds_idle:3
+127.0.0.1:6379> APPEND name 123
+(integer) 6
+127.0.0.1:6379> GET name
+"abc123"
+127.0.0.1:6379> DEBUG OBJECT name
+Value at:0x7fcb9ec15560 refcount:1 encoding:raw serializedlength:7 lru:6675676 lru_seconds_idle:3
+```
+
 ### 2.3.9 quicklist {#quicklist}
 
 ### 2.3.10 stream {#stream}
