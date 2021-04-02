@@ -178,7 +178,62 @@ HyperLogLog底层是[string](#string)类型，所以你可以使用`GET`这样�
 底层encoding：
 1. [sds](#sds)
 
-## 1.9 Geospatial Index {#geospatial-index}
+## 1.9 GEO {#geo}
+
+存储经纬度坐标，用于计算距离和半径搜索。
+
+```sh
+# ⚠️ 经度在前 纬度在后
+127.0.0.1:6379> GEOADD subway1 116.177780 39.926325 PingGuoYuan 116.212821 39.907431 BaJiaoYouLeYuan
+(integer) 2
+
+# 获取两地之间距离，单位km
+127.0.0.1:6379> GEODIST subway1 PingGuoYuan BaJiaoYouLeYuan km
+"3.6540"
+
+# 获取geohash
+127.0.0.1:6379> GEOHASH subway1 PingGuoYuan BaJiaoYouLeYuan
+1) "wx4e5sq5dq0"
+2) "wx4eh2ztdu0"
+
+# 获取经纬度
+127.0.0.1:6379> GEOPOS subway1 PingGuoYuan BaJiaoYouLeYuan
+1) 1) "116.17777794599533081"
+   2) "39.92632570563181815"
+2) 1) "116.21281832456588745"
+   2) "39.90743189411009695"
+
+# 根据经纬度搜索附近指定距离半径内的元素
+127.0.0.1:6379> GEORADIUS subway1 116.177780 39.926325 2 km WITHDIST
+1) 1) "PingGuoYuan"
+   2) "0.0002"
+127.0.0.1:6379> GEORADIUS subway1 116.177780 39.926325 4 km WITHDIST
+1) 1) "PingGuoYuan"
+   2) "0.0002"
+2) 1) "BaJiaoYouLeYuan"
+   2) "3.6538"
+
+# 根据经纬度搜索附近指定矩形区域内的元素
+127.0.0.1:6379> GEOSEARCH subway1 FROMLONLAT 116.177780 39.926325 BYBOX 3 3 km WITHDIST
+1) 1) "PingGuoYuan"
+   2) "0.0002"
+127.0.0.1:6379> GEOSEARCH subway1 FROMLONLAT 116.177780 39.926325 BYBOX 8 8 km WITHDIST
+1) 1) "PingGuoYuan"
+   2) "0.0002"
+2) 1) "BaJiaoYouLeYuan"
+   2) "3.6538"
+```
+
+常用命令：
+1. `GEOADD key [NX|XX] [CH] longitude latitude member [longitude latitude member ...]`：O(log(N))，N=longitude/latitude/member的个数。添加元素。
+2. `GEODIST key member1 member2 [m|km|ft|mi]`：O(log(N))。返回两者之间的距离。
+2. `GEOHASH key member [member ...]`：O(log(N))。GEOHASH。
+3. `GEOPOS key member [member ...]`：O(N)。返回经纬度坐标（GEOHASH）。
+4. `GEORADIUS key member radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count [ANY]] [ASC|DESC] [STORE key] [STOREDIST key]`：O(N+log(M))。根据元素搜索附近指定半径内地元素。
+5. `GEOSEARCH key [FROMMEMBER member] [FROMLONLAT longitude latitude] [BYRADIUS radius m|km|ft|mi] [BYBOX width height m|km|ft|mi] [ASC|DESC] [COUNT count [ANY]] [WITHCOORD] [WITHDIST] [WITHHASH]`：O(N+log(M)) 。在6.2中新增，用来取代GEOSEARCH，可以提供矩形区域搜索。
+
+
+GEO底层存储是[zset](#zset)类型，其中经纬度被`geohash`[^geohash]算法转换为一个`52bit`的整数，这个整数作为zset的score参数，member则之间对应到zset的member参数。所以你可以使用`ZREM`这样的命令来删除某些元素。
 
 # 2 server实现 {#server}
 
@@ -513,7 +568,10 @@ Value at:0x7fcb9ec15560 refcount:1 encoding:raw serializedlength:7 lru:6675676 l
 
 # 4 参考 {#reference}
 
+Redis内部数据结构详解：<http://zhangtielei.com/posts/server.html>
+
 [^data-type]:<https://redis.io/topics/data-types>
 [^data-type-intro]:<https://redis.io/topics/data-types-intro>
 [^data-type-stream]:<https://redis.io/topics/streams-intro>
 [^bitwise-operation]:<https://en.wikipedia.org/wiki/Bitwise_operation>
+[^geohash]:<https://en.wikipedia.org/wiki/Geohash><br/><http://geohash.co/>
