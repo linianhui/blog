@@ -73,9 +73,16 @@ set是一个无序string元素的集合，但是其中的元素的具有唯一�
 
 类似set，不同之处它是有序的。
 
+常用命令：
+1. `ZADD key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]`：O(log(N))，N=score/member数。
+2. `ZCARD key`: O(1)。返回元素数量。
+3. `ZREM key member [member ...]`：O(M*log(N)) 。移除指定元素。
+4. `ZRANK key member`：O(log(N))。返回指定元素的排名。
+5. `ZPOPMIN key [count]`：O(log(N)*M) 。移除并且返回最小的count个元素。
+
 底层encoding：
-1. [ziplist](#ziplist)
-2. [skiplist](#skiplist)
+1. [skiplist](#skiplist)
+2. [dict](#dict)
 
 ## 1.5 Hash {#hash}
 
@@ -133,8 +140,10 @@ Bitmap是一个由`01`bit构成的有序序列，可以对其进行**位运算**
 Value at:0x7fd8fc616a80 refcount:1 encoding:raw serializedlength:9 lru:6589153 lru_seconds_idle:13
 ```
 
+Bitmap底层是[string](#string)类型，因为string最大长度为512MB，故而Bitmap最多可以表示<code>512MB =2<sup>29</sup>byte = 2<sup>32</sup>bit=4294967295(40亿+)</code>。
+
 底层encoding：
-1. Bitmap底层是[string](#string)类型，因为string最大长度为512MB，故而Bitmap最多可以表示<code>512MB =2<sup>29</sup>byte = 2<sup>32</sup>bit=4294967295(40亿+)</code>。
+1. [sds](#sds)
 
 ## 1.8 HyperLogLog {#hyperloglog}
 
