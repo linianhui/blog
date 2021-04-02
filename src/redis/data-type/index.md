@@ -71,7 +71,7 @@ set是一个无序string元素的集合，但是其中的元素的具有唯一�
 
 ## 1.4 ZSet {#zset}
 
-类似set，不同之处它是有序的。
+类似set，不同之处它是有序的，通过手动指定score来排序。
 
 常用命令：
 1. `ZADD key [NX|XX] [GT|LT] [CH] [INCR] score member [score member ...]`：O(log(N))，N=score/member数。
@@ -146,6 +146,37 @@ Bitmap底层是[string](#string)类型，因为string最大长度为512MB，故�
 1. [sds](#sds)
 
 ## 1.8 HyperLogLog {#hyperloglog}
+
+HyperLogLog是一种概率数据结构，用来计算唯一元素的个数（估算的，并不是100%准确，redis中的实现误差在1%）。其优点是无需存储需要计数的元素，**占用内存极小，最多12k的内存**。很合适用来做统计，但是又不要求精确数据的场景，比如访问量。
+
+```sh
+# 添加9个元素，其中3个重复，实际上唯一的只是6个。
+127.0.0.1:6379> PFADD hll a b c d e f a b c
+(integer) 1
+# 返回个数
+127.0.0.1:6379> PFCOUNT hll
+(integer) 6
+# 再添加两个
+127.0.0.1:6379> PFADD hll g h
+(integer) 1
+# 返回新个数
+127.0.0.1:6379> PFCOUNT hll
+(integer) 8
+# 当作string来查看
+127.0.0.1:6379> GET hll
+"HYLL\x01\x00\x00\x00\b\x00\x00\x00\x00\x00\x00\x00Fm\x80V\x0c\x80D<\x848\x80M\xc2\x80B\xed\x84I\x8c\x80Bm\x80BZ"
+# 标准的sds
+127.0.0.1:6379> DEBUG OBJECT hll
+Value at:0x7fcb9ec10bd0 refcount:1 encoding:raw serializedlength:42 lru:6720168 lru_seconds_idle:237
+```
+
+常用命令：
+1. `PFADD key element [element ...]`：O(N)，N=element数。添加元素。
+2. `PFCOUNT key [key ...]`：O(N)，N=element数。获取元素个数。
+
+HyperLogLog底层是[string](#string)类型，所以你可以使用`GET`这样的命令来读取它。
+底层encoding：
+1. [sds](#sds)
 
 ## 1.9 Geospatial Index {#geospatial-index}
 
