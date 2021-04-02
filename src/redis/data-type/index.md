@@ -404,7 +404,7 @@ Value at:0x7fcb9ec296e0 refcount:1 encoding:embstr serializedlength:4 lru:667154
 
 ### 2.3.2 dict {#dict}
 
-底层实现和java的hashmap很相似。
+底层实现和java的hashmap很相似，数组+链表的方式实现的。
 
 {{<code-snippet lang="c" href="https://github.com/redis/redis/blob/6.2/src/dict.h#L50-L100">}}
 typedef struct dict {
@@ -443,6 +443,8 @@ typedef struct dictEntry {
     struct dictEntry *next;   // 下一个元素（key的hash相同时，这些元素构成一个单向链表）
 } dictEntry;
 {{</code-snippet>}}
+
+其中一个关键的字段`dictht ht[2];`，redis存储了2个`dictht`，一个`dictht`代表一个数组+链表。这个用两个的目的在于优化扩容操作，我们知道在扩容时需要把数组*2，然后把旧数组中的元素的key都rehash一下，然后再放置到新的数组中，这个过程会比较耗时。故而redis就把这个操作给分摊到了一些读操作中，每次只rehash其中一部分，然后记录其进度（`rehashidx`和`pauserehash`字段）。待到全部rehash完毕后再切换这个数组。
 
 实际演示如下。
 ```sh
