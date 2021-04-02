@@ -293,6 +293,8 @@ mark{
 
 .article-content .footnotes{
   position: relative;
+  font-style: italic;
+  line-height: 1.6;
 }
 
 .article-content .footnotes hr{
