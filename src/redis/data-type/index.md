@@ -17,7 +17,7 @@ string是一个**二进制安全的**字符串，类似于java的String，但是
 redis中的key是string类型的，key的命名规则的通常采用`:`分割的具有层级结构的形式，比如`account:1001:followers`。
 
 常用命令：
-1. `SET key value`：O(1)。设置一个。
+1. `SET key value [EX seconds|PX milliseconds|EXAT timestamp|PXAT milliseconds-timestamp|KEEPTTL] [NX|XX] [GET]`：O(1)。设置一个。
 2. `MSET key value [key value ...]`：O(N)，N=key/value数量。批量设置多个。
 3. `GET key`：O(1)。获取一个。
 4. `MGET key [key ...]`：O(N)，N=key数量。批量获取多个。
