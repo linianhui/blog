@@ -15,3 +15,4 @@ title: "[计算机网络]"
 5. [《Wireshark网络分析的艺术》](https://book.douban.com/subject/26710788/) 
 6. [《Wireshark网络分析就这么简单》](https://book.douban.com/subject/26268767/) 
 7. [《Wireshark数据包分析实战(第3版)》](https://book.douban.com/subject/30387220/)
+8. [《High Performance Browser Networking》](https://hpbn.co/)
