@@ -34,7 +34,7 @@ TCP(Transmission Control Protocol)是一种**全双工的**、**面向连接的*
 5. `win`：`Window Size (2 octets)`。窗口大小，长度16bit。
 6. `length`：data部分的长度。
 
-## 2.1 最大连接数 {#max-connection-number}
+## 2.1 连接数 {#connection-number}
 
 **理论上一台服务器最大可以支持多少个TCP连接呢**？TCP使用四元组 (`source_ip`, `source_port`, `destination_ip`, `destination_port`) 标识一个连接。
 
@@ -58,15 +58,27 @@ ulimit -n
 
 ## 2.2 建立连接 {#establish-connection}
 
-TCP是[全双工的](#full-duplex)，通信双方需要确认`自身`和`对方`都具备`发送`和`接收`数据的能力。而 *`3步`* 握手是确认上述能力的最小交互步数。如下图，`A`和`B`是通信双方：
+TCP是基于`ACK`的协议，并且是[全双工的](#full-duplex)的协议，那么通信双方均需要确认`自身`和`对方`都具备`发送`和`接收`数据的能力。按最简化的模型来说需要<mark>4步</mark>才能建立连接。如下图，`A`和`B`是通信双方：
+
+![4 step handshake](4-step-handshake.svg)
+
+聪明的你明显就可以看出2和3可以合并处理，从而变成<mark>3步</mark>握手。至此双方都确认了自身和对方的收发功能是正常的。
 
 {{<inline-html path="3-step-handshake.html">}}
 
-## 2.3 关闭连接 {#close-connection}
+那么我们就详细分析下上文的`nginx.80`这部分tcpdump的结果的前3行。
 
-### 2.3.1 关闭连接为什么需要`4步`挥手 {#why-4-step-handshake-close-connection}
+1. **IP 172.17.0.3.40230 > 172.17.0.2.80: Flags [S], seq 2268499507, win 64240, options [mss 1460,sackOK,TS val 685088562 ecr 0,nop,wscale 7], length 0**：client使用了一个随机的端口`40230`来连接server的`80`端口，同时设置了`SYN`flags（表示自己要求建立连接），随机的`seq`为`2268499507`，`win`为`64240`，`length`为0（建立连接阶段不携带数据，故而为0）。
+1. **IP 172.17.0.2.80 > 172.17.0.3.40230: Flags [S.], seq 2967367134, ack 2268499508, win 65160, options [mss 1460,sackOK,TS val 710931729 ecr 685088562,nop,wscale 7], length 0**：server设置了`SYN`和`ACK`flags（表示我已收到你的建立连接请求，并且同意建立连接）,同时生成了自己的`seq`为`2967367134`，然后设置`ack`为`2268499508`（client的seq`2268499507+1`），`win`为`65160`，`length`也是0。
+2. **IP 172.17.0.3.40230 > 172.17.0.2.80: Flags [.], ack 2967367135, win 502, options [nop,nop,TS val 685088562 ecr 710931729], length 0**：client设置了`ACK`flags，然后设置`ack`为`2967367135`（server的seq`2967367134+1`），`win`为`502`，`length`也是0。
 
-TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（半关闭：half-clone）。A方发送`FIN`只是代表A不再发送数据了，但是还可以接收B方发送的数据。当B收到A的`FIN`时：B需要给A发送一个ACK；但是TCP并不知道B方是否也需要关闭，而是要由上层应用来决定；故而不能像建立连接时那样合并ACK和自身的`FIN`。
+## 2.3 传输数据 {#transfer-data}
+
+
+
+## 2.4 关闭连接 {#close-connection}
+
+TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（半关闭：half-clone）。A方发送`FIN`只是代表A不再发送数据了，但是还可以接收B方发送的数据。当B收到A的`FIN`时：B需要给A发送一个ACK；但是TCP并不知道B方是否也需要关闭，而是要由上层应用来决定；故而不能像建立连接时那样合并ACK和自身的`FIN`。所以关闭时需要<mark>4步</mark>，但是如果B收到A的关闭请求时，正正好自己也要关闭，那么其实也是可以合并成<mark>3步</mark>（上文的`nginx.80`的最后三行）。
 
 # 3 流量控制 {#flow-control}
 
