@@ -55,6 +55,7 @@ code {
   background-color: #eee;
   padding-left: 4px;
   padding-right: 4px;
+  color: #dc322f;
 }
 
 mark{
@@ -178,11 +179,12 @@ mark{
 .article-content h5,
 .article-content h6 {
   position: relative;
-  margin-left: -32px;
   margin-top: 1em;
-  margin-right: 0;
   margin-bottom: 0;
-  padding-left: 32px;
+}
+
+.article-content .article-h-a{
+  margin: 0;
 }
 
 .article-content h1 {
@@ -273,22 +275,6 @@ mark{
 .article-content table{
   margin-top: 1em;
   word-break: break-all;
-}
-
-.article-content .article-h-a{
-  position: absolute;
-  visibility: hidden;
-  left: 0;
-  top: 0.3em;
-}
-
-.article-content h1:hover .article-h-a,
-.article-content h2:hover .article-h-a,
-.article-content h3:hover .article-h-a,
-.article-content h4:hover .article-h-a,
-.article-content h5:hover .article-h-a,
-.article-content h6:hover .article-h-a{
-  visibility: visible;
 }
 
 .article-content .footnotes{
