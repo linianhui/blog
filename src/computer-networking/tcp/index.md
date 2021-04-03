@@ -22,7 +22,7 @@ TCP(Transmission Control Protocol)是一种**全双工的**、**面向连接的*
 
 ![TCP State Diagram](state-diagram.svg)
 
-这里我们用`tcpdump port 80 -w nginx.pcap`[^tcpdump]来抓一个访问Nginx服务器首页(`curl http://172.17.0.2`)的[nginx.pcap](nginx.pcap)包来分析一下其中的关键信息。下图是`tcpdump -r nginx.pcap -nSt`的打印结果。
+这里我们用`tcpdump port 80 -w nginx.pcap`[^tcpdump]来抓一个访问Nginx服务器首页(`curl http://172.17.0.2`)的[nginx.pcap](nginx.pcap)包来分析一下其中的关键信息。下面的信息是`tcpdump -r nginx.pcap -nSt`的打印结果。
 
 {{<highlight-file path="nginx.pcap.txt" lang="txt">}}
 
@@ -66,19 +66,37 @@ TCP是基于`ACK`的协议，并且是[全双工的](#full-duplex)的协议，�
 
 {{<inline-html path="3-step-handshake.html">}}
 
-那么我们就详细分析下上文的`nginx.80`这部分tcpdump的结果的前3行。
+那么我们就详细分析下上文的`nginx.pcap.txt`这部分tcpdump的结果的前3行。
 
-1. **IP 172.17.0.3.40230 > 172.17.0.2.80: Flags [S], seq 2268499507, win 64240, options [mss 1460,sackOK,TS val 685088562 ecr 0,nop,wscale 7], length 0**：client使用了一个随机的端口`40230`来连接server的`80`端口，同时设置了`SYN`flags（表示自己要求建立连接），随机的`seq`为`2268499507`，`win`为`64240`，`length`为0（建立连接阶段不携带数据，故而为0）。
-1. **IP 172.17.0.2.80 > 172.17.0.3.40230: Flags [S.], seq 2967367134, ack 2268499508, win 65160, options [mss 1460,sackOK,TS val 710931729 ecr 685088562,nop,wscale 7], length 0**：server设置了`SYN`和`ACK`flags（表示我已收到你的建立连接请求，并且同意建立连接）,同时生成了自己的`seq`为`2967367134`，然后设置`ack`为`2268499508`（client的seq`2268499507+1`），`win`为`65160`，`length`也是0。
-2. **IP 172.17.0.3.40230 > 172.17.0.2.80: Flags [.], ack 2967367135, win 502, options [nop,nop,TS val 685088562 ecr 710931729], length 0**：client设置了`ACK`flags，然后设置`ack`为`2967367135`（server的seq`2967367134+1`），`win`为`502`，`length`也是0。
+1. 01行：client使用了一个随机的端口`40278`来连接server的`80`端口，同时设置了`SYN`flags（表示自己要求建立连接），随机的`seq`为`4068139125`，`win`为`64240`，`length`为0（建立连接阶段不携带数据，故而为0）。client此时进入`SYN_SENT`状态。
+2. 02行：server设置了`SYN`和`ACK`flags（表示我已收到你的建立连接请求，并且同意建立连接）,同时生成了自己的`seq`为`4161524589`，然后设置`ack`为`4068139126`（client的seq`4068139125+1`），`win`为`65160`，`length`也是0。server此时进入`SYN_RECEIVED`状态。
+3. 03行：client设置了`ACK`flags，然后设置`ack`为`4161524590`（server的seq`4161524589+1`），`win`为`502`，`length`也是0。此时双方都进入到`ESTABLISHED`状态，表示连接以及建立。
 
 ## 2.3 传输数据 {#transfer-data}
 
+上文的`nginx.pcap.txt`的04行到09行均是实质性的数据传输部分。
 
+1. 04行：client设置了`PSH`和`ACK`的flags。`PSH`的含义是指示server在收到数据后应该尽快交付给上层应用。`seq 4068139126:4068139200`看起来有点奇怪，不过其实际的seq是`4068139126`，冒号后面的数字是tcpdump用seq加length`74`自己计算出来的。ack`4161524590`和03行一样，因为目前还未收到server的数据，故而保持不变。
+2. 05行：server回复了一个ack`4068139200`，表示自己收到了你的seq`4068139126`+length`74`这部分数据了。
+3. 06行：server开始返回http response的数据，seq`4161524590`，length`238`。同时也携带了一个和05行一样的ack。
+4. 07行：client收到了server发送的seq`4161524590`+length`238`的数据，回复了一个ack`4161524828`。
+5. 08行：server继续返回http response的数据，这次是length`612`。
+6. 09行：client收到了612的数据，回复ack`4161525440`=`4161524828+612`。
 
 ## 2.4 关闭连接 {#close-connection}
 
-TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（半关闭：half-clone）。A方发送`FIN`只是代表A不再发送数据了，但是还可以接收B方发送的数据。当B收到A的`FIN`时：B需要给A发送一个ACK；但是TCP并不知道B方是否也需要关闭，而是要由上层应用来决定；故而不能像建立连接时那样合并ACK和自身的`FIN`。所以关闭时需要<mark>4步</mark>，但是如果B收到A的关闭请求时，正正好自己也要关闭，那么其实也是可以合并成<mark>3步</mark>（上文的`nginx.80`的最后三行）。
+TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（半关闭：half-clone）。A方发送`FIN`只是代表A不再发送数据了，但是还可以接收B方发送的数据。当B收到A的`FIN`时：B需要给A发送一个ACK；但是TCP并不知道B方是否也需要关闭，而是要由上层应用来决定；故而不能像建立连接时那样合并ACK和自身的`FIN`。所以关闭时需要<mark>4步</mark>，但是如果B收到A的关闭请求时，正正好自己也要关闭，那么其实也是可以合并成<mark>3步</mark>（上文的`nginx.pcap.txt`的最后三行）。
+
+1. 10行：client主动发起关闭，设置了`FIN`flags（表示自己要求断开连接），seq`4068139125`，client此时进入`FIN_WAIT_1`状态。此时client还能接收server发送的数据，但是自己已经不能发送了。
+2. 11行：server碰巧这时候也要关闭连接，所以合并了对10行的ack和自己的`FIN`。server此时直接进入`LAST_ACK`状。
+   > 如果server现在不想关闭连接，那么只对client的`FIN`回复ACK时，则是进入到`CLOSE_WAIT`状态，此时自身还可以继续发送数据给client。当自己也发送了`FIN`后，才会进入到`LAST_ACK`状态，这时server已经不能再发送数据了。
+3. 12行：client同时收到了server的`ACK`和`FIN`。然后发出对server的`FIN`的最后一个`ACK`，此时cleint进入`TIME_WAIT`状态。通常此时client都会维持这个状态2`MSL`[^msl]时长后才会进入到`CLOSED`状态。
+   > 两种特殊情况：
+   1. client这时只收到了`ACK`，但是没有收到`FIN`，也就是说server目前还不想关闭连接，那么此时client进入到`FIN_WAIT_2`状态，这时client还依然可以接收server发送的数据。当收到server的`FIN`时，才会进入到`TIME_WAIT`状态。
+   2. client这时只收到server的`FIN`，但是没有收到自己的`FIN`的`ACK`，非常罕见的情况，此时client会进入到`CLOSING`状态，待收到`ACK`后，进入到`TIME_WAIT`状态。
+
+最后，server收到了client的ack，server则进入到`CLOSED`状态，致次server端已经彻底关闭连接。
+
 
 # 3 流量控制 {#flow-control}
 
@@ -95,3 +113,4 @@ TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（�
 [^packet-switching]:<https://linianhui.github.io/computer-networking/00-overview/#packet-switching>
 [^segment]:<https://linianhui.github.io/computer-networking/00-overview/#layered-architecture>
 [^tcpdump]:<https://www.tcpdump.org>
+[^msl]:`MSL=Maximum Segment Lifetime`<https://en.wikipedia.org/wiki/Maximum_segment_lifetime>
