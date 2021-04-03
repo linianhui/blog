@@ -22,9 +22,9 @@ TCP(Transmission Control Protocol)是一种**全双工的**、**面向连接的*
 
 ![TCP State Diagram](state-diagram.svg)
 
-这里我们用`tcpdump -nSt`来抓一个访问Nginx服务器首页(`curl http://172.17.0.2`)的包来分析一下其中的关键信息。
+这里我们用`tcpdump port 80 -w nginx.pcap`[^tcpdump]来抓一个访问Nginx服务器首页(`curl http://172.17.0.2`)的[nginx.pcap](nginx.pcap)包来分析一下其中的关键信息。下图是`tcpdump -r nginx.pcap -nSt`的打印结果。
 
-{{<highlight-file path="nginx.80" lang="txt">}}
+{{<highlight-file path="nginx.pcap.txt" lang="txt">}}
 
 其中的关键信息：
 1. `ip`，`port`：通信双方的ip和port。
@@ -94,3 +94,4 @@ TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（�
 
 [^packet-switching]:<https://linianhui.github.io/computer-networking/00-overview/#packet-switching>
 [^segment]:<https://linianhui.github.io/computer-networking/00-overview/#layered-architecture>
+[^tcpdump]:<https://www.tcpdump.org>

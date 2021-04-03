@@ -1,0 +1,12 @@
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [S], seq 4068139125, win 64240, options [mss 1460,sackOK,TS val 689579838 ecr 0,nop,wscale 7], length 0
+IP 172.17.0.2.80 > 172.17.0.3.40278: Flags [S.], seq 4161524589, ack 4068139126, win 65160, options [mss 1460,sackOK,TS val 715423005 ecr 689579838,nop,wscale 7], length 0
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [.], ack 4161524590, win 502, options [nop,nop,TS val 689579838 ecr 715423005], length 0
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [P.], seq 4068139126:4068139200, ack 4161524590, win 502, options [nop,nop,TS val 689579838 ecr 715423005], length 74: HTTP: GET / HTTP/1.1
+IP 172.17.0.2.80 > 172.17.0.3.40278: Flags [.], ack 4068139200, win 509, options [nop,nop,TS val 715423005 ecr 689579838], length 0
+IP 172.17.0.2.80 > 172.17.0.3.40278: Flags [P.], seq 4161524590:4161524828, ack 4068139200, win 509, options [nop,nop,TS val 715423006 ecr 689579838], length 238: HTTP: HTTP/1.1 200 OK
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [.], ack 4161524828, win 501, options [nop,nop,TS val 689579839 ecr 715423006], length 0
+IP 172.17.0.2.80 > 172.17.0.3.40278: Flags [P.], seq 4161524828:4161525440, ack 4068139200, win 509, options [nop,nop,TS val 715423006 ecr 689579839], length 612: HTTP
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [.], ack 4161525440, win 501, options [nop,nop,TS val 689579839 ecr 715423006], length 0
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [F.], seq 4068139200, ack 4161525440, win 501, options [nop,nop,TS val 689579839 ecr 715423006], length 0
+IP 172.17.0.2.80 > 172.17.0.3.40278: Flags [F.], seq 4161525440, ack 4068139201, win 509, options [nop,nop,TS val 715423006 ecr 689579839], length 0
+IP 172.17.0.3.40278 > 172.17.0.2.80: Flags [.], ack 4161525441, win 501, options [nop,nop,TS val 689579839 ecr 715423006], length 0
