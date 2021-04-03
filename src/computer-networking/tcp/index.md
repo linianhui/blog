@@ -1,7 +1,7 @@
 ---
 title: "[计算机网络] TCP"
 created_at: 2020-02-20 20:55:00
-tag: ["tcp"]
+tag: ['tcp','full duplex','segment','pcap','syn','ack','fin','time_wait','rwnd','cwnd']
 toc: true
 ---
 
@@ -105,21 +105,44 @@ TCP是基于底层的分组交换向上层提供基于字节流的数据。因�
 基于这些客观因素，则TCP协议的实现程序中就有必要设置一定的接收缓冲区，用来暂存收到的数据：一来是暂存收到数据包，以便重拍；二来是供上层应用快速在合适的时间去读取。
 > 也有发送缓冲区，意思是上层应用交给TCP的数据并不一定立即就会发送出去，TCP自身可以自由决定分组发送。
 
-既然有了缓冲区，那么肯定就会有上限容量。如果己方接收缓冲区满了，上层应用来来不及去读取，而对方还在不停的发送数据，则这部分数据就只能被丢弃，导致浪费。所以就需要用一种途径来告诉对方自身的接收缓冲区有多大。**在Segment中的`Window Size`就是干这个的，大小为16bit，单位是byte，最大64Kb。在建立连接的3步握手时，双方除了交换自身的seq外，就是交换这个信息**。Window Size并不是固定不变的，而是会动态变化的，比如一开始64kb，收到了64kb，但是上层应用一直没有去读取，这时就变成了0kb。这个0kb的值会随着ack告知对方，对方发现已经是0，就会选择暂停发送，以等待下次窗口变化。这个动态的过程就称为**滑动窗口**。
+既然有了缓冲区，那么肯定就会有上限容量。如果己方接收缓冲区满了，上层应用来来不及去读取，而对方还在不停的发送数据，则这部分数据就只能被丢弃，导致浪费。所以就需要用一种途径来告诉对方自身的接收缓冲区有多大。**在Segment中的`Window Size`就是干这个的，大小为16bit，单位是byte，最大64Kb。在建立连接的3步握手时，双方除了交换自身的seq外，就是交换这个信息**。Window Size并不是固定不变的，而是会动态变化的，比如一开始64kb，收到了64kb，但是上层应用一直没有去读取，这时就变成了0kb。这个0kb的值会随着ack告知对方，对方发现已经是0，就会选择暂停发送，以等待下次窗口变化。这里的Window Size因为是接收窗口，故而称之为<mark>rwnd</mark>(receive window)。
 
-64kb的大小对于现在的应用来说太小了，但是TCP上只给它分配了16bit，只能这么多，怎么办？这时就需要Segment中的可选部分option区域登场了，可以在连接时设置option，其中包含`wscale 7`。代表的含义时说`Window Size`的实际大小应该扩大<code>2<sup>7</sup>=128</code>倍。
+64kb的大小对于现在的应用来说太小了，但是TCP上只给它分配了16bit，只能这么多，怎么办？这时就需要Segment中的可选部分option区域登场了，可以在连接时设置option，其中包含`wscale 7`。代表的含义时说`Window Size`的实际大小应该扩大<code>2<sup>7</sup>=128</code>倍。这个机制称之为`TCP Window Scale`[^window-scale]。
+
+那么rwnd通常设置多大合适呢？通常是取决于`BDP=Bandwidth Delay Product`（带宽和延迟的乘积）[^bdp]的大小。比如`Bandwidth`[^bandwidth]是100Mbps，`Delay`[^delay]是100ms，那么BDP为：
+```sh
+BDP = 100Mbps * 100ms = (100 / 8) * (100 / 1000) = 1.25MB
+```
+如果想要尽可能的跑慢带宽，那么rwnd不应该低于1.25MB。注意`Window Size`最大只是64kb，这时就需要`TCP Window Scale`来搭配了。
 
 # 4 拥塞控制 {#congestion-control}
 
+单单有了<mark>rwnd</mark>还是远远不够的，因为它只是通信双方自身接收的窗口信息，而不知道实际的网络情况到底如何。就好比北京和广州两个仓库之间交换货物，仅知道了对方的仓库容量可以容纳得下自己的货物了。但是不知道两地之间的高速路上是不是畅通无阻，还是已经拥挤不堪了。
+
+所以就需要另外一个能够实时反映线路拥堵情况的指标来指导双方应该以何种速率来发送数据。这个重要的指标就是<mark>cwnd</mark>(congestion window)。这个指标参数只是发送方内部自己根据`RTT`[^rtt]以及`ACK`的情况估算出来的，并不体现在TCP的`Segment`中。
+
 ## 4.1 慢启动 {#slow-start}
+
+慢启动指的是在刚开始传输数据时，保守一些，假设网络是拥挤的，先发送少量的数据试探一下，根据对方的ACK以及RTT来判断后续是否可以加大发送的数据量。
+
 ## 4.2 拥塞避免 {#congestion-avoidance}
+
 ## 4.3 快速恢复 {#fast-recovery}
 
 # 5 Reference {#reference}
 
+{{<highlight-file path="sysctl.conf" lang="ini">}}
+
 <http://www.52im.net/thread-561-1-1.html>
+
+<https://zhuanlan.zhihu.com/p/144273871>
 
 [^packet-switching]:<https://linianhui.github.io/computer-networking/00-overview/#packet-switching>
 [^segment]:<https://linianhui.github.io/computer-networking/00-overview/#layered-architecture>
 [^tcpdump]:<https://www.tcpdump.org>
-[^msl]:`MSL=Maximum Segment Lifetime`<https://en.wikipedia.org/wiki/Maximum_segment_lifetime>
+[^msl]:`MSL=Maximum Segment Lifetime`：<https://en.wikipedia.org/wiki/Maximum_segment_lifetime>
+[^window-scale]:<https://en.wikipedia.org/wiki/TCP_window_scale_option>
+[^rtt]:`RTT=Round Trip Time`：<https://linianhui.github.io/computer-networking/00-overview/#round-trip-time>
+[^bdp]:`BDP=Bandwidth Delay Product`：<https://en.wikipedia.org/wiki/Bandwidth-delay_product>
+[^bandwidth]:<https://linianhui.github.io/computer-networking/00-overview/#bandwidth>
+[^delay]:<https://linianhui.github.io/computer-networking/00-overview/#delay>
