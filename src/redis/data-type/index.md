@@ -563,9 +563,6 @@ Value at:0x7fcb9ec15560 refcount:1 encoding:raw serializedlength:7 lru:6675676 l
 
 ### 2.3.9 quicklist {#quicklist}
 
-### 2.3.10 stream {#stream}
-
-
 # 3 总结 {#summary}
 
 # 4 参考 {#reference}
