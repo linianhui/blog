@@ -9,7 +9,7 @@
 |           Acknowledgment number (if ACK set)                  |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 | data  |     |N|C|E|U|A|P|R|S|F|                               |
-|offset |     |S|W|C|R|C|S|S|Y|I|   Windows Size (2 octets)     |
+|offset |     |S|W|C|R|C|S|S|Y|I|    Window Size (2 octets)     |
 |(4 bit)|     | |R|E|G|K|H|T|N|N|                               |
 |- - - - - - - -+- - - - - - - -+- - - - - - - -+- - - - - - - -|
 |    Checksum                   |  Urgent pointer (if URG set)  |

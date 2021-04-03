@@ -5,7 +5,7 @@ tag: ["tcp"]
 toc: true
 ---
 
-TCP是一种**全双工的**、**面向连接的**、**基于字节流的**、**可靠的（尽最大努力交付）**、**有状态的** 传输层通信协议。先看一TCP的数据包(Segment)长什么样子，后续的介绍都会基于此：
+TCP(Transmission Control Protocol)是一种**全双工的**、**面向连接的**、**基于字节流的**、**可靠的（尽最大努力交付）**、**有状态的** 传输层通信协议。先看一TCP的数据包`Segment`[^segment]长什么样子，后续的介绍都会基于此：
 {{<highlight-file path="tcp.segment" lang="txt">}}
 
 # 1 特点介绍 {#feature}
@@ -22,22 +22,41 @@ TCP是一种**全双工的**、**面向连接的**、**基于字节流的**、**
 
 ![TCP State Diagram](state-diagram.svg)
 
+这里我们用`tcpdump -nSt`来抓一个访问Nginx服务器首页(`curl http://172.17.0.2`)的包来分析一下其中的关键信息。
+
+{{<highlight-file path="nginx.80" lang="txt">}}
+
+其中的关键信息：
+1. `ip`，`port`：通信双方的ip和port。
+2. `flags`：`S=SYN`，`.=ACK`，`P=PSH`，`F=FIN`。标记位，每个标记1bit，代表不同的含义。
+3. `seq`：`Sequence number (4 octets)`。序列号，长度32bit。 
+4. `ack`：`Acknowledgment number (4 octets)`。确认号，长度32bit。
+5. `win`：`Window Size (2 octets)`。窗口大小，长度16bit。
+6. `length`：data部分的长度。
+
 ## 2.1 最大连接数 {#max-connection-number}
 
-那么理论上一个服务器最大可以支持多少个TCP连接呢？TCP使用四元组 (`source_ip`, `source_port`, `destination_ip`, `destination_port`) 标识一个连接。那么Server端 (`destination_ip`, `destination_port`) 固定，最大连接数=`source_ip`的数量乘以`source_port`的数量。
+**理论上一台服务器最大可以支持多少个TCP连接呢**？TCP使用四元组 (`source_ip`, `source_port`, `destination_ip`, `destination_port`) 标识一个连接。
 
-1. IPv4 : <code>2<sup>32</sup> * 2<sup>16</sup> = 2<sup>48</sup></code>
+假设服务器只有一个IP`172.17.0.2`，端口号固定是`80`。那么`destination_ip`, `destination_port`) 就是固定的。因此最大连接数=`source_ip`的数量乘以`source_port`的数量。
+
+1. IPv4 : <code>2<sup>32</sup> * 2<sup>16</sup> = 2<sup>48</sup> = 40亿+</code>
 2. IPv6 : <code>2<sup>128</sup> * 2<sup>16</sup> = 2<sup>144</sup></code>
 
-## 2.2 建立连接 {#establish-connection}
-
-这里我们用`tcpdump`来抓一个TCP连接的包来分析一下其中的关键信息。
-
+单单IPv4就可以支持多大40亿+的连接了。但是有时候才1000多个连接就会遇到这样的错误`Socket : Can't open so many files`。这是因为Linux系统默认限制了一个进程可以打开的fd(文件描述符，一个连接对应一个文件描述符)数量，其默认值是`1024`。
 ```sh
+# 查看默认限制
+ulimit -n
+1024
 
+# 临时修改
+ulimit -n 1024000
+# 查看修改
+ulimit -n
+1024000
 ```
 
-### 2.2.1 建立连接为什么需要`3步`握手 {#why-3-step-handshake-establish-connection}
+## 2.2 建立连接 {#establish-connection}
 
 TCP是[全双工的](#full-duplex)，通信双方需要确认`自身`和`对方`都具备`发送`和`接收`数据的能力。而 *`3步`* 握手是确认上述能力的最小交互步数。如下图，`A`和`B`是通信双方：
 
@@ -62,3 +81,4 @@ TCP是[全双工的](#full-duplex)，通信双方需要进行独立的关闭（�
 <http://www.52im.net/thread-561-1-1.html>
 
 [^packet-switching]:<https://linianhui.github.io/computer-networking/00-overview/#packet-switching>
+[^segment]:<https://linianhui.github.io/computer-networking/00-overview/#layered-architecture>
