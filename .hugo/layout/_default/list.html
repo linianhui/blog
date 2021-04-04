@@ -15,6 +15,7 @@
   <ol class="topic-articles" reversed>
     {{ range .Pages.ByDate.Reverse }}
     <li class="topic-article">
+      <time class="topic-article-time">{{ .Date.Format "2006-01-02" }}</time>
       <a class="topic-article-title" href="{{.RelPermalink}}" target="_blank" title="{{ .Title }}">
         {{.Title}}
         {{ partial "article-weight.html" . }}
