@@ -68,10 +68,6 @@ time{
   font-family: monospace;
 }
 
-li::before{
-  font-family: monospace;
-}
-
 .main {
   margin: 48px 64px 32px 64px;
 }
