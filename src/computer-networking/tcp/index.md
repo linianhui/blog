@@ -89,10 +89,10 @@ TCP是基于`ACK`（收到数据后需要回复确认）的协议，并且是`�
 
 TCP是`全双工的`，通信双方可以进行独立的关闭（半关闭：half-clone）。A方发送`FIN`只是代表A不再发送数据了，但是还可以接收B方发送的数据。当B收到A的`FIN`时：B需要给A发送一个ACK；但是TCP并不知道B方是否也需要关闭，而是要由上层应用来决定，故而不能像建立连接时直接在协议层面就规定直接合并`ACK`和`FIN`。所以关闭时需要<mark>4步</mark>。但是如果B收到A的关闭请求时，正正好自己也要关闭，那么其实现实中是可以合并成<mark>3步</mark>（上文的`nginx.pcap.txt`的最后三行）。
 
-1.  10行：client主动发起关闭，设置了`FIN`flags（表示自己要求断开连接），seq`4068139125`，client此时进入`FIN_WAIT_1`状态。此时client还能接收server发送的数据，但是自己已经不能发送了。
-2.  11行：server碰巧这时候也要关闭连接，所以合并了对10行的ack和自己的`FIN`。server此时直接进入`LAST_ACK`状。
+10.  10行：client主动发起关闭，设置了`FIN`flags（表示自己要求断开连接），seq`4068139125`，client此时进入`FIN_WAIT_1`状态。此时client还能接收server发送的数据，但是自己已经不能发送了。
+11.  11行：server碰巧这时候也要关闭连接，所以合并了对10行的ack和自己的`FIN`。server此时直接进入`LAST_ACK`状。
     > 如果server现在不想关闭连接，那么只对client的`FIN`回复ACK时，则是进入到`CLOSE_WAIT`状态，此时自身还可以继续发送数据给client。当自己也发送了`FIN`后，才会进入到`LAST_ACK`状态，这时server已经不能再发送数据了。
-3.  12行：client同时收到了server的`ACK`和`FIN`。然后发出对server的`FIN`的最后一个`ACK`，此时cleint进入`TIME_WAIT`状态。通常此时client都会维持这个状态2`MSL`[^msl]时长后才会进入到`CLOSED`状态。
+12.  12行：client同时收到了server的`ACK`和`FIN`。然后发出对server的`FIN`的最后一个`ACK`，此时cleint进入`TIME_WAIT`状态。通常此时client都会维持这个状态2`MSL`[^msl]时长后才会进入到`CLOSED`状态。
     > 两种特殊情况：
     > 1. client这时只收到了`ACK`，但是没有收到`FIN`，也就是说server目前还不想关闭连接，那么此时client进入到`FIN_WAIT_2`状态，这时client还依然可以接收server发送的数据。当收到server的`FIN`时，才会进入到`TIME_WAIT`状态。
     > 2. client这时只收到server的`FIN`，但是没有收到自己的`FIN`的`ACK`，非常罕见的情况，此时client会进入到`CLOSING`状态，待收到`ACK`后，进入到`TIME_WAIT`状态。
