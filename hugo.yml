@@ -73,7 +73,7 @@ metaDataFormat: yaml
 frontmatter:
   date:
     - created_at
-summaryLength: 168
+summaryLength: 128
 enableEmoji: true
 enableGitInfo: true
 disableHugoGeneratorInject: true
