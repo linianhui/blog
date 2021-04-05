@@ -2,4 +2,6 @@
   var _hmt = _hmt || [];
   blog.addOnScorllEvent();
 </script>
+{{ if eq "production" hugo.Environment }}
 <script src="https://hm.baidu.com/hm.js?b2cc3cea316e1f7a8def1bab8dc98fad" async="async"></script>
+{{ end }}

@@ -1,3 +1,4 @@
+{{ if eq "production" hugo.Environment }}
 <section id="article-comment" class="article-comment">
   <script src="https://utteranc.es/client.js"
           repo="linianhui/blog"
@@ -8,3 +9,4 @@
           async="async">
   </script>
 </section>
+{{ end }}

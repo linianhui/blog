@@ -23,7 +23,7 @@ jobs:
       - name: use hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
-          hugo --config hugo.yml
+          hugo --environment production --config hugo.yml
 
       - name: init static web site git repo
         working-directory: .www
