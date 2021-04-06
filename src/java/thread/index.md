@@ -124,7 +124,7 @@ public enum State {
 
 状态迁移图:
 
-```mermaid
+```sh
 stateDiagram-v2
     NEW --> RUNNABLE : Thread#start()
     RUNNABLE --> WAITTING : Object#wait()<br/>Thread#join()<br/>LockSupport#park()
