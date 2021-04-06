@@ -47,6 +47,13 @@
         }
     }
 
+    function inViewport(elementAxis, viewportAxis) {
+        if (elementAxis.y1 > viewportAxis.y2) {
+            return false;
+        }
+        return Math.max(elementAxis.y1, viewportAxis.y1) < Math.min(elementAxis.y2, viewportAxis.y2);
+    }
+
     function getClassNameArray(element) {
         if (element) {
             return element.className.split(" ") || [];
@@ -106,7 +113,7 @@
             var element = id(arguments[i]);
             toggleClassNameCore(element, className);
         }
-        refreshHorizontalProgressStyle();
+        refreshStyleOnHeightChange();
     }
 
     function getFragmentIdFromUrl(url) {
@@ -146,23 +153,16 @@
         for (var i = 0; i < tocItemArray.length; i++) {
             var current = tocItemArray[i];
             var next = tocItemArray[i + 1];
-            var locatorYAxis = {
+            var locatorAxis = {
                 y1: current.locator.offsetTop,
                 y2: (next && next.locator.offsetTop) || scrollAxis.viewport.y2
             };
-            if (inViewport(locatorYAxis, scrollAxis.viewport)) {
+            if (inViewport(locatorAxis, scrollAxis.viewport)) {
                 selectedTocItemArray.push(current);
             }
         }
 
         refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray);
-    }
-
-    function inViewport(locatorYAxis, viewportAxis) {
-        if (locatorYAxis.y1 > viewportAxis.y2) {
-            return false;
-        }
-        return Math.max(locatorYAxis.y1, viewportAxis.y1) < Math.min(locatorYAxis.y2, viewportAxis.y2);
     }
 
     function refreshSelectedTocItemArrayStyle(tocItemArray, selectedTocItemArray) {
@@ -181,10 +181,15 @@
     }
 
 
-    function refreshToc(scrollAxis) {
+    function refreshTocSytle(scrollAxis) {
         scrollAxis = scrollAxis || getScrollAxis();
+        var viewportHeight = scrollAxis.viewport.height;
         var tocElement = id('toc');
-        var top = tocElement.scrollHeight * scrollAxis.scroll.percentage.y1 - scrollAxis.viewport.height / 2;
+        var tocElementHeight = tocElement.scrollHeight;
+        if (viewportHeight >= tocElementHeight) {
+            return;
+        }
+        var top = tocElementHeight * scrollAxis.scroll.percentage.y1 - viewportHeight / 2;
         tocElement.scroll({
             top: top,
             left: 0,
@@ -192,10 +197,15 @@
         });
     }
 
+    function refreshStyleOnHeightChange(scrollAxis){
+        scrollAxis = scrollAxis || getScrollAxis();
+        refreshHorizontalProgressStyle(scrollAxis);
+        refreshTocSytle(scrollAxis);
+    }
+
     function onScorllEventCore(scrollAxis, tocItemArray) {
         refreshSelectedTocStyle(scrollAxis, tocItemArray);
-        refreshHorizontalProgressStyle(scrollAxis);
-        refreshToc(scrollAxis);
+        refreshStyleOnHeightChange(scrollAxis);
     }
 
     function addOnScorllEvent() {
@@ -210,7 +220,7 @@
     function toggleToc() {
         toggleClassName('toc', 'opened');
         refreshBodyStyle();
-        refreshHorizontalProgressStyle();
+        refreshStyleOnHeightChange();
     }
 
     window.blog = {
