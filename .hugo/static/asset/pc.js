@@ -183,8 +183,11 @@
 
     function refreshTocSytle(scrollAxis) {
         scrollAxis = scrollAxis || getScrollAxis();
-        var viewportHeight = scrollAxis.viewport.height;
         var tocElement = id('toc');
+        if (!tocElement) {
+            return;
+        }
+        var viewportHeight = scrollAxis.viewport.height;
         var tocElementHeight = tocElement.scrollHeight;
         if (viewportHeight >= tocElementHeight) {
             return;
@@ -197,7 +200,7 @@
         });
     }
 
-    function refreshStyleOnHeightChange(scrollAxis){
+    function refreshStyleOnHeightChange(scrollAxis) {
         scrollAxis = scrollAxis || getScrollAxis();
         refreshHorizontalProgressStyle(scrollAxis);
         refreshTocSytle(scrollAxis);
