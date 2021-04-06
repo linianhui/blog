@@ -443,7 +443,9 @@ time{
 }
 
 .topic-articles-count{
+  font-weight: normal;
   font-size: 16px;
+  color: #666;
 }
 
 .topic-article{
@@ -463,8 +465,9 @@ time{
 }
 
 .tags-title .tags-count{
-  font-size: 18px;
-  color: #333;
+  font-weight: normal;
+  font-size: 16px;
+  color: #666;
 }
 
 .tags .tag{
@@ -478,7 +481,7 @@ time{
 
 .tags .tag .tag-count{
   font-size: 12px;
-  color: #333;
+  color: #666;
 }
 
 .tag-title{
@@ -486,8 +489,9 @@ time{
 }
 
 .tag-title-count{
-  font-size: 18px;
-  color: #333;
+  font-weight: normal;
+  font-size: 16px;
+  color: #666;
 }
 
 .tag-articles{
@@ -507,8 +511,9 @@ time{
 }
 
 .archives-count{
-  font-size: 18px;
-  color: #333;
+  font-weight: normal;
+  font-size: 16px;
+  color: #666;
 }
 
 .archive-group{

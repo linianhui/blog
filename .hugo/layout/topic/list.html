@@ -4,7 +4,10 @@
   {{- if ne (len .Page.Pages) 0 }}
   <section class="topic">
     <h1 class="topic-title">
-      <a id="{{.Identifier}}" href="{{.URL}}" title="{{.Name}}" target="_blank">{{.Name}}</a>
+      <a id="{{.Identifier}}" href="{{.URL}}" title="{{.Name}}" target="_blank">
+        <i class="fa fa-folder"></i>
+        {{.Name}}
+      </a>
       <span class="topic-articles-count">（{{len .Page.Pages}}篇）</span>
     </h1>
     <section class="article-meta">

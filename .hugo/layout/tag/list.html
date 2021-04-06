@@ -1,5 +1,7 @@
 {{ define "content" }}
-<h1 class="tag-title">标签 : {{.Title}}
+<h1 class="tag-title">
+  <i class="fa fa-tag"></i>
+  {{.Title}}
   <span class="tag-title-count">（{{ len .Data.Pages }}篇）</span>
 </h1>
 <ol class="tag-articles" reversed>
