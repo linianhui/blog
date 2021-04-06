@@ -102,6 +102,12 @@ time{
   text-align: center;
 }
 
+.header-nav-item img{
+  display: inline-block;
+  height: 15px;
+  vertical-align: middle;
+}
+
 .stats{
   position: absolute;
   display: inline-block;

@@ -47,6 +47,11 @@ menu:
       url: https://github.com/linianhui/blog
       weight: 5
       pre: '<i class="fa fa-github"></i>'
+    - identifier: cnblogs
+      name: 博客园
+      url: https://linianhui.cnblogs.com
+      weight: 6
+      pre: '<img src="/asset/cnblogs.favicon.svg"/>'
   topic: []
 taxonomies:
   tag: tag
