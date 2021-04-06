@@ -5,7 +5,8 @@
   </hgroup>
   <nav class="header-nav">
     {{ range .Site.Menus.main }}
-    <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}">
+    {{- $target := cond (hasPrefix .URL "http") "_black" "_self" -}}
+    <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}" target="{{$target}}">
       {{ .Pre }}
       {{ .Name }}
     </a>
