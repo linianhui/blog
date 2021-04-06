@@ -22,35 +22,30 @@ params:
 
 menu:
   main:
-    - identifier: home
-      name: 首页
-      url: /
-      weight: 1
-      pre: '<i class="fa fa-home"></i>'
     - identifier: topic
       name: 专题
       url: /topic/
-      weight: 2
+      weight: 1
       pre: '<i class="fa fa-folder"></i>'
     - identifier: tag
       name: 标签
       url: /tag/
-      weight: 3
+      weight: 2
       pre: '<i class="fa fa-tags"></i>'
     - identifier: archive
       name: 归档
       url: /archive/
-      weight: 4
+      weight: 3
       pre: '<i class="fa fa-archive"></i>'
     - identifier: github
       name: GitHub
       url: https://github.com/linianhui/blog
-      weight: 5
+      weight: 4
       pre: '<i class="fa fa-github"></i>'
     - identifier: cnblogs
       name: 博客园
       url: https://linianhui.cnblogs.com
-      weight: 6
+      weight: 5
       pre: '<img src="/asset/cnblogs.favicon.svg"/>'
   topic: []
 taxonomies:

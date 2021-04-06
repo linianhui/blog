@@ -1,7 +1,9 @@
 <header class="header">
   <hgroup class="header-hgroup">
-    <h1 class="header-hgroup-title">{{ .Site.Title }}</h1>
-    <h2 class="header-hgroup-subtitle">{{ .Site.Params.SubTitle }}</h2>
+    <h1 class="header-hgroup-title">
+      <a href="/">{{- .Site.Title -}}</a>
+    </h1>
+    <h2 class="header-hgroup-subtitle">{{- .Site.Params.SubTitle -}}</h2>
   </hgroup>
   <nav class="header-nav">
     {{ range .Site.Menus.main }}
