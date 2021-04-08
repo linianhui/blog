@@ -10,7 +10,8 @@ toc: true
 
 下载地址 : 
 1. <https://adoptopenjdk.net/upstream.html>
-2. <https://developers.redhat.com/products/openjdk/download>
+2. <https://www.microsoft.com/openjdk>
+3. <https://developers.redhat.com/products/openjdk/download>
 
 ```powershell
 # 设置环境变量 
@@ -24,7 +25,7 @@ java -v
 
 下载地址 : <https://maven.apache.org/download.cgi>
 
-下载二进制包 : `apache-maven-3.6.3-bin.zip`解压至`d:\_app\_maven\`目录下。 
+下载二进制包 : `apache-maven-3.8.1-bin.zip`解压至`d:\_app\_maven\`目录下。 
 ```powershell
 # 设置环境变量
 Env-SetMavenEnvironmentVariable
@@ -34,7 +35,7 @@ mvn -v
 
 # wrapper
 # https://github.com/takari/maven-wrapper
-mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven='3.6.3'
+mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven='3.8.1'
 ```
 ## 2.1 settings.xml {#settings-xml}
 
