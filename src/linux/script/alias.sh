@@ -61,7 +61,7 @@ alias i18n='locale'
 
 alias hugo='hugo --config hugo.yml'
 
-alias mvn-wrapper='mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.6.3'
+alias mvn-wrapper='mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.8.1'
 
 alias gradle-wrapper='gradle wrapper --distribution-type all --gradle-version 6.7'
 
