@@ -15,6 +15,6 @@ docker run --name rabbitmq -d rabbitmq:3.8-management
 
 {{<highlight-file path="Dockerfile" lang="Dockerfile">}}
 
-# 参考 {#reference}
+# 2 参考 {#reference}
 
 <https://www.rabbitmq.com/download.html>
