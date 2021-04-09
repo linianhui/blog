@@ -21,6 +21,7 @@ $CODE_PATH_ALIAS = @{
     oe  = $CODE_PATH + 'oidc.example';
     se  = $CODE_PATH + 'spring.example';
     je  = $CODE_PATH + 'java.example';
+    re  = $CODE_PATH + 'rabbitmq.example';
 }
 
 function Code-ChangeDirectory ([string] $Alias) {
