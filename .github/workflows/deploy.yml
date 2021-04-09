@@ -9,10 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-16.04
 
-    if: ${{ startsWith(github.event.head_commit.message,'[deploy]') }}
+    # if: ${{ startsWith(github.event.head_commit.message,'[deploy]') }}
     steps:
       - name: git checkout
         uses: actions/checkout@v1
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: install hugo
         env:
