@@ -251,9 +251,6 @@ function Env-SetMavenEnvironmentVariable() {
     # http://maven.apache.org/configure.html
     Env-TrySetVariable -Variable 'MAVEN_OPTS' -Value '-Xms256m -Xmx1024m'
 
-    # custom
-    Env-TrySetVariable -Variable 'MAVEN_REPOSITORY_HOME' -Value $CACHE_MAVEN_DIR
-
     Env-TryAppendPathVariable -Value $APP_MAVEN_BIN_DIR
 }
 

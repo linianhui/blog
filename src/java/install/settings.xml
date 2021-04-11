@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://maven.apache.org/settings.html -->
-<!-- 
+<!--
   加载顺序
-  1. 全局设置 M2_HOME/conf/settiing.xml 
+  1. 全局设置 M2_HOME/conf/settiing.xml
   2. 用户设置 HOME/.m2/settiing.xml
 -->
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-  <localRepository>${env.MAVEN_REPOSITORY_HOME}</localRepository>
-  <!-- <localRepository>d:/.cache/.maven</localRepository> -->
+  <localRepository>/lnh/_cache/_maven</localRepository>
+  <!-- <localRepository>d:/_cache/_maven</localRepository> -->
 
   <mirrors>
     <!-- https://maven.apache.org/guides/mini/guide-mirror-settings.html -->
