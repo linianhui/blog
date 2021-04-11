@@ -115,11 +115,28 @@ IP地址中保留了一部分私有网络地址[^private-network]，可以不用
 
 `192.168.1.0/29`和`192.168.1.8/29`可以聚合为`192.168.1.0/28`，聚合后的子网掩码是`255.255.255.240`, 包含2<sup>32-28=4</sup>=16个IP(`192.168.1.1`~`192.168.1.15`)
 
-
 ## 3.3 IPv6 Address {#ipv6-address}
 
-
 待补充...
+
+## 3.4 特殊的IP Address {#special-address}
+
+RFC5735[^rfc5735]定义了一些特殊的IP地址。常用的一些如下。
+### 3.4.1 Loopback Address {#loopback-adress}
+
+中文称为**回环地址**[^loopback]。回环的意思是说任何发往这个地址的数据，都不会被路由到网络上，而只会再次回到这个地址上来。
+
+1. `IPv4`: `127.0.0.1/8`。
+2. `IPv6`: `::1/128`。
+
+> 这里指的是一个<mark>地址块</mark>，并不是一个地址，比如`127.1.2.3`也是回环地址，只是通常我们只用`127.0.0.1`就足够了。
+
+### 3.4.2 Host Address {#host-address}
+
+中文称为**主机地址**[^0-0-0-0]。代表的是本机上所有的网络接口的IP地址。比如本机有一个外部IP`1.2.3.4`，一个私有IP`192.168.1.2`，还有一个默认的回环地址`127.0.0.1`，那么**主机地址**代表的是上述3个IP。不同于`127.0.0.1`的是，当我们的应用监听`0.0.0.0`时，意味着使用上述例子中的3个地址都可以访问。
+
+1. `IPv4`: `0.0.0.0`。
+2. `IPv6`: 简写`::`, 完整`0000:0000:0000:0000:0000:0000:0000:0000`。
 
 # 4 Referance {#reference}
 
@@ -131,5 +148,8 @@ IP地址中保留了一部分私有网络地址[^private-network]，可以不用
 [^classful-network]:Classful Network : <https://en.wikipedia.org/wiki/Classful_network>
 [^private-network]:Private Network : <https://en.wikipedia.org/wiki/Private_network>
 [^cidr]:Classless Internet Domain Routing : <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing>
+[^loopback]:Loopback Address : <https://en.wikipedia.org/wiki/Loopback#Virtual_loopback_interface>
+[^0-0-0-0]:0.0.0.0 : <https://en.wikipedia.org/wiki/0.0.0.0>
+[^rfc5735]:Special Use IPv4 Addresses : <https://tools.ietf.org/html/rfc5735>
 
 [nat]:<../nat>
