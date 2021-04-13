@@ -2,7 +2,7 @@
 title: "[计算机网络]"
 ---
 
-计算机网络的核心概念和体系结构，不涉及网络编程的概念。
+计算机网络的核心概念和体系结构，不涉及[计算机网络编程](/computer-networking-programming/)的概念。
 
 相关代码 : <https://github.com/linianhui/networking>
 
