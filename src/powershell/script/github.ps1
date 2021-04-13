@@ -12,6 +12,7 @@ git clone https://github.com/linianhui/git.web.git
 git clone https://github.com/linianhui/http.benchmark.git
 git clone https://github.com/linianhui/linianhui.github.io.git
 git clone https://github.com/linianhui/networking.git
+git clone https://github.com/linianhui/networking-programming.git
 git clone https://github.com/linianhui/nuget.server.git
 git clone https://github.com/linianhui/oidc.example.git
 git clone https://github.com/linianhui/spring.example.git

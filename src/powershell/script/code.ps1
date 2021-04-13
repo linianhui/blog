@@ -17,6 +17,7 @@ $CODE_PATH_ALIAS = @{
     di  = $CODE_PATH + 'div';
     b   = $CODE_PATH + 'blog';
     n   = $CODE_PATH + 'networking';
+    np  = $CODE_PATH + 'networking-programming';
     ns  = $CODE_PATH + 'nuget.server';
     oe  = $CODE_PATH + 'oidc.example';
     se  = $CODE_PATH + 'spring.example';
