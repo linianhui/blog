@@ -237,7 +237,7 @@ ssize_t recv(int sockfd, void *buf, size_t len, int flags);
 4. `int flags`：。
 
 返回值：
-1. 成功：接收成功的数据长度，可能会小于`size_t len`参数。
+1. 成功：接收成功的数据长度，可能会小于`size_t len`参数。当返回`0`时表示对方已经断开了连接。
 2. 失败：`-1`。`errno`[^man-errno]代表具体的错误类型。
 
 示例：
