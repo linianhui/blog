@@ -16,7 +16,7 @@ toc: true
 socket连接地址使用`struct sockaddr_in`来存储，主要用来存储连接一方的ip和port。
 
 ```c
-typedef __uint32_t in_addr_t；     /* base type for internet address */
+typedef __uint32_t in_addr_t;     /* base type for internet address */
 typedef __uint8_t  sa_family_t; 
 
 struct in_addr {
