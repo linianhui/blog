@@ -6,7 +6,7 @@ toc: true
 ---
 
 **Socket**[^socket]是一套抽象的用于网络通信的API，它使得应用层可以不必关心底层繁琐的传输通信细节。
-> 开始之前最好具备一些**计算机网络**[^computer-networking]的基础，以及**TCP**[^tcp]的相关知识储备。
+> 开始之前最好具备一些**计算机网络**[^computer-networking]的基础，**TCP**[^tcp]以及**网络字节序**[^endian]的相关知识储备。
 
 # 1 基础简介 {#basic}
 
@@ -279,6 +279,7 @@ if (close_result == -1){
 [^socket]: Network Socket : <https://en.wikipedia.org/wiki/Network_socket>
 [^computer-networking]: 计算机网络-系列博客 : <https://linianhui.github.io/computer-networking/>
 [^tcp]: TCP : <https://linianhui.github.io/computer-networking/tcp/>
+[^endian]: 网络字节序 : <https://linianhui.github.io/computer-networking/00-overview/#endian>
 [^man-socket]: `man 2 socket` <https://man7.org/linux/man-pages/man2/socket.2.html>
 [^man-bind]: `man 2 bind` <https://man7.org/linux/man-pages/man2/bind.2.html>
 [^man-listen]: `man 2 listen` <https://man7.org/linux/man-pages/man2/listen.2.html>

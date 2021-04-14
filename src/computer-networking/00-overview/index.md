@@ -9,7 +9,7 @@ toc: true
 
 # 1 标准化 {#standardization} 
 
-**计算机网络** 由 **节点(node : 计算机、集线器、交换机或路由器)** 和连接它们的 **链路(link)** 组成。这些众多的设备之间如何通信？其中离不开各种各样的标准，标准的意义在于统一的规则，遵循相同标准的设备之间可以互联互通，从而避免一些不兼容的问题。[IETF(Internet Engineering Task Force)][ietf]是负责标准化的一个重要机构，IP、TCP、UDP、DNS、HTTP等等众多协议都是由IETF标准化的。
+**计算机网络** 由 **节点(node : 计算机、集线器、交换机或路由器)** 和连接它们的 **链路(link)** 组成。这些众多的设备之间如何通信？其中离不开各种各样的标准，标准的意义在于统一的规则，遵循相同标准的设备之间可以互联互通，从而避免一些不兼容的问题。**IETF(Internet Engineering Task Force)**[^ietf]是负责标准化的一个重要机构，IP、TCP、UDP、DNS、HTTP等等众多协议都是由IETF标准化的。
 
 # 2 常见的分类 {#categories}
 
@@ -88,8 +88,26 @@ toc: true
 4. 传输层 : 依托下层的分组&交换的数据报，为上层提供传输通道，`PDU=Segment`。
 5. 应用层 : 依托下层的传输通道，为应用级别的提供专用的网络服务，`PDU=Data`。
 
-# 6 总结 {#summary}
+# 6 字节序 {#endian}
+
+网络上传输的是`01`bit流。而上层的基本数据单元则是`octet`[^octet]，即1个byte。当一个基本的字段有2个及以上的`octet`构成时，这时由于历史原因，产生了两种字节序存储方式[^endian]。比如一个数字32bit的数字`0xA1B2C3D4`。
+
+```ini
+       0xA1B2C3D4
+|  -  + 4 octets  +     |
+|  -  +  -  +  -  +  -  |
+|  0     1     2     3  | 内存增长方向
+|  -  +  -  +  -  +  -  |
+| 0xA1  0xB2  0xC3  0xD4| 大端模式/网络字节序：高位字节存储在低位
+|  -  +  -  +  -  +  -  |
+| 0xD4  0xC3  0xB2  0xA1| 小端模式/主机字节序：高位字节存储在高位
+|  -  +  -  +  -  +  -  |
+```
+
+# 7 总结 {#summary}
 
 以上简单的介绍了一下计算机网络的基础概念，以及核心的设计理念**分组&交换**和**分层体系**，后续则针对各层逐步展开。
 
-[ietf]:https://www.ietf.org/
+[^ietf]: <https://www.ietf.org>
+[^octet]: 8bits： <https://en.wikipedia.org/wiki/Octet_(computing)>
+[^endian]: 字节序： <https://en.wikipedia.org/wiki/Endianness>
