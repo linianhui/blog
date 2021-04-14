@@ -467,3 +467,17 @@ function Env-SetMiniServeEnvironmentVariable() {
 
     Env-TryAppendPathVariable -Value $APP_MINISERVE_DIR
 }
+
+# https://github.com/wagoodman/dive
+function Env-SetDiveEnvironmentVariable() {
+    $APP_DIVE_DIR = $APP_DIR + '_dive\';
+
+    Env-TryAppendPathVariable -Value $APP_DIVE_DIR
+}
+
+# https://www.voidtools.com/zh-cn/
+function Env-SetEverythingEnvironmentVariable() {
+    $APP_EVERYTHING_DIR = $APP_DIR + '_everything\';
+
+    Env-TryAppendPathVariable -Value $APP_EVERYTHING_DIR
+}
