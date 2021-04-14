@@ -44,8 +44,84 @@ struct sockaddr {
 
 # 2 函数 {#function}
 
+## 2.1 socket函数 {#socket}
 
-待补充...
+`socket`[^man-socket]。
+
+```c
+#include <sys/socket.h>
+
+int socket (int family, int type, int protocol);
+```
+## 2.2 bind函数 {#bind}
+
+`bind`[^man-bind]。
+
+```c
+#include <sys/socket.h>
+
+int bind (int sockfd, const struct sockaddr *myaddr, socklen_t addrlen);
+```
+
+## 2.3 listen函数 {#listen}
+
+`listen`[^man-listen]。
+
+```c
+#include <sys/socket.h>
+
+int listen (int sockfd, int backlog);
+```
+
+## 2.4 connect函数 {#connect}
+
+`connect`[^man-connect]。
+
+```c
+#include <sys/socket.h>
+
+int connect(int sockfd, const struct sockaddr *servaddr, socklen_t addrlen);
+```
+
+## 2.5 accept函数 {#accept}
+
+`accept`[^man-accept]。
+
+```c
+#include <sys/socket.h>
+
+int accept (int sockfd, struct sockaddr *cliaddr, socklen_t *addrlen);
+```
+
+## 2.6 send函数 {#send}
+
+`send`[^man-send]。
+
+```c
+#include <sys/socket.h>
+
+ssize_t send(int sockfd, const void *buf, size_t len, int flags);
+```
+
+## 2.7 recv函数 {#recv}
+
+`recv`[^man-recv]。
+
+```c
+#include <sys/socket.h>
+
+ssize_t recv(int sockfd, void *buf, size_t len, int flags);
+```
+
+## 2.8 close函数 {#close}
+
+`close`[^man-close]。
+
+```C
+#include <unistd.h>
+
+int close (int sockfd);
+```
 
 # 3 Eche Example {#echo-example}
 
@@ -56,3 +132,11 @@ struct sockaddr {
 [^socket]: Network Socket : <https://en.wikipedia.org/wiki/Network_socket>
 [^computer-networking]: 计算机网络-系列博客 : <https://linianhui.github.io/computer-networking/>
 [^tcp]: TCP : <https://linianhui.github.io/computer-networking/tcp/>
+[^man-socket]: `man 3 socket` <https://man7.org/linux/man-pages/man3/socket.3p.html>
+[^man-bind]: `man 3 bind` <https://man7.org/linux/man-pages/man3/bind.3p.html>
+[^man-listen]: `man 3 listen` <https://man7.org/linux/man-pages/man3/listen.3p.html>
+[^man-connect]: `man 3 connect` <https://man7.org/linux/man-pages/man3/connect.3p.html>
+[^man-accept]: `man 3 accept` <https://man7.org/linux/man-pages/man3/accept.3p.html>
+[^man-send]: `man 3 send` <https://man7.org/linux/man-pages/man3/send.3p.html>
+[^man-recv]: `man 3 recv` <https://man7.org/linux/man-pages/man3/recv.3p.html>
+[^man-close]: `man 3 close` <https://man7.org/linux/man-pages/man3/close.3p.html>
