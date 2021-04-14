@@ -13,7 +13,7 @@ toc: true
 方便起见，这里假设底层是IPv4和TCP。
 ## 1.1 地址结构 {#sockaddr_in}
 
-socket连接地址使用`struct sockaddr_in`来存储，主要用来存储连接一方的ip和port。
+既然是建立通信，那么就需要知道对方的地址。socket使用`struct sockaddr_in`来存储连接一方的`ip`和`port`。
 
 ```c
 typedef __uint32_t in_addr_t;     /* base type for internet address */
