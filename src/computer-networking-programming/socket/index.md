@@ -270,7 +270,7 @@ if (close_result == -1){
 }
 ```
 
-# 3 Eche Example {#echo-example}
+# 3 Echo Example {#echo-example}
 
 一个C语言编写的基于Socket API的Echo程序：<https://github.com/linianhui/networking-programming>
 
