@@ -274,7 +274,13 @@ if (close_result == -1){
 
 一个C语言编写的基于Socket API的Echo程序：<https://github.com/linianhui/networking-programming>
 
-# 4 参考 {#reference}
+# 4 TCP State {#tcp-state}
+
+下图展示了每个函数对应的调用时机以及**TCP**[^tcp]的状态流转。
+
+![TCP连接中的socket函数和状态](socket-function-in-tcp-state-diagram.svg)
+
+# 5 参考 {#reference}
 
 [^socket]: Network Socket : <https://en.wikipedia.org/wiki/Network_socket>
 [^computer-networking]: 计算机网络-系列博客 : <https://linianhui.github.io/computer-networking/>
