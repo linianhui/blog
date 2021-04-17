@@ -12,8 +12,9 @@ export XDG_DATA_HOME=$DATA_DIR
 # https://docs.microsoft.com/en-us/dotnet/core/tools/telemetry
 # https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install
 export DOTNET_CLI_TELEMETRY_OPTOUT=false
+APP_DOTNET_DIR=$APP_DIR/_dotnet
 DOTNET_TOOLS_DIR=$HOME/.dotnet/tools
-export PATH=$PATH:$DOTNET_TOOLS_DIR
+export PATH=$PATH:$APP_DOTNET_DIR:$DOTNET_TOOLS_DIR
 
 # https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 APP_JAVA_DIR=$APP_DIR/_java
