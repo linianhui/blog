@@ -44,7 +44,7 @@ struct timeval {
 };
 ```
 
-# 1.1 使用者角度 {#user-angle}
+## 1.1 使用者角度 {#select-user-angle}
 
 站在我们使用API的角度来看，`select`提供了一个名为`fd_set`的`struct`来存储我们需要处理的多个`fd`。比如[select-client.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/select-client.c)中的`stdin`和`connect_fd`，以及[select-server.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/select-server.c)中的`accept`的多个`connect_fd`。拿其中一个来举例：
 
@@ -87,26 +87,27 @@ int select_handler(int listen_fd)
 {{</code-snippet>}}
 
 先声明一个`fd_set read_fd_set`，再把`listen_fd`添加进去，紧接着调用`select`。把`fd_set`传递进去，当kernel监测到其中有fd可读时，select就从阻塞中返回了。这时我们循环遍历`read_fd_set`，挨个去处理其中的读取操作即可。需要注意的是：<mark>select每次返回都会清空你先前通过FD_SET添加的fd，所以需要每次select前重新初始化一下fd_set</mark>
-> 这时因为fd_set本质上是一个bitmap，它是一个用int或者long表示的数组，通过数组组成一个长度为1024bit的bitmap。fd是个正整数的数字，其索引位置为1就代表包含这个fd。那么当select返回时，其内部就会仅仅可以读或者写的那部分fd设置为1，而其他的全部清除掉。
+> 这时因为fd_set本质上是一个bitmap，它是一个用int或者long表示的数组，通过数组组成一个长度为1024bit的bitmap。fd是个正整数的数字，其索引位置为1就代表包含这个fd。那么当select返回时，其内部就会把可以读或者写的那部分fd设置为1，而其他的全部清除掉。
 
 可以看出它确实是可以支持多个IO了。
 
 ## 1.2 遗留问题 {#select-problem}
 
-为什么长度是1024呢？这其实也是它的的处理逻辑导致的：哪怕select只返回了一个fd可读，我们也都需要把所有的fd都检查一遍。当上限再大时，每次循环太多就会导致select的效果下降。
+为什么长度是1024呢？我只能说它就是个约定，API最初就是这么定义的。<mark>需要注意的是，并不是说我们不能处理超过1024个连接，而是说select的一次调用，只能处理1024个。我们完全可以自己定义一个额外的数据结构，每次只copy 1024个给select，处理完后再copy下一个1024个，就像分页一样，只是需要我们自己去处理罢了。</mark>
+
 > `bitmap`是笔者自己实现的，因为`fd_set`会被清空，所以需要一个额外的地方存储我们关注的fd集合，然后利用它重新初始化fd_set。
 
-总结：可以处理多个IO了。不足：
-1. 1024上限：无法支撑更多的连接。
+优点：
+1. 可以处理多个IO了。
+
+不足：
+1. 每次只能处理1024个：更多的连接需要额外处理。
 2. 每次需要重复初始化复制到kernel：来回复制导致浪费性能。
 3. 循环检查所有fd：效率低下。
 
 # 2 poll版本 {#poll}
 
-`poll`[^poll]主要解决了select的1和2两个问题，即采用新的数据结构`pollfd`：
-1. 突破1024的上限。
-2. 通过两个字段`events`和`revents`来区分关注的事件和发生的事件，从而避免重复初始化，
-
+`poll`[^poll]采用新的数据结构`pollfd`：
 ```sh
 int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 
@@ -116,15 +117,24 @@ struct pollfd {
     short revents;    /* returned events */
 };
 ```
+## 1.1 使用者角度 {#poll-user-angle}
 
-这里就不详细介绍来，对细节感兴趣的直接看示例代码：
+新的数据结构`pollfd`主要解决了select的1和2两个问题：
+1. 突破1024的上限。
+2. 通过两个字段`events`和`revents`来区分关注的事件和发生的事件，从而避免重复初始化，
+
+具体使用细节这里就不详细介绍了，感兴趣的看以下的示例代码吧：
 1. [poll-server.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/poll-server.c)
 2. [poll-client.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/poll-client.c)
 
 ## 2.2 遗留问题 {#poll-problem}
 
-总结：突破了1024的上限。不足：
-1. 虽然避免来重复初始化，但是每次调用依然需要copy整个`pollfd`数组到kernel：来回复制依然导致浪费性能。
+优点：
+1. 突破了1024的上限
+2. 避免了重复初始化。
+
+不足：
+1. 每次调用依然需要copy整个`pollfd`数组到kernel：来回复制依然导致浪费性能。
 2. 还是循环检查所有fd：效率依然低下。
 
 # 3 epoll版本 {#epoll}
