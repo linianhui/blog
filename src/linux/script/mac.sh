@@ -15,5 +15,3 @@ export CLICOLOR=1
 # https://github.com/seebi/dircolors-solarized.git
 
 # 'hyper-solarized'
-
-source /usr/local/share/zsh/site-functions/git-completion.bash
