@@ -108,7 +108,9 @@ int select_handler(int listen_fd)
 # 2 poll {#poll}
 
 `poll`[^poll]采用新的数据结构`pollfd`：
-```sh
+```c
+#include <poll.h>
+
 int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 
 struct pollfd {
@@ -130,7 +132,7 @@ struct pollfd {
 ## 2.2 遗留问题 {#poll-problem}
 
 优点：
-1. 突破了1024的上限
+1. 突破了1024的上限。
 2. 避免了重复初始化。
 
 不足：
@@ -139,20 +141,152 @@ struct pollfd {
 
 # 3 epoll {#epoll}
 
-`epoll`[^epoll]。
+`epoll`[^epoll]针对poll遗留的问题，给出了新的函数和数据结构。
+
+```c
+#include <sys/epoll.h>
+
+#define EPOLL_CTL_ADD 1        /* Add a file descriptor to the interface.  */
+#define EPOLL_CTL_DEL 2        /* Remove a file descriptor from the interface.  */
+#define EPOLL_CTL_MOD 3        /* Change file descriptor epoll_event structure.  */
+
+int epoll_create(int size);
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+int epoll_wait(int epfd, struct epoll_event *events, int maxevents, int timeout);
+
+typedef union epoll_data {
+    void    *ptr;
+    int      fd;
+    uint32_t u32;
+    uint64_t u64;
+} epoll_data_t;
+
+struct epoll_event {
+    uint32_t     events;    /* Epoll events */
+    epoll_data_t data;      /* User data variable */
+};
+```
+
+## 3.1 使用者角度 {#epoll-user-angle}
+
+epoll解决问题的办法：
+1. `epoll_create`[^epoll_create]在kernel创建一个`epfd`，用来保存需要处理的fd以及关注的事件类型信息，只初始化一次。
+2. `epoll_ctl`[^epoll_ctl]向`epfd`添加、删除或者修改一个fd的event信息，只需处理一次。
+3. `epoll_wait`[^epoll_wait]仅返回指定数量的满足要求的event列表。这部分都是可读或者可写的，遍历处理即可。
+
+其中1和2解决来poll遗留的重复来回在kernel和user之间copy数据的问题，交给了kernel内部来维护；3解决了poll中遗留的需要遍历所有数据的问题，仅需遍历就绪的这部分。
+
+具体使用细节在这两个文件中：
+1. [epoll-server.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/epoll-server.c)
+2. [epoll-client.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/epoll-client.c)
+
+拿`epoll-server`的代码看一下：
+{{<code-snippet lang="c" href="https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/epoll-server.c#L11-L76">}}
+#include "cnp.h"
+#include <sys/epoll.h>
+
+void epoll_ctl_add(int epoll_fd, int fd)
+{
+    struct epoll_event ev;
+    ev.events = EPOLLIN;
+    ev.data.fd = fd;
+    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, fd, &ev);
+}
+
+void epoll_ctl_del(int epoll_fd, int fd)
+{
+    struct epoll_event ev;
+    ev.events = EPOLLIN;
+    ev.data.fd = fd;
+    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, &ev);
+}
+
+void epoll_handler(int listen_fd)
+{
+    int epoll_fd = epoll_create(1024);
+    epoll_ctl_add(epoll_fd, listen_fd);
+
+    int index;
+    int fd;
+    uint32_t events;
+
+    int event_count = 4;
+    struct epoll_event event_array[event_count];
+
+    while (1)
+    {
+        bzero(event_array, sizeof(event_array));
+
+        // 每次返回指定数量的可读fd
+        epoll_wait(epoll_fd, event_array, event_count, -1);
+        for (index = 0; index < event_count; index++)
+        {
+            fd = event_array[index].data.fd;
+            if (fd < 0)
+            {
+                continue;
+            }
+
+            events = event_array[index].events;
+
+            // 当listen_fd可读，把获取的连接的fd放入epoll_fd
+            if (fd == listen_fd)
+            {
+                if (events & EPOLLIN)
+                {
+                    epoll_ctl_add(epoll_fd, accept_e(listen_fd, NULL, NULL));
+                }
+                continue;
+            }
+
+            // 当connect_fd可读时，交由echo处理
+            if (events & EPOLLIN)
+            {
+                if (echo(fd) == 0)
+                {
+                    epoll_ctl_del(epoll_fd, fd);
+                    close_e(fd);
+                }
+            }
+        }
+    }
+}
+{{</code-snippet>}}
+
+## 3.2 遗留问题 {#epoll-problem}
+
+优点：
+1. 缓解了kernel和user之间来回copy数据的问题。
+2. 仅检查就绪的fd，效率提升了。
+
+不足：
+1. 特定于Linux平台。
 
 # 4 总结 {#summary}
 
+1. Linux有epoll[^epoll]。
+2. BSD有epoll等效的kqueue[^kqueue]。
+3. Windows有NT3.5就加入的`IOCP`[^iocp]，它已经是属于异步IO了。
+4. POSIX asynchronous I/O `AIO`[^aio]。 
 
+可见各方都在各显神通来解决**C10k问题**[^c10k]，但是这样的不统一，使用者想跨平台移植就难受了。为此诞生了`libevent`[^libevent]，它为`/dev/poll`、`kqueue`、`POSIX select`、`Windows select`、`poll`和`epoll`。但是对IOCP不支持，Node.js就在此基础上开发了`libuv`[^libuv]，在Windows上增加了IOCP的支持。
 
-# 6 参考 {#reference}
+当前各种常见到的组件底层几乎都离不开`epoll`，比如Netty、Node.js、Nginx、Redis等等。
+
+# 5 参考 {#reference}
 
 [^c10k]: 英文原文: <http://www.kegel.com/c10k.html> 解读系列: <http://www.52im.net/thread-566-1-1.html>
 [^select]: Unix `man select` : <https://man7.org/linux/man-pages/man2/select.2.html>
 [^poll]: Unix `man poll` : <https://man7.org/linux/man-pages/man2/poll.2.html>
 [^epoll]: Linux `man epoll` : <https://man7.org/linux/man-pages/man7/epoll.7.html>
+[^epoll_create]: Linux `man epoll_create` : <https://man7.org/linux/man-pages/man2/epoll_create.2.html>
+[^epoll_ctl]: Linux `man epoll_ctl` : <https://man7.org/linux/man-pages/man2/epoll_ctl.2.html>
+[^epoll_wait]: Linux `man epoll_wait` : <https://man7.org/linux/man-pages/man2/epoll_wait.2.html>
 [^kqueue]: BSD `man kqueue` : <https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2>
 [^iocp]: IOCP : <https://docs.microsoft.com/en-us/windows/win32/fileio/i-o-completion-ports>
 [^fork]: `man fork`: <https://man7.org/linux/man-pages/man2/fork.2.html>
 [^io-model]: IO 模型 : <https://linianhui.github.io/computer-networking/io-model/>
 [^socket-problem]: Socket 基础版Echo程序遗留问题 : <https://linianhui.github.io/computer-networking-programming/socket/#problem>
+[^aio]: POSIX asynchronous I/O : <https://man7.org/linux/man-pages/man7/aio.7.html>
+[^libevent]: libevent : <https://github.com/libevent/libevent>
+[^libuv]: libuv : <https://github.com/libuv/libuv>
