@@ -269,16 +269,128 @@ if (close_result == -1){
   // check errno
 }
 ```
-
-# 3 Echo 程序 {#echo-app}
-
-一个C语言编写的基于Socket API的Echo程序：<https://github.com/linianhui/networking-programming>
-
-# 4 TCP State {#tcp-state}
+# 3 TCP State {#tcp-state}
 
 下图展示了每个函数对应的调用时机以及**TCP**[^tcp]的状态流转。
 
 ![TCP连接中的socket函数和状态](socket-function-in-tcp-state-diagram.svg)
+
+# 4 Example {#example}
+
+一个C语言编写的基于Socket API的Echo程序，由其中的两个文件构成：
+1. [socket-server.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/socket-server.c)
+2. [socket-client.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/socket-client.c)
+
+> 源码中对socket原生函数添加了包装，命名方式为`xxx_e`，函数签名完全保持一致，不同之处在于包装函数内部增加了`log`和`error`记录处理。创建和初始化socket的代码比较简单，做成来通用方法放在了<https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/cnp.c>中，这里就不做解释了。
+
+## 4.1 client {#socket-client}
+
+{{<code-snippet lang="c" href="https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/socket-client.c">}}
+#include "cnp.h"
+
+void cli(FILE *input, int connect_fd)
+{
+    char recv_buf[BUFFER_SIZE];
+    char send_buf[BUFFER_SIZE];
+
+    while (1)
+    {
+        // 打印用户输入提示符
+        log_stdin_prompt();
+
+        // 读取用户输入，阻塞
+        bzero(send_buf, sizeof(send_buf));
+        fgets(send_buf, BUFFER_SIZE, input);
+
+        send_e(connect_fd, send_buf, strlen(send_buf) + 1, 0);
+
+        // 接收server响应，阻塞
+        bzero(recv_buf, sizeof(recv_buf));
+        recv_e(connect_fd, recv_buf, BUFFER_SIZE, 0);
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    int connect_fd = socket_create_connect(argc, argv);
+    cli(stdin, connect_fd);
+    return 0;
+}
+{{</code-snippet>}}
+
+上述client的逻辑非常简单，主要可以分成4部分：
+1. 启动后使用TCP连接指定的服务器（*默认127.0.0.1:12345*）。
+2. 连接成功开启一个`while`循环，循环内部阻塞在`fgets`[^man-fgets]调用处（*`fgets`可以从`stdin`[^man-stdin]获取用户输入的一行文字*）。
+3. 当获取到用户输入后，`fgets`从阻塞中返回，把读取到的数据通过[send](#send)发送到`connect_fd`背后的服务器。
+4. 随后阻塞在[recv](#recv)调用处，等待读取服务器的响应。然后回到第2步继续循环。
+
+## 4.2 server {#socket-server}
+
+{{<code-snippet lang="c" href="https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/socket-server.c">}}
+#include "cnp.h"
+
+void echo(int connect_fd)
+{
+    char buf[BUFFER_SIZE];
+    int recv_size;
+
+    while (1)
+    {
+        bzero(buf, sizeof(buf));
+        // 读取接收的数据，阻塞
+        recv_size = socket_revc_and_send(connect_fd, buf);
+        if (recv_size == 0)
+        {
+            break;
+        }
+    }
+}
+
+void fork_handler(int listen_fd){
+    int connect_fd;
+
+    while (1)
+    {
+        // 获取已建立的连接，阻塞。
+        connect_fd = accept_e(listen_fd, NULL, NULL);
+        if (fork() == 0)
+        {
+            echo(connect_fd);
+            exit(0);
+        }
+        close_e(connect_fd);
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    int listen_fd = socket_create_bind_listen(argc, argv);
+    fork_handler(listen_fd);
+    return 0;
+}
+{{</code-snippet>}}
+
+server看起来更简单了一点（只处理一个fd）。主要也是4部分构成：
+
+1. 启动后监听IPv4的TCP端口（默认0.0.0.0:12345）。
+2. 使用`while`循环（*循环的目的在于服务器要处理客户端的多个连接*）调用[accept](#accept)。当没有客户端请求建立连接时，会一直阻塞在此处。
+3. 客户端成功建立连接，`accept`函数从阻塞中返回一个`connect_fd`，代表这一个TCP连接。随后使用`fork`[^fork]开启一个新的线程处理这个连接。然后主线程进入下一次循环，继续阻塞在`accept`处。
+4. 新线程执行`echo`函数，用循环执行[recv](#recv)和[send](#send)，`send`的内容是把`recv`到的数据转成大写再发回去。如果`recv`到了**0**个字节的数据，则表明收到了对方的`FIN`，此时退出循环，echo方法结束。新线程也结束了。
+
+## 4.3 遗留问题 {#problem}
+
+先说cleint：
+1. `fgets`阻塞整个主线程，导致后面的`recv`即使有了数据，也无法读取。
+2. `send`阻塞，导致`recv`跟着被阻塞。不过这个问题不大。
+3. `recv`阻塞，导致用户一直不能输入，必须`recv`完成后才行。
+
+总结来说就是`stdin`和`connect_fd`这两个不同的IO互相阻塞对方，同时只能处理一个，效率太差。
+
+再说server：
+1. 由于`accept`函数是阻塞的，并且一次只能获取一个连接。
+2. 同时`recv`也是阻塞的，为了支持处理多个连接，不得不使用`fork`为每一个连接开启新的线程。线程成本高昂，无法支撑太多的线程。
+
+总结来说是多线程虽然可以解决问题，但是性价比不高。
 
 # 5 参考 {#reference}
 
@@ -286,12 +398,16 @@ if (close_result == -1){
 [^computer-networking]: 计算机网络-系列博客 : <https://linianhui.github.io/computer-networking/>
 [^tcp]: TCP : <https://linianhui.github.io/computer-networking/tcp/>
 [^endian]: 网络字节序 : <https://linianhui.github.io/computer-networking/00-overview/#endian>
-[^man-socket]: `man 2 socket` <https://man7.org/linux/man-pages/man2/socket.2.html>
-[^man-bind]: `man 2 bind` <https://man7.org/linux/man-pages/man2/bind.2.html>
-[^man-listen]: `man 2 listen` <https://man7.org/linux/man-pages/man2/listen.2.html>
-[^man-connect]: `man 2 connect` <https://man7.org/linux/man-pages/man2/connect.2.html>
-[^man-accept]: `man 2 accept` <https://man7.org/linux/man-pages/man2/accept.2.html>
-[^man-send]: `man 2 send` <https://man7.org/linux/man-pages/man2/send.2.html>
-[^man-recv]: `man 2 recv` <https://man7.org/linux/man-pages/man2/recv.2.html>
-[^man-close]: `man 2 close` <https://man7.org/linux/man-pages/man2/close.2.html>
-[^man-errno]: `man 2 errno` <https://man7.org/linux/man-pages/man3/errno.3.html>
+[^man-socket]: `man socket` <https://man7.org/linux/man-pages/man2/socket.2.html>
+[^man-bind]: `man bind` <https://man7.org/linux/man-pages/man2/bind.2.html>
+[^man-listen]: `man listen` <https://man7.org/linux/man-pages/man2/listen.2.html>
+[^man-connect]: `man connect` <https://man7.org/linux/man-pages/man2/connect.2.html>
+[^man-accept]: `man accept` <https://man7.org/linux/man-pages/man2/accept.2.html>
+[^man-send]: `man send` <https://man7.org/linux/man-pages/man2/send.2.html>
+[^man-recv]: `man recv` <https://man7.org/linux/man-pages/man2/recv.2.html>
+[^man-close]: `man close` <https://man7.org/linux/man-pages/man2/close.2.html>
+[^man-errno]: `man errno` <https://man7.org/linux/man-pages/man3/errno.3.html>
+[^man-fgets]: `man fgets` <https://man7.org/linux/man-pages/man3/fgets.3p.html>
+[^man-stdin]: `man stdin` <https://man7.org/linux/man-pages/man3/stdin.3p.html>
+[^fork]: `man fork`: <https://man7.org/linux/man-pages/man2/fork.2.html>
+
