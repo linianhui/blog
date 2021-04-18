@@ -269,9 +269,9 @@ void epoll_handler(int listen_fd)
 3. Windows有NT3.5就加入的`IOCP`[^iocp]，它已经是属于异步IO了。
 4. POSIX asynchronous I/O `AIO`[^aio]。 
 
-可见各方都在各显神通来解决**C10k问题**[^c10k]，但是这样的不统一，使用者想跨平台移植就难受了。为此诞生了`libevent`[^libevent]，它为`/dev/poll`、`kqueue`、`POSIX select`、`Windows select`、`poll`和`epoll`。但是对IOCP不支持，Node.js就在此基础上开发了`libuv`[^libuv]，在Windows上增加了IOCP的支持。
+可见各方都在各显神通来解决**C10k问题**[^c10k]，但是这样的不统一，使用者想跨平台移植就难受了。为此诞生了`libevent`[^libevent]，它为`/dev/poll`、`kqueue`、`POSIX select`、`Windows select`、`poll`和`epoll`。但是对IOCP不支持，Node.js就在此基础上开发了`libuv`[^libuv]，在Windows上增加了IOCP的支持。libevent和libuv均是c语言编写的底层基础库。
 
-当前各种常见到的组件底层几乎都离不开`epoll`，比如Netty、Node.js、Nginx、Redis等等。
+当前各种常见到的上层组件的底层也都离不开**同步非阻塞的IO多路复用**[^epoll]，比如Netty、Node.js、Nginx、Redis等等。
 
 # 5 参考 {#reference}
 
