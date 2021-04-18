@@ -96,14 +96,36 @@ int select_handler(int listen_fd)
 为什么长度是1024呢？这其实也是它的的处理逻辑导致的：哪怕select只返回了一个fd可读，我们也都需要把所有的fd都检查一遍。当上限再大时，每次循环太多就会导致select的效果下降。
 > `bitmap`是笔者自己实现的，因为`fd_set`会被清空，所以需要一个额外的地方存储我们关注的fd集合，然后利用它重新初始化fd_set。
 
-总结：
+总结：可以处理多个IO了。不足：
 1. 1024上限：无法支撑更多的连接。
-2. 每次重复初始化复制到kernel：来回复制导致浪费性能。
+2. 每次需要重复初始化复制到kernel：来回复制导致浪费性能。
 3. 循环检查所有fd：效率低下。
 
 # 2 poll版本 {#poll}
 
-`poll`[^poll]。
+`poll`[^poll]主要解决了select的1和2两个问题，即采用新的数据结构`pollfd`：
+1. 突破1024的上限。
+2. 通过两个字段`events`和`revents`来区分关注的事件和发生的事件，从而避免重复初始化，
+
+```sh
+int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+
+struct pollfd {
+    int   fd;         /* file descriptor */
+    short events;     /* requested events */
+    short revents;    /* returned events */
+};
+```
+
+这里就不详细介绍来，对细节感兴趣的直接看示例代码：
+1. [poll-server.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/poll-server.c)
+2. [poll-client.c](https://github.com/linianhui/networking-programming/blob/io-multiplexing/src/poll-client.c)
+
+## 2.2 遗留问题 {#poll-problem}
+
+总结：突破了1024的上限。不足：
+1. 虽然避免来重复初始化，但是每次调用依然需要copy整个`pollfd`数组到kernel：来回复制依然导致浪费性能。
+2. 还是循环检查所有fd：效率依然低下。
 
 # 3 epoll版本 {#epoll}
 
