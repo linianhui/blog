@@ -7,15 +7,15 @@ toc: true
 
 在上一节[Socket](../socket/)中介绍了socket相关的一些基础函数，以及一个基础版本的echo客户端和服务器程序，同时也遗留了一些问题[^socket-problem]。
 
-其中核心问题在于只能一次处理一个IO，而且IO的`accept`、`recv`、`send`和`fgets`等操作还都是阻塞的。导致应用大部分时间都是处在等待中，利用效率低下；而fork的多线程版本又性价比不高，支撑不了太多的连接。
+其中核心问题在于只能一次处理一个IO，而且IO的`accept`、`recv`、`send`和`fgets`等操作还都是阻塞的。导致应用大部分时间都是处在等待中，利用效率低下；而fork[^fork]的多线程版本又性价比不高，支撑不了太多的连接。
 
-那么解决方案呢大致有两类：
-1. IO操作异步非阻塞化，称之为异步非阻塞IO。改动较大，而且异步后的通知处理是个麻烦的问题。
-2. 同时处理多个同步阻塞的IO，称之为IO Multiplexing（多路复用）。虽然还是阻塞的，但是可以同时处理多个IO，也可以解决问题。
+那么解决方案主要有两类[^io-model]，这两类都可以解决著名的**C10k问题**[^c10k]：
+1. IO操作异步非阻塞化，称之为异步非阻塞IO。改动较大，而且异步后的通知处理是个麻烦的问题。比如**IOCP**[^iocp]。
+2. 同时处理多个同步阻塞的IO，称之为IO Multiplexing（多路复用）。虽然还是阻塞的，但是可以同时处理多个IO，也可以解决问题。比如**epoll**[^epoll]和**kqueue**[^kqueue]。
 
 本篇介绍下关于IO Multiplexing（多路复用）这个方案。
 
-# 1 select版本 {#select}
+# 1 select {#select}
 
 `select`[^select]是最初的IO Multiplexing的方案，它的核心逻辑非常简单直接。告诉kernel多个fd，当有fd可读或者可写时，就返回告知你。这样你调用`accept`、`recv`、`send`和`fgets`等函数时，不就不会阻塞了吗。
 
@@ -105,7 +105,7 @@ int select_handler(int listen_fd)
 2. 每次需要重复初始化复制到kernel：来回复制导致浪费性能。
 3. 循环检查所有fd：效率低下。
 
-# 2 poll版本 {#poll}
+# 2 poll {#poll}
 
 `poll`[^poll]采用新的数据结构`pollfd`：
 ```sh
@@ -137,11 +137,13 @@ struct pollfd {
 1. 每次调用依然需要copy整个`pollfd`数组到kernel：来回复制依然导致浪费性能。
 2. 还是循环检查所有fd：效率依然低下。
 
-# 3 epoll版本 {#epoll}
+# 3 epoll {#epoll}
 
 `epoll`[^epoll]。
 
 # 4 总结 {#summary}
+
+
 
 # 6 参考 {#reference}
 
@@ -152,5 +154,5 @@ struct pollfd {
 [^kqueue]: BSD `man kqueue` : <https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2>
 [^iocp]: IOCP : <https://docs.microsoft.com/en-us/windows/win32/fileio/i-o-completion-ports>
 [^fork]: `man fork`: <https://man7.org/linux/man-pages/man2/fork.2.html>
-[^io-multiplexing]: IO 模型 : <https://linianhui.github.io/computer-networking/io-model/#io-multiplexing>
+[^io-model]: IO 模型 : <https://linianhui.github.io/computer-networking/io-model/>
 [^socket-problem]: Socket 基础版Echo程序遗留问题 : <https://linianhui.github.io/computer-networking-programming/socket/#problem>
