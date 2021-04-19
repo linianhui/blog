@@ -1,7 +1,7 @@
 ---
 title: '[计算机网络编程] IO Multiplexing'
 created_at: 2021-04-13 17:08:23
-tag: ["io","multiplexing","networking","programming"]
+tag: ["io","multiplexing","networking","programming","select","poll","epoll","c10k","aio","iocp","kqueue","libuv","libevent"]
 toc: true
 ---
 
