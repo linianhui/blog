@@ -26,6 +26,7 @@ Param(
     '/yaml.ps1',
     '/ip.ps1',
     '/k8s.ps1',
+    '/docker.ps1',
     '/alias.ps1'
 ) | Foreach-Object { . "$PSScriptRoot$_" }
 
