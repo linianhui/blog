@@ -1,7 +1,7 @@
 ---
-title: '[计算机网络编程] 运行时架构'
-created_at: 2021-04-23 13:46:23
-tag: ["io","networking","runtime-architecture","architecture","thread-model"]
+title: '[netty] 运行时架构'
+created_at: 2021-04-21 00:50:23
+tag: ["netty", "runtime-architecture","architecture","thread-model", "reactor"]
 toc: true
 draft: true
 ---

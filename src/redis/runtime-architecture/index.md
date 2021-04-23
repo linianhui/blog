@@ -1,7 +1,7 @@
 ---
-title: '[redis] thread'
+title: '[redis] 运行时架构'
 created_at: 2021-03-19 20:12:24
-tag: ["cache", "redis", "thread","io-thread","benchmark","dev"]
+tag: ["cache", "redis", "thread","io-thread","benchmark","dev","runtime-architecture","architecture","thread-model"]
 toc: true
 ---
 
@@ -62,3 +62,4 @@ io-threads 4
 
 [^io-multiplexing]:<https://linianhui.github.io/computer-networking/io-model/#io-multiplexing>
 [^why-single-thread]:<https://redis.io/topics/faq#redis-is-single-threaded-how-can-i-exploit-multiple-cpu--cores>
+[^network-based-software-architecture]:[理解REST] 03 基于网络应用的架构：<https://linianhui.github.io/understand-rest/03-network-based-software-architecture/>
