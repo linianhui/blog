@@ -6,13 +6,17 @@
 <section class="archives">
   {{ range $.Site.RegularPages.GroupByDate "2006-01" }}
   <section class="archive-group">
-    <header class="archive-group-title">
-      {{ .Key }}
-      <span class="archive-group-count">（{{ len .Pages }}篇）</span>
+    <header class="archive-group-title" id="{{.Key}}">
+      <i id="locator-{{.Key}}" class="header-locator"></i>
+      <a href="#{{.Key}}">
+        {{ .Key }}<span class="archive-group-count">（{{ len .Pages }}篇）</span>
+      </a>
     </header>
     <ol class="archive-group-items" reversed>
       {{ range .Pages.ByDate.Reverse }}
-      <li class="archive-group-item">
+      {{ $id := trim (replace .RelPermalink "/" "-") "-" }}
+      <li class="archive-group-item" id="{{$id}}">
+        <i id="locator-{{$id}}" class="header-locator"></i>
         <time class="archive-group-item-time">{{ .Date.Format "2006-01-02" }}</time>
         <a class="archive-group-item-title" href="{{.RelPermalink}}" target="_blank">
           {{.Title}}
