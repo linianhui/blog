@@ -36,9 +36,9 @@ toc: true
 
 速率是数据传输的比特率(bit rate): **单位时间(秒)内传输的bit(binary digit)数量**。单位是`bit/s`、`b/s`或者`bps`。
 
-1. `Kbps` : 每秒**10<sup>3</sup>**个bit。
-2. `Mbps` : 每秒**10<sup>6</sup>**个bit。
-3. `Gbps` : 每秒**10<sup>9</sup>**个bit。
+1. `Kbps` : 每秒 **10<sup>3</sup>** 个bit。
+2. `Mbps` : 每秒 **10<sup>6</sup>** 个bit。
+3. `Gbps` : 每秒 **10<sup>9</sup>** 个bit。
 
 ## 4.2 带宽(Bandwidth) {#bandwidth}
 
