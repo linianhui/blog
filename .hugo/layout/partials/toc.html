@@ -1,1 +1,5 @@
+{{- if eq .URL "/topic/" -}}
+{{ partial "toc-topic.html" . }}
+{{- else -}}
 {{ partial "toc-article.html" . }}
+{{- end -}}

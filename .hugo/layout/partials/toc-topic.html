@@ -1,0 +1,17 @@
+<aside id="toc" class="toc">
+  {{ range where $.Site.Menus.topic "URL" "not in" (slice "/topic/" "/archive/") }}
+  {{- if ne (len .Page.Pages) 0 }}
+  <section class="toc-page">
+    <a class="toc-page-title" href='#{{trim .URL "/"}}'>
+      <i class="fa fa-folder"></i>
+      {{.Title}}
+    </a>
+  </section>
+  {{- end -}}
+  {{ end }}
+  <script type="text/javascript">
+    if (blog.isPC()) {
+      blog.toggleToc();
+    }
+  </script>
+</aside>
