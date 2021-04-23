@@ -1,4 +1,3 @@
-{{ if .Params.toc }}
 <aside id="toc" class="toc">
   {{ range where $.Site.Menus.topic "Page.Section" "eq" .Section }}
   <section class="toc-header">
@@ -26,4 +25,3 @@
     }
   </script>
 </aside>
-{{end}}
