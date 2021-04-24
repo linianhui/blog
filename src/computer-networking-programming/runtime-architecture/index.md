@@ -54,7 +54,7 @@ toc: true
 
 # 2 服务端 {#server}
 
-## 2.1 单线程+同步IO {#one-thread-and-sync-io}
+## 2.1 单线程+同步IO {#single-thread-and-sync-io}
 
 也是从最基本的开始。只有一个线程，而且是同步IO。
 
@@ -74,7 +74,7 @@ toc: true
 
 比如tomcat。
 
-## 2.3 单线程+IO Multiplexing {#one-thread-and-io-multiplexing}
+## 2.3 单线程+IO Multiplexing {#single-thread-and-io-multiplexing}
 
 在**单线程+同步IO**的基础上。除了采用多线程的方式外，还可以采用IO Multiplexing的方式。
 
