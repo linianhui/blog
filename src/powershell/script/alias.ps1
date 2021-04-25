@@ -24,6 +24,8 @@ Set-Alias -Name gti -Value git
 
 Set-Alias -Name hs -Value http-server
 
+Set-Alias -Name hus -Value hugo-server
+
 Set-Alias -Name env -Value Env-GetAllVariable
 
 Set-Alias -Name path -Value Env-GetPathVariavle

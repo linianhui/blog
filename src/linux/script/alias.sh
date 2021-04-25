@@ -64,7 +64,9 @@ alias shells='cat /etc/shells'
 
 alias i18n='locale'
 
-alias hugo='hugo --config hugo.yml'
+alias hu='hugo --config hugo.yml'
+
+alias hus='hu --watch server'
 
 alias mvn-wrapper='mvn --non-recursive --debug io.takari:maven:wrapper -Dmaven=3.8.1'
 
