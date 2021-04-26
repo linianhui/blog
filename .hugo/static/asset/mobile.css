@@ -11,8 +11,12 @@ body{
   box-shadow: unset;
 }
 
+.article-copyright{
+  left: unset;
+}
+
 .article-meta{
-  margin-top: 26px;
+  margin-top: 22px;
 }
 
 .article-content{

@@ -162,8 +162,8 @@ time{
 .article-copyright{
   position:absolute;
   display: inline-block;
-  left: 0;
-  top: 60px;
+  left: 32px;
+  padding-top: 4px;
   font-size: 12px;
   font-weight: normal;
 }
