@@ -3,6 +3,7 @@ title: '[Git] 内容寻址文件系统'
 created_at: 2020-04-27 00:55:01
 tag: ["Git","content-addressable","filesystem","blob","tree","commit"]
 toc: true
+draft: true
 ---
 
 不要感觉奇怪，为什么介绍Git的文章里面怎么会出现一个**文件系统**，还**内容寻址**，这都是什么啊？其实`内容寻址文件系统(content-addressable filesystem)`才是git的底层核心，而我们平时使用的`commit`，`branch`和`checkout`等等命令仅仅只是在上层包装成了VCS(version control system)的样子。
