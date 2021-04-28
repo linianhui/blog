@@ -199,7 +199,7 @@ test tag
 
 # 3 refs目录 {#git-refs-directory}
 
-commit的hash是很不方便记忆和直接操作使用的，我们通常需要指定一些有意义的名字。refs目录就是用来存储这些名字和commit hash的ref用的。主要有一下三个directory：
+commit的hash是很不方便记忆和直接操作使用的，我们通常需要指定一些有意义的名字。refs目录就是用来存储这些名字和commit hash的ref用的。主要有一下三个目录：
 
 1. heads目录：分支ref信息。
 2. tags目录：标签ref信息。
@@ -283,7 +283,7 @@ this is file content 1
 
 # 5 index文件 {#git-index-file}
 
-在[2.3 commit object](#git-commit-object)创建commit时，我们先向index文件中更新了一些信息，然后才基于index创建出了第一个commit。这个index的文件中存储的就是Git的工作区、暂存区和仓库区中的暂存区的内容。所有需要添加到仓库区(.git目录)中的数据都必须先进入到index中，这个文件也是一个二进制文件[^index-file-format]。可是使用`git ls-files`[^git-ls-files]命令来查看暂存区的内容。
+在[2.2 tree object](#git-tree-object)创建tree时，我们先向index文件中更新了一些信息，然后才基于index创建出了第一个tree对象。这个index的文件中存储的是暂存区的数据。所有需要添加到仓库区(.git目录)中的数据都必须先进入到index中，这个文件也是一个二进制文件[^index-file-format]。可是使用`git ls-files`[^git-ls-files]命令来查看暂存区的内容。
 
 ```sh
 git ls-files --stage
