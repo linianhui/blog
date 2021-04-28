@@ -62,11 +62,11 @@ draft: true
 
 # 2 objects directory {#git-objects-directory}
 
-objects directory存储着git的三个核心对象：blob、tree和commit。
-
+objects directory存储着git的4个核心对象：blob、tree、commit和tag。
 1. blob：文件内容。
-2. tree：文件信息。
-3. commit：提交信息。
+2. tree：文件信息：blob hash、文件权限属性和directory等信息。
+3. commit：提交信息：tree hash、committer、auther、time、message、parent commit等信息。
+4. tag：标签信息：commit hash、。
 
 ## 2.1 blob object {#git-blob-object}
 
@@ -98,7 +98,8 @@ echo 'blob 23\0this is file content 1' | shasum -a 1
 所以如果文件内容保持不变，那么无论你执行多少次`git hash-object`，都只会生成一个blob对象。那么比如我们的git仓库中有两个文件的文件内容完全相同，但是directory name或者file name不同，是不是只需要存储一份就可以了呢？感兴趣的可以自己试一试。
 > 答案是只需存储一份blob对象即可。
 
-当你用`cat`尝试去读取文件内容时，你会发现无法读取，这是因为它本身是一个二进制文件，而非文本文件。
+当你用`cat`尝试去读取文件内容时，你会发现无法读取，这是因为它本身是一个由deflate压缩算法压缩后的zlib stream，而非文本文件。
+
 ```sh
 hexdump -C .git/objects/06/8b6574adc8d309c1ff2438ad82b63197144a63
 00000000  78 01 4b ca c9 4f 52 30  32 66 28 c9 c8 2c 56 00  |x.K..OR02f(..,V.|
@@ -173,7 +174,29 @@ committer lnh <lnhdyx@outlook.com> 1619526360 +0800
 first commit form manual blob tree and commit
 ```
 
-## 2.4 packfile {#git-packfile}
+## 2.4 tag object {#git-tag-object}
+
+这里我们使用`git tag`[^git-tag]命令。
+
+```sh
+# 当使用 -a 或者 -s 参数时，才会生成tag对象
+git tag -a v0.1 bf84aa3517c5a51b50289f9ce17d7757b96a39dc -m 'test tag'
+
+# 查看这个tag的hash
+cat .git/refs/tags/v0.1
+8be7fa8832efbcabc48625ee9d651b6cd9f20858
+
+# 查看一下v0.1这个tag
+# 或者根据tag的hash
+git cat-file -p v0.1
+git cat-file -p 8be7fa8832efbcabc48625ee9d651b6cd9f20858
+object bf84aa3517c5a51b50289f9ce17d7757b96a39dc
+type commit
+tag v0.1
+tagger lnh <lnhdyx@outlook.com> 1619574383 +0800
+
+test tag
+```
 
 # 3 refs directory {#git-refs-directory}
 
@@ -196,8 +219,10 @@ bf84aa3517c5a51b50289f9ce17d7757b96a39dc
 ```
 
 ## 3.2 tag ref {#git-tag-ref}
+未完待续。
 
 ## 3.3 remote ref {#git-remote-ref}
+未完待续。
 
 # 4 HEAD file {#git-head-file}
 
@@ -236,6 +261,8 @@ this is file content 1
 
 # 5 index file {#git-index-file}
 
+未完待续。
+
 # 6 reference {#reference}
 
 [^git-internal]:《Pro Git 2nd Edition (2014)》- Git 内部原理 <https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain>
@@ -247,4 +274,5 @@ this is file content 1
 [^git-commit-tree]:`git commit-tree` : <https://git-scm.com/docs/git-commit-tree>
 [^git-update-ref]:`git update-ref` : <https://git-scm.com/docs/git-update-ref>
 [^git-symbolic-ref]:`git symbolic-ref` : <https://git-scm.com/docs/git-symbolic-ref>
+[^git-tag]:`git tag` : <https://git-scm.com/docs/git-tag>
 [^stdin]:`man stdin` : <https://man7.org/linux/man-pages/man3/stdin.3.html>
