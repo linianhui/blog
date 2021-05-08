@@ -136,7 +136,7 @@ VLAN(Virtual Local Area Network)也可以缓解上述提到的广播风暴，其
 
 # 8 总结 {#summary}
 
-链路层关注的是分组 : 把物理层的`01`bit流分组成`Frame`，以及对`Frame`的差错检测。完成了`分组&交换`的第一步`分组`。
+链路层的<mark>分组&交换</mark>：把物理层的01bit流<mark>分组</mark>成Frame，以及对Frame的差错检测。然后使用交换机来实现<mark>交换</mark>。
 
 # 9 遗留问题 {#leftover-problem}
 
