@@ -1,7 +1,7 @@
 ---
 title: "[计算机网络] 00 概述"
 created_at: 2019-09-22 08:10:00
-tag: ["ARPNET","IETF","LAN", "WAN", "WLAN", "WiFi", "分组&交换", "速率", "带宽", "延迟", "RTT", "OSI", "TCP/IP", "信道利用率"]
+tag: ["ARPNET","IETF","LAN", "WAN", "WLAN", "WiFi", "分组&交换", "速率", "带宽", "延迟", "RTT", "OSI", "TCP/IP", "信道利用率","bps","pps"]
 toc: true
 ---
 
@@ -32,15 +32,15 @@ toc: true
 
 计算机网络的性能表现在一下几个指标上。
 
-## 4.1 速率(Bit Rate) {#bit-rate}
+## 4.1 速率(Bit Rate) {#bps}
 
-速率是数据传输的比特率(bit rate): **单位时间(秒)内传输的bit(binary digit)数量**。单位是`bit/s`、`b/s`或者`bps`。
+速率是数据传输的比特率(bit rate): **单位时间(秒)内传输的bit(0或1)数量**。单位是`bps`=`b/s`=`bit/s`=`bit per second`，通常会采用`bps`来表示。
 
-1. `Kbps` : 每秒 **10<sup>3</sup>** 个bit。
-2. `Mbps` : 每秒 **10<sup>6</sup>** 个bit。
-3. `Gbps` : 每秒 **10<sup>9</sup>** 个bit。
+1. `Kbps` : 每秒 **10<sup>3</sup>** 个bit，1千。
+2. `Mbps` : 每秒 **10<sup>6</sup>** 个bit，1百万。
+3. `Gbps` : 每秒 **10<sup>9</sup>** 个bit，10亿。
 
-## 4.2 带宽(Bandwidth) {#bandwidth}
+## 4.2 频宽/带宽(Bandwidth) {#bandwidth}
 
 带宽原指信号的频带宽度，比如**300Hz～600Hz**, 此时的单位是**赫兹(Hz)**。
 
@@ -51,6 +51,19 @@ toc: true
 吞吐量是单位时间(秒)内通过某个链路的实际的数据量。它的单位通常也是和[# 4.1 速率(Bit Rate)](#bit-rate)是一样的。
 
 比如对于一个`10Gb/s`的网络，它的实际吞吐量可能是`100Mb/s`，但是最高不可能超过`10Gb/s`。
+
+### 4.3.1 包转发速率(Forwarding Rate) {#pps}
+
+衡量网络设备(交换机，路由器)的重要性能指标是`packet per second`=`pps`：每秒转发包的数量，通常指的是64byte的数据包。比如一个跑慢一个`1Gb/s`的网络需要的转发能力为：
+```sh
+1000000000/(8*(7+1+64)+96))=1488095=1.488Mpps=148万包/每秒
+```
+解释说明：
+1. `1000000000`：1Gb。
+2. `8`：一个byte=8bit。
+3. `7+1+64`：7byte的Frame前导码，1byte的SOH[^soh]，64byte的最小Frame。
+4. `96`：IFG[^ifg]的最小bit数。
+
 
 ## 4.4 延迟(Delay) {#delay}
 
@@ -108,6 +121,8 @@ toc: true
 
 以上简单的介绍了一下计算机网络的基础概念，以及核心的设计理念**分组&交换**和**分层体系**，后续则针对各层逐步展开。
 
-[^ietf]: <https://www.ietf.org>
-[^octet]: 8bits： <https://en.wikipedia.org/wiki/Octet_(computing)>
-[^endian]: 字节序： <https://en.wikipedia.org/wiki/Endianness>
+[^ietf]:IETF：<https://www.ietf.org>
+[^octet]:8bits：<https://en.wikipedia.org/wiki/Octet_(computing)>
+[^endian]:字节序：<https://en.wikipedia.org/wiki/Endianness>
+[^ifg]:IFG=封包间隙：<https://en.wikipedia.org/wiki/Interpacket_gap>
+[^soh]:SOH <https://linianhui.github.io/computer-networking/02-layer-data-link/#encapsulation-into-frame>
