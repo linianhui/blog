@@ -1,5 +1,5 @@
 {{ if .Params.toc }}
-  {{- if eq .Permalink "/topic/" -}}
+  {{- if eq .RelPermalink "/topic/" -}}
     {{ partial "toc-topic.html" . }}
   {{- else -}}
     {{ partial "toc-article.html" . }}
