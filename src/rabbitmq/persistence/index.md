@@ -1,7 +1,7 @@
 ---
 title: '[rabbitmq] persistence'
 created_at: 2021-04-09 14:20:12
-tag: ["mq", "rabbitmq", "persistence","ops"]
+tag: ["mq", "rabbitmq", "persistence","ops","draft"]
 toc: true
 draft: true
 ---

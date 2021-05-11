@@ -1,7 +1,7 @@
 ---
 title: '[rabbitmq] amqp 0-9-1'
 created_at: 2021-04-09 14:10:12
-tag: ["mq", "rabbitmq", "amqp"]
+tag: ["mq", "rabbitmq", "amqp","draft"]
 toc: true
 draft: true
 ---

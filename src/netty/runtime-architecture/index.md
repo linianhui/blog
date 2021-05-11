@@ -1,7 +1,7 @@
 ---
 title: '[netty] 运行时架构'
 created_at: 2021-04-21 00:50:23
-tag: ["netty", "runtime-architecture","architecture","thread-model", "reactor"]
+tag: ["netty", "runtime-architecture","architecture","thread-model", "reactor","draft"]
 toc: true
 draft: true
 ---
