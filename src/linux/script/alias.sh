@@ -64,7 +64,7 @@ alias shells='cat /etc/shells'
 
 alias i18n='locale'
 
-alias hu='hugo --config hugo.yml'
+alias hu='hugo --config hugo.yml --buildDrafts'
 
 alias hus='hu --watch server'
 
