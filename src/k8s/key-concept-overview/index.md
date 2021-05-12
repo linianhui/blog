@@ -18,6 +18,8 @@ k8s是一个开源的容器编排系统，源自于Google15年的运维经验[^b
 
 一个k8s集群是由一组worker node和管理它们的control plane以及一些插件构成。
 
+![k8s组件图](k8s-component.svg)
+
 ## 1.1 control plane {#control-plane}
 
 控制面板掌控整个集群的调度管理，是整个集群的大脑。主要有一下4个组件构成：
