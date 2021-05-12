@@ -32,29 +32,46 @@ k8s是一个开源的容器编排系统，源自于Google15年的运维经验[^b
 
 ## 1.2 worker node {#worker-node}
 
-工作节点负责运行用户容器。主要由一下2个组件构成：
+工作节点负责运行用户容器。主要由一下3个组件构成：
 
-1. `kubelet`：
-2. `kube-proxy`：
-3. `container-runtime`：
+1. `kubelet`：负责管理pod、volume等。
+2. `kube-proxy`：负责服务发现的底层实现和流量转发。
+3. `container-runtime`：容器运行时。
 
 ## 1.3 addon {#addon} 
 
-1. DNS
-2. 网络插件
-3. dashboard
-4. 监控
-5. 日志
+利用DaemonSet或者Deployment部署在kube-system命名空间内的供集群使用的基础服务。
+
+1. DNS：提供基于service name的dns服务，负责默认的服务注册和发现。
+    1. CoreDNS[^coredns]。 
+2. 网络插件：
+    1. flannel[^flannel]。 
+    2. calico[^calico]。 
+4. 可视化管理GUI：
+    1. dashboard[^dashboard]。
+5. 监控：
+    1. metrics-server[^metrics-server]. 
+7. 日志。
 
 
-# 2 运行时架构 {#design-concept}
+# 2 runtime architecture {#runtime-architecture}
 
-# 2 设计理念 {#design-concept}
+kong。
 
+# 3 design concept {#design-concept}
 
+k8s利用api-service提供了一组声明式的API[^kubernetes-object]，通常我们会采用yaml格式的文件来描述我们需要部署的应用。每一个API对象具有三种典型的状态：
+1. `desired state`: 期望的状态（也就是yaml的声明式要求），比如部署一个3个实例的web服务。
+2. `current state`: 当前的状态。比如当前刚刚部署成功了2个，还差一个实例。
 
-
+k8s会尽力的保证系统维持在我们的期望状态种，比如3个实例中有一个实例意外挂掉了，那么k8s就会再启动一个实例，以达到期望的状态。
 
 # 4 reference {#reference}
 
 [^borg]:Borg, Omega, and Kubernetes: <https://queue.acm.org/detail.cfm?id=2898444>
+[^coredns]:DNS插件-CoreDNS: <https://coredns.io/>
+[^dashboard]:Web GUI-kubernetes dashboard: <https://github.com/kubernetes/dashboard>
+[^calico]:网络插件-calico: <https://www.projectcalico.org/>
+[^flannel]:网络插件-flannel: <https://linianhui.github.io/k8s/networking-flannel/>
+[^metrics-server]:监控-metrics-server: <https://github.com/kubernetes-sigs/metrics-server/>
+[^kubernetes-object]:声明式的kubernetes-object: <https://kubernetes.io/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/>
