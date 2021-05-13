@@ -485,8 +485,8 @@ time{
 }
 
 .tags .tag{
-  list-style: decimal-leading-zero;
-  margin-top: 6px;
+  display: inline-block;
+  line-height: 2;
 }
 
 .tags .tag .tag-link{

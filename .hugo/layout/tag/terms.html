@@ -7,12 +7,12 @@
     </span>
   </h1>
 </section>
-<ol class="tags" reversed>
+<section class="tags" reversed>
   {{ range .Pages.ByTitle }}
-  <li class="tag">
+  <span class="tag">
     <a class="tag-link" href="{{.RelPermalink}}">{{.Title}}</a>
     <span class="tag-count">（{{ len .Data.Pages }}篇）</span>
-  </li>
+  </span>
   {{ end }}
-</ol>
+</section>
 {{ end }}
