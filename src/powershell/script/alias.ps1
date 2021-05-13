@@ -37,3 +37,5 @@ Set-Alias -Name jy -Value Yaml-FromJson
 Set-Alias -Name grep -Value Select-String
 
 Set-Alias -Name k8sgtp -Value Kubernetes-GetTerminatedPod
+
+Set-Alias -Name ja -Value Java-Arthas
