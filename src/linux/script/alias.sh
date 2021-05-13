@@ -82,4 +82,4 @@ alias unproxy='unset ALL_PROXY'
 
 alias redis-server='redis-server /lnh/_code/blog/src/redis/install/redis.conf'
 
-alias ja='java -jar $JAVA_HOME\arthas-boot.jar --repo-mirror aliyun --use-http'
+alias ja='java -jar $JAVA_HOME/arthas-boot.jar --repo-mirror aliyun --use-http'
