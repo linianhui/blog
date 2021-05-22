@@ -1,0 +1,63 @@
+<link href="http://cdn.bootcss.com/element-ui/1.4.2/theme-default/index.css" rel="stylesheet">
+<style>
+  .article-content table {
+    margin-top: unset;
+    border: unset;
+    padding: unset;
+    border-collapse: unset;
+  }
+</style>
+<div id="app">
+  <div style="margin-bottom: 10px;">
+    <el-input v-model="amount" style="width: unset;"></el-input>
+    <el-select v-model="insuranceValue">
+      <el-option v-for="item in insurance" :key="item" :label="item" :value="item">
+      </el-option>
+    </el-select>
+    <el-select v-model="rateValue">
+      <el-option v-for="item in rate" :key="item" :label="item" :value="item">
+      </el-option>
+    </el-select>
+  </div>
+
+  <el-table :data="salaryList">
+    <el-table-column prop="month" label="月份"></el-table-column>
+    <el-table-column prop="baseYTD" label="工资YTD"></el-table-column>
+    <el-table-column prop="exemptedYTD" label="免征YTD"></el-table-column>
+    <el-table-column prop="insurancesPersonal" label="社保个人"></el-table-column>
+    <el-table-column prop="taxable" label="应税"></el-table-column>
+    <el-table-column prop="taxableYTD" label="应税YTD"></el-table-column>
+    <el-table-column prop="tax" label="个税"></el-table-column>
+    <el-table-column prop="taxYTD" label="个税YTD"></el-table-column>
+    <el-table-column prop="actual" label="实发"></el-table-column>
+    <el-table-column prop="actualYTD" label="实发YTD"></el-table-column>
+  </el-table>
+</div>
+<script src="http://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/element-ui/1.4.2/index.js"></script>
+<script src="config.js"></script>
+<script src="calculator.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: "#app",
+    data: function () {
+      return {
+        amount: 5000,
+        rate: Object.keys(config.rates),
+        rateValue: Object.keys(config.rates)[0],
+        insurance: Object.keys(config.insurances),
+        insuranceValue: Object.keys(config.insurances)[0],
+      }
+    },
+
+    computed: {
+      salaryList() {
+        var list = buildSalaryList(parseInt(this.amount, 10), this.insuranceValue, this.rateValue);
+        calculateOneYear(list);
+        list.shift();
+        console.log(list);
+        return list;
+      }
+    }
+  })
+</script>
