@@ -4,7 +4,7 @@
 
 function script:Sln-GetFiles() {
     $currentPath = Get-Location
-    Log-Debug 'Current Path : ' $currentPath
+    Log-Debug 'current path : ' $currentPath
 
     $slnFiles = Get-ChildItem -Path $currentPath -File -Filter *.sln
 
@@ -19,7 +19,7 @@ function script:Sln-SelectFile($slnFiles) {
     if ($slnFiles.Count -eq 1) {
         return $slnFiles[0]
     }
-  
+
     [int]$i = 0
     $slnFiles | ForEach-Object {
         Write-Host $i ': ' $_.Name
@@ -33,6 +33,6 @@ function script:Sln-SelectFile($slnFiles) {
 function Sln() {
     $slnFiles = Sln-GetFiles
     $slnFile = Sln-SelectFile $slnFiles
-    Log-Debug 'opening...' $slnFile
+    Log-Debug 'opening...   : ' $slnFile
     Invoke-Item $slnFile
 }
