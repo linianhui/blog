@@ -26,15 +26,15 @@
 
   <el-table :data="salaryList">
     <el-table-column prop="month" label="月份" align="right" width="45"></el-table-column>
-    <el-table-column prop="baseYTD" label="工资YTD" align="right"></el-table-column>
-    <el-table-column prop="exemptedYTD" label="免征YTD" align="right" width="75"></el-table-column>
+    <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
+    <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
     <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
-    <el-table-column prop="taxableYTD" label="应税YTD" align="right"></el-table-column>
+    <el-table-column prop="taxableYTD" label="税基YTD" align="right"></el-table-column>
     <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
     <el-table-column prop="tax" label="个税" align="right"></el-table-column>
     <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
-    <el-table-column prop="actual" label="实发" align="right"></el-table-column>
-    <el-table-column prop="actualYTD" label="实发YTD" align="right"></el-table-column>
+    <el-table-column prop="actual" label="税后" align="right"></el-table-column>
+    <el-table-column prop="actualYTD" label="税后YTD" align="right"></el-table-column>
   </el-table>
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
