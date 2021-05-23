@@ -1,6 +1,6 @@
 var config = {
     rates: {
-        "2019新税率": {
+        "2019新税率表": {
             exempted: 5000,
             items: [
                 {
@@ -49,34 +49,40 @@ var config = {
         }
     },
     insurances: {
-        北京: {
+        "北京2021社保基数": {
             养老: {
-                base: 25401,
+                min: 3613,
+                max: 25401,
                 corporationPercentage: 19,
                 personalPercentage: 8
             },
             医疗: {
-                base: 25401,
+                min: 5360,
+                max: 25401,
                 corporationPercentage: 10,
                 personalPercentage: 2
             },
             失业: {
-                base: 25401,
+                min: 3613,
+                max: 25401,
                 corporationPercentage: 0.8,
                 personalPercentage: 0.2
             },
             工伤: {
-                base: 25401,
+                min: 4713,
+                max: 25401,
                 corporationPercentage: 0.4,
                 personalPercentage: 0
             },
             生育: {
-                base: 25401,
+                min: 5360,
+                max: 25401,
                 corporationPercentage: 0.8,
                 personalPercentage: 0
             },
             公积金: {
-                base: 25401,
+                min: 0,
+                max: 25401,
                 corporationPercentage: 12,
                 personalPercentage: 12
             }

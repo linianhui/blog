@@ -41,13 +41,13 @@ function calculateOneMonth(salary, salaryOfPrevMonth) {
 
     function insurances() {
         for (let key in salary.insurances) {
-            const value = salary.insurances[key];
-            const valueOfPrevMonth = salaryOfPrevMonth.insurances[key];
-            const min = Math.min(value.base, salary.base);
-            value.personal = round2((min * value.personalPercentage / 100));
-            value.personalYTD = round2((value.personal || 0) + (valueOfPrevMonth.personalYTD || 0));
-            value.corporation = round2((min * value.corporationPercentage / 100));
-            value.corporationYTD = round2((value.corporation || 0) + (valueOfPrevMonth.corporationYTD || 0));
+            const insurance = salary.insurances[key];
+            const insuranceOfPrevMonth = salaryOfPrevMonth.insurances[key];
+            const base = Math.min(Math.max(insurance.min, salary.base), insurance.max);
+            insurance.personal = round2((base * insurance.personalPercentage / 100));
+            insurance.personalYTD = round2((insurance.personal || 0) + (insuranceOfPrevMonth.personalYTD || 0));
+            insurance.corporation = round2((base * insurance.corporationPercentage / 100));
+            insurance.corporationYTD = round2((insurance.corporation || 0) + (insuranceOfPrevMonth.corporationYTD || 0));
         }
 
         salary.insurancesPersonal = sum(x => x.personal);

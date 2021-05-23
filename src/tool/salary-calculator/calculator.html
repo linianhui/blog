@@ -61,7 +61,7 @@
         var list = buildSalaryList(parseInt(this.amount, 10), this.insuranceValue, this.rateValue);
         calculateOneYear(list);
         list.shift();
-        console.log(list);
+        console.log(JSON.parse(JSON.stringify(list)));
         return list;
       }
     }
