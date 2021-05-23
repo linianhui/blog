@@ -8,7 +8,7 @@ function buildSalaryList(amount, insurance, rate) {
             month: index + "月",
             base: amount,
             exempted: rates.exempted,
-            rates: JSON.parse(JSON.stringify(rates.items)),
+            rates: JSON.parse(JSON.stringify(rates)),
             insurances: JSON.parse(JSON.stringify(insurances)),
         };
     }
@@ -71,30 +71,33 @@ function calculateOneMonth(salary, salaryOfPrevMonth) {
     }
 
     function tax() {
-        salary.taxYTD = taxCore(salary.taxableYTD);
+        salary.rate = findRate();
+        salary.taxYTD = taxCore();
         salary.tax = round2((salary.taxYTD || 0) - (salaryOfPrevMonth.taxYTD || 0));
 
-        function taxCore(amount) {
+        function taxCore() {
+            const amount = salary.taxableYTD;
             if (amount < 0) {
                 return 0;
             }
-            const rateItem = findRateItem(amount);
-            const result = round2((amount * rateItem.rate / 100 - rateItem.quickDeduction));
+            const result = round2((amount * salary.rate.rate / 100 - salary.rate.quickDeduction));
             return Math.max(0, result);
         }
 
-        function findRateItem(amount) {
+        function findRate() {
+            const amount = salary.taxableYTD;
+            const items = salary.rates.items;
             if (amount <= 0) {
-                return salary.rates[0];
+                return items[0];
             }
-            for (let key in salary.rates) {
-                const rateItem = salary.rates[key];
+            for (let key in items) {
+                const rateItem = items[key];
                 if (amount >= rateItem.min && amount <= rateItem.max) {
                     return rateItem;
                 }
             }
 
-            return salary.rates[salary.rates.length - 1];
+            return items[items.length - 1];
         }
     }
 

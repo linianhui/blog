@@ -27,6 +27,7 @@
     <el-table-column prop="insurancesPersonal" label="社保个人" align="right"></el-table-column>
     <el-table-column prop="taxable" label="应税" align="right"></el-table-column>
     <el-table-column prop="taxableYTD" label="应税YTD" align="right"></el-table-column>
+    <el-table-column prop="rate.rate" label="税率" align="right"></el-table-column>
     <el-table-column prop="tax" label="个税" align="right"></el-table-column>
     <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
     <el-table-column prop="actual" label="实发" align="right"></el-table-column>
@@ -38,15 +39,17 @@
 <script src="config.js"></script>
 <script src="calculator.js"></script>
 <script type="text/javascript">
+  const configRateKeyArray = Object.keys(config.rates);
+  const configInsuranceKeyArray = Object.keys(config.insurances);
   new Vue({
     el: "#app",
     data: function () {
       return {
         amount: 5000,
-        rate: Object.keys(config.rates),
-        rateValue: Object.keys(config.rates)[0],
-        insurance: Object.keys(config.insurances),
-        insuranceValue: Object.keys(config.insurances)[0],
+        rate: configRateKeyArray,
+        rateValue: configRateKeyArray[0],
+        insurance: configInsuranceKeyArray,
+        insuranceValue: configInsuranceKeyArray[0],
       }
     },
 
