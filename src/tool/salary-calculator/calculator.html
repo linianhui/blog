@@ -6,6 +6,10 @@
     padding: unset;
     border-collapse: unset;
   }
+
+  .cell{
+    padding: 0 !important;
+  }
 </style>
 <div id="app">
   <div style="margin-bottom: 10px;">
@@ -21,12 +25,12 @@
   </div>
 
   <el-table :data="salaryList">
-    <el-table-column prop="month" label="月份" align="right"></el-table-column>
+    <el-table-column prop="month" label="月份" align="right" width="45"></el-table-column>
     <el-table-column prop="baseYTD" label="工资YTD" align="right"></el-table-column>
-    <el-table-column prop="exemptedYTD" label="免征YTD" align="right"></el-table-column>
-    <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right"></el-table-column>
+    <el-table-column prop="exemptedYTD" label="免征YTD" align="right" width="75"></el-table-column>
+    <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
     <el-table-column prop="taxableYTD" label="应税YTD" align="right"></el-table-column>
-    <el-table-column prop="rate.rate" label="税率" align="right"></el-table-column>
+    <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
     <el-table-column prop="tax" label="个税" align="right"></el-table-column>
     <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
     <el-table-column prop="actual" label="实发" align="right"></el-table-column>
