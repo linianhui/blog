@@ -7,7 +7,7 @@
     border-collapse: unset;
   }
 
-  .cell{
+  .cell {
     padding: 0 !important;
   }
 </style>
@@ -24,8 +24,16 @@
     </el-select>
   </div>
 
-  <el-table :data="salaryList">
-    <el-table-column prop="month" label="月份" align="right" width="45"></el-table-column>
+  <div>
+    税前收入{{ salarys.summary.baseYTD }} -
+    税后收入{{ salarys.summary.totalActualYTD }}(
+    税后{{ salarys.summary.actualYTD }} +
+    公积金{{ salarys.summary.公积金YTD }} +
+    医疗{{ salarys.summary.医疗YTD }} ) =
+    差额{{ salarys.summary.diffYTD }}
+  </div>
+  <el-table :data="salarys.items" :default-sort="defaultSort">
+    <el-table-column prop="month" label="月份" align="right" width="45" :sortable="true"></el-table-column>
     <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
     <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
     <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
@@ -53,16 +61,35 @@
         rateValue: configRateKeyArray[0],
         insurance: configInsuranceKeyArray,
         insuranceValue: configInsuranceKeyArray[0],
+        defaultSort: {
+          prop: 'month',
+          order: 'descending'
+        }
       }
     },
 
     computed: {
-      salaryList() {
-        var list = buildSalaryList(parseInt(this.amount, 10), this.insuranceValue, this.rateValue);
-        calculateOneYear(list);
-        list.shift();
-        console.log(JSON.parse(JSON.stringify(list)));
-        return list;
+      currentRate() {
+        return config.rates[this.rateValue];
+      },
+      currentInsurance() {
+        return config.insurances[this.insuranceValue];
+      },
+      salarys() {
+        var items = buildSalaryList(parseInt(this.amount, 10), this.insuranceValue, this.rateValue);
+        calculateOneYear(items);
+        items.shift();
+
+        console.log(JSON.parse(JSON.stringify(items)));
+
+        var summary = buildSummary(items);
+
+        console.log(JSON.parse(JSON.stringify(summary)));
+
+        return {
+          items: items,
+          summary: summary
+        };
       }
     }
   })

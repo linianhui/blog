@@ -5,7 +5,7 @@ function buildSalaryList(amount, insurance, rate) {
     const rates = config.rates[rate];
     for (let index = 0; index < 13; index++) {
         salaryList[index] = {
-            month: index + "月",
+            month: index,
             base: amount,
             exempted: rates.exempted,
             rates: JSON.parse(JSON.stringify(rates)),
@@ -13,6 +13,25 @@ function buildSalaryList(amount, insurance, rate) {
         };
     }
     return salaryList;
+}
+
+function buildSummary(salaryList) {
+    const month = salaryList.length;
+    const last = salaryList[salaryList.length - 1];
+    const 医疗YTD = last.insurances.医疗.personalYTD;
+    const 公积金YTD = round2(last.insurances.公积金.personalYTD + last.insurances.公积金.corporationYTD);
+    const totalActualYTD = round2(医疗YTD + 公积金YTD + last.actualYTD);
+    return {
+        baseYTD: last.baseYTD,
+        医疗YTD: 医疗YTD,
+        公积金YTD: 公积金YTD,
+        taxableYTD: last.taxableYTD,
+        taxYTD: last.taxYTD,
+        actualAvg: round2(last.actualYTD / month),
+        actualYTD: last.actualYTD,
+        totalActualYTD: totalActualYTD,
+        diffYTD: round2(last.baseYTD - totalActualYTD)
+    };
 }
 
 function calculateOneYear(salaryList) {
@@ -106,8 +125,8 @@ function calculateOneMonth(salary, salaryOfPrevMonth) {
         salary.actual = round2((salary.base || 0) - (salary.insurancesPersonal || 0) - (salary.tax || 0));
         salary.actualYTD = round2((salary.actual || 0) + (salaryOfPrevMonth.actualYTD || 0));
     }
+}
 
-    function round2(num) {
-        return Math.round(num * 100) / 100;
-    }
+function round2(num) {
+    return Math.round(num * 100) / 100;
 }
