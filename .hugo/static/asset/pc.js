@@ -127,9 +127,9 @@
         var tocElement = id('toc');
         if (hasClassName(tocElement, 'opened')) {
             var tocElementOffsetWidth = tocElement.offsetWidth;
-            document.body.style.paddingLeft = tocElementOffsetWidth + 'px';
+            document.body.style.marginLeft = tocElementOffsetWidth + 'px';
         } else {
-            document.body.style.paddingLeft = '0px';
+            document.body.style.marginLeft = '0px';
         }
     }
 
