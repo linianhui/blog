@@ -19,11 +19,11 @@
 <div id="app">
   <div style="margin-bottom: 10px;">
     <el-input v-model="amount" style="width: unset;" placeholder="请输入税前月工资"></el-input>
-    <el-select v-model="insuranceValue">
+    <el-select v-model="insuranceValue" :popper-append-to-body="false">
       <el-option v-for="item in insurance" :key="item" :label="item" :value="item">
       </el-option>
     </el-select>
-    <el-select v-model="rateValue">
+    <el-select v-model="rateValue" :popper-append-to-body="false">
       <el-option v-for="item in rate" :key="item" :label="item" :value="item">
       </el-option>
     </el-select>
