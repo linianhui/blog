@@ -1,10 +1,15 @@
-<link href="//cdn.bootcdn.net/ajax/libs/element-ui/1.4.13/theme-default/index.css" rel="stylesheet">
+<link href="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/theme-chalk/index.min.css" rel="stylesheet">
 <style>
-  .article-content table {
+  td,
+  th,
+  tr,
+  tbody,
+  table {
     margin-top: unset;
     border: unset;
     padding: unset;
     border-collapse: unset;
+    border: unset;
   }
 
   .cell {
@@ -25,9 +30,10 @@
   </div>
 
   <div>
-    年收入合计如下：<br/>
-    税前收入 {{ salarys.summary.baseYTD }} = {{ salarys.summary.base }} * 12<br/>
-    税后收入 {{ salarys.summary.totalActualYTD }} = 税后 {{ salarys.summary.actualYTD }} + 公积金 {{ salarys.summary.公积金YTD }} + 医疗 {{ salarys.summary.医疗YTD }}<br/>
+    年收入合计如下：<br />
+    税前收入 {{ salarys.summary.baseYTD }} = {{ salarys.summary.base }} * 12<br />
+    税后收入 {{ salarys.summary.totalActualYTD }} = 税后 {{ salarys.summary.actualYTD }} + 公积金 {{ salarys.summary.公积金YTD }} +
+    医疗 {{ salarys.summary.医疗YTD }}<br />
     前后差额 {{ salarys.summary.diffYTD }} = 税前收入 {{ salarys.summary.baseYTD }} - 税后收入 {{ salarys.summary.totalActualYTD }}
   </div>
   <el-table :data="salarys.items" :default-sort="defaultSort">
@@ -44,7 +50,7 @@
   </el-table>
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
-<script src="//cdn.bootcdn.net/ajax/libs/element-ui/1.4.13/index.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
 <script src="config.js"></script>
 <script src="calculator.js"></script>
 <script type="text/javascript">
