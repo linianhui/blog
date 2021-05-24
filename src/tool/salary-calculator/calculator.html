@@ -194,10 +194,10 @@
 
   <fieldset>
     <legend>结果区域-年收入合计</legend>
-    税前收入 {{ salarys.summary.baseYTD }} = {{ salarys.summary.base }} * 12<br />
-    税后收入 {{ salarys.summary.totalActualYTD }} = 税后 {{ salarys.summary.actualYTD }} + 公积金 {{ salarys.summary.公积金YTD }} +
-    医疗 {{ salarys.summary.医疗YTD }}<br />
-    前后差额 {{ salarys.summary.diffYTD }} = 税前收入 {{ salarys.summary.baseYTD }} - 税后收入 {{ salarys.summary.totalActualYTD }}
+    税前{{ salarys.summary.baseYTD }} = {{ salarys.summary.base }} * 12<br />
+    税后{{ salarys.summary.totalActualYTD }} = 工资{{ salarys.summary.actualYTD }} + 公积金{{ salarys.summary.公积金YTD }} +
+    医疗{{ salarys.summary.医疗YTD }}<br />
+    差额{{ salarys.summary.diffYTD }} = 税前{{ salarys.summary.baseYTD }} - 税后{{ salarys.summary.totalActualYTD }}
   </fieldset>
 
   <section style="overflow-x: auto;max-width: 100%;">
