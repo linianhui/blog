@@ -51,13 +51,13 @@
     padding: 0;
   }
 
-  fieldset{
+  fieldset {
     border: unset;
     box-shadow: 0 0 2px #ccc;
     margin-top: 1em;
   }
 
-  legend{
+  legend {
     background-color: #FFF;
     color: #909399;
   }
@@ -200,21 +200,23 @@
     前后差额 {{ salarys.summary.diffYTD }} = 税前收入 {{ salarys.summary.baseYTD }} - 税后收入 {{ salarys.summary.totalActualYTD }}
   </fieldset>
 
-  <fieldset>
-    <legend>结果区域-按月列表</legend>
-    <el-table :data="salarys.items" :default-sort="defaultSort">
-      <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true"></el-table-column>
-      <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
-      <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
-      <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
-      <el-table-column prop="taxableYTD" label="税基YTD" align="right"></el-table-column>
-      <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
-      <el-table-column prop="tax" label="个税" align="right"></el-table-column>
-      <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
-      <el-table-column prop="actual" label="税后" align="right"></el-table-column>
-      <el-table-column prop="actualYTD" label="税后YTD" align="right"></el-table-column>
-    </el-table>
-  </fieldset>
+  <section style="overflow-x: auto;max-width: 100%;">
+    <fieldset>
+      <legend>结果区域-按月列表</legend>
+      <el-table :data="salarys.items" :default-sort="defaultSort">
+        <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true"></el-table-column>
+        <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
+        <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
+        <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
+        <el-table-column prop="taxableYTD" label="税基YTD" align="right"></el-table-column>
+        <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
+        <el-table-column prop="tax" label="个税" align="right"></el-table-column>
+        <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
+        <el-table-column prop="actual" label="税后" align="right"></el-table-column>
+        <el-table-column prop="actualYTD" label="税后YTD" align="right"></el-table-column>
+      </el-table>
+    </fieldset>
+  </section>
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
 <script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
