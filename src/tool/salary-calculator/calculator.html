@@ -33,7 +33,7 @@
     差额{{ salarys.summary.diffYTD }}
   </div>
   <el-table :data="salarys.items" :default-sort="defaultSort">
-    <el-table-column prop="month" label="月份" align="right" width="45" :sortable="true"></el-table-column>
+    <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true"></el-table-column>
     <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
     <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
     <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
