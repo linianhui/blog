@@ -15,39 +15,206 @@
   .cell {
     padding: 0 !important;
   }
+
+  .form-name,
+  .form-input,
+  .form-detail {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .form-name {
+    width: 5em;
+    text-align: right;
+    padding-top: 10px;
+  }
+
+  .form-input {
+    margin-left: 1em;
+  }
+
+  .form-detail {
+    margin-left: 1em;
+    color: #909399;
+  }
+
+  .el-collapse {
+    border: unset;
+  }
+
+  .el-collapse-item__header {
+    border: unset;
+  }
+
+  .el-input-group__prepend {
+    padding: 0;
+  }
+
+  fieldset{
+    border: unset;
+    box-shadow: 0 0 2px #ccc;
+    margin-top: 1em;
+  }
+
+  legend{
+    background-color: #FFF;
+    color: #909399;
+  }
 </style>
 <div id="app">
-  <div style="margin-bottom: 10px;">
-    <el-input v-model="amount" style="width: unset;" placeholder="请输入税前月工资"></el-input>
-    <el-select v-model="insuranceValue" :popper-append-to-body="false">
-      <el-option v-for="item in insurance" :key="item" :label="item" :value="item">
-      </el-option>
-    </el-select>
-    <el-select v-model="rateValue" :popper-append-to-body="false">
-      <el-option v-for="item in rate" :key="item" :label="item" :value="item">
-      </el-option>
-    </el-select>
-  </div>
+  <fieldset>
+    <legend>参数区域</legend>
+    <section style="min-height: 47px;">
+      <div class="form-name">
+        <label for="salary">
+          税前月工资
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input id="salary" v-model="amount" style="width: unset;" placeholder="请输入税前月工资">
+          <template slot="prepend">￥</template>
+        </el-input>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="insurance">
+          社保基数
+        </label>
+      </div>
+      <div class="form-input">
+        <el-select id="insurance" v-model="insuranceValue" :popper-append-to-body="false">
+          <el-option v-for="item in insurance" :key="item" :label="item" :value="item">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="form-detail">
+        <el-collapse>
+          <el-collapse-item>
+            <template slot="title">
+              <i class="header-icon el-icon-info"> 养老保险基数：￥{{currentInsurance.养老.min}} ~
+                ￥{{currentInsurance.养老.max}}</i>
+            </template>
+            <table>
+              <tr>
+                <th style="text-align: right;">社保类型</th>
+                <th style="text-align: right;">最低</th>
+                <th style="text-align: right;">最高</th>
+                <th style="text-align: right;">个人</th>
+                <th style="text-align: right;">公司</th>
+              </tr>
+              <tr>
+                <td style="text-align: right;">养老保险</td>
+                <td style="text-align: right;">￥{{currentInsurance.养老.min}}</td>
+                <td style="text-align: right;">￥{{currentInsurance.养老.max}}</td>
+                <td style="text-align: right;">{{currentInsurance.养老.personalPercentage}}%</td>
+                <td style="text-align: right;">{{currentInsurance.养老.corporationPercentage}}%</td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">医疗保险</td>
+                <td style="text-align: right;">￥{{currentInsurance.医疗.min}}</td>
+                <td style="text-align: right;">￥{{currentInsurance.医疗.max}}</td>
+                <td style="text-align: right;">{{currentInsurance.医疗.personalPercentage}}%</td>
+                <td style="text-align: right;">{{currentInsurance.医疗.corporationPercentage}}%</td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">失业保险</td>
+                <td style="text-align: right;">￥{{currentInsurance.失业.min}}</td>
+                <td style="text-align: right;">￥{{currentInsurance.失业.max}}</td>
+                <td style="text-align: right;">{{currentInsurance.失业.personalPercentage}}%</td>
+                <td style="text-align: right;">{{currentInsurance.失业.corporationPercentage}}%</td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">工伤保险</td>
+                <td style="text-align: right;">￥{{currentInsurance.工伤.min}}</td>
+                <td style="text-align: right;">￥{{currentInsurance.工伤.max}}</td>
+                <td style="text-align: right;">{{currentInsurance.工伤.personalPercentage}}%</td>
+                <td style="text-align: right;">{{currentInsurance.工伤.corporationPercentage}}%</td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">生育保险</td>
+                <td style="text-align: right;">￥{{currentInsurance.生育.min}}</td>
+                <td style="text-align: right;">￥{{currentInsurance.生育.max}}</td>
+                <td style="text-align: right;">{{currentInsurance.生育.personalPercentage}}%</td>
+                <td style="text-align: right;">{{currentInsurance.生育.corporationPercentage}}%</td>
+              </tr>
+              <tr>
+                <td style="text-align: right;">公积金</td>
+                <td style="text-align: right;">￥{{currentInsurance.公积金.min}}</td>
+                <td style="text-align: right;">￥{{currentInsurance.公积金.max}}</td>
+                <td style="text-align: right;">{{currentInsurance.公积金.personalPercentage}}%</td>
+                <td style="text-align: right;">{{currentInsurance.公积金.corporationPercentage}}%</td>
+              </tr>
+            </table>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="rate">税率表</label>
+      </div>
+      <div class="form-input">
+        <el-select id="rate" v-model="rateValue" :popper-append-to-body="false">
+          <el-option v-for="item in rate" :key="item" :label="item" :value="item">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="form-detail">
+        <el-collapse>
+          <el-collapse-item>
+            <template slot="title">
+              <i class="header-icon el-icon-info"> 免征额：￥{{currentRate.exempted}}</i>
+            </template>
+            <el-table :data="currentRate.items">
+              <el-table-column label="范围" align="right" width="160">
+                <template slot-scope="scope">
+                  ￥{{ scope.row.min }} ~
+                  <span v-if="scope.row.max">￥{{ scope.row.max }}</span>
+                  <span v-else>￥∞</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="税率" align="right" width="40">
+                <template slot-scope="scope">
+                  {{ scope.row.rate }}%
+                </template>
+              </el-table-column>
+              <el-table-column label="速算扣除数" align="right" width="90">
+                <template slot-scope="scope">
+                  ￥{{ scope.row.quickDeduction }}
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+    </section>
+  </fieldset>
 
-  <div>
-    年收入合计如下：<br />
+  <fieldset>
+    <legend>结果区域-年收入合计</legend>
     税前收入 {{ salarys.summary.baseYTD }} = {{ salarys.summary.base }} * 12<br />
     税后收入 {{ salarys.summary.totalActualYTD }} = 税后 {{ salarys.summary.actualYTD }} + 公积金 {{ salarys.summary.公积金YTD }} +
     医疗 {{ salarys.summary.医疗YTD }}<br />
     前后差额 {{ salarys.summary.diffYTD }} = 税前收入 {{ salarys.summary.baseYTD }} - 税后收入 {{ salarys.summary.totalActualYTD }}
-  </div>
-  <el-table :data="salarys.items" :default-sort="defaultSort">
-    <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true"></el-table-column>
-    <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
-    <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
-    <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
-    <el-table-column prop="taxableYTD" label="税基YTD" align="right"></el-table-column>
-    <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
-    <el-table-column prop="tax" label="个税" align="right"></el-table-column>
-    <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
-    <el-table-column prop="actual" label="税后" align="right"></el-table-column>
-    <el-table-column prop="actualYTD" label="税后YTD" align="right"></el-table-column>
-  </el-table>
+  </fieldset>
+
+  <fieldset>
+    <legend>结果区域-按月列表</legend>
+    <el-table :data="salarys.items" :default-sort="defaultSort">
+      <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true"></el-table-column>
+      <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
+      <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
+      <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
+      <el-table-column prop="taxableYTD" label="税基YTD" align="right"></el-table-column>
+      <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
+      <el-table-column prop="tax" label="个税" align="right"></el-table-column>
+      <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
+      <el-table-column prop="actual" label="税后" align="right"></el-table-column>
+      <el-table-column prop="actualYTD" label="税后YTD" align="right"></el-table-column>
+    </el-table>
+  </fieldset>
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
 <script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>

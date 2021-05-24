@@ -22,6 +22,7 @@ function buildSummary(salaryList) {
     const 公积金YTD = round2(last.insurances.公积金.personalYTD + last.insurances.公积金.corporationYTD);
     const totalActualYTD = round2(医疗YTD + 公积金YTD + last.actualYTD);
     return {
+        base: last.base || 0,
         baseYTD: last.baseYTD,
         医疗YTD: 医疗YTD,
         公积金YTD: 公积金YTD,
