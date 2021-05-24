@@ -13,7 +13,7 @@
 </style>
 <div id="app">
   <div style="margin-bottom: 10px;">
-    <el-input v-model="amount" style="width: unset;"></el-input>
+    <el-input v-model="amount" style="width: unset;" placeholder="税前月工资"></el-input>
     <el-select v-model="insuranceValue">
       <el-option v-for="item in insurance" :key="item" :label="item" :value="item">
       </el-option>
