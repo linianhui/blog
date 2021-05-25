@@ -229,6 +229,10 @@
   const insurancesKeys = Object.keys(insurances);
   const insurancesKey = insurancesKeys[0];
 
+  function log(type, value) {
+    console.log(type, JSON.parse(JSON.stringify(value)));
+  }
+
   new Vue({
     el: "#app",
     data: function () {
@@ -260,12 +264,10 @@
         );
         calculateOneYear(items);
         items.shift();
-
-        console.log(JSON.parse(JSON.stringify(items)));
+        log("calculate salarys", items);
 
         var summary = buildSummary(items);
-
-        console.log(JSON.parse(JSON.stringify(summary)));
+        log("calculate salarys year summary", summary);
 
         return {
           items: items,
@@ -276,9 +278,11 @@
     methods: {
       onRateChange(key) {
         this.rate.value = rates[key];
+        log("selected rate " + key, this.rate.value);
       },
       onInsuranceChange(key) {
         this.insurance.value = insurances[key];
+        log("selected insurance " + key, this.insurance.value);
       }
     }
   })
