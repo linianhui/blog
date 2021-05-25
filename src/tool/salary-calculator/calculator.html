@@ -93,8 +93,8 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 养老保险基数：￥{{insurance.value.养老.min}} ~
-                ￥{{insurance.value.养老.max}}</i>
+              <i class="header-icon el-icon-info"> 养老保险基数：{{insurance.value.养老.min | CNY}} ~
+                {{insurance.value.养老.max | CNY}}</i>
             </template>
             <table>
               <tr>
@@ -106,43 +106,43 @@
               </tr>
               <tr>
                 <td style="text-align: right;">养老保险</td>
-                <td style="text-align: right;">￥{{insurance.value.养老.min}}</td>
-                <td style="text-align: right;">￥{{insurance.value.养老.max}}</td>
+                <td style="text-align: right;">{{insurance.value.养老.min | CNY}}</td>
+                <td style="text-align: right;">{{insurance.value.养老.max | CNY}}</td>
                 <td style="text-align: right;">{{insurance.value.养老.personalPercentage}}%</td>
                 <td style="text-align: right;">{{insurance.value.养老.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">医疗保险</td>
-                <td style="text-align: right;">￥{{insurance.value.医疗.min}}</td>
-                <td style="text-align: right;">￥{{insurance.value.医疗.max}}</td>
+                <td style="text-align: right;">{{insurance.value.医疗.min | CNY}}</td>
+                <td style="text-align: right;">{{insurance.value.医疗.max | CNY}}</td>
                 <td style="text-align: right;">{{insurance.value.医疗.personalPercentage}}%</td>
                 <td style="text-align: right;">{{insurance.value.医疗.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">失业保险</td>
-                <td style="text-align: right;">￥{{insurance.value.失业.min}}</td>
-                <td style="text-align: right;">￥{{insurance.value.失业.max}}</td>
+                <td style="text-align: right;">{{insurance.value.失业.min | CNY}}</td>
+                <td style="text-align: right;">{{insurance.value.失业.max | CNY}}</td>
                 <td style="text-align: right;">{{insurance.value.失业.personalPercentage}}%</td>
                 <td style="text-align: right;">{{insurance.value.失业.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">工伤保险</td>
-                <td style="text-align: right;">￥{{insurance.value.工伤.min}}</td>
-                <td style="text-align: right;">￥{{insurance.value.工伤.max}}</td>
+                <td style="text-align: right;">{{insurance.value.工伤.min | CNY}}</td>
+                <td style="text-align: right;">{{insurance.value.工伤.max | CNY}}</td>
                 <td style="text-align: right;">{{insurance.value.工伤.personalPercentage}}%</td>
                 <td style="text-align: right;">{{insurance.value.工伤.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">生育保险</td>
-                <td style="text-align: right;">￥{{insurance.value.生育.min}}</td>
-                <td style="text-align: right;">￥{{insurance.value.生育.max}}</td>
+                <td style="text-align: right;">{{insurance.value.生育.min | CNY}}</td>
+                <td style="text-align: right;">{{insurance.value.生育.max | CNY}}</td>
                 <td style="text-align: right;">{{insurance.value.生育.personalPercentage}}%</td>
                 <td style="text-align: right;">{{insurance.value.生育.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">公积金</td>
-                <td style="text-align: right;">￥{{insurance.value.公积金.min}}</td>
-                <td style="text-align: right;">￥{{insurance.value.公积金.max}}</td>
+                <td style="text-align: right;">{{insurance.value.公积金.min | CNY}}</td>
+                <td style="text-align: right;">{{insurance.value.公积金.max | CNY}}</td>
                 <td style="text-align: right;">{{insurance.value.公积金.personalPercentage}}%</td>
                 <td style="text-align: right;">{{insurance.value.公积金.corporationPercentage}}%</td>
               </tr>
@@ -165,13 +165,13 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 免征额：￥{{rate.value.exempted}}</i>
+              <i class="header-icon el-icon-info"> 免征额：{{rate.value.exempted | CNY}}</i>
             </template>
             <el-table :data="rate.value.items">
-              <el-table-column label="范围" align="right" width="160">
+              <el-table-column label="范围" align="right" width="200">
                 <template slot-scope="scope">
-                  ￥{{ scope.row.min }} ~
-                  <span v-if="scope.row.max">￥{{ scope.row.max }}</span>
+                  {{ scope.row.min  | CNY}} ~
+                  <span v-if="scope.row.max">￥{{ scope.row.max  | CNY}}</span>
                   <span v-else>￥∞</span>
                 </template>
               </el-table-column>
@@ -182,7 +182,7 @@
               </el-table-column>
               <el-table-column label="速算扣除数" align="right" width="90">
                 <template slot-scope="scope">
-                  ￥{{ scope.row.quickDeduction }}
+                  {{ scope.row.quickDeduction  | CNY}}
                 </template>
               </el-table-column>
             </el-table>
@@ -194,32 +194,73 @@
 
   <fieldset>
     <legend>结果区域-年收入合计</legend>
-    税前{{ salarys.summary.baseYTD }} = {{ salarys.summary.base }} * 12<br />
-    税后{{ salarys.summary.totalActualYTD }} = 工资{{ salarys.summary.actualYTD }} + 公积金{{ salarys.summary.公积金YTD }} +
-    医疗{{ salarys.summary.医疗YTD }}<br />
-    差额{{ salarys.summary.diffYTD }} = 税前{{ salarys.summary.baseYTD }} - 税后{{ salarys.summary.totalActualYTD }}
+    税前{{ salarys.summary.baseYTD | CNY }} = {{ salarys.summary.base | CNY}} * 12<br />
+    税后{{ salarys.summary.totalActualYTD | CNY }} = 工资{{ salarys.summary.actualYTD | CNY }} + 公积金{{ salarys.summary.公积金YTD | CNY }} +
+    医疗{{ salarys.summary.医疗YTD | CNY }}<br />
+    差额{{ salarys.summary.diffYTD | CNY }} = 税前{{ salarys.summary.baseYTD | CNY }} - 税后{{ salarys.summary.totalActualYTD | CNY }}
   </fieldset>
 
   <section style="overflow-x: auto;max-width: 100%;">
     <fieldset>
       <legend>结果区域-按月列表</legend>
       <el-table :data="salarys.items" :default-sort="defaultSort">
-        <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true"></el-table-column>
-        <el-table-column prop="baseYTD" label="税前YTD" align="right"></el-table-column>
-        <el-table-column prop="exemptedYTD" label="免征额YTD" align="right" width="85"></el-table-column>
-        <el-table-column prop="insurancesPersonalYTD" label="社保个人YTD" align="right" width="100"></el-table-column>
-        <el-table-column prop="taxableYTD" label="税基YTD" align="right"></el-table-column>
-        <el-table-column prop="rate.rate" label="税率" align="right" width="45"></el-table-column>
-        <el-table-column prop="tax" label="个税" align="right"></el-table-column>
-        <el-table-column prop="taxYTD" label="个税YTD" align="right"></el-table-column>
-        <el-table-column prop="actual" label="税后" align="right"></el-table-column>
-        <el-table-column prop="actualYTD" label="税后YTD" align="right"></el-table-column>
+        <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true">
+          <template slot-scope="scope">
+            {{ scope.row.month }}月
+          </template>
+        </el-table-column>
+        <el-table-column label="税前YTD" align="right">
+          <template slot-scope="scope">
+            {{ scope.row.baseYTD  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="免征额YTD" align="right" width="85">
+          <template slot-scope="scope">
+            {{ scope.row.exemptedYTD  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="社保个人YTD" align="right" width="100">
+          <template slot-scope="scope">
+            {{ scope.row.insurancesPersonalYTD  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="税基YTD" align="right">
+          <template slot-scope="scope">
+            {{ scope.row.taxableYTD  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="税率" align="right" width="45">
+          <template slot-scope="scope">
+            {{ scope.row.rate.rate}}%
+          </template>
+        </el-table-column>
+        <el-table-column label="个税" align="right">
+          <template slot-scope="scope">
+            {{ scope.row.tax  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="个税YTD" align="right">
+          <template slot-scope="scope">
+            {{ scope.row.taxYTD  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="税后" align="right">
+          <template slot-scope="scope">
+            {{ scope.row.actual  | CNY}}
+          </template>
+        </el-table-column>
+        <el-table-column label="税后YTD" align="right">
+          <template slot-scope="scope">
+            {{ scope.row.actualYTD  | CNY}}
+          </template>
+        </el-table-column>
       </el-table>
     </fieldset>
   </section>
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
 <script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
+<script src="//unpkg.com/currency.js/dist/currency.min.js"></script>
 <script src="rates.js"></script>
 <script src="insurances.js"></script>
 <script src="calculator.js"></script>
@@ -254,7 +295,17 @@
         }
       }
     },
-
+    filters: {
+      CNY: function (value) {
+        return currency(
+          value,
+          {
+            symbol: "¥",
+            precision: 2
+          })
+          .format();
+      }
+    },
     computed: {
       salarys() {
         var items = buildSalaryList(
