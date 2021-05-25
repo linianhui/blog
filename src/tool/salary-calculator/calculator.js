@@ -1,8 +1,6 @@
 
-function buildSalaryList(amount, insurance, rate) {
+function buildSalaryList(amount, insurances, rates) {
     const salaryList = [];
-    const insurances = config.insurances[insurance];
-    const rates = config.rates[rate];
     for (let index = 0; index < 13; index++) {
         salaryList[index] = {
             month: index,

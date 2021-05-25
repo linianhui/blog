@@ -84,8 +84,8 @@
         </label>
       </div>
       <div class="form-input">
-        <el-select id="insurance" v-model="insuranceValue" :popper-append-to-body="false">
-          <el-option v-for="item in insurance" :key="item" :label="item" :value="item">
+        <el-select id="insurance" v-model="insurance.key" :popper-append-to-body="false" @change="onInsuranceChange">
+          <el-option v-for="item in insurance.keys" :key="item" :label="item" :value="item">
           </el-option>
         </el-select>
       </div>
@@ -93,8 +93,8 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 养老保险基数：￥{{currentInsurance.养老.min}} ~
-                ￥{{currentInsurance.养老.max}}</i>
+              <i class="header-icon el-icon-info"> 养老保险基数：￥{{insurance.value.养老.min}} ~
+                ￥{{insurance.value.养老.max}}</i>
             </template>
             <table>
               <tr>
@@ -106,45 +106,45 @@
               </tr>
               <tr>
                 <td style="text-align: right;">养老保险</td>
-                <td style="text-align: right;">￥{{currentInsurance.养老.min}}</td>
-                <td style="text-align: right;">￥{{currentInsurance.养老.max}}</td>
-                <td style="text-align: right;">{{currentInsurance.养老.personalPercentage}}%</td>
-                <td style="text-align: right;">{{currentInsurance.养老.corporationPercentage}}%</td>
+                <td style="text-align: right;">￥{{insurance.value.养老.min}}</td>
+                <td style="text-align: right;">￥{{insurance.value.养老.max}}</td>
+                <td style="text-align: right;">{{insurance.value.养老.personalPercentage}}%</td>
+                <td style="text-align: right;">{{insurance.value.养老.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">医疗保险</td>
-                <td style="text-align: right;">￥{{currentInsurance.医疗.min}}</td>
-                <td style="text-align: right;">￥{{currentInsurance.医疗.max}}</td>
-                <td style="text-align: right;">{{currentInsurance.医疗.personalPercentage}}%</td>
-                <td style="text-align: right;">{{currentInsurance.医疗.corporationPercentage}}%</td>
+                <td style="text-align: right;">￥{{insurance.value.医疗.min}}</td>
+                <td style="text-align: right;">￥{{insurance.value.医疗.max}}</td>
+                <td style="text-align: right;">{{insurance.value.医疗.personalPercentage}}%</td>
+                <td style="text-align: right;">{{insurance.value.医疗.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">失业保险</td>
-                <td style="text-align: right;">￥{{currentInsurance.失业.min}}</td>
-                <td style="text-align: right;">￥{{currentInsurance.失业.max}}</td>
-                <td style="text-align: right;">{{currentInsurance.失业.personalPercentage}}%</td>
-                <td style="text-align: right;">{{currentInsurance.失业.corporationPercentage}}%</td>
+                <td style="text-align: right;">￥{{insurance.value.失业.min}}</td>
+                <td style="text-align: right;">￥{{insurance.value.失业.max}}</td>
+                <td style="text-align: right;">{{insurance.value.失业.personalPercentage}}%</td>
+                <td style="text-align: right;">{{insurance.value.失业.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">工伤保险</td>
-                <td style="text-align: right;">￥{{currentInsurance.工伤.min}}</td>
-                <td style="text-align: right;">￥{{currentInsurance.工伤.max}}</td>
-                <td style="text-align: right;">{{currentInsurance.工伤.personalPercentage}}%</td>
-                <td style="text-align: right;">{{currentInsurance.工伤.corporationPercentage}}%</td>
+                <td style="text-align: right;">￥{{insurance.value.工伤.min}}</td>
+                <td style="text-align: right;">￥{{insurance.value.工伤.max}}</td>
+                <td style="text-align: right;">{{insurance.value.工伤.personalPercentage}}%</td>
+                <td style="text-align: right;">{{insurance.value.工伤.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">生育保险</td>
-                <td style="text-align: right;">￥{{currentInsurance.生育.min}}</td>
-                <td style="text-align: right;">￥{{currentInsurance.生育.max}}</td>
-                <td style="text-align: right;">{{currentInsurance.生育.personalPercentage}}%</td>
-                <td style="text-align: right;">{{currentInsurance.生育.corporationPercentage}}%</td>
+                <td style="text-align: right;">￥{{insurance.value.生育.min}}</td>
+                <td style="text-align: right;">￥{{insurance.value.生育.max}}</td>
+                <td style="text-align: right;">{{insurance.value.生育.personalPercentage}}%</td>
+                <td style="text-align: right;">{{insurance.value.生育.corporationPercentage}}%</td>
               </tr>
               <tr>
                 <td style="text-align: right;">公积金</td>
-                <td style="text-align: right;">￥{{currentInsurance.公积金.min}}</td>
-                <td style="text-align: right;">￥{{currentInsurance.公积金.max}}</td>
-                <td style="text-align: right;">{{currentInsurance.公积金.personalPercentage}}%</td>
-                <td style="text-align: right;">{{currentInsurance.公积金.corporationPercentage}}%</td>
+                <td style="text-align: right;">￥{{insurance.value.公积金.min}}</td>
+                <td style="text-align: right;">￥{{insurance.value.公积金.max}}</td>
+                <td style="text-align: right;">{{insurance.value.公积金.personalPercentage}}%</td>
+                <td style="text-align: right;">{{insurance.value.公积金.corporationPercentage}}%</td>
               </tr>
             </table>
           </el-collapse-item>
@@ -156,8 +156,8 @@
         <label for="rate">税率表</label>
       </div>
       <div class="form-input">
-        <el-select id="rate" v-model="rateValue" :popper-append-to-body="false">
-          <el-option v-for="item in rate" :key="item" :label="item" :value="item">
+        <el-select id="rate" v-model="rate.key" :popper-append-to-body="false">
+          <el-option v-for="item in rate.keys" :key="item" :label="item" :value="item">
           </el-option>
         </el-select>
       </div>
@@ -165,9 +165,9 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 免征额：￥{{currentRate.exempted}}</i>
+              <i class="header-icon el-icon-info"> 免征额：￥{{rate.value.exempted}}</i>
             </template>
-            <el-table :data="currentRate.items">
+            <el-table :data="rate.value.items">
               <el-table-column label="范围" align="right" width="160">
                 <template slot-scope="scope">
                   ￥{{ scope.row.min }} ~
@@ -220,20 +220,30 @@
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
 <script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
-<script src="config.js"></script>
+<script src="rates.js"></script>
+<script src="insurances.js"></script>
 <script src="calculator.js"></script>
 <script type="text/javascript">
-  const configRateKeyArray = Object.keys(config.rates);
-  const configInsuranceKeyArray = Object.keys(config.insurances);
+  const ratesKeys = Object.keys(rates);
+  const ratesKey = ratesKeys[0];
+  const insurancesKeys = Object.keys(insurances);
+  const insurancesKey = insurancesKeys[0];
+
   new Vue({
     el: "#app",
     data: function () {
       return {
         amount: null,
-        rate: configRateKeyArray,
-        rateValue: configRateKeyArray[0],
-        insurance: configInsuranceKeyArray,
-        insuranceValue: configInsuranceKeyArray[0],
+        rate: {
+          keys: ratesKeys,
+          key: ratesKey,
+          value: rates[ratesKey]
+        },
+        insurance: {
+          keys: insurancesKeys,
+          key: insurancesKey,
+          value: insurances[insurancesKey]
+        },
         defaultSort: {
           prop: 'month',
           order: 'descending'
@@ -242,14 +252,12 @@
     },
 
     computed: {
-      currentRate() {
-        return config.rates[this.rateValue];
-      },
-      currentInsurance() {
-        return config.insurances[this.insuranceValue];
-      },
       salarys() {
-        var items = buildSalaryList(parseInt(this.amount, 10), this.insuranceValue, this.rateValue);
+        var items = buildSalaryList(
+          parseInt(this.amount, 10),
+          this.insurance.value,
+          this.rate.value
+        );
         calculateOneYear(items);
         items.shift();
 
@@ -263,6 +271,14 @@
           items: items,
           summary: summary
         };
+      }
+    },
+    methods: {
+      onRateChange(key) {
+        this.rate.value = rates[key];
+      },
+      onInsuranceChange(key) {
+        this.insurance.value = insurances[key];
       }
     }
   })
