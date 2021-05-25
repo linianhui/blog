@@ -61,6 +61,11 @@
     background-color: #FFF;
     color: #909399;
   }
+
+  .number{
+    padding-left: 2px;
+    font-family: monospace;
+  }
 </style>
 <div id="app">
   <fieldset>
@@ -165,24 +170,26 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 免征额：{{rate.value.exempted | CNY}}</i>
+              <i class="header-icon el-icon-info"> 免征额：<span class="number">{{rate.value.exempted | CNY}}</span></i>
             </template>
             <el-table :data="rate.value.items">
-              <el-table-column label="范围" align="right" width="200">
+              <el-table-column label="范围" align="right" width="240">
                 <template slot-scope="scope">
-                  {{ scope.row.min  | CNY}} ~
-                  <span v-if="scope.row.max">￥{{ scope.row.max  | CNY}}</span>
+                  <span class="number">
+                    {{ scope.row.min | CNY}} ~
+                  <span v-if="scope.row.max">{{ scope.row.max | CNY}}</span>
                   <span v-else>￥∞</span>
+                </span>
                 </template>
               </el-table-column>
-              <el-table-column label="税率" align="right" width="40">
+              <el-table-column label="税率" align="right" width="50">
                 <template slot-scope="scope">
-                  {{ scope.row.rate }}%
+                  <span class="number">{{ scope.row.rate }}%</span>
                 </template>
               </el-table-column>
-              <el-table-column label="速算扣除数" align="right" width="90">
+              <el-table-column label="速算扣除数" align="right" width="100">
                 <template slot-scope="scope">
-                  {{ scope.row.quickDeduction  | CNY}}
+                  <span class="number">{{ scope.row.quickDeduction | CNY}}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -194,64 +201,66 @@
 
   <fieldset>
     <legend>结果区域-年收入合计</legend>
-    税前{{ salarys.summary.baseYTD | CNY }} = {{ salarys.summary.base | CNY}} * 12<br />
-    税后{{ salarys.summary.totalActualYTD | CNY }} = 工资{{ salarys.summary.actualYTD | CNY }} + 公积金{{ salarys.summary.公积金YTD | CNY }} +
-    医疗{{ salarys.summary.医疗YTD | CNY }}<br />
-    差额{{ salarys.summary.diffYTD | CNY }} = 税前{{ salarys.summary.baseYTD | CNY }} - 税后{{ salarys.summary.totalActualYTD | CNY }}
+    税前<span class="number">{{ salarys.summary.baseYTD | CNY }}</span> = <span class="number">{{ salarys.summary.base | CNY}}</span> * 12<br />
+    税后<span class="number">{{ salarys.summary.totalActualYTD | CNY }}</span> = 工资<span class="number">{{ salarys.summary.actualYTD | CNY }}</span> + 公积金<span class="number">{{
+    salarys.summary.公积金YTD | CNY }}</span> +
+    医疗<span class="number">{{ salarys.summary.医疗YTD | CNY }}</span><br />
+    差额<span class="number">{{ salarys.summary.diffYTD | CNY }}</span> = 税前<span class="number">{{ salarys.summary.baseYTD | CNY }}</span> - 税后<span class="number">{{ salarys.summary.totalActualYTD
+    | CNY }}</span>
   </fieldset>
 
   <section style="overflow-x: auto;max-width: 100%;">
     <fieldset>
       <legend>结果区域-按月列表</legend>
       <el-table :data="salarys.items" :default-sort="defaultSort">
-        <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true">
+        <el-table-column prop="month" label="月份" align="right" width="60" :sortable="true">
           <template slot-scope="scope">
-            {{ scope.row.month }}月
+            <span class="number">{{ scope.row.month }}月</span>
           </template>
         </el-table-column>
         <el-table-column label="税前YTD" align="right">
           <template slot-scope="scope">
-            {{ scope.row.baseYTD  | CNY}}
+            <span class="number">{{ scope.row.baseYTD | CNY}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="免征额YTD" align="right" width="85">
+        <el-table-column label="免征额YTD" align="right" width="100">
           <template slot-scope="scope">
-            {{ scope.row.exemptedYTD  | CNY}}
+            <span class="number">{{ scope.row.exemptedYTD | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="社保个人YTD" align="right" width="100">
           <template slot-scope="scope">
-            {{ scope.row.insurancesPersonalYTD  | CNY}}
+            <span class="number">{{ scope.row.insurancesPersonalYTD | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="税基YTD" align="right">
           <template slot-scope="scope">
-            {{ scope.row.taxableYTD  | CNY}}
+            <span class="number">{{ scope.row.taxableYTD | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="税率" align="right" width="45">
           <template slot-scope="scope">
-            {{ scope.row.rate.rate}}%
+            <span class="number">{{ scope.row.rate.rate}}%</span>
           </template>
         </el-table-column>
         <el-table-column label="个税" align="right">
           <template slot-scope="scope">
-            {{ scope.row.tax  | CNY}}
+            <span class="number">{{ scope.row.tax | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="个税YTD" align="right">
           <template slot-scope="scope">
-            {{ scope.row.taxYTD  | CNY}}
+            <span class="number">{{ scope.row.taxYTD | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="税后" align="right">
           <template slot-scope="scope">
-            {{ scope.row.actual  | CNY}}
+            <span class="number">{{ scope.row.actual | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="税后YTD" align="right">
           <template slot-scope="scope">
-            {{ scope.row.actualYTD  | CNY}}
+            <span class="number">{{ scope.row.actualYTD | CNY}}</span>
           </template>
         </el-table-column>
       </el-table>
