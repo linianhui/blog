@@ -223,7 +223,7 @@
     <fieldset>
       <legend>结果区域-按月列表</legend>
       <el-table :data="salarys.items" :default-sort="defaultSort">
-        <el-table-column prop="month" label="月份" align="right" width="60" :sortable="true">
+        <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true">
           <template slot-scope="scope">
             <span v-if="scope.row.month > 12" class="number">
                {{scope.row.months}}个月奖金
@@ -231,7 +231,7 @@
             <span v-else>{{ scope.row.month }}月</span>
           </template>
         </el-table-column>
-        <el-table-column label="税前" align="right">
+        <el-table-column label="税前月收入" align="right">
           <template slot-scope="scope">
             <span class="number">{{ scope.row.base | CNY}}</span>
           </template>
@@ -271,7 +271,7 @@
             <span class="number">{{ scope.row.taxYTD | CNY}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="税后" align="right">
+        <el-table-column label="税后月收入" align="right">
           <template slot-scope="scope">
             <span class="number">{{ scope.row.actual | CNY}}</span>
           </template>
