@@ -62,7 +62,7 @@
     color: #909399;
   }
 
-  .number{
+  .number {
     padding-left: 2px;
     font-family: monospace;
   }
@@ -186,9 +186,9 @@
                 <template slot-scope="scope">
                   <span class="number">
                     {{ scope.row.min | CNY}} ~
-                  <span v-if="scope.row.max">{{ scope.row.max | CNY}}</span>
-                  <span v-else>￥∞</span>
-                </span>
+                    <span v-if="scope.row.max">{{ scope.row.max | CNY}}</span>
+                    <span v-else>￥∞</span>
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column label="税率" align="right" width="50">
@@ -213,19 +213,23 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="precision" v-model="precision" :min="0" :max="2" placeholder="小数位" @change="onPrecisionChange"></el-input-number>
+        <el-input-number id="precision" v-model="precision" :min="0" :max="2" placeholder="小数位"
+          @change="onPrecisionChange"></el-input-number>
       </div>
     </section>
   </fieldset>
 
   <fieldset>
     <legend>结果区域-年收入合计</legend>
-    税前<span class="number">{{ salarys.summary.baseYTD | CNY }}</span> = <span class="number">{{ salarys.summary.base | CNY}} * 12</span> <br />
-    税后<span class="number">{{ salarys.summary.totalActualYTD | CNY }}</span> = 工资<span class="number">{{ salarys.summary.actualYTD | CNY }}</span> + 公积金<span class="number">{{
-    salarys.summary.公积金YTD | CNY }}</span> +
+    税前<span class="number">{{ salarys.summary.baseYTD | CNY }}</span> = <span class="number">{{ amount | CNY}} * {{
+      month | CNY}}</span> <br />
+    税后<span class="number">{{ salarys.summary.totalActualYTD | CNY }}</span> = 工资<span class="number">{{
+      salarys.summary.actualYTD | CNY }}</span> + 公积金<span class="number">{{
+      salarys.summary.公积金YTD | CNY }}</span> +
     医疗<span class="number">{{ salarys.summary.医疗YTD | CNY }}</span><br />
-    差额<span class="number">{{ salarys.summary.diffYTD | CNY }}</span> = 税前<span class="number">{{ salarys.summary.baseYTD | CNY }}</span> - 税后<span class="number">{{ salarys.summary.totalActualYTD
-    | CNY }}</span>
+    差额<span class="number">{{ salarys.summary.diffYTD | CNY }}</span> = 税前<span class="number">{{
+      salarys.summary.baseYTD | CNY }}</span> - 税后<span class="number">{{ salarys.summary.totalActualYTD
+      | CNY }}</span>
   </fieldset>
 
   <section style="overflow-x: auto;max-width: 100%;">
@@ -235,7 +239,7 @@
         <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true">
           <template slot-scope="scope">
             <span v-if="scope.row.month > 12" class="number">
-               {{scope.row.months}}个月奖金
+              {{scope.row.months}}个月奖金
             </span>
             <span v-else>{{ scope.row.month }}月</span>
           </template>
@@ -315,7 +319,7 @@
     el: "#app",
     data: function () {
       return {
-        amount: null,
+        amount: 5000,
         month: 12,
         precision: precision,
         rate: {
@@ -339,7 +343,8 @@
         return currency(
           value || 0,
           {
-            symbol: "¥",
+            symbol: "",
+            separator: ",",
             precision: precision
           })
           .format();
@@ -376,7 +381,7 @@
         this.insurance.value = insurances[key];
         log("selected insurance " + key, this.insurance.value);
       },
-      onPrecisionChange(value){
+      onPrecisionChange(value) {
         precision = value;
       }
     }
