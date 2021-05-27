@@ -207,6 +207,16 @@
         </el-collapse>
       </div>
     </section>
+    <section style="min-height: 47px;">
+      <div class="form-name">
+        <label for="precision">
+          小数位
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="precision" v-model="precision" :min="0" :max="2" placeholder="小数位" @change="onPrecisionChange"></el-input-number>
+      </div>
+    </section>
   </fieldset>
 
   <fieldset>
@@ -296,6 +306,7 @@
   const ratesKey = ratesKeys[0];
   const insurancesKeys = Object.keys(insurances);
   const insurancesKey = insurancesKeys[0];
+  let precision = 0;
 
   function log(type, value) {
     console.log(type, JSON.parse(JSON.stringify(value)));
@@ -307,6 +318,7 @@
       return {
         amount: null,
         month: 12,
+        precision: precision,
         rate: {
           keys: ratesKeys,
           key: ratesKey,
@@ -329,7 +341,7 @@
           value || 0,
           {
             symbol: "¥",
-            precision: 2
+            precision: precision
           })
           .format();
       }
@@ -349,6 +361,7 @@
         var summary = buildSummary(items);
         log("calculate salarys year summary", summary);
 
+        log("precision", this.precision);
         return {
           items: items,
           summary: summary
@@ -363,6 +376,9 @@
       onInsuranceChange(key) {
         this.insurance.value = insurances[key];
         log("selected insurance " + key, this.insurance.value);
+      },
+      onPrecisionChange(value){
+        precision = value;
       }
     }
   })
