@@ -77,9 +77,8 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input id="salary" v-model="amount" placeholder="请输入税前月工资">
-          <template slot="prepend">￥</template>
-        </el-input>
+        <el-input-number id="salary" v-model="amount" step="1000" placeholder="请输入税前月工资">
+        </el-input-number>
       </div>
     </section>
     <section style="min-height: 47px;">
