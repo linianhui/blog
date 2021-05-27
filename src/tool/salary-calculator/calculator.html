@@ -77,9 +77,19 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input id="salary" v-model="amount" style="width: unset;" placeholder="请输入税前月工资">
+        <el-input id="salary" v-model="amount" placeholder="请输入税前月工资">
           <template slot="prepend">￥</template>
         </el-input>
+      </div>
+    </section>
+    <section style="min-height: 47px;">
+      <div class="form-name">
+        <label for="month">
+          月数
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="month" v-model="month" :min="1" :max="100" placeholder="请输入月数"></el-input-number>
       </div>
     </section>
     <section>
@@ -288,6 +298,7 @@
     data: function () {
       return {
         amount: null,
+        month: 12,
         rate: {
           keys: ratesKeys,
           key: ratesKey,

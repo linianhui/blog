@@ -1,7 +1,7 @@
 
 function buildSalaryList(amount, insurances, rates) {
     const salaryList = [];
-    for (let index = 0; index < 13; index++) {
+    for (let index = 0; index <= 12; index++) {
         salaryList[index] = {
             month: index,
             base: amount,
