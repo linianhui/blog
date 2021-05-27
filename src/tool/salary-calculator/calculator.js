@@ -1,11 +1,21 @@
 
-function buildSalaryList(amount, insurances, rates) {
+function buildSalaryList(amount, month, insurances, rates) {
     const salaryList = [];
     for (let index = 0; index <= 12; index++) {
         salaryList[index] = {
             month: index,
             base: amount,
             exempted: rates.exempted,
+            rates: JSON.parse(JSON.stringify(rates)),
+            insurances: JSON.parse(JSON.stringify(insurances)),
+        };
+    }
+    if (month > 12) {
+        salaryList[13] = {
+            month: 13,
+            base: amount * (month - 12),
+            months : (month - 12),
+            exempted: 0,
             rates: JSON.parse(JSON.stringify(rates)),
             insurances: JSON.parse(JSON.stringify(insurances)),
         };
@@ -62,9 +72,17 @@ function calculateOneMonth(salary, salaryOfPrevMonth) {
             const insurance = salary.insurances[key];
             const insuranceOfPrevMonth = salaryOfPrevMonth.insurances[key];
             const base = Math.min(Math.max(insurance.min, salary.base), insurance.max);
-            insurance.personal = round2((base * insurance.personalPercentage / 100));
+            if (salary.month <= 12) {
+                insurance.personal = round2((base * insurance.personalPercentage / 100));
+            } else {
+                insurance.personal = 0;
+            }
             insurance.personalYTD = round2((insurance.personal || 0) + (insuranceOfPrevMonth.personalYTD || 0));
-            insurance.corporation = round2((base * insurance.corporationPercentage / 100));
+            if (salary.month <= 12) {
+                insurance.corporation = round2((base * insurance.corporationPercentage / 100));
+            } else {
+                insurance.corporation = 0;
+            }
             insurance.corporationYTD = round2((insurance.corporation || 0) + (insuranceOfPrevMonth.corporationYTD || 0));
         }
 

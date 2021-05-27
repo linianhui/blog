@@ -225,7 +225,15 @@
       <el-table :data="salarys.items" :default-sort="defaultSort">
         <el-table-column prop="month" label="月份" align="right" width="60" :sortable="true">
           <template slot-scope="scope">
-            <span class="number">{{ scope.row.month }}月</span>
+            <span v-if="scope.row.month > 12" class="number">
+               {{scope.row.months}}个月奖金
+            </span>
+            <span v-else>{{ scope.row.month }}月</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="税前" align="right">
+          <template slot-scope="scope">
+            <span class="number">{{ scope.row.base | CNY}}</span>
           </template>
         </el-table-column>
         <el-table-column label="税前YTD" align="right">
@@ -318,7 +326,7 @@
     filters: {
       CNY: function (value) {
         return currency(
-          value,
+          value || 0,
           {
             symbol: "¥",
             precision: 2
@@ -330,6 +338,7 @@
       salarys() {
         var items = buildSalaryList(
           parseInt(this.amount, 10),
+          this.month,
           this.insurance.value,
           this.rate.value
         );
