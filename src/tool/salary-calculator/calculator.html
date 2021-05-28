@@ -182,7 +182,7 @@
               <i class="header-icon el-icon-info"> 免征额：<span class="number">{{rate.value.exempted | CNY}}</span></i>
             </template>
             <el-table :data="rate.value.items">
-              <el-table-column label="范围" align="right" width="240">
+              <el-table-column label="范围" align="right" width="150">
                 <template slot-scope="scope">
                   <span class="number">
                     {{ scope.row.min | CNY}} ~
