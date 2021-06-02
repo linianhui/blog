@@ -6,6 +6,10 @@ body{
   margin: 18px 18px 54px 18px;
 }
 
+.header-nav-item {
+  margin-left: 12px;
+}
+
 .article{
   padding: 0;
   box-shadow: unset;
