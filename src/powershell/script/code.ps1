@@ -23,6 +23,7 @@ $CODE_PATH_ALIAS = @{
     se  = $CODE_PATH + 'spring.example';
     je  = $CODE_PATH + 'java.example';
     re  = $CODE_PATH + 'rabbitmq.example';
+    j   = $CODE_PATH + 'jvm';
 }
 
 function Code-ChangeDirectory ([string] $Alias) {
