@@ -1,24 +1,11 @@
 <link href="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/theme-chalk/index.min.css" rel="stylesheet">
 <style>
-  td,
-  th,
-  tr,
-  tbody,
-  table {
-    margin-top: unset;
-    border: unset;
-    padding: unset;
-    border-collapse: unset;
-    border: unset;
+  th {
+    text-align: center;
   }
 
-  th{
+  td {
     text-align: right;
-  }
-
-  td{
-    text-align: right;
-    padding-left: 1em;
   }
 
   .cell {
@@ -72,9 +59,17 @@
     color: #909399;
   }
 
-  .number {
-    padding-left: 2px;
+  .salary-table {
+    width: 100%;
+  }
+
+  .row-data {
     font-family: monospace;
+  }
+
+  .row-data:hover{
+    background-color: #eee;
+    cursor: pointer;
   }
 </style>
 <div id="app">
@@ -197,19 +192,19 @@
                 <th>税率</th>
                 <th>速算扣除数</th>
               </tr>
-              <tr v-for="item in rate.value.items">
+              <tr v-for="item in rate.value.items" class="row-data">
                 <td>
-                  <span class="number">
+                  <span>
                     {{ item.min | CNY}} ~
                     <span v-if="item.max">{{ item.max | CNY}}</span>
                     <span v-else>￥∞</span>
                   </span>
                 </td>
                 <td>
-                  <span class="number">{{ item.rate }}%</span>
+                  {{ item.rate }}%
                 </td>
                 <td>
-                  <span class="number">{{ item.quickDeduction | CNY}}</span>
+                  {{ item.quickDeduction | CNY}}
                 </td>
               </tr>
             </table>
@@ -243,69 +238,60 @@
       | CNY }}</span>
   </fieldset>
 
-  <section style="overflow-x: auto;max-width: 100%;">
+  <section style="overflow-x: auto;max-width: 100%; padding-bottom: 1em;">
     <fieldset>
       <legend>结果区域-按月列表</legend>
-      <el-table :data="salarys.items" :default-sort="defaultSort">
-        <el-table-column prop="month" label="月份" align="right" width="70" :sortable="true">
-          <template slot-scope="scope">
-            <span v-if="scope.row.month > 12" class="number">
-              {{scope.row.months}}个月奖金
-            </span>
-            <span v-else>{{ scope.row.month }}月</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="税前月收入" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.base | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="税前YTD" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.baseYTD | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="免征额YTD" align="right" width="100">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.exemptedYTD | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="社保个人YTD" align="right" width="100">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.insurancesPersonalYTD | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="税基YTD" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.taxableYTD | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="税率" align="right" width="45">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.rate.rate}}%</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="个税" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.tax | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="个税YTD" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.taxYTD | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="税后月收入" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.actual | CNY}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="税后YTD" align="right">
-          <template slot-scope="scope">
-            <span class="number">{{ scope.row.actualYTD | CNY}}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+      <table class="salary-table">
+        <tr class="row-header">
+          <th style="width: 5em;">月份</th>
+          <th>税前月收入</th>
+          <th>税前YTD</th>
+          <th style="width: 6em;">免征额YTD</th>
+          <th style="width: 7em;">社保个人YTD</th>
+          <th>税基YTD</th>
+          <th style="width: 2em;">税率</th>
+          <th>个税</th>
+          <th>税后YTD</th>
+          <th>税后月收入</th>
+          <th>税后YTD</th>
+        </tr>
+        <tr v-for="item in salarys.items.reverse()" class="row-data">
+          <td v-if="item.month > 12">
+            {{item.months}}个月奖金
+          </td>
+          <td v-else>{{ item.month }}月</td>
+          <td>
+            {{ item.base | CNY}}
+          </td>
+          <td>
+            {{ item.baseYTD | CNY}}
+          </td>
+          <td>
+            {{ item.exemptedYTD | CNY}}
+          </td>
+          <td>
+            {{ item.insurancesPersonalYTD | CNY}}
+          </td>
+          <td>
+            {{ item.taxableYTD | CNY}}
+          </td>
+          <td>
+            {{ item.rate.rate}}%
+          </td>
+          <td>
+            {{ item.tax | CNY}}
+          </td>
+          <td>
+            {{ item.taxYTD | CNY}}
+          </td>
+          <td>
+            {{ item.actual | CNY}}
+          </td>
+          <td>
+            {{ item.actualYTD | CNY}}
+          </td>
+        </tr>
+      </table>
     </fieldset>
   </section>
 </div>
