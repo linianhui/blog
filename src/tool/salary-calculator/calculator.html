@@ -71,6 +71,12 @@
     background-color: #eee;
     cursor: pointer;
   }
+
+  .insurance-input {
+    min-width: 3em;
+    max-width: 5em;
+    text-align: right;
+  }
 </style>
 <div id="app">
   <fieldset>
@@ -118,17 +124,17 @@
             <table>
               <tr class="row-header">
                 <th>社保类型</th>
-                <th>最低</th>
-                <th>最高</th>
+                <th>最低基数</th>
+                <th>最高基数</th>
                 <th>个人</th>
                 <th>公司</th>
               </tr>
               <tr v-for="key in Object.keys(insurance.value)" class="row-data">
                 <td>{{key}}</td>
-                <td>{{insurance.value[key].min | CNY}}</td>
-                <td>{{insurance.value[key].max | CNY}}</td>
-                <td>{{insurance.value[key].personalPercentage}}%</td>
-                <td>{{insurance.value[key].corporationPercentage}}%</td>
+                <td>￥<input v-model="insurance.value[key].min" class="insurance-input"></td>
+                <td>￥<input v-model="insurance.value[key].max" class="insurance-input"></td>
+                <td><input v-model="insurance.value[key].personalPercentage" class="insurance-input">%</td>
+                <td><input v-model="insurance.value[key].corporationPercentage" class="insurance-input">%</td>
               </tr>
             </table>
           </el-collapse-item>
