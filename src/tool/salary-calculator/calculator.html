@@ -189,16 +189,16 @@
               <tr v-for="item in rate.value.items" class="row-data">
                 <td>
                   <span>
-                    {{ item.min | CNY}} ~
-                    <span v-if="item.max">{{ item.max | CNY}}</span>
+                    {{item.min | CNY}} ~
+                    <span v-if="item.max">{{item.max | CNY}}</span>
                     <span v-else>￥∞</span>
                   </span>
                 </td>
                 <td>
-                  {{ item.rate }}%
+                  {{item.rate}}%
                 </td>
                 <td>
-                  {{ item.quickDeduction | CNY}}
+                  {{item.quickDeduction | CNY}}
                 </td>
               </tr>
             </table>
@@ -221,15 +221,9 @@
 
   <fieldset>
     <legend>结果区域-年收入合计</legend>
-    税前<span class="number">{{ salarys.summary.baseYTD | CNY }}</span> = <span class="number">{{ amount | CNY}} * {{
-      month}}</span> <br />
-    税后<span class="number">{{ salarys.summary.totalActualYTD | CNY }}</span> = 工资<span class="number">{{
-      salarys.summary.actualYTD | CNY }}</span> + 公积金<span class="number">{{
-      salarys.summary.公积金YTD | CNY }}</span> +
-    医疗<span class="number">{{ salarys.summary.医疗保险YTD | CNY }}</span><br />
-    差额<span class="number">{{ salarys.summary.diffYTD | CNY }}</span> = 税前<span class="number">{{
-      salarys.summary.baseYTD | CNY }}</span> - 税后<span class="number">{{ salarys.summary.totalActualYTD
-      | CNY }}</span>
+    税前 {{salarys.summary.baseYTD | CNY}} = {{amount | CNY}} * {{month}} <br />
+    税后 {{salarys.summary.totalActualYTD | CNY}} = 工资 {{salarys.summary.actualYTD | CNY}} + 公积金 {{salarys.summary.公积金YTD | CNY}} + 医疗保险 {{salarys.summary.医疗保险YTD | CNY}}<br />
+    差额 {{salarys.summary.diffYTD | CNY}} = 税前 {{salarys.summary.baseYTD | CNY}} - 税后 {{salarys.summary.totalActualYTD | CNY}}
   </fieldset>
 
   <fieldset>
@@ -252,17 +246,17 @@
           </tr>
           <tr v-for="item in salarys.items.reverse()" class="row-data">
             <td v-if="item.month > 12">{{item.months}}个月奖金</td>
-            <td v-else>{{ item.month }}月</td>
-            <td>{{ item.base | CNY}}</td>
-            <td>{{ item.baseYTD | CNY}}</td>
-            <td>{{ item.exemptedYTD | CNY}}</td>
-            <td>{{ item.insurancesPersonalYTD | CNY}}</td>
-            <td>{{ item.taxableYTD | CNY}}</td>
-            <td>{{ item.rate.rate}}%</td>
-            <td>{{ item.tax | CNY}}</td>
-            <td>{{ item.taxYTD | CNY}}</td>
-            <td>{{ item.actual | CNY}}</td>
-            <td>{{ item.actualYTD | CNY}}</td>
+            <td v-else>{{item.month}}月</td>
+            <td>{{item.base | CNY}}</td>
+            <td>{{item.baseYTD | CNY}}</td>
+            <td>{{item.exemptedYTD | CNY}}</td>
+            <td>{{item.insurancesPersonalYTD | CNY}}</td>
+            <td>{{item.taxableYTD | CNY}}</td>
+            <td>{{item.rate.rate}}%</td>
+            <td>{{item.tax | CNY}}</td>
+            <td>{{item.taxYTD | CNY}}</td>
+            <td>{{item.actual | CNY}}</td>
+            <td>{{item.actualYTD | CNY}}</td>
           </tr>
         </table>
       </pre>
@@ -353,7 +347,7 @@
       onInsuranceMaxChange(e) {
         const max = e.target.value;
         for (let key in this.insurance.value) {
-            this.insurance.value[key].max = max;
+          this.insurance.value[key].max = max;
         }
         log("change insurance max = " + max, this.insurance.value);
       },
