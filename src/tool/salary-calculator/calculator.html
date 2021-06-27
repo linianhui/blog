@@ -145,6 +145,13 @@
                 <th>个人</th>
                 <th>公司</th>
               </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>￥<input v-model="insurance.max" class="insurance-input" @input="onInsuranceMaxChange"></td>
+                <td></td>
+                <td></td>
+              </tr>
               <tr v-for="key in Object.keys(insurance.value)" class="row-data">
                 <td>{{key}}</td>
                 <td>￥<input v-model="insurance.value[key].min" class="insurance-input"></td>
@@ -294,7 +301,8 @@
         insurance: {
           keys: insurancesKeys,
           key: insurancesKey,
-          value: insurances[insurancesKey]
+          value: insurances[insurancesKey],
+          max: insurances[insurancesKey].养老保险.max
         }
       }
     },
@@ -339,7 +347,15 @@
       },
       onInsuranceChange(key) {
         this.insurance.value = insurances[key];
+        this.insurance.max = insurances[key].养老保险.max;
         log("selected insurance " + key, this.insurance.value);
+      },
+      onInsuranceMaxChange(e) {
+        const max = e.target.value;
+        for (let key in this.insurance.value) {
+            this.insurance.value[key].max = max;
+        }
+        log("change insurance max = " + max, this.insurance.value);
       },
       onPrecisionChange(value) {
         precision = value;
