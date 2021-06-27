@@ -12,6 +12,15 @@
     border: unset;
   }
 
+  th{
+    text-align: right;
+  }
+
+  td{
+    text-align: right;
+    padding-left: 1em;
+  }
+
   .cell {
     padding: 0 !important;
   }
@@ -43,6 +52,7 @@
     border: unset;
   }
 
+  .el-collapse-item__wrap,
   .el-collapse-item__header {
     border: unset;
   }
@@ -112,53 +122,53 @@
             </template>
             <table>
               <tr>
-                <th style="text-align: right;">社保类型</th>
-                <th style="text-align: right;">最低</th>
-                <th style="text-align: right;">最高</th>
-                <th style="text-align: right;">个人</th>
-                <th style="text-align: right;">公司</th>
+                <th>社保类型</th>
+                <th>最低</th>
+                <th>最高</th>
+                <th>个人</th>
+                <th>公司</th>
               </tr>
               <tr>
-                <td style="text-align: right;">养老保险</td>
-                <td style="text-align: right;">{{insurance.value.养老.min | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.养老.max | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.养老.personalPercentage}}%</td>
-                <td style="text-align: right;">{{insurance.value.养老.corporationPercentage}}%</td>
+                <td>养老保险</td>
+                <td>{{insurance.value.养老.min | CNY}}</td>
+                <td>{{insurance.value.养老.max | CNY}}</td>
+                <td>{{insurance.value.养老.personalPercentage}}%</td>
+                <td>{{insurance.value.养老.corporationPercentage}}%</td>
               </tr>
               <tr>
-                <td style="text-align: right;">医疗保险</td>
-                <td style="text-align: right;">{{insurance.value.医疗.min | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.医疗.max | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.医疗.personalPercentage}}%</td>
-                <td style="text-align: right;">{{insurance.value.医疗.corporationPercentage}}%</td>
+                <td>医疗保险</td>
+                <td>{{insurance.value.医疗.min | CNY}}</td>
+                <td>{{insurance.value.医疗.max | CNY}}</td>
+                <td>{{insurance.value.医疗.personalPercentage}}%</td>
+                <td>{{insurance.value.医疗.corporationPercentage}}%</td>
               </tr>
               <tr>
-                <td style="text-align: right;">失业保险</td>
-                <td style="text-align: right;">{{insurance.value.失业.min | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.失业.max | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.失业.personalPercentage}}%</td>
-                <td style="text-align: right;">{{insurance.value.失业.corporationPercentage}}%</td>
+                <td>失业保险</td>
+                <td>{{insurance.value.失业.min | CNY}}</td>
+                <td>{{insurance.value.失业.max | CNY}}</td>
+                <td>{{insurance.value.失业.personalPercentage}}%</td>
+                <td>{{insurance.value.失业.corporationPercentage}}%</td>
               </tr>
               <tr>
-                <td style="text-align: right;">工伤保险</td>
-                <td style="text-align: right;">{{insurance.value.工伤.min | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.工伤.max | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.工伤.personalPercentage}}%</td>
-                <td style="text-align: right;">{{insurance.value.工伤.corporationPercentage}}%</td>
+                <td>工伤保险</td>
+                <td>{{insurance.value.工伤.min | CNY}}</td>
+                <td>{{insurance.value.工伤.max | CNY}}</td>
+                <td>{{insurance.value.工伤.personalPercentage}}%</td>
+                <td>{{insurance.value.工伤.corporationPercentage}}%</td>
               </tr>
               <tr>
-                <td style="text-align: right;">生育保险</td>
-                <td style="text-align: right;">{{insurance.value.生育.min | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.生育.max | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.生育.personalPercentage}}%</td>
-                <td style="text-align: right;">{{insurance.value.生育.corporationPercentage}}%</td>
+                <td>生育保险</td>
+                <td>{{insurance.value.生育.min | CNY}}</td>
+                <td>{{insurance.value.生育.max | CNY}}</td>
+                <td>{{insurance.value.生育.personalPercentage}}%</td>
+                <td>{{insurance.value.生育.corporationPercentage}}%</td>
               </tr>
               <tr>
-                <td style="text-align: right;">公积金</td>
-                <td style="text-align: right;">{{insurance.value.公积金.min | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.公积金.max | CNY}}</td>
-                <td style="text-align: right;">{{insurance.value.公积金.personalPercentage}}%</td>
-                <td style="text-align: right;">{{insurance.value.公积金.corporationPercentage}}%</td>
+                <td>公积金</td>
+                <td>{{insurance.value.公积金.min | CNY}}</td>
+                <td>{{insurance.value.公积金.max | CNY}}</td>
+                <td>{{insurance.value.公积金.personalPercentage}}%</td>
+                <td>{{insurance.value.公积金.corporationPercentage}}%</td>
               </tr>
             </table>
           </el-collapse-item>
@@ -181,27 +191,28 @@
             <template slot="title">
               <i class="header-icon el-icon-info"> 免征额：<span class="number">{{rate.value.exempted | CNY}}</span></i>
             </template>
-            <el-table :data="rate.value.items">
-              <el-table-column label="范围" align="right" width="150">
-                <template slot-scope="scope">
+            <table>
+              <tr>
+                <th>范围</th>
+                <th>税率</th>
+                <th>速算扣除数</th>
+              </tr>
+              <tr v-for="item in rate.value.items">
+                <td>
                   <span class="number">
-                    {{ scope.row.min | CNY}} ~
-                    <span v-if="scope.row.max">{{ scope.row.max | CNY}}</span>
+                    {{ item.min | CNY}} ~
+                    <span v-if="item.max">{{ item.max | CNY}}</span>
                     <span v-else>￥∞</span>
                   </span>
-                </template>
-              </el-table-column>
-              <el-table-column label="税率" align="right" width="50">
-                <template slot-scope="scope">
-                  <span class="number">{{ scope.row.rate }}%</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="速算扣除数" align="right" width="100">
-                <template slot-scope="scope">
-                  <span class="number">{{ scope.row.quickDeduction | CNY}}</span>
-                </template>
-              </el-table-column>
-            </el-table>
+                </td>
+                <td>
+                  <span class="number">{{ item.rate }}%</span>
+                </td>
+                <td>
+                  <span class="number">{{ item.quickDeduction | CNY}}</span>
+                </td>
+              </tr>
+            </table>
           </el-collapse-item>
         </el-collapse>
       </div>
