@@ -26,6 +26,10 @@
     padding-top: 10px;
   }
 
+  .form-input{
+    margin-left: 1em;
+  }
+
   .form-detail {
     color: #909399;
   }
@@ -141,7 +145,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 基数：{{insurance.value.养老保险.min | CNY}} ~
+              &nbsp;&nbsp;<i class="header-icon el-icon-info">&nbsp;基数：{{insurance.value.养老保险.min | CNY}} ~
                 {{insurance.value.养老保险.max | CNY}}</i>
             </template>
             <table class="insurance-table">
@@ -185,7 +189,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 免征额：{{rate.value.exempted | CNY}}</i>
+              &nbsp;&nbsp;<i class="header-icon el-icon-info">&nbsp;免征额：{{rate.value.exempted | CNY}}</i>
             </template>
             <table>
               <tr class="row-header">
