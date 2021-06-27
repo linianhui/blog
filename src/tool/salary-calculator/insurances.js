@@ -1,30 +1,30 @@
 const insurances = {
     "北京2021社保基数": {
-        养老: {
+        养老保险: {
             min: 3613,
             max: 25401,
             corporationPercentage: 19,
             personalPercentage: 8
         },
-        医疗: {
+        医疗保险: {
             min: 5360,
             max: 25401,
             corporationPercentage: 10,
             personalPercentage: 2
         },
-        失业: {
+        失业保险: {
             min: 3613,
             max: 25401,
             corporationPercentage: 0.8,
             personalPercentage: 0.2
         },
-        工伤: {
+        工伤保险: {
             min: 4713,
             max: 25401,
             corporationPercentage: 0.4,
             personalPercentage: 0
         },
-        生育: {
+        生育保险: {
             min: 5360,
             max: 25401,
             corporationPercentage: 0.8,
@@ -38,31 +38,31 @@ const insurances = {
         }
     },
     "杭州2021社保基数": {
-        养老: {
+        养老保险: {
             min: 3321.6,
             max: 17880.75,
             corporationPercentage: 14,
             personalPercentage: 8
         },
-        医疗: {
+        医疗保险: {
             min: 3321.6,
             max: 17880.75,
             corporationPercentage: 10.5,
             personalPercentage: 2
         },
-        失业: {
+        失业保险: {
             min: 3321.6,
             max: 17880.75,
             corporationPercentage: 0.5,
             personalPercentage: 0.5
         },
-        工伤: {
+        工伤保险: {
             min: 3321.6,
             max: 17880.75,
             corporationPercentage: 0.4,
             personalPercentage: 0
         },
-        生育: {
+        生育保险: {
             min: 3321.6,
             max: 17880.75,
             corporationPercentage: 1.2,

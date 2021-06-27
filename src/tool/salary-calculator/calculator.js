@@ -27,13 +27,13 @@ function buildSalaryList(amount, month, insurances, rates) {
 function buildSummary(salaryList) {
     const month = salaryList.length;
     const last = salaryList[salaryList.length - 1];
-    const 医疗YTD = last.insurances.医疗.personalYTD;
+    const 医疗保险YTD = last.insurances.医疗保险.personalYTD;
     const 公积金YTD = round2(last.insurances.公积金.personalYTD + last.insurances.公积金.corporationYTD);
-    const totalActualYTD = round2(医疗YTD + 公积金YTD + last.actualYTD);
+    const totalActualYTD = round2(医疗保险YTD + 公积金YTD + last.actualYTD);
     return {
         base: last.base || 0,
         baseYTD: last.baseYTD,
-        医疗YTD: 医疗YTD,
+        医疗保险YTD: 医疗保险YTD,
         公积金YTD: 公积金YTD,
         taxableYTD: last.taxableYTD,
         taxYTD: last.taxYTD,
