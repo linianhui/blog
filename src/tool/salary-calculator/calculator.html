@@ -51,7 +51,10 @@
   fieldset {
     border: unset;
     box-shadow: 0 0 2px #ccc;
+    max-width: 100%;
+    min-width: 100%;
     margin-top: 1em;
+    box-sizing: border-box;
   }
 
   legend {
@@ -59,8 +62,21 @@
     color: #909399;
   }
 
+  .salary-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .salary-pre {
+    font-family: unset;
+    font-size: 0;
+    margin: 0;
+  }
+
   .salary-table {
     width: 100%;
+    margin: 0;
+    font-size: 14px;
   }
 
   .row-data {
@@ -209,62 +225,42 @@
       | CNY }}</span>
   </fieldset>
 
-  <section style="overflow-x: auto;max-width: 100%; padding-bottom: 1em;">
-    <fieldset>
-      <legend>结果区域-按月列表</legend>
-      <table class="salary-table">
-        <tr class="row-header">
-          <th style="width: 5em;">月份</th>
-          <th>税前月收入</th>
-          <th>税前YTD</th>
-          <th style="width: 6em;">免征额YTD</th>
-          <th style="width: 7em;">社保个人YTD</th>
-          <th>税基YTD</th>
-          <th style="width: 3em;">税率</th>
-          <th>个税</th>
-          <th>税后YTD</th>
-          <th>税后月收入</th>
-          <th>税后YTD</th>
-        </tr>
-        <tr v-for="item in salarys.items.reverse()" class="row-data">
-          <td v-if="item.month > 12">
-            {{item.months}}个月奖金
-          </td>
-          <td v-else>{{ item.month }}月</td>
-          <td>
-            {{ item.base | CNY}}
-          </td>
-          <td>
-            {{ item.baseYTD | CNY}}
-          </td>
-          <td>
-            {{ item.exemptedYTD | CNY}}
-          </td>
-          <td>
-            {{ item.insurancesPersonalYTD | CNY}}
-          </td>
-          <td>
-            {{ item.taxableYTD | CNY}}
-          </td>
-          <td>
-            {{ item.rate.rate}}%
-          </td>
-          <td>
-            {{ item.tax | CNY}}
-          </td>
-          <td>
-            {{ item.taxYTD | CNY}}
-          </td>
-          <td>
-            {{ item.actual | CNY}}
-          </td>
-          <td>
-            {{ item.actualYTD | CNY}}
-          </td>
-        </tr>
-      </table>
-    </fieldset>
-  </section>
+  <fieldset>
+    <legend>结果区域-按月列表</legend>
+    <div class="salary-wrapper">
+      <pre class="salary-pre">
+        <table class="salary-table">
+          <tr class="row-header">
+            <th style="width: 5em;">月份</th>
+            <th>税前</th>
+            <th>税前YTD</th>
+            <th style="width: 6em;">免征额YTD</th>
+            <th style="width: 7em;">社保个人YTD</th>
+            <th>税基YTD</th>
+            <th style="width: 3em;">税率</th>
+            <th>个税</th>
+            <th>个税YTD</th>
+            <th>税后</th>
+            <th>税后YTD</th>
+          </tr>
+          <tr v-for="item in salarys.items.reverse()" class="row-data">
+            <td v-if="item.month > 12">{{item.months}}个月奖金</td>
+            <td v-else>{{ item.month }}月</td>
+            <td>{{ item.base | CNY}}</td>
+            <td>{{ item.baseYTD | CNY}}</td>
+            <td>{{ item.exemptedYTD | CNY}}</td>
+            <td>{{ item.insurancesPersonalYTD | CNY}}</td>
+            <td>{{ item.taxableYTD | CNY}}</td>
+            <td>{{ item.rate.rate}}%</td>
+            <td>{{ item.tax | CNY}}</td>
+            <td>{{ item.taxYTD | CNY}}</td>
+            <td>{{ item.actual | CNY}}</td>
+            <td>{{ item.actualYTD | CNY}}</td>
+          </tr>
+        </table>
+      </pre>
+    </div>
+  </fieldset>
 </div>
 <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
 <script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
