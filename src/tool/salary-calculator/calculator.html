@@ -26,12 +26,7 @@
     padding-top: 10px;
   }
 
-  .form-input {
-    margin-left: 1em;
-  }
-
   .form-detail {
-    margin-left: 1em;
     color: #909399;
   }
 
@@ -88,9 +83,21 @@
     cursor: pointer;
   }
 
-  .insurance-input {
+  .insurance-input_amount_min {
     min-width: 3em;
-    max-width: 5em;
+    max-width: 3em;
+    text-align: right;
+  }
+
+  .insurance-input_amount_max {
+    min-width: 3em;
+    max-width: 4em;
+    text-align: right;
+  }
+
+  .insurance-input_rate {
+    min-width: 2em;
+    max-width: 2em;
     text-align: right;
   }
 </style>
@@ -134,12 +141,12 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <i class="header-icon el-icon-info"> 养老保险基数：{{insurance.value.养老保险.min | CNY}} ~
+              <i class="header-icon el-icon-info"> 基数：{{insurance.value.养老保险.min | CNY}} ~
                 {{insurance.value.养老保险.max | CNY}}</i>
             </template>
-            <table>
+            <table class="insurance-table">
               <tr class="row-header">
-                <th>社保类型</th>
+                <th>类型</th>
                 <th>最低基数</th>
                 <th>最高基数</th>
                 <th>个人</th>
@@ -148,16 +155,16 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td>￥<input v-model="insurance.max" class="insurance-input" @input="onInsuranceMaxChange"></td>
+                <td>￥<input v-model="insurance.max" class="insurance-input_amount_max" @input="onInsuranceMaxChange"></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr v-for="key in Object.keys(insurance.value)" class="row-data">
                 <td>{{key}}</td>
-                <td>￥<input v-model="insurance.value[key].min" class="insurance-input"></td>
-                <td>￥<input v-model="insurance.value[key].max" class="insurance-input"></td>
-                <td><input v-model="insurance.value[key].personalPercentage" class="insurance-input">%</td>
-                <td><input v-model="insurance.value[key].corporationPercentage" class="insurance-input">%</td>
+                <td>￥<input v-model="insurance.value[key].min" class="insurance-input_amount_min"></td>
+                <td>￥<input v-model="insurance.value[key].max" class="insurance-input_amount_max"></td>
+                <td><input v-model="insurance.value[key].personalPercentage" class="insurance-input_rate">%</td>
+                <td><input v-model="insurance.value[key].corporationPercentage" class="insurance-input_rate">%</td>
               </tr>
             </table>
           </el-collapse-item>
@@ -222,8 +229,10 @@
   <fieldset>
     <legend>结果区域-年收入合计</legend>
     税前 {{salarys.summary.baseYTD | CNY}} = {{amount | CNY}} * {{month}} <br />
-    税后 {{salarys.summary.totalActualYTD | CNY}} = 工资 {{salarys.summary.actualYTD | CNY}} + 公积金 {{salarys.summary.公积金YTD | CNY}} + 医疗保险 {{salarys.summary.医疗保险YTD | CNY}}<br />
-    差额 {{salarys.summary.diffYTD | CNY}} = 税前 {{salarys.summary.baseYTD | CNY}} - 税后 {{salarys.summary.totalActualYTD | CNY}}
+    税后 {{salarys.summary.totalActualYTD | CNY}} = 工资 {{salarys.summary.actualYTD | CNY}} + 公积金 {{salarys.summary.公积金YTD
+    | CNY}} + 医疗保险 {{salarys.summary.医疗保险YTD | CNY}}<br />
+    差额 {{salarys.summary.diffYTD | CNY}} = 税前 {{salarys.summary.baseYTD | CNY}} - 税后 {{salarys.summary.totalActualYTD |
+    CNY}}
   </fieldset>
 
   <fieldset>
