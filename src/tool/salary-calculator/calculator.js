@@ -1,7 +1,8 @@
 
 function buildSalaryList(amount, month, insurances, rates) {
     const salaryList = [];
-    for (let index = 0; index <= 12; index++) {
+    const minMonthCount = Math.min(month, 12);
+    for (let index = 0; index <= minMonthCount; index++) {
         salaryList[index] = {
             month: index,
             base: amount,
@@ -14,7 +15,7 @@ function buildSalaryList(amount, month, insurances, rates) {
         salaryList[13] = {
             month: 13,
             base: amount * (month - 12),
-            months : (month - 12),
+            months: (month - 12),
             exempted: 0,
             rates: JSON.parse(JSON.stringify(rates)),
             insurances: JSON.parse(JSON.stringify(insurances)),
