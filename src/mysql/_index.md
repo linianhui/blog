@@ -1,5 +1,5 @@
 ---
-title: '[mysql]'
+title: '[MySQL]'
 ---
 
 开源的关系型数据库。

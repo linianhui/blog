@@ -1,5 +1,5 @@
 ---
-title: '[mysql] install'
+title: '[MySQL] install'
 created_at: 2021-03-22 23:51:23
 tag: ["db", "mysql", "install","ops","draft"]
 toc: true
