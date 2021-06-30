@@ -1,5 +1,5 @@
 ---
-title: '[netty] ByteBuf'
+title: '[Netty] ByteBuf'
 created_at: 2021-04-20 23:09:23
 tag: ["netty", "buffer","draft"]
 toc: true
