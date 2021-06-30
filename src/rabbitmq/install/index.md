@@ -1,5 +1,5 @@
 ---
-title: '[rabbitmq] install'
+title: '[RabbitMQ] install'
 created_at: 2021-04-09 14:00:12
 tag: ["mq", "rabbitmq", "install","ops","draft"]
 toc: true

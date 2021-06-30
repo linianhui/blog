@@ -1,5 +1,5 @@
 ---
-title: '[rabbitmq]'
+title: '[RabbitMQ]'
 ---
 
 示例代码 : <https://github.com/linianhui/rabbitmq.example>
