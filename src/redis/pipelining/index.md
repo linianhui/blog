@@ -1,5 +1,5 @@
 ---
-title: '[redis] pipelining'
+title: '[Redis] pipelining'
 created_at: 2021-03-19 19:51:12
 tag: ["cache", "redis", "pipelining","rtt","dev"]
 toc: true

@@ -1,5 +1,5 @@
 ---
-title: '[redis] sentinel'
+title: '[Redis] sentinel'
 created_at: 2021-03-20 09:30:23
 tag: ["cache", "redis", "replication", "high availability","sentinel","ops"]
 toc: true

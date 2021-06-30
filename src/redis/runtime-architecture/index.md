@@ -1,5 +1,5 @@
 ---
-title: '[redis] 运行时架构'
+title: '[Redis] 运行时架构'
 created_at: 2021-03-19 20:12:24
 tag: ["cache", "redis", "thread","io-thread","benchmark","dev","runtime-architecture","architecture","thread-model"]
 toc: true

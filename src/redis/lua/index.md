@@ -1,5 +1,5 @@
 ---
-title: '[redis] lua script'
+title: '[Redis] lua script'
 created_at: 2021-03-19 20:11:22
 tag: ["cache", "redis", "lua","dev"]
 toc: true

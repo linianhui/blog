@@ -1,5 +1,5 @@
 ---
-title: '[redis] codis'
+title: '[Redis] codis'
 created_at: 2021-06-30 21:25:23
 tag: ["cache", "redis", "codis","draft"]
 toc: true

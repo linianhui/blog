@@ -1,5 +1,5 @@
 ---
-title: '[redis] persistence'
+title: '[Redis] persistence'
 created_at: 2021-03-19 20:11:23
 tag: ["cache", "redis", "persistence","rdb","aof","ops"]
 toc: true

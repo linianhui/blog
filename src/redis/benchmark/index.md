@@ -1,5 +1,5 @@
 ---
-title: '[redis] benchmark'
+title: '[Redis] benchmark'
 created_at: 2021-03-19 20:12:23
 tag: ["cache", "redis", "benchmark"]
 toc: true

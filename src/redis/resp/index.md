@@ -1,5 +1,5 @@
 ---
-title: '[redis] resp'
+title: '[Redis] resp'
 created_at: 2021-03-19 13:07:23
 tag: ["cache", "redis", "resp","telnet","dev"]
 toc: true
