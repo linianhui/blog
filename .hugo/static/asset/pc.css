@@ -33,6 +33,10 @@ a img {
   border-width: 0;
 }
 
+a .fa{
+  margin-right: 4px;
+}
+
 td,
 th,
 tr,

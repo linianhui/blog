@@ -2,7 +2,7 @@
   <hgroup class="header-hgroup">
     <h1 class="header-hgroup-title">
       <a href="/">
-        <i class="fa fa-home" style="display: inline-block;font-size:24px;padding-right: 4px;"> </i>
+        <i class="fa fa-home" style="font-size:24px;"> </i>
         {{- .Site.Title -}}
       </a>
       <a href="https://music.163.com/#/song?id=1467670638" target="_blank" style="vertical-align: text-bottom;">
@@ -15,8 +15,8 @@
     {{ range .Site.Menus.main }}
     {{- $target := cond (hasPrefix .URL "http") "_black" "_self" -}}
     <a class="header-nav-item" href="{{ .URL }}" title="{{ .Name }}" target="{{$target}}">
-      {{ .Pre }}
-      {{ .Name }}
+      {{- .Pre -}}
+      {{- .Name -}}
     </a>
     {{ end }}
   </nav>

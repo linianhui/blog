@@ -1,12 +1,12 @@
 <section class="article-git">
-  <a class="fa fa-code-fork article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.GitInfo.Hash }}" target="_blank">
-    {{ $.GitInfo.AbbreviatedHash }}
+  <a class="article-git-commit" href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.GitInfo.Hash }}" target="_blank">
+    <i class="fa fa-code-fork"></i>{{- $.GitInfo.AbbreviatedHash -}}
   </a>
   {{ $.GitInfo.Subject }}
   <time class="article-git-commit-time">
     {{ $.GitInfo.AuthorDate.Format "2006-01-02 15:04" }}
   </time>
-  <a class="fa fa-github article-git-source" href="{{ $.Site.Params.RepositoryBlobSrcUrl}}/{{ .File.Path }}" target="_blank">
-    源码
+  <a class="article-git-source" href="{{ $.Site.Params.RepositoryBlobSrcUrl}}/{{ .File.Path }}" target="_blank">
+    <i class="fa fa-github"></i>源码
   </a>
 </section>
