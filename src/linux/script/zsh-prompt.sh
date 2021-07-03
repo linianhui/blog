@@ -12,7 +12,7 @@ RPROMPT="[%(?.%F{green}%?%f.%F{red}%?%f)]"
 precmd(){
   USER_TYPE='%(!.#.$)'
   NEW_LINE=$'\n'
-  COMMON_PROMPT='$NEW_LINE%F{green}$USER_TYPE%f %n@%m %d %D %T'
+  COMMON_PROMPT='$NEW_LINE%F{green}$USER_TYPE%f %n@%m %d %D %*'
   INPUT_PROMPT='$NEW_LINE%F{green}$USER_TYPE %f'
   if git rev-parse --git-dir > /dev/null 2>&1; then
     GIT_USER="$(git config user.name)@<$(git config user.email)>"
