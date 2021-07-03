@@ -3,8 +3,8 @@
 # Prompt-Expansion http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
 # __posh_git_echo  https://github.com/lyze/posh-git-sh
 
-# unsetopt PROMPT_SP
-# setopt prompt_subst
+unsetopt PROMPT_SP
+setopt prompt_subst
 # RPROMPT="[%(?.%F{green}%?%f.%F{red}%?%f)]"
 
 precmd(){
