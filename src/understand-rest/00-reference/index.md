@@ -26,7 +26,7 @@ Roy T. Fielding : https://en.wikipedia.org/wiki/Roy_Fielding
 
 Roy T. Fielding : REST 论文《Architectural Styles and the Design of Network-based Software Architectures》 : https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
 
-Roy T. Fielding : REST 论文(中文版 译者:李锟)《架构风格与基于网络应用软件的架构设计(中文修订版)》 : https://www.infoq.cn/article/web-based-apps-archit-design
+Roy T. Fielding : REST 论文(中文版 译者:李锟)《架构风格与基于网络应用软件的架构设计(中文修订版)》 : <https://www.infoq.cn/minibook/web-based-apps-archit-design>
 
 Roy T. Fielding : Roy T. Fielding 谈Google SPDY协议 : https://www.infoq.cn/article/2012/07/roy-on-google-spdy
 
