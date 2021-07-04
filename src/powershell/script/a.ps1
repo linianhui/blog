@@ -29,6 +29,7 @@ Param(
     '/docker.ps1',
     '/hugo.ps1',
     '/java.ps1',
+    '/wlan.ps1',
     '/alias.ps1'
 ) | Foreach-Object { . "$PSScriptRoot$_" }
 
