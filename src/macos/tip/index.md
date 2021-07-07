@@ -17,6 +17,14 @@ toc: true
 
 
 # 禁用应用验证 {#disable-app-verify}
+
 ```bash
 sudo spctl --master-disable
+```
+
+# 禁用SIP {#disable-sip}
+
+```bash
+# command+r
+csrutil disable
 ```
