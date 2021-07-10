@@ -14,7 +14,7 @@ Param(
     '/env.ps1',
     '/file.ps1',
     '/git.ps1',
-    '/code.ps1',
+    '/vscode.ps1',
     '/gui.ps1',
     '/hosts.ps1',
     '/profile.ps1',

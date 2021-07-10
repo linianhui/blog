@@ -3,10 +3,9 @@
 ################################
 
 
-Set-Alias -Name c -Value Code-ChangeDirectory
-Set-Alias -Name cc -Value Code-UseVsCodeOpenDirectory
+Set-Alias -Name d -Value Directory-To
+Set-Alias -Name c -Value VsCode-Open
 
-Set-Alias -Name d -Value docker
 Set-Alias -Name dr -Value Docker-Run
 Set-Alias -Name dre -Value Docker-Run-entrypoint
 Set-Alias -Name drs -Value Docker-Run-entrypoint-sh
