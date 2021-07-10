@@ -1,18 +1,18 @@
 declare -a __QUICK_ACCESS_DIRECTORY=()
 
 function __directory_add_to_quick_access {
-  Path="$1"
-  if [ -f "$Path" ]; then
-    echo "$Path is a file."
+  dir="$1"
+  if [ -f "$dir" ]; then
+    echo "$dir is a file."
     return
   fi
 
-  if [ -d "$Path" ]; then
-    for file in $Path/*; do
-      __QUICK_ACCESS_DIRECTORY+=$file;
+  if [ -d "$dir" ]; then
+    for subDir in $dir/*; do
+      __QUICK_ACCESS_DIRECTORY+=$subDir;
     done
   else
-    echo "$Path is not exist."
+    echo "$dir is not exist."
   fi
 }
 
