@@ -12,7 +12,7 @@ function prompt () {
     $UserPromptText = $UserPrompt.Text
 
     Write-Host -NoNewline "`n$UserPromptText $DateTime" -ForegroundColor Gray
-    IF($OLD_LASTEXITCODE —GT 0){
+    if($OLD_LASTEXITCODE -gt 0){
         Write-Host -NoNewline " $OLD_LASTEXITCODE" -ForegroundColor Red
     }
 
