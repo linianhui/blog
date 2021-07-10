@@ -7,24 +7,35 @@ $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK = {
     }
 }
 
-function Directory-Add-To-Quick-Access {
+
+function Directory-Exists-And-Is-Directory {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(throw "Path param is null!")
+        [string] $Path = $(Throw "Path param is null!")
     )
 
     if (![System.IO.Directory]::Exists($Path)) {
-        if ([System.IO.File]::Exists($Path)) {
-            Write-Error -Message "$Path is a file."
-            return;
-        }
-        Write-Error -Message "$Path is not exist."
-        return;
+        Throw "path $Path is not exist."
     }
 
-    Get-ChildItem -Path $Path | ForEach-Object {
-        if (Test-Path -Path $_.FullName -PathType Container) {
-            $__QUICK_ACCESS_DIRECTORY.Add($_)
+    if ([System.IO.File]::Exists($Path)) {
+        Throw "path $Path is a file."
+    }
+
+    return $TRUE;
+}
+
+function Directory-Add-To-Quick-Access {
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Path = $(Throw "Path param is null!")
+    )
+
+    if (Directory-Exists-And-Is-Directory -Path $Path) {
+        Get-ChildItem -Path $Path | ForEach-Object {
+            if (Test-Path -Path $_.FullName -PathType Container) {
+                $__QUICK_ACCESS_DIRECTORY.Add($_)
+            }
         }
     }
 }
@@ -32,7 +43,7 @@ function Directory-Add-To-Quick-Access {
 function Directory-Get-Path-List-From-Quick-Access {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(throw "Search param is null!")
+        [string] $Search = $(Throw "Search param is null!")
     )
 
     $SearchCharArray = $Search.ToCharArray();
@@ -50,8 +61,8 @@ function Directory-Get-Path-List-From-Quick-Access {
 function script:Filter-Directory-Item {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [char[]] $SearchCharArray = $(throw "SearchCharArray param is null!"),
-        [System.IO.FileSystemInfo] $File = $(throw "File param is null!")
+        [char[]] $SearchCharArray = $(Throw "SearchCharArray param is null!"),
+        [System.IO.FileSystemInfo] $File = $(Throw "File param is null!")
     )
     $FullPath = $File.FullName;
     $StartIndex = 0;
@@ -70,10 +81,12 @@ function script:Filter-Directory-Item {
 function Directory-To {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(throw "Path param is null!")
+        [string] $Path = $(Throw "Path param is null!")
     )
-    Log-Debug "cd $Path"
-    Set-Location $Path
+    if (Directory-Exists-And-Is-Directory -Path $Path) {
+        Log-Debug "cd $Path".ToLower()
+        Set-Location $Path
+    }
 }
 
 Directory-Add-To-Quick-Access -Path d:/_code/

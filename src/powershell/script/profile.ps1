@@ -3,20 +3,20 @@
 ################################
 
 function script:Profile-New(
-    [string] $ProfilePath = $(throw "ProfilePath is null!")
+    [string] $ProfilePath = $(Throw "ProfilePath is null!")
 ) {
     if (Test-Path $ProfilePath) {
         Log-Info "# $ProfilePath already existed."
     }
-    else {        
+    else {
         New-Item -Path $Profile -ItemType File -Force
         Log-Debug "# Create [$ProfilePath] succeed."
     }
 }
 
 function Profile-AddScriptExpression (
-    [string] $ProfilePath = $(throw "ProfilePath is null!"), 
-    [string] $ScriptExpression = $(throw "ScriptExpression is null!") 
+    [string] $ProfilePath = $(Throw "ProfilePath is null!"),
+    [string] $ScriptExpression = $(Throw "ScriptExpression is null!")
 ) {
     Profile-New -ProfilePath $ProfilePath
 
@@ -31,8 +31,8 @@ function Profile-AddScriptExpression (
 }
 
 function Profile-AddScriptFile (
-    [string] $ProfilePath = $(throw "ProfilePath is null!"),
-    [string] $ScriptFilePath = $(throw "ScriptFilePath is null!")
+    [string] $ProfilePath = $(Throw "ProfilePath is null!"),
+    [string] $ScriptFilePath = $(Throw "ScriptFilePath is null!")
 ) {
     if (!(Test-Path $ScriptFilePath)) {
         throw "$ScriptFilePath not found."

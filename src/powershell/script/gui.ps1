@@ -1,5 +1,11 @@
 
 function Gui-OpenExplorer () {
-    Log-Debug "explorer" $Args
-    explorer $Args
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Path = $(Throw "Path param is null!")
+    )
+    if (Directory-Exists-And-Is-Directory -Path $Path) {
+        Log-Debug "explorer $Path".ToLower()
+        explorer $Path
+    }
 }

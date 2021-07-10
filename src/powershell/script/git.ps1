@@ -180,8 +180,8 @@ function Git-SetGlobalConfig () {
 
 # set git global user
 function Git-SetGlobalUser (
-    [string] $UserName = $(throw "UserName is null!"),
-    [string] $UserEmail = $(throw "UserEmail is null!")
+    [string] $UserName = $(Throw "UserName is null!"),
+    [string] $UserEmail = $(Throw "UserEmail is null!")
 ) {
 
     git config --global user.name $UserName

@@ -1,8 +1,10 @@
 function VsCode-Open {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(throw "Path param is null!")
+        [string] $Path = $(Throw "Path param is null!")
     )
-    Log-Debug "code $Path"
-    code $Path
+    if (Directory-Exists-And-Is-Directory -Path $Path) {
+        Log-Debug "code $Path".ToLower()
+        code $Path
+    }
 }

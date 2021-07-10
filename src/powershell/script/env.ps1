@@ -8,8 +8,8 @@
 [string]$DATA_DIR   = 'd:\_data\';
 
 function script:Env-TrySetVariable (
-    [string]$Variable = $(throw "Variable is null!"),
-    [string]$Value = $(throw "Value is null!")
+    [string]$Variable = $(Throw "Variable is null!"),
+    [string]$Value = $(Throw "Value is null!")
 ) {
     $Target = [System.EnvironmentVariableTarget]::Machine
 
@@ -32,7 +32,7 @@ function script:Env-TrySetVariable (
 }
 
 function script:Env-TryAppendPathVariable (
-    [string]$Value = $(throw "Value is null!")
+    [string]$Value = $(Throw "Value is null!")
 ) {
     $Target = [System.EnvironmentVariableTarget]::Machine
     $Variable = 'Path'
