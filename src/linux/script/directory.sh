@@ -16,6 +16,17 @@ function __directory_add_to_quick_access {
   fi
 }
 
+function __directory_get_path_list_from_quick_access {
+    search=${1///*};
+    echo $search
+    print -l $__QUICK_ACCESS_DIRECTORY | while read line
+    do
+      if [[ $line == *$search* ]]; then
+        echo $line;
+      fi
+    done
+}
+
 __directory_add_to_quick_access /lnh
 __directory_add_to_quick_access /lnh/_code
 __directory_add_to_quick_access /lnh/_github
