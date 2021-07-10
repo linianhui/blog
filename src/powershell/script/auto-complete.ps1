@@ -4,3 +4,6 @@ Register-ArgumentCompleter -CommandName Directory-To -ParameterName Path -Script
 Register-ArgumentCompleter -CommandName VsCode-Open -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
 Register-ArgumentCompleter -CommandName Idea-Open -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
 Register-ArgumentCompleter -CommandName Gui-OpenExplorer -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
+
+# https://docs.microsoft.com/en-us/powershell/module/psreadline/get-psreadlinekeyhandler?view=powershell-7.1
+# Get-PSReadLineKeyHandler
