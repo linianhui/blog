@@ -31,6 +31,7 @@ Param(
     '/java.ps1',
     '/wlan.ps1',
     '/directory.ps1',
+    '/auto-complete.ps1',
     '/alias.ps1'
 ) | Foreach-Object { . "$PSScriptRoot$_" }
 
@@ -54,9 +55,3 @@ Git-ImportPoshGit
 UI-SetDisplayOptions
 
 Write-Host "Get-ExecutionPolicy $(Get-ExecutionPolicy)" -ForegroundColor Green
-
-Directory-Add-To-Quick-Access -Path d:/_code/
-Directory-Add-To-Quick-Access -Path d:/_github/
-Directory-Add-To-Quick-Access -Path d:/
-Directory-Add-To-Quick-Access -Path d:/_app/
-Directory-Add-To-Quick-Access -Path d:/_cache/

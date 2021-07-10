@@ -75,3 +75,9 @@ function Directory-To {
     Log-Debug "cd $Path"
     Set-Location $Path
 }
+
+Directory-Add-To-Quick-Access -Path d:/_code/
+Directory-Add-To-Quick-Access -Path d:/_github/
+Directory-Add-To-Quick-Access -Path d:/
+Directory-Add-To-Quick-Access -Path d:/_app/
+Directory-Add-To-Quick-Access -Path d:/_cache/
