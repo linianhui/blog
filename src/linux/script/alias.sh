@@ -2,7 +2,6 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 
-alias d='docker'
 alias dr='docker run --rm --tty --interactive'
 alias dre='dr --entrypoint'
 alias drs='dre sh'
@@ -10,7 +9,7 @@ alias drb='dre bash'
 alias dh='docker history --human --no-trunc'
 alias dc='docker-compose'
 alias dm='docker-machine'
-alias k8s='kubectl'
+alias k='kubectl'
 alias mk='minikube'
 
 alias g='git'
