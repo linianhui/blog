@@ -1,12 +1,11 @@
-$__QUICK_ACCESS_DIRECTORY = New-Object System.Collections.Generic.List[System.IO.FileSystemInfo];
+$__QUICK_ACCESS_DIRECTORY = New-Object System.Collections.Generic.List[string];
 
 $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK = {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-    Directory-Get-Path-List-From-Quick-Access -Search $wordToComplete | ForEach-Object {
-        [System.Management.Automation.CompletionResult]::new($_.FullName, $_, 'ParameterValue', $_)
+    Directory-Search-Path-List-From-Quick-Access -Search $wordToComplete | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
-
 
 function Directory-Exists-And-Is-Directory {
     param (
@@ -34,23 +33,51 @@ function Directory-Add-To-Quick-Access {
     if (Directory-Exists-And-Is-Directory -Path $Path) {
         Get-ChildItem -Path $Path | ForEach-Object {
             if (Test-Path -Path $_.FullName -PathType Container) {
-                $__QUICK_ACCESS_DIRECTORY.Add($_)
+                $__QUICK_ACCESS_DIRECTORY.Add($_.FullName)
             }
         }
     }
 }
 
-function Directory-Get-Path-List-From-Quick-Access {
+function Directory-Search-Path-List-From-Quick-Access {
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Search = $(Throw "Search param is null!")
+    )
+
+    $Result1 = Directory-Search-Path-List-From-Quick-Access-1 -Search $Search
+    $Result2 = Directory-Search-Path-List-From-Quick-Access-2 -Search $Search
+
+    return List-Append -x $Result1 -y $Result2;
+}
+
+function script:Directory-Search-Path-List-From-Quick-Access-1 {
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Search = $(Throw "Search param is null!")
+    )
+
+    $Result = New-Object System.Collections.Generic.List[string];
+
+    $__QUICK_ACCESS_DIRECTORY | ForEach-Object {
+        if ($_.Contains($Search)) {
+            $Result.Add($_)
+        }
+    }
+    return $Result;
+}
+
+function script:Directory-Search-Path-List-From-Quick-Access-2 {
     param (
         [Parameter(Mandatory = $TRUE)]
         [string] $Search = $(Throw "Search param is null!")
     )
 
     $SearchCharArray = $Search.ToCharArray();
-    $Result = New-Object System.Collections.Generic.List[System.IO.FileSystemInfo];
+    $Result = New-Object System.Collections.Generic.List[string];
 
     $__QUICK_ACCESS_DIRECTORY | ForEach-Object {
-        if (Filter-Directory-Item -SearchCharArray $SearchCharArray -File $_) {
+        if (Filter-Directory-Item -Path $_ -Search $Search) {
             $Result.Add($_)
         }
     }
@@ -61,21 +88,45 @@ function Directory-Get-Path-List-From-Quick-Access {
 function script:Filter-Directory-Item {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [char[]] $SearchCharArray = $(Throw "SearchCharArray param is null!"),
-        [System.IO.FileSystemInfo] $File = $(Throw "File param is null!")
+        [string] $Path = $(Throw "Path param is null!"),
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Search = $(Throw "Search param is null!")
     )
-    $FullPath = $File.FullName;
     $StartIndex = 0;
-    for ($i = 0; $i -lt $SearchCharArray.Count; $i++) {
-        $char = $SearchCharArray[$i];
-        if ($FullPath.IndexOf($char, $StartIndex) -eq -1) {
+    for ($i = 0; $i -lt $Search.Length; $i++) {
+        $char = $Search[$i];
+        $charIndex = $Path.IndexOf($char, $StartIndex);
+        if ($charIndex -eq -1) {
             return $FALSE;
         }
         else {
-            $StartIndex = $i;
+            $StartIndex = $charIndex;
         }
     }
     return $TRUE;
+}
+
+function script:List-Append {
+    param (
+        [System.Collections.Generic.List[string]] $x,
+        [System.Collections.Generic.List[string]] $y
+    )
+
+    if ($x -eq $NULL) {
+        return $y;
+    }
+
+    if ($y -eq $NULL) {
+        return $x;
+    }
+
+    $y | ForEach-Object {
+        if (!$x.Contains($_)) {
+            $x.Add($_)
+        }
+    }
+
+    return $x;
 }
 
 function Directory-To {
