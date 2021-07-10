@@ -10,15 +10,15 @@ $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK = {
 function Directory-Exists-And-Is-Directory {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(Throw "Path param is null!")
+        [string] $Path = $(throw "Path param is null!")
     )
 
     if (![System.IO.Directory]::Exists($Path)) {
-        Throw "path $Path is not exist."
+        throw "path $Path is not exist."
     }
 
     if ([System.IO.File]::Exists($Path)) {
-        Throw "path $Path is a file."
+        throw "path $Path is a file."
     }
 
     return $TRUE;
@@ -27,7 +27,7 @@ function Directory-Exists-And-Is-Directory {
 function Directory-Add-To-Quick-Access {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(Throw "Path param is null!")
+        [string] $Path = $(throw "Path param is null!")
     )
 
     if (Directory-Exists-And-Is-Directory -Path $Path) {
@@ -42,7 +42,7 @@ function Directory-Add-To-Quick-Access {
 function Directory-Search-Path-List-From-Quick-Access {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(Throw "Search param is null!")
+        [string] $Search = $(throw "Search param is null!")
     )
 
     $Result1 = Directory-Search-Path-List-From-Quick-Access-1 -Search $Search
@@ -54,7 +54,7 @@ function Directory-Search-Path-List-From-Quick-Access {
 function script:Directory-Search-Path-List-From-Quick-Access-1 {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(Throw "Search param is null!")
+        [string] $Search = $(throw "Search param is null!")
     )
 
     $Result = New-Object System.Collections.Generic.List[string];
@@ -70,7 +70,7 @@ function script:Directory-Search-Path-List-From-Quick-Access-1 {
 function script:Directory-Search-Path-List-From-Quick-Access-2 {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(Throw "Search param is null!")
+        [string] $Search = $(throw "Search param is null!")
     )
 
     $SearchCharArray = $Search.ToCharArray();
@@ -88,9 +88,9 @@ function script:Directory-Search-Path-List-From-Quick-Access-2 {
 function script:Filter-Directory-Item {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(Throw "Path param is null!"),
+        [string] $Path = $(throw "Path param is null!"),
         [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(Throw "Search param is null!")
+        [string] $Search = $(throw "Search param is null!")
     )
     $StartIndex = 0;
     for ($i = 0; $i -lt $Search.Length; $i++) {
@@ -132,7 +132,7 @@ function script:List-Append {
 function Directory-To {
     param (
         [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(Throw "Path param is null!")
+        [string] $Path = $(throw "Path param is null!")
     )
     if (Directory-Exists-And-Is-Directory -Path $Path) {
         Log-Debug "cd $Path".ToLower()
