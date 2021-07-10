@@ -1,5 +1,12 @@
 $__QUICK_ACCESS_DIRECTORY = New-Object System.Collections.Generic.List[System.IO.FileSystemInfo];
 
+$__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK = {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+    Directory-Get-Path-List-From-Quick-Access -Search $wordToComplete | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_.FullName, $_, 'ParameterValue', $_)
+    }
+}
+
 function Directory-Add-To-Quick-Access {
     param (
         [Parameter(Mandatory = $TRUE)]
@@ -58,4 +65,13 @@ function script:Filter-Directory-Item {
         }
     }
     return $TRUE;
+}
+
+function Directory-To {
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Path = $(throw "Path param is null!")
+    )
+    Log-Debug "cd $Path"
+    Set-Location $Path
 }
