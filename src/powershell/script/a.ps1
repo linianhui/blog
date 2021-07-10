@@ -55,8 +55,8 @@ UI-SetDisplayOptions
 
 Write-Host "Get-ExecutionPolicy $(Get-ExecutionPolicy)" -ForegroundColor Green
 
+Directory-Add-To-Quick-Access -Path d:/_code/
+Directory-Add-To-Quick-Access -Path d:/_github/
 Directory-Add-To-Quick-Access -Path d:/
 Directory-Add-To-Quick-Access -Path d:/_app/
-Directory-Add-To-Quick-Access -Path d:/_code/
 Directory-Add-To-Quick-Access -Path d:/_cache/
-Directory-Add-To-Quick-Access -Path d:/_github/
