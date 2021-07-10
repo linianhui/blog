@@ -31,6 +31,7 @@ Param(
     '/java.ps1',
     '/wlan.ps1',
     '/directory.ps1',
+    '/idea.ps1',
     '/auto-complete.ps1',
     '/alias.ps1'
 ) | Foreach-Object { . "$PSScriptRoot$_" }

@@ -5,6 +5,7 @@
 
 Set-Alias -Name d -Value Directory-To
 Set-Alias -Name c -Value VsCode-Open
+Set-Alias -Name i -Value Idea-Open
 
 Set-Alias -Name dr -Value Docker-Run
 Set-Alias -Name dre -Value Docker-Run-entrypoint
