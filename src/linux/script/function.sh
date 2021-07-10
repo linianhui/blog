@@ -32,9 +32,7 @@ function git_proxy(){
 
     if [ $action = 'unset' ] ;then
         git config --global --unset http.proxy
-        git config --global --unset https.proxy
     fi
 
     git config --global --get http.proxy
-    git config --global --get https.proxy
 }
