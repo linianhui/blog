@@ -13,7 +13,7 @@ Set-Alias -Name drs -Value Docker-Run-entrypoint-sh
 Set-Alias -Name drb -Value Docker-Run-entrypoint-bash
 Set-Alias -Name dc -Value docker-compose
 Set-Alias -Name dm -Value docker-machine
-Set-Alias -Name k8s -Value kubectl
+Set-Alias -Name k -Value kubectl
 Set-Alias -Name mk -Value minikube
 
 Set-Alias -Name e -Value Gui-OpenExplorer

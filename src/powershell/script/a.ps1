@@ -53,6 +53,8 @@ if ($Init) {
 
 Git-ImportPoshGit
 
+Kubernetes-ImportPSKubectlCompletion
+
 UI-SetDisplayOptions
 
 Write-Host "Get-ExecutionPolicy $(Get-ExecutionPolicy)" -ForegroundColor Green
