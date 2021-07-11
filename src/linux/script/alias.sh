@@ -9,10 +9,7 @@ alias drb='dre bash'
 alias dh='docker history --human --no-trunc'
 alias dc='docker-compose'
 alias dm='docker-machine'
-alias k='kubectl'
 alias mk='minikube'
-
-alias g='git'
 
 alias h='history | grep'
 
@@ -82,3 +79,13 @@ alias unproxy='unset ALL_PROXY'
 alias redis-server='redis-server /lnh/_code/blog/src/redis/install/redis.conf'
 
 alias ja='java -jar $JAVA_HOME/arthas-boot.jar --repo-mirror aliyun --use-http'
+
+alias master='git co master'
+alias g='git'
+alias gti='git'
+alias gi='git'
+# java -cp $JAVA_HOME/lib/sa-jdi.jar sun.jvm.hotspot.HSDB
+
+alias k='kubectl'
+alias kp='k get pods'
+alias kpt='kp -o custom-columns-file=/lnh/_code/blog/src/k8s/kubectl/terminated-pod.txt --sort-by="{.status.containerStatuses[0].lastState.terminated.finishedAt}"'
