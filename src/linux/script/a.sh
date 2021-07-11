@@ -1,5 +1,8 @@
 # .zshrc(z shell run commands)
 
+autoload -U compinit
+compinit
+
 source $(dirname $0)/env.sh
 source $(dirname $0)/function.sh
 source $(dirname $0)/git-prompt.sh
