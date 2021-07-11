@@ -1,6 +1,9 @@
 # alias
 alias ..='cd ..'
 alias ...='cd ../..'
+alias d='__directory_to'
+alias c='__vscode_open'
+alias i='__idea_open'
 
 alias dr='docker run --rm --tty --interactive'
 alias dre='dr --entrypoint'
@@ -81,6 +84,7 @@ alias redis-server='redis-server /lnh/_code/blog/src/redis/install/redis.conf'
 alias ja='java -jar $JAVA_HOME/arthas-boot.jar --repo-mirror aliyun --use-http'
 
 alias master='git co master'
+alias main='git co main'
 alias g='git'
 alias gti='git'
 alias gi='git'

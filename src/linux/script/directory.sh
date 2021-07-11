@@ -31,6 +31,12 @@ function __directory_search_path_list_from_quick_access {
     done
 }
 
+function __directory_to {
+    dir="$1"
+    echo "cd $dir"
+    cd "$dir"
+}
+
 __directory_add_to_quick_access /lnh
 __directory_add_to_quick_access /lnh/_code
 __directory_add_to_quick_access /lnh/_github
