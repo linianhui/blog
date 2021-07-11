@@ -7,11 +7,10 @@ launchctl setenv MAVEN_OPTS $MAVEN_OPTS
 launchctl setenv GRADLE_HOME $GRADLE_HOME
 launchctl setenv GRADLE_USER_HOME $GRADLE_USER_HOME
 
-#env | tr '=' ' ' | awk '{print "launchctl setenv " $1 " " $2}' | sh
-
 # https://github.com/ggreer/lscolors
 export CLICOLOR=1
 
-# https://github.com/seebi/dircolors-solarized.git
-
-# 'hyper-solarized'
+source $(dirname $0)/a.sh
+if [ -f "/lnh/_shell/a.sh" ]; then
+  source /lnh/_shell/a.sh
+fi
