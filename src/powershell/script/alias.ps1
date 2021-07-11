@@ -4,6 +4,8 @@
 
 
 Set-Alias -Name d -Value Directory-To
+Set-Alias -Name dq -Value Directory-Search-Path-List-From-Quick-Access
+Set-Alias -Name dql -Value Directory-List-Quick-Access
 Set-Alias -Name c -Value VsCode-Open
 Set-Alias -Name i -Value Idea-Open
 
