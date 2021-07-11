@@ -48,9 +48,9 @@ function script:Directory-ConvertToDirObject {
     $ParentNameAbbr = (Directory-Get-Abbr -Name $ParentName);
     $Dir = New-Object PSObject -Property @{
         #Raw      = $Raw;
-        Abbr       = "$ParentNameAbbr$NameAbbr";
-        NameAbbr   = $NameAbbr;
-        FullPath   = $FullPath;
+        Abbr     = "$ParentNameAbbr$NameAbbr";
+        NameAbbr = $NameAbbr;
+        FullPath = $FullPath;
     }
     return $Dir
 }
@@ -101,13 +101,13 @@ function Directory-Search-Path-List-From-Quick-Access {
 
 function script:Directory-Search-Score {
     param ($Dir, [string] $Search )
-    if ($Dir.FullPath.Contains($Search)) {
+    if ($Dir.FullPath.Contains($Search, [StringComparison]::OrdinalIgnoreCase)) {
         return 9;
     }
-    if ($Dir.Abbr.Contains($Search)) {
+    if ($Dir.Abbr.Contains($Search, [StringComparison]::OrdinalIgnoreCase)) {
         return 8;
     }
-    if ($Dir.NameAbbr.Contains($Search)) {
+    if ($Dir.NameAbbr.Contains($Search, [StringComparison]::OrdinalIgnoreCase)) {
         return 7;
     }
     if (Filter-Directory-Item -Dir $Dir -Search $Search) {
