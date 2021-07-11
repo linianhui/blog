@@ -1,7 +1,7 @@
 # .zshrc(z shell run commands)
 
-autoload -U compinit
-compinit
+# autoload -U compinit
+# compinit
 
 source $(dirname $0)/env.sh
 source $(dirname $0)/function.sh
