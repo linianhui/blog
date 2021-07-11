@@ -1,9 +1,9 @@
-$__QUICK_ACCESS_DIRECTORY = New-Object System.Collections.Generic.List[string];
+$__QUICK_ACCESS_DIRECTORY = [System.Collections.Generic.List[PSObject]]::new();
 
 $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK = {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
     Directory-Search-Path-List-From-Quick-Access -Search $wordToComplete | ForEach-Object {
-        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+        [System.Management.Automation.CompletionResult]::new($_.FullPath, $_.FullPath, 'ParameterValue', $_.FullPath)
     }
 }
 
@@ -24,6 +24,37 @@ function Directory-Exists-And-Is-Directory {
     return $TRUE;
 }
 
+function script:Directory-Get-Abbr {
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Name = $(throw "Name param is null!")
+    )
+    $Abbr = "";
+    $Words = $Name.Split(" _.-".ToCharArray(), [System.StringSplitOptions]::RemoveEmptyEntries);
+    $Words | ForEach-Object {
+        $Abbr += $_[0];
+    }
+    return $Abbr;
+}
+
+function script:Directory-ConvertToDirObject {
+    param ($Raw)
+    $FullPath = $Raw.FullName;
+    $Name = (Split-Path -Path $FullPath -Leaf);
+    $NameAbbr = (Directory-Get-Abbr -Name $Name);
+
+    $Parent = (Split-Path -Path $FullPath -Parent);
+    $ParentName = (Split-Path -Path $Parent -Leaf);
+    $ParentNameAbbr = (Directory-Get-Abbr -Name $ParentName);
+    $Dir = New-Object PSObject -Property @{
+        #Raw      = $Raw;
+        Abbr       = "$ParentNameAbbr$NameAbbr";
+        NameAbbr   = $NameAbbr;
+        FullPath   = $FullPath;
+    }
+    return $Dir
+}
+
 function Directory-Add-To-Quick-Access {
     param (
         [Parameter(Mandatory = $TRUE)]
@@ -33,10 +64,14 @@ function Directory-Add-To-Quick-Access {
     if (Directory-Exists-And-Is-Directory -Path $Path) {
         Get-ChildItem -Path $Path | ForEach-Object {
             if (Test-Path -Path $_.FullName -PathType Container) {
-                $__QUICK_ACCESS_DIRECTORY.Add($_.FullName)
+                $__QUICK_ACCESS_DIRECTORY.Add((Directory-ConvertToDirObject -Raw $_))
             }
         }
     }
+}
+
+function Directory-List-Quick-Access {
+    $__QUICK_ACCESS_DIRECTORY | Format-Table -AutoSize
 }
 
 function Directory-Search-Path-List-From-Quick-Access {
@@ -45,57 +80,50 @@ function Directory-Search-Path-List-From-Quick-Access {
         [string] $Search = $(throw "Search param is null!")
     )
 
-    $Result1 = Directory-Search-Path-List-From-Quick-Access-1 -Search $Search
-    $Result2 = Directory-Search-Path-List-From-Quick-Access-2 -Search $Search
-
-    return List-Append -x $Result1 -y $Result2;
-}
-
-function script:Directory-Search-Path-List-From-Quick-Access-1 {
-    param (
-        [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(throw "Search param is null!")
-    )
-
-    $Result = New-Object System.Collections.Generic.List[string];
-
+    $ResultWithScopeIndex = [PSObject[][]]::new(10);
     $__QUICK_ACCESS_DIRECTORY | ForEach-Object {
-        if ($_.Contains($Search)) {
-            $Result.Add($_)
+        $Score = Directory-Search-Score -Dir $_ -Search $Search
+        if ($Score -gt -1) {
+            $ResultWithScopeIndex[$Score] += $_
         }
     }
-    return $Result;
-}
+    [array]::Reverse($ResultWithScopeIndex);
 
-function script:Directory-Search-Path-List-From-Quick-Access-2 {
-    param (
-        [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(throw "Search param is null!")
-    )
-
-    $SearchCharArray = $Search.ToCharArray();
-    $Result = New-Object System.Collections.Generic.List[string];
-
-    $__QUICK_ACCESS_DIRECTORY | ForEach-Object {
-        if (Filter-Directory-Item -Path $_ -Search $Search) {
-            $Result.Add($_)
+    $Result = [System.Collections.Generic.List[PSObject]]::new();
+    $ResultWithScopeIndex | ForEach-Object {
+        if ($_ -ne $NULL) {
+            $Result.AddRange($_)
         }
     }
 
     return $Result;
 }
+
+function script:Directory-Search-Score {
+    param ($Dir, [string] $Search )
+    if ($Dir.FullPath.Contains($Search)) {
+        return 9;
+    }
+    if ($Dir.Abbr.Contains($Search)) {
+        return 8;
+    }
+    if ($Dir.NameAbbr.Contains($Search)) {
+        return 7;
+    }
+    if (Filter-Directory-Item -Dir $Dir -Search $Search) {
+        return 1;
+    }
+
+    return -1;
+}
+
 
 function script:Filter-Directory-Item {
-    param (
-        [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(throw "Path param is null!"),
-        [Parameter(Mandatory = $TRUE)]
-        [string] $Search = $(throw "Search param is null!")
-    )
+    param ($Dir, [string] $Search )
     $StartIndex = 0;
     for ($i = 0; $i -lt $Search.Length; $i++) {
         $char = $Search[$i];
-        $charIndex = $Path.IndexOf($char, $StartIndex);
+        $charIndex = $Dir.FullPath.IndexOf($char, $StartIndex);
         if ($charIndex -eq -1) {
             return $FALSE;
         }
@@ -104,29 +132,6 @@ function script:Filter-Directory-Item {
         }
     }
     return $TRUE;
-}
-
-function script:List-Append {
-    param (
-        [System.Collections.Generic.List[string]] $x,
-        [System.Collections.Generic.List[string]] $y
-    )
-
-    if ($x -eq $NULL) {
-        return $y;
-    }
-
-    if ($y -eq $NULL) {
-        return $x;
-    }
-
-    $y | ForEach-Object {
-        if (!$x.Contains($_)) {
-            $x.Add($_)
-        }
-    }
-
-    return $x;
 }
 
 function Directory-To {
