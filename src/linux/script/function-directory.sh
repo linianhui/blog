@@ -47,7 +47,7 @@ function __directory_search_quick_access {
     do
         result=$(__directory_search_quick_access_line $line $search)
         if [[ "$result" != "" ]]; then
-            array+="$result"
+            array+="${result:1}"
         fi
     done
     print -l $array
