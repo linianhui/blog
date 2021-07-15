@@ -4,21 +4,10 @@
 function __string_contains {
     str="$1"
     subStr="$2"
-    if [[ "$str" == "$subStr" ]]; then
+    if [[ "$str" == *$subStr* ]]; then
         echo 0
         return
     fi
-
-    strLen=${#str}
-    subStrLen=${#subStr}
-    i=0
-    while [ $i -lt $strLen ]; do
-        if [[ "$subStr" == "${str:$i:$subStrLen}" ]]; then
-            echo 0
-            return
-        fi
-        i=$(( i + 1 ))
-    done
     echo 1
 }
 
