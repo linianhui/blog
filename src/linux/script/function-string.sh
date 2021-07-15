@@ -8,7 +8,33 @@ function __string_contains {
         echo 0
         return
     fi
+
+    if [[ "$3" -eq "fuzzy" ]]; then
+        str="${str}."
+        subStrLen=${#subStr}
+        i=0
+        while [ $i -lt $subStrLen ]; do
+            char=${subStr:$i:1}
+            index=$(__string_index_of $str $char)
+            if [[ "$index" -eq "0" ]]; then
+                echo 1
+                return
+            fi
+            str="${str:$index}"
+            i=$(( i + 1 ))
+        done
+
+        if [[ "$str" -ne "" ]]; then
+            echo 0
+            return
+        fi
+    fi
+
     echo 1
+}
+
+function __string_index_of {
+    echo "$1" "$2" | awk '{print index($1,$2)}'
 }
 
 # example : __string_split 'abc-123.456_asd' '-_.'
