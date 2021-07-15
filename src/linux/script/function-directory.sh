@@ -41,38 +41,42 @@ function __directory_list_quick_access {
 }
 
 function __directory_search_quick_access {
-    search="$1"
-    array=()
-    print -l $__QUICK_ACCESS_DIRECTORY | while read line
+    __directory_search_quick_access_core "$1" | sort -k1nr | while read line
     do
-        result=$(__directory_search_quick_access_line $line $search)
-        if [[ "$result" != "" ]]; then
-            array+="${result:1}"
-        fi
+      echo ${line:2}
     done
-    print -l $array
 }
 
-function __directory_search_quick_access_line {
+function __directory_search_quick_access_core {
+    search="$1"
+    for line in $__QUICK_ACCESS_DIRECTORY; do
+        result=$(__directory_search_quick_access_core_line $line $search)
+        if [[ "$result" != "" ]]; then
+            echo "$result"
+        fi
+    done
+}
+
+function __directory_search_quick_access_core_line {
     line="$1"
     search="$2"
     array=($(echo $line))
 
     contains=$(__string_contains $array[1] $search)
     if [[ "$contains" -eq "0" ]]; then
-        echo "9$array[4]"
+        echo "9 $array[4]"
         return
     fi
 
     contains=$(__string_contains $array[2] $search)
     if [[ "$contains" -eq "0" ]]; then
-        echo "8$array[4]"
+        echo "8 $array[4]"
         return
     fi
 
     contains=$(__string_contains $array[3] $search)
     if [[ "$contains" -eq "0" ]]; then
-        echo "7$array[4]"
+        echo "7 $array[4]"
         return
     fi
 }
