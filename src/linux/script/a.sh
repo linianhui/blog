@@ -1,7 +1,7 @@
 # .zshrc(z shell run commands)
 
-# autoload -U compinit
-# compinit
+
+fpath=($fpath $(dirname $0)/fpath)
 
 source $(dirname $0)/env.sh
 source $(dirname $0)/function.sh

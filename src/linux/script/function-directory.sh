@@ -41,10 +41,12 @@ function __directory_list_quick_access {
 }
 
 function __directory_search_quick_access {
+    result=''
     __directory_search_quick_access_core "$1" | sort -k1nr | while read line
     do
-        echo ${line:2}
+        result="$result${line:2} "
     done
+    echo $result
 }
 
 function __directory_search_quick_access_core {
