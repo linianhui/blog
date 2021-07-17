@@ -60,23 +60,20 @@ function __directory_search_quick_access_core {
 function __directory_search_quick_access_core_line {
     line="$1"
     search="$2"
-    array=($(echo $line))
+    cols=($(echo $line))
 
-    contains=$(__string_contains $array[1] $search)
-    if [[ "$contains" -eq "0" ]]; then
-        echo "9 $array[4]"
+    if [[ "$cols[1]" == *$search* ]]; then
+        echo "9 $cols[4]"
         return
     fi
 
-    contains=$(__string_contains $array[2] $search)
-    if [[ "$contains" -eq "0" ]]; then
-        echo "8 $array[4]"
+    if [[ "$cols[2]" == *$search* ]]; then
+        echo "8 $cols[4]"
         return
     fi
 
-    contains=$(__string_contains $array[3] $search)
-    if [[ "$contains" -eq "0" ]]; then
-        echo "7 $array[4]"
+    if [[ "$cols[3]" == *$search* ]]; then
+        echo "7 $cols[4]"
         return
     fi
 }
