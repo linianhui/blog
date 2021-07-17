@@ -43,7 +43,7 @@ function __directory_list_quick_access {
 function __directory_search_quick_access {
     __directory_search_quick_access_core "$1" | sort -k1nr | while read line
     do
-      echo ${line:2}
+        echo ${line:2}
     done
 }
 
@@ -62,18 +62,27 @@ function __directory_search_quick_access_core_line {
     search="$2"
     cols=($(echo $line))
 
-    if [[ "$cols[1]" == *$search* ]]; then
+    contains=$(__string_contains $cols[1] $search)
+    if (( $contains == 0 )); then
         echo "9 $cols[4]"
         return
     fi
 
-    if [[ "$cols[2]" == *$search* ]]; then
+    contains=$(__string_contains $cols[2] $search)
+    if (( $contains == 0 )); then
         echo "8 $cols[4]"
         return
     fi
 
-    if [[ "$cols[3]" == *$search* ]]; then
+    contains=$(__string_contains $cols[3] $search)
+    if (( $contains == 0 )); then
         echo "7 $cols[4]"
+        return
+    fi
+
+    contains=$(__string_match $cols[3] $search)
+    if (( $contains == 0 )); then
+        echo "6 $cols[4]"
         return
     fi
 }
