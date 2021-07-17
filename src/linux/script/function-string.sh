@@ -9,6 +9,26 @@ function __string_contains {
     echo 1
 }
 
+# example : __string_match abc ac
+function __string_match {
+    str="$1"
+    subStr="$2"
+    subStrLen=${#subStr}
+    for i ({1..$subStrLen}) {
+        char=$subStr[$i]
+        strLen=${#str}
+        strIndex=1
+        strIndex=$str[(i)$char]
+        if (( $strIndex > $strLen )) then
+            echo 1
+            return
+        else
+            str=${str:$strIndex}
+        fi
+    }
+    echo 0
+}
+
 # example : __string_split 'abc-123.456_asd' '-_.'
 function __string_split {
     echo ${1//[$2]/ }
@@ -28,6 +48,11 @@ function __string_test {
     expect=0
     ok=$(__if_then_else $actual $expect $__TEST_OK_STRING $__TEST_FAIL_STRING)
     echo -e "test : __string_contains abc bc $ok"
+
+    actual=$(__string_match abc ac)
+    expect=0
+    ok=$(__if_then_else $actual $expect $__TEST_OK_STRING $__TEST_FAIL_STRING)
+    echo -e "test : __string_match abc ac $ok"
 
     actual=$(__string_split abc-123.456_asd -_.)
     expect='abc 123 456 asd'
