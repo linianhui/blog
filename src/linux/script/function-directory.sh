@@ -94,3 +94,8 @@ function __directory_to {
     echo "cd $dir"
     cd "$dir"
 }
+
+function __directory_search_quick_access_complete {
+    cols=($(__directory_search_quick_access $words[2]))
+    _alternative "dir:dir:($cols)"
+}

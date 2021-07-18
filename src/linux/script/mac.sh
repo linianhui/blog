@@ -1,3 +1,5 @@
+autoload -Uz compinit && compinit
+
 source $(dirname $0)/a.sh
 
 launchctl setenv JAVA_HOME $JAVA_HOME
@@ -20,5 +22,3 @@ __directory_add_quick_access /lnh
 __directory_add_quick_access /lnh/_code
 __directory_add_quick_access /lnh/_github
 #__directory_add_to_quick_access /lnh/_app
-
-#autoload -U -X compinit && compinit

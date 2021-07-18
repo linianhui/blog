@@ -1,0 +1,4 @@
+setopt completealiases
+compdef __directory_search_quick_access_complete c
+compdef __directory_search_quick_access_complete d
+compdef __directory_search_quick_access_complete i
