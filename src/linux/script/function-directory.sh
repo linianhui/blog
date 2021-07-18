@@ -90,7 +90,7 @@ function __directory_search_quick_access_core_line {
 }
 
 function __directory_to {
-    dir="$1"
+    dir="$@[$#]"
     echo "cd $dir"
     cd "$dir"
 }

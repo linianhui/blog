@@ -1,5 +1,5 @@
 function __idea_open {
-    dir="$1"
+    dir="$@[$#]"
     echo "idea $dir"
     idea "$dir"
 }

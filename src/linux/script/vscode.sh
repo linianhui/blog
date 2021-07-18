@@ -1,5 +1,5 @@
 function __vscode_open {
-    dir="$1"
+    dir="$@[$#]"
     echo "code $dir"
     code "$dir"
 }
