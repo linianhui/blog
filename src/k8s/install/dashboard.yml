@@ -86,7 +86,7 @@ spec:
       containers:
         - name: dashboard-ui
           # https://hub.docker.com/r/kubernetesui/dashboard
-          image: kubernetesui/dashboard:v2.0.3
+          image: kubernetesui/dashboard:v2.3.1
           imagePullPolicy: Always
           ports:
             - containerPort: 8443
