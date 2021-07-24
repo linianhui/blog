@@ -1,11 +1,12 @@
 ---
-title: '[Android] 工具'
+title: '[工具] Android'
 created_at: 2018-05-17 23:48:01
-tag: ["android","adb","fastboot","wlan"]
+tag: ["tool","android","adb","fastboot","wlan"]
 toc: true
 ---
 
 # 1 Download {#download}
+
 ## 1.1 Factory Image {#factory-image}
 
 <https://developers.google.com/android/images#ryu>
@@ -63,3 +64,8 @@ settings put global captive_portal_server captive.v2ex.co
 # 7.1+
 settings put global captive_portal_https_url https://captive.v2ex.co/generate_204
 ```
+
+# 4 Reference {#reference}
+
+1. developer : <https://developer.android.com>
+2. lineageos : <https://download.lineageos.org>
