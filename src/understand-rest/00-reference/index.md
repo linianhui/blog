@@ -62,3 +62,7 @@ COAP (Constrained Application Protocol) :  http://coap.technology/
 
 
 HTTP APIs 设计规范/指南 : https://linianhui.github.io/code-guide/http-api/
+
+HTTP/2 benchmark : https://github.com/linianhui/http.benchmark
+
+HTTP/3 in AspNetCore : https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel/http3?view=aspnetcore-6.0
