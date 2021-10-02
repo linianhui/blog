@@ -15,6 +15,6 @@ git clone https://github.com/linianhui/networking.git
 git clone https://github.com/linianhui/networking-programming.git
 git clone https://github.com/linianhui/nuget.server.git
 git clone https://github.com/linianhui/oidc.example.git
-git clone https://github.com/linianhui/spring.example.git
-git clone https://github.com/linianhui/java.example.git
+git clone https://github.com/linianhui/example-spring.git
+git clone https://github.com/linianhui/example-java.git
 git clone https://github.com/linianhui/rabbitmq.example.git
