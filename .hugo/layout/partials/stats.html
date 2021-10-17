@@ -1,7 +1,7 @@
 <div class="stats">
   共 {{len .Site.RegularPages }} 篇
   <div class="stats-date">
-  {{ if eq $.Site.Params.GitLastHash "" }}
+  {{ if ne $.Site.Params.GitLastHash "" }}
     ，更新于 {{ (time now).Format "2006-01-02T15:04:05Z-07:00" }} by
     <a class="fa fa-code-fork article-git-commit"
       href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
