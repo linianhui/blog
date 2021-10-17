@@ -7,7 +7,7 @@
     <a class="article-git-commit"
       href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
       <i class="fa fa-code-fork"></i>
-      {{substr $.Site.Params.GitLastHash 0 7}}
+      {{- substr $.Site.Params.GitLastHash 0 7 -}}
     </a>
     {{ end }}
     Powered by
