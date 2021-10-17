@@ -20,6 +20,7 @@ jobs:
         run: |
           wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb -O hugo.deb
           sudo dpkg -i hugo.deb
+          sudo timedatectl set-timezone Asia/Shanghai
 
       - name: use hugo generate static web site
         run: |
