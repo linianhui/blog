@@ -7,9 +7,10 @@ baseURL: https://linianhui.github.io/
 languageCode: zh-cn
 hasCJKLanguage: true
 
-title: 'blackheart'
+title: blackheart
+timeZone: Asia/Shanghai
 params:
-  Subtitle: '泛义的工具是文明的基础，而确指的工具却是愚人的器物'
+  Subtitle: 泛义的工具是文明的基础，而确指的工具却是愚人的器物
   Home: https://linianhui.github.io
   RepositoryUrl: https://github.com/linianhui/blog
   RepositoryBlobUrl: https://github.com/linianhui/blog/blob/main
@@ -50,7 +51,7 @@ menu:
   topic: []
 taxonomies:
   tag: tag
-sectionPagesMenu: 'topic'
+sectionPagesMenu: topic
 
 sitemap:
   changefreq: always

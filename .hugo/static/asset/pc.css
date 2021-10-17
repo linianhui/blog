@@ -122,6 +122,10 @@ time{
   font-style: italic;
 }
 
+.stats-date{
+  display: inline-block;
+}
+
 .content {
   position: relative;
   display: block;

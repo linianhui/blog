@@ -2,6 +2,10 @@ body{
   margin-left: 0 !important;
 }
 
+.stats-date{
+  display: none;
+}
+
 .main {
   margin: 18px 18px 54px 18px;
 }
