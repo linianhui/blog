@@ -11,3 +11,4 @@ scaffolds/
 .vs/
 .hugo/resource
 *.rdb
+.hugo_build.lock
