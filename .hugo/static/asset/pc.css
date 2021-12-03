@@ -112,11 +112,13 @@ time{
   vertical-align: middle;
 }
 
+.header-stats{
+  position: relative;
+}
+
 .stats{
-  position: absolute;
-  display: inline-block;
-  left: 0;
-  bottom: -20px;
+  position: relative;
+  padding-top: 6px;
   color: #999;
   font-size: 12px;
   font-style: italic;
@@ -124,6 +126,27 @@ time{
 
 .stats-date{
   display: inline-block;
+}
+
+.search{
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  right: 0;
+  font-size: 0;
+}
+
+.search-input{
+  border-style: solid;
+  border-color: #eee;
+  border-width: 0 1px 1px 1px;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 0;
+}
+
+.search-input::-webkit-input-placeholder {
+  color: #aaa;
 }
 
 .content {
@@ -561,31 +584,6 @@ time{
 
 .archive-group-item-time{
   margin-left: 0.5em;
-}
-
-.search{
-  position: relative;
-  display: block;
-  font-size: 0;
-  box-sizing: border-box;
-}
-
-.search-input{
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: inline-block;
-  width: 16em;
-  border-style:solid ;
-  border-color: #eee;
-  border-width: 0 1px 1px 1px;
-  font-size: 16px;
-  padding: 6px;
-  border-radius: 0;
-}
-
-.search-input::-webkit-input-placeholder {
-  color: #aaa;
 }
 
 .toc {

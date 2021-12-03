@@ -20,6 +20,8 @@
     </a>
     {{ end }}
   </nav>
-  {{ partial "stats.html" . }}
-  {{ partial "search.html" . }}
+  <div class="header-stats">
+    {{ partial "stats.html" . }}
+    {{ partial "search.html" . }}
+  </div>
 </header>
