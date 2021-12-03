@@ -96,7 +96,7 @@ time{
   font-size: 0;
   padding-top: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #0681ba;
+  border-bottom: 1px solid #eee;
 }
 
 .header-nav-item {
@@ -129,13 +129,13 @@ time{
 .content {
   position: relative;
   display: block;
-  margin: 48px 0;
+  margin: 64px 0;
   box-sizing: border-box;
 }
 
 .footer {
   margin-top: 2em;
-  border-top: 1px solid #0681ba;
+  border-top: 1px solid #eee;
   text-align: center;
 }
 
@@ -577,7 +577,7 @@ time{
   display: inline-block;
   width: 16em;
   border-style:solid ;
-  border-color: #0681ba;
+  border-color: #eee;
   border-width: 0 1px 1px 1px;
   font-size: 16px;
   padding: 6px;
