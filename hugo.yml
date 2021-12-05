@@ -44,7 +44,7 @@ menu:
       weight: 4
       pre: '<i class="fa fa-github"></i>'
     - identifier: cnblogs
-      name: 博客园
+      name: &nbsp;博客园
       url: https://linianhui.cnblogs.com
       weight: 5
       pre: '<img src="/asset/cnblogs.favicon.svg"/>'
