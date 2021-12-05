@@ -110,6 +110,7 @@ time{
   display: inline-block;
   height: 15px;
   vertical-align: middle;
+  margin-right: 6px;
 }
 
 .header-stats{

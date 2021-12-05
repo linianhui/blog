@@ -38,16 +38,16 @@ menu:
       url: /archive/
       weight: 3
       pre: '<i class="fa fa-archive"></i>'
+    - identifier: cnblogs
+      name: 博客园
+      url: https://linianhui.cnblogs.com
+      weight: 4
+      pre: '<img src="/asset/cnblogs.favicon.svg"/>'
     - identifier: github
       name: GitHub
       url: https://github.com/linianhui/blog
-      weight: 4
-      pre: '<i class="fa fa-github"></i>'
-    - identifier: cnblogs
-      name: '&nbsp;博客园'
-      url: https://linianhui.cnblogs.com
       weight: 5
-      pre: '<img src="/asset/cnblogs.favicon.svg"/>'
+      pre: '<i class="fa fa-github"></i>'
   topic: []
 taxonomies:
   tag: tag
