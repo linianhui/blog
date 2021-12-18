@@ -9,7 +9,7 @@ toc: true
 # 1 OpenJdk {#openjdk}
 
 下载地址 : 
-1. <https://adoptopenjdk.net/upstream.html>
+1. <https://adoptium.net/>
 2. <https://www.microsoft.com/openjdk>
 3. <https://developers.redhat.com/products/openjdk/download>
 
