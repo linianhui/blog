@@ -279,8 +279,9 @@ function Env-SetSpringBootCliEnvironmentVariable() {
 # http://httpd.apache.org/download.cgi
 function Env-SetHttpdEnvironmentVariable() {
     $APP_HTTPD_DIR = $APP_DIR + '_httpd\';
+    $APP_HTTPD_BIN_DIR = $APP_HTTPD_DIR + 'bin\';
 
-    Env-TryAppendPathVariable -Value $APP_HTTPD_DIR
+    Env-TryAppendPathVariable -Value $APP_HTTPD_BIN_DIR
 }
 
 # http://nginx.org/en/download.html
