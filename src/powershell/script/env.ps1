@@ -284,6 +284,14 @@ function Env-SetHttpdEnvironmentVariable() {
     Env-TryAppendPathVariable -Value $APP_HTTPD_BIN_DIR
 }
 
+# https://jmeter.apache.org/download_jmeter.cgi
+function Env-SetJmeterEnvironmentVariable() {
+    $APP_JMETER_DIR = $APP_DIR + '_jmeter\';
+    $APP_JMETER_BIN_DIR = $APP_JMETER_DIR + 'bin\';
+
+    Env-TryAppendPathVariable -Value $APP_JMETER_BIN_DIR
+}
+
 # http://nginx.org/en/download.html
 function Env-SetNginxEnvironmentVariable() {
     $APP_NGINX_DIR = $APP_DIR + '_nginx\';

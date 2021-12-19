@@ -160,3 +160,8 @@ export PATH=$PATH:$APP_RINETD_DIR
 # https://github.com/wagoodman/dive
 APP_DIVE_DIR=$APP_DIR/_dive
 export PATH=$PATH:$APP_DIVE_DIR
+
+# https://jmeter.apache.org/download_jmeter.cgi
+APP_JMETER_DIR=$APP_DIR/_jmeter
+APP_JMETER_BIN_DIR=$APP_JMETER_DIR/bin
+export PATH=$PATH:$APP_JMETER_BIN_DIR
