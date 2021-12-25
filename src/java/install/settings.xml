@@ -11,71 +11,106 @@
   <localRepository>/lnh/_cache/_maven</localRepository>
   <!-- <localRepository>d:/_cache/_maven</localRepository> -->
 
-  <mirrors>
-    <!-- https://maven.apache.org/guides/mini/guide-mirror-settings.html -->
-    <!-- https://help.aliyun.com/document_detail/102512.html -->
+  <profiles>
+    <profile>
+      <!-- /lib/maven-model-builder-${version}.jar -->
+      <!-- /org/apache/maven/model/pom-4.0.0.xml -->
+      <id>default</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2/</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2/</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+    <profile>
+      <!-- https://developer.aliyun.com/mvn/guide -->
+      <id>aliyun</id>
+      <repositories>
+        <repository>
+          <id>public</id>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+        <repository>
+          <id>central</id>
+          <url>https://maven.aliyun.com/repository/central/</url>
+        </repository>
+        <repository>
+          <id>central</id>
+          <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+        <repository>
+          <id>jcenter</id>
+          <url>https://maven.aliyun.com/repository/jcenter</url>
+        </repository>
+        <repository>
+          <id>spring</id>
+          <url>https://maven.aliyun.com/repository/spring</url>
+        </repository>
+        <repository>
+          <id>gradle-plugin</id>
+          <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+        </repository>
+        <repository>
+          <id>google</id>
+          <url>https://maven.aliyun.com/repository/google</url>
+        </repository>
+        <repository>
+          <id>grails-core</id>
+          <url>https://maven.aliyun.com/repository/grails-core</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>public</id>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://maven.aliyun.com/repository/central/</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://maven.aliyun.com/repository/central</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>jcenter</id>
+          <url>https://maven.aliyun.com/repository/jcenter</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>spring</id>
+          <url>https://maven.aliyun.com/repository/spring</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>gradle-plugin</id>
+          <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>google</id>
+          <url>https://maven.aliyun.com/repository/google</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>grails-core</id>
+          <url>https://maven.aliyun.com/repository/grails-core</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
 
-    <mirror>
-      <id>aliyun-public</id>
-      <name>aliyun public</name>
-      <mirrorOf>public</mirrorOf>
-      <url>https://maven.aliyun.com/repository/public</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-central</id>
-      <name>aliyun central</name>
-      <mirrorOf>central</mirrorOf>
-      <url>https://maven.aliyun.com/repository/central</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-jcenter</id>
-      <name>aliyun jcenter</name>
-      <mirrorOf>jcenter</mirrorOf>
-      <url>https://maven.aliyun.com/repository/jcenter</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-spring</id>
-      <name>aliyun spring</name>
-      <mirrorOf>spring</mirrorOf>
-      <url>https://maven.aliyun.com/repository/spring</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-spring-milestones</id>
-      <name>aliyun spring milestones</name>
-      <mirrorOf>spring-milestones</mirrorOf>
-      <url>https://maven.aliyun.com/repository/spring</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-spring-plugin</id>
-      <name>aliyun spring plugin</name>
-      <mirrorOf>spring-plugin</mirrorOf>
-      <url>https://maven.aliyun.com/repository/spring-plugin</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-gradle-plugin</id>
-      <name>aliyun gradle plugin</name>
-      <mirrorOf>gradle-plugin</mirrorOf>
-      <url>https://maven.aliyun.com/repository/gradle-plugin</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-google</id>
-      <name>aliyun google</name>
-      <mirrorOf>google</mirrorOf>
-      <url>https://maven.aliyun.com/repository/google</url>
-    </mirror>
-
-    <mirror>
-      <id>aliyun-grails-core</id>
-      <name>aliyun grails core</name>
-      <mirrorOf>grails-core</mirrorOf>
-      <url>https://maven.aliyun.com/repository/grails-core</url>
-    </mirror>
-  </mirrors>
+  <activeProfiles>
+    <activeProfile>aliyun</activeProfile>
+    <activeProfile>default</activeProfile>
+  </activeProfiles>
 </settings>
