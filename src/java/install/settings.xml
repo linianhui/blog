@@ -45,10 +45,6 @@
         </repository>
         <repository>
           <id>central</id>
-          <url>https://maven.aliyun.com/repository/central/</url>
-        </repository>
-        <repository>
-          <id>central</id>
           <url>https://maven.aliyun.com/repository/central</url>
         </repository>
         <repository>
@@ -80,10 +76,6 @@
         <pluginRepository>
           <id>central</id>
           <url>https://maven.aliyun.com/repository/central/</url>
-        </pluginRepository>
-        <pluginRepository>
-          <id>central</id>
-          <url>https://maven.aliyun.com/repository/central</url>
         </pluginRepository>
         <pluginRepository>
           <id>jcenter</id>
