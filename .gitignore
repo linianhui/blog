@@ -7,7 +7,6 @@ node_modules/
 .www/
 scaffolds/
 .deploy_git/
-.vscode/
 .vs/
 .hugo/resource
 *.rdb

@@ -1,4 +1,4 @@
-<link href="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/theme-chalk/index.min.css" rel="stylesheet">
+<link href="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css" rel="stylesheet">
 <style>
   th {
     text-align: center;
@@ -26,7 +26,7 @@
     padding-top: 10px;
   }
 
-  .form-input{
+  .form-input {
     margin-left: 1em;
   }
 
@@ -80,6 +80,7 @@
 
   .row-data {
     color: #666;
+    font-family: monospace, Courier, 'Courier New'
   }
 
   .row-data:hover {
@@ -159,7 +160,8 @@
               <tr>
                 <td></td>
                 <td></td>
-                <td>￥<input v-model="insurance.max" class="insurance-input_amount_max" @input="onInsuranceMaxChange"></td>
+                <td>￥<input v-model="insurance.max" class="insurance-input_amount_max" @input="onInsuranceMaxChange">
+                </td>
                 <td></td>
                 <td></td>
               </tr>
@@ -276,8 +278,8 @@
     </div>
   </fieldset>
 </div>
-<script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
-<script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js"></script>
 <script src="//unpkg.com/currency.js@2.0.4/dist/currency.min.js"></script>
 <script src="rates.js"></script>
 <script src="insurances.js"></script>
@@ -340,7 +342,6 @@
         var summary = buildSummary(items);
         log("calculate salarys year summary", summary);
 
-        log("precision", this.precision);
         return {
           items: items,
           summary: summary
@@ -350,19 +351,16 @@
     methods: {
       onRateChange(key) {
         this.rate.value = rates[key];
-        log("selected rate " + key, this.rate.value);
       },
       onInsuranceChange(key) {
         this.insurance.value = insurances[key];
         this.insurance.max = insurances[key].养老保险.max;
-        log("selected insurance " + key, this.insurance.value);
       },
       onInsuranceMaxChange(e) {
         const max = e.target.value;
         for (let key in this.insurance.value) {
           this.insurance.value[key].max = max;
         }
-        log("change insurance max = " + max, this.insurance.value);
       },
       onPrecisionChange(value) {
         precision = value;
