@@ -105,8 +105,16 @@ toc: true
 
 ![Symmetric NAT](symmetric.svg)
 
+# 4 Soluction {#soluction}
+## 4.1 DMZ(Demilitarized Zone) {#dmz}
 
-# 4 Reference {#reference}
+<https://en.wikipedia.org/wiki/DMZ_(computing)>
+
+## 4.2 UPnP(Universal Plug and Play) {#upnp}
+
+<https://en.wikipedia.org/wiki/Universal_Plug_and_Play>
+
+# 5 Reference {#reference}
 
 [^nat]:NAT : <https://en.wikipedia.org/wiki/Network_address_translation>
 
