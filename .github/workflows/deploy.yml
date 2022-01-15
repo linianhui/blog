@@ -15,7 +15,7 @@ jobs:
 
       - name: install hugo
         env:
-          HUGO_VERSION: 0.91.2
+          HUGO_VERSION: 0.92.0
         run: |
           wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.deb -O hugo.deb
           sudo dpkg -i hugo.deb
@@ -24,7 +24,7 @@ jobs:
       - name: use hugo generate static web site
         run: |
           export HUGO_PARAMS_GitLastHash=${GITHUB_SHA}
-          hugo --environment production --config hugo.yml
+          hugo --environment production --panicOnWarning --config hugo.yml
 
       - name: init static web site git repo
         working-directory: .www

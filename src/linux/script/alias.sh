@@ -63,7 +63,7 @@ alias shells='cat /etc/shells'
 
 alias i18n='locale'
 
-alias hu='hugo --config hugo.yml --buildDrafts --forceSyncStatic'
+alias hu='hugo --config hugo.yml --buildDrafts --forceSyncStatic --panicOnWarning'
 
 alias hus='hu --watch server'
 
