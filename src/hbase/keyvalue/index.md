@@ -69,7 +69,7 @@ public static enum Type {
 ```
 
 
-## 2.2 Value {#format-key}
+## 2.2 Value {#format-value}
 
 4byte的ValueLength决定了其最大长度`Integer#MAX_VALUE=4GB`。
 
