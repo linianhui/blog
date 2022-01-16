@@ -80,6 +80,9 @@ KeyValue的设计带来了很大的灵活性，SchemaLess的核心支撑。不�
 
 # 4 参考 {#reference}
 
+[HBase原理(hbasefly.com)](http://hbasefly.com/category/hbase/)
+[HBase原理－数据读取流程解析(hbasefly.com)](http://hbasefly.com/2016/12/21/hbase-getorscan/)
+
 [^keyvalue-source-code]: KeyValue Source Code: <https://github.com/apache/hbase/blob/rel/2.4.9/hbase-common/src/main/java/org/apache/hadoop/hbase/KeyValue.java#L44-L76>
 
 [^keyvalue-doc]: KeyValue Doc: <https://hbase.apache.org/2.3/book.html#keyvalue>

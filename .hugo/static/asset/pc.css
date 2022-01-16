@@ -340,10 +340,6 @@ time{
   line-height: 1.6;
 }
 
-.article-content .footnotes hr{
-  display: none;
-}
-
 .article-content .footnotes p{
   margin-top: 8px;
 }
