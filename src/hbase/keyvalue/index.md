@@ -3,7 +3,6 @@ title: '[HBase] KeyValue'
 created_at: 2022-01-16 09:50:00
 tag: ["hbase", "KeyValue"]
 toc: true
-draft: true
 ---
 
 KeyValue[^keyvalue-source-code][^keyvalue-doc]是HBase的最底层的核心存储结构，也是数据最终格式持久化的格式。这里分析一下格式细节。
