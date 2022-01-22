@@ -29,4 +29,7 @@ class HConstants {
 
 # ThreadLocalPool
 
+# Reusable
+已移除 <https://github.com/apache/hbase/commit/8646ac139d0ad8b18e8a028c6539818323850d1e>
+
 待完善。
