@@ -1,6 +1,6 @@
-<script src='/asset/pc.js?time={{now.Unix}}' type="text/javascript"></script>
+<script src='/asset/pc.js?time={{now.Format "2006-01-02T15:04:05Z-07:00"}}' type="text/javascript"></script>
 <script type="text/javascript">
   if (blog.isMobile()) {
-    document.write('<link href="/asset/mobile.css?time={{now.Unix}}" rel="stylesheet">');
+    document.write('<link href="/asset/mobile.css?time={{now.Format "2006-01-02T15:04:05Z-07:00" | urlquery}}" rel="stylesheet">');
   }
 </script>
