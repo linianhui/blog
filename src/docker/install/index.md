@@ -27,12 +27,19 @@ toc: true
 
 <https://docs.docker.com/engine/install/binaries/>
 
-<https://download.docker.com/mac/static/stable/x86_64/>
+Windows : <https://download.docker.com/win/static/stable/x86_64>
+
+MacOS : <https://download.docker.com/mac/static/stable/x86_64/>
+
+```sh
+xattr -d com.apple.quarantine docker
+```
 
 # 3 dokcer-compose {#docker-compose}
 
-{{<highlight-file path="docker-compose.sh" lang="bash">}}
+<https://github.com/docker/compose/releases>
 
+{{<highlight-file path="docker-compose.sh" lang="bash">}}
 
 # 4 dokcer-machine {#docker-machine}
 
