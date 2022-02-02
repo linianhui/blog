@@ -10,16 +10,23 @@ hasCJKLanguage: true
 title: blackheart
 timeZone: Asia/Shanghai
 params:
-  Subtitle: 泛义的工具是文明的基础，而确指的工具却是愚人的器物
-  Home: https://linianhui.github.io
-  RepositoryUrl: https://github.com/linianhui/blog
-  RepositoryBlobUrl: https://github.com/linianhui/blog/blob/main
-  RepositoryBlobSrcUrl: https://github.com/linianhui/blog/blob/main/src
-  RepositoryRawUrl: https://raw.githubusercontent.com/linianhui/blog/main
-  RepositoryRawSrcUrl: https://raw.githubusercontent.com/linianhui/blog/main/src
-  CiUrl: https://github.com/linianhui/blog/actions
-  CiBadgeImageUrl: https://github.com/linianhui/blog/workflows/deploy/badge.svg
   GitLastHash: ''
+  subTitle: 泛义的工具是文明的基础，而确指的工具却是愚人的器物
+  url:
+    repo:
+      home: https://github.com/linianhui/blog
+      commit: https://github.com/linianhui/blog/commit
+      blob: https://github.com/linianhui/blog/blob/main
+      blobSrc: https://github.com/linianhui/blog/blob/main/src
+    cdn:
+      js:
+        vue: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
+        elementUi: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
+        currency: https://unpkg.com/currency.js@2.0.4/dist/currency.min.js
+      css:
+        normalize: https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css
+        fontAwesome: https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+        elementUi: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css
 
 menu:
   main:

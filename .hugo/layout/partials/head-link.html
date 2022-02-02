@@ -2,6 +2,6 @@
 {{- range .AlternativeOutputFormats -}}
 <link rel="{{.Rel}}" type="{{.MediaType.Type}}" href="{{.Permalink}}" title="{{$.Site.Title | safeHTML }}" />
 {{- end -}}
-<link href="//cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
-<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href='/asset/pc.css?time={{now.Format "2006-01-02T15:04:05Z-07:00"}}' rel="stylesheet">
+<link href="{{$.Site.Params.url.cdn.css.normalize}}" rel="stylesheet" type="text/css">
+<link href="{{$.Site.Params.url.cdn.css.fontAwesome}}" rel="stylesheet" type="text/css">
+<link href='/asset/pc.css?time={{now.Format "2006-01-02T15:04:05Z-07:00"}}' rel="stylesheet" type="text/css">

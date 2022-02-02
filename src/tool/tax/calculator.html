@@ -1,4 +1,4 @@
-<link href="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css" rel="stylesheet">
+<link href="{{$.Site.Params.url.cdn.css.elementUi}}" rel="stylesheet">
 <style>
   th {
     text-align: center;
@@ -278,9 +278,9 @@
     </div>
   </fieldset>
 </div>
-<script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
-<script src="//cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js"></script>
-<script src="//unpkg.com/currency.js@2.0.4/dist/currency.min.js"></script>
+<script src="{{$.Site.Params.url.cdn.js.vue}}"></script>
+<script src="{{$.Site.Params.url.cdn.js.elementUi}}"></script>
+<script src="{{$.Site.Params.url.cdn.js.currency}}"></script>
 <script src="rates.js"></script>
 <script src="insurances.js"></script>
 <script src="calculator.js"></script>

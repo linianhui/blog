@@ -1,11 +1,11 @@
 <footer class="footer">
   <section>
-    Copyright © {{ now.Format "2006" }} <a href="https://github.com/linianhui/blog" target="_blank">blackheart</a>
+    Copyright © {{ now.Format "2006" }} <a href="{{$.Site.Params.url.repo.home}}" target="_blank">blackheart</a>
   </section>
   <section>
     {{ if ne $.Site.Params.GitLastHash "" }}
-    <a class="article-git-commit"
-      href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
+    <a class="article-git-commit" href="{{$.Site.Params.url.repo.commit}}/{{$.Site.Params.GitLastHash}}"
+      target="_blank">
       <i class="fa fa-code-fork"></i>
       {{- substr $.Site.Params.GitLastHash 0 7 -}}
     </a>

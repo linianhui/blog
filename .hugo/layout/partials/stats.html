@@ -4,7 +4,7 @@
   {{ if ne $.Site.Params.GitLastHash "" }}
     ，更新于 {{ (time now).Format "2006-01-02T15:04:05Z-07:00" }} by &nbsp;
     <a class="git-commit"
-      href="{{ $.Site.Params.RepositoryUrl}}/commit/{{ $.Site.Params.GitLastHash }}" target="_blank">
+      href="{{$.Site.Params.url.repo.commit}}/{{$.Site.Params.GitLastHash}}" target="_blank">
       <i class="fa fa-code-fork"></i>
       {{- substr $.Site.Params.GitLastHash 0 7 -}}
     </a>
