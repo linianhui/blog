@@ -391,6 +391,10 @@ time{
   cursor: pointer;
 }
 
+.highlight-file-download::before{
+  margin-right: 6px;
+}
+
 .highlight-file,
 .highlight-files {
   margin-top: 16px;
