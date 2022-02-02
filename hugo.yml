@@ -18,15 +18,24 @@ params:
       commit: https://github.com/linianhui/blog/commit
       blob: https://github.com/linianhui/blog/blob/main
       blobSrc: https://github.com/linianhui/blog/blob/main/src
+    # cdn:
+    #   js:
+    #     vue: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
+    #     elementUi: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
+    #     currency: https://unpkg.com/currency.js@2.0.4/dist/currency.min.js
+    #   css:
+    #     normalize: https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css
+    #     fontAwesome: https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+    #     elementUi: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css
     cdn:
       js:
-        vue: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
-        elementUi: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/index.js
+        vue: https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.common.min.js
+        elementUi: https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.0/index.min.js
         currency: https://unpkg.com/currency.js@2.0.4/dist/currency.min.js
       css:
-        normalize: https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css
-        fontAwesome: https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
-        elementUi: https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.7/theme-chalk/index.min.css
+        normalize: https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/normalize/8.0.1/normalize.min.css
+        fontAwesome: https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/4.7.0/css/font-awesome.min.css
+        elementUi: https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-ui/2.15.0/theme-chalk/index.min.css
 
 menu:
   main:
