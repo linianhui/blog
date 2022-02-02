@@ -18,14 +18,6 @@ params:
       commit: https://github.com/linianhui/blog/commit
       blob: https://github.com/linianhui/blog/blob/main
       blobSrc: https://github.com/linianhui/blog/blob/main/src
-  # cdn:
-  #   css:
-  #     normalize: https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css
-  #     fontAwesome: https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
-    cdn:
-      css:
-        normalize: https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-y/normalize/8.0.1/normalize.min.css
-        fontAwesome: https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/font-awesome/4.7.0/css/font-awesome.min.css
 
 menu:
   main:
