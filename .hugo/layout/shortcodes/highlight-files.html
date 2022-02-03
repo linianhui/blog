@@ -8,7 +8,7 @@
       {{- range (readDir (path.Join "src" $currentDir)) -}}
       {{- $match := findRE $regexParam .Name 1 -}}
       {{- if $match -}}
-        {{- $filePath := (path.Join $currentDir .Name) -}}
+        {{- $filePath := (path.Join $currentDir .Name | path.Clean) -}}
         {{- $id := md5 $filePath -}}
         <div class="highlight-file" id="hfs-{{$id}}">
           <div class="highlight-file-header">

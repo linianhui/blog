@@ -8,7 +8,7 @@
   <span class="article-git-commit-time">
     {{- $.GitInfo.AuthorDate.Format "2006-01-02 15:04" -}}
   </span>
-  <a class="article-git-source" href="{{$.Site.Params.url.repo.blobSrc}}/{{.File.Path}}" target="_blank">
+  <a class="article-git-source" href="{{$.Site.Params.url.repo.blobSrc}}/{{path.Clean .File.Path}}" target="_blank">
     <i class="fa fa-github"></i>源码
   </a>
 </section>

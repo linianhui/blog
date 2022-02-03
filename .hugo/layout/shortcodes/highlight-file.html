@@ -4,7 +4,7 @@
 {{- $hideParam := .Get "hide" -}}
 {{- $title := default $pathParam $titleParam}}
 {{- $isAbsolutePath := (hasPrefix $pathParam "/") -}}
-{{- $filePath := cond $isAbsolutePath $pathParam ((path.Join $.Page.File.Dir $pathParam) | relURL) }}
+{{- $filePath := (cond $isAbsolutePath $pathParam ((path.Join $.Page.File.Dir $pathParam) | relURL) | path.Clean) }}
 {{- $id := md5 $filePath -}}
 {{- $collapseClass := cond (eq $hideParam "true") " " " highlight-file_opened" -}}
 <div class="highlight-file{{$collapseClass}}" id="hf-{{$id}}">
