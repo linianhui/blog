@@ -1,5 +1,9 @@
 {{ define "content"}}
-<main>
-    <h1 style="text-align: center;">404 Not Found</h1>
-</main>
+<style>
+  #div404{
+    overflow-x:unset !important
+  }
+</style>
+<div id="div404"></div>
+<script src="https://volunteer.cdn-go.cn/404/latest/404.js" rendertarget="div404"></script>
 {{ end }}
