@@ -118,6 +118,8 @@ int listen (int sockfd, int backlog);
 参数：
 1. `int sockfd`：已bind的sockfd。
 2. `int backlog`：最大的队列长度。如果连接数超过了最大队列长度，那么新的连接就会收到一个`ECONNREFUSED`错误。
+    1. 在linux 2.2后，backlog指的是`accept queue` size.
+    2. `syn queue` size的设置位于`/proc/sys/net/ipv4/tcp_max_syn_backlog`
 
 返回值：
 1. 成功：`0`。
