@@ -69,7 +69,7 @@ mark{
 }
 
 time{
-  font-family: monospace;
+  font-family: monospace, Courier, 'Courier New'
 }
 
 .main {
