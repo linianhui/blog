@@ -1,5 +1,7 @@
 # wget https://linianhui.github.io/tool/v2ray/install.sh
 # sudo bash install.sh
+# sudo bash <(wget -q -O - https://linianhui.github.io/tool/v2ray/install.sh)
+
 set -eux
 
 apt install -y wget gettext lsof
@@ -19,6 +21,8 @@ wget -q -O - https://linianhui.github.io/tool/v2ray/server-config.template.json 
 wget -q -O - https://linianhui.github.io/tool/v2ray/client-config.template.json | envsubst > client-config.json
 
 echo "vmess://$(wget -q -O - https://linianhui.github.io/tool/v2ray/client-config.v2rayng.template.json | envsubst | base64 -w 0)" > client-config.v2rayng.json
+
+setcap 'cap_net_bind_service=+ep' /usr/local/bin/v2ray
 
 systemctl daemon-reload
 systemctl enable v2ray
