@@ -15,17 +15,16 @@
   ],
   "outbounds": [
     {
-      "protocol": "vmess",
+      "protocol": "vless",
       "settings": {
         "vnext": [
           {
-            "address": "$TEMPLATE_SERVER_IP",
+            "address": "换成你的服务器IP",
             "port": 443,
             "users": [
               {
                 "id": "$TEMPLATE_CLIENT_ID",
-                "alterId": 16,
-                "security": "auto"
+                "encryption": "none"
               }
             ]
           }

@@ -1,9 +1,8 @@
 {
-  "add": "$TEMPLATE_SERVER_IP",
+  "add": "换成你的服务器IP",
   "port": "443",
   "host": "$TEMPLATE_SERVER_DOMAIN_NAME",
   "id": "$TEMPLATE_CLIENT_ID",
-  "aid": "16",
   "net": "tcp",
   "path": "",
   "ps": "$TEMPLATE_SERVER_DOMAIN_NAME",

@@ -6,12 +6,11 @@
     {
       "listen": "$TEMPLATE_LISTEN_IP",
       "port": 443,
-      "protocol": "vmess",
+      "protocol": "vless",
       "settings": {
         "clients": [
           {
-            "id": "$TEMPLATE_CLIENT_ID",
-            "alterId": 16
+            "id": "$TEMPLATE_CLIENT_ID"
           }
         ]
       },
