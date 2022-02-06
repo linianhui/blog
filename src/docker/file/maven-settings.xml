@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://maven.apache.org/settings.html -->
+<!--
+  加载顺序
+  1. 全局设置 M2_HOME/conf/settiing.xml
+  2. 用户设置 HOME/.m2/settiing.xml
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <localRepository>/local-repository</localRepository>
+
+  <profiles>
+    <profile>
+      <!-- https://developer.aliyun.com/mvn/guide -->
+      <id>aliyun</id>
+      <repositories>
+        <repository>
+          <id>public</id>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+        <repository>
+          <id>central</id>
+          <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+        <repository>
+          <id>jcenter</id>
+          <url>https://maven.aliyun.com/repository/jcenter</url>
+        </repository>
+        <repository>
+          <id>spring</id>
+          <url>https://maven.aliyun.com/repository/spring</url>
+        </repository>
+        <repository>
+          <id>gradle-plugin</id>
+          <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+        </repository>
+        <repository>
+          <id>google</id>
+          <url>https://maven.aliyun.com/repository/google</url>
+        </repository>
+        <repository>
+          <id>grails-core</id>
+          <url>https://maven.aliyun.com/repository/grails-core</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>public</id>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://maven.aliyun.com/repository/central/</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>jcenter</id>
+          <url>https://maven.aliyun.com/repository/jcenter</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>spring</id>
+          <url>https://maven.aliyun.com/repository/spring</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>gradle-plugin</id>
+          <url>https://maven.aliyun.com/repository/gradle-plugin</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>google</id>
+          <url>https://maven.aliyun.com/repository/google</url>
+        </pluginRepository>
+        <pluginRepository>
+          <id>grails-core</id>
+          <url>https://maven.aliyun.com/repository/grails-core</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+</settings>
