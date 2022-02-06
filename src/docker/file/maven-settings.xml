@@ -12,6 +12,29 @@
 
   <profiles>
     <profile>
+      <!-- /lib/maven-model-builder-${version}.jar -->
+      <!-- /org/apache/maven/model/pom-4.0.0.xml -->
+      <id>default</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2/</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2/</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+    <profile>
       <!-- https://developer.aliyun.com/mvn/guide -->
       <id>aliyun</id>
       <repositories>
@@ -76,4 +99,9 @@
       </pluginRepositories>
     </profile>
   </profiles>
+
+  <activeProfiles>
+    <activeProfile>aliyun</activeProfile>
+    <activeProfile>default</activeProfile>
+  </activeProfiles>
 </settings>
