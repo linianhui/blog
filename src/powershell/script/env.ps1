@@ -106,11 +106,11 @@ function Env-SetPuttyEnvironmentVariable() {
 }
 
 # https://github.com/shadowsocks/shadowsocks-windows
-function Env-SetShadowsocksEnvironmentVariable() {
-    $APP_SHADOWSOCKS_DIR = $APP_DIR + '_shadowsocks\';
+# function Env-SetShadowsocksEnvironmentVariable() {
+#     $APP_SHADOWSOCKS_DIR = $APP_DIR + '_shadowsocks\';
 
-    Env-TryAppendPathVariable -Value $APP_SHADOWSOCKS_DIR
-}
+#     Env-TryAppendPathVariable -Value $APP_SHADOWSOCKS_DIR
+# }
 
 # https://adoptopenjdk.net/upstream.html
 # https://developers.redhat.com/products/openjdk/download
@@ -311,16 +311,16 @@ function Env-SetKubectlEnvironmentVariable() {
 }
 
 # https://github.com/kubernetes/minikube/releases
-function Env-SetMinikubeEnvironmentVariable() {
-    $APP_MINIKUBE_DIR = $APP_DIR + '_minikube\';
-    $DATA_MINIKUBE_DIR = 'e:\_minikube\';
+# function Env-SetMinikubeEnvironmentVariable() {
+#     $APP_MINIKUBE_DIR = $APP_DIR + '_minikube\';
+#     $DATA_MINIKUBE_DIR = 'e:\_minikube\';
 
-    Env-TrySetVariable -Variable 'MINIKUBE_HOME' -Value $DATA_MINIKUBE_DIR
-    Env-TrySetVariable -Variable 'MINIKUBE_WANTUPDATENOTIFICATION' -Value 'false'
-    Env-TrySetVariable -Variable 'MINIKUBE_WANTREPORTERRORPROMPT' -Value 'false'
-    Env-TrySetVariable -Variable 'CHANGE_MINIKUBE_NONE_USER' -Value 'true'
-    Env-TryAppendPathVariable -Value $APP_MINIKUBE_DIR
-}
+#     Env-TrySetVariable -Variable 'MINIKUBE_HOME' -Value $DATA_MINIKUBE_DIR
+#     Env-TrySetVariable -Variable 'MINIKUBE_WANTUPDATENOTIFICATION' -Value 'false'
+#     Env-TrySetVariable -Variable 'MINIKUBE_WANTREPORTERRORPROMPT' -Value 'false'
+#     Env-TrySetVariable -Variable 'CHANGE_MINIKUBE_NONE_USER' -Value 'true'
+#     Env-TryAppendPathVariable -Value $APP_MINIKUBE_DIR
+# }
 
 # https://docs.docker.com/engine/reference/commandline/cli/#environment-variables
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
@@ -333,22 +333,22 @@ function Env-SetDockerEnvironmentVariable() {
 
 # https://docs.docker.com/machine
 # https://docs.docker.com/machine/drivers/hyper-v/
-function Env-SetDockerMachineEnvironmentVariable() {
-    $APP_DOCKER_DIR = $APP_DIR + '_docker\';
-    $BOOT2DOCKER_ISO_DIR = 'file://' + $APP_DOCKER_DIR + 'boot2docker.iso';
+# function Env-SetDockerMachineEnvironmentVariable() {
+#     $APP_DOCKER_DIR = $APP_DIR + '_docker\';
+#     $BOOT2DOCKER_ISO_DIR = 'file://' + $APP_DOCKER_DIR + 'boot2docker.iso';
 
-    $DATA_DOCKER_DIR = 'e:\_docker\';
+#     $DATA_DOCKER_DIR = 'e:\_docker\';
 
-    Env-TrySetVariable -Variable 'MACHINE_STORAGE_PATH' -Value $DATA_DOCKER_DIR
-    Env-TrySetVariable -Variable 'MACHINE_NATIVE_SSH' -Value 1
-    Env-TrySetVariable -Variable 'HYPERV_BOOT2DOCKER_URL' -Value $BOOT2DOCKER_ISO_DIR
-    Env-TrySetVariable -Variable 'HYPERV_VIRTUAL_SWITCH' -Value 'HVS'
-    Env-TrySetVariable -Variable 'HYPERV_CPU_COUNT' -Value 1
-    Env-TrySetVariable -Variable 'HYPERV_MEMORY' -Value 1024
-    Env-TrySetVariable -Variable 'HYPERV_DISK_SIZE' -Value 10240
+#     Env-TrySetVariable -Variable 'MACHINE_STORAGE_PATH' -Value $DATA_DOCKER_DIR
+#     Env-TrySetVariable -Variable 'MACHINE_NATIVE_SSH' -Value 1
+#     Env-TrySetVariable -Variable 'HYPERV_BOOT2DOCKER_URL' -Value $BOOT2DOCKER_ISO_DIR
+#     Env-TrySetVariable -Variable 'HYPERV_VIRTUAL_SWITCH' -Value 'HVS'
+#     Env-TrySetVariable -Variable 'HYPERV_CPU_COUNT' -Value 1
+#     Env-TrySetVariable -Variable 'HYPERV_MEMORY' -Value 1024
+#     Env-TrySetVariable -Variable 'HYPERV_DISK_SIZE' -Value 10240
 
-    Env-TryAppendPathVariable -Value $APP_DOCKER_DIR
-}
+#     Env-TryAppendPathVariable -Value $APP_DOCKER_DIR
+# }
 
 # https://helm.sh/docs
 # https://github.com/helm/helm-www
@@ -361,19 +361,19 @@ function Env-SetHelmEnvironmentVariable() {
 
 # https://github.com/mholt/caddy
 # https://caddyserver.com/docs/cli
-function Env-SetCaddyEnvironmentVariable() {
-    $APP_CADDY_DIR = $APP_DIR + '_caddy\';
+# function Env-SetCaddyEnvironmentVariable() {
+#     $APP_CADDY_DIR = $APP_DIR + '_caddy\';
 
-    Env-TryAppendPathVariable -Value $APP_CADDY_DIR
-}
+#     Env-TryAppendPathVariable -Value $APP_CADDY_DIR
+# }
 
 # https://coreos.com/os/docs/1911.5.0/overview-of-ct.html
 # https://github.com/coreos/container-linux-config-transpiler
-function Env-SetCoreOSEnvironmentVariable() {
-    $APP_COREOS_DIR = $APP_DIR + '_coreos\';
+# function Env-SetCoreOSEnvironmentVariable() {
+#     $APP_COREOS_DIR = $APP_DIR + '_coreos\';
 
-    Env-TryAppendPathVariable -Value $APP_COREOS_DIR
-}
+#     Env-TryAppendPathVariable -Value $APP_COREOS_DIR
+# }
 
 # https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-6
 function Env-SetPowerShellEnvironmentVariable() {

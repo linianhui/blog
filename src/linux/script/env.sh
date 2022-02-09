@@ -43,9 +43,9 @@ export MAVEN_OPTS='-Xms256m -Xmx1024m'
 export PATH=$PATH:$APP_MAVEN_BIN_DIR
 
 # https://projects.spring.io/spring-boot/
-APP_SPRING_BOOT_CLI_DIR=$APP_DIR/_spring-boot-cli
-APP_SPRING_BOOT_CLI_BIN_DIR=$APP_SPRING_BOOT_CLI_DIR/bin
-export PATH=$PATH:$APP_SPRING_BOOT_CLI_BIN_DIR
+# APP_SPRING_BOOT_CLI_DIR=$APP_DIR/_spring-boot-cli
+# APP_SPRING_BOOT_CLI_BIN_DIR=$APP_SPRING_BOOT_CLI_DIR/bin
+# export PATH=$PATH:$APP_SPRING_BOOT_CLI_BIN_DIR
 
 # https://www.mono-project.com/
 # export MONO_HOME=/Library/Frameworks/Mono.framework/Versions/5.0.1
@@ -79,13 +79,13 @@ export KUBECONFIG=$CONFIG_KUBECTL_CONFIG_FILE
 export PATH=$PATH:$APP_KUBECTL_DIR
 
 # https://kubernetes.io/docs/tasks/tools/install-minikube/
-APP_MINIKUBE_DIR=$APP_DIR/_minikube
-DATA_MINIKUBE_DIR=$DATA_DIR/_minikube
-export MINIKUBE_HOME=$DATA_MINIKUBE_DIR
-export MINIKUBE_WANTUPDATENOTIFICATION=false
-export MINIKUBE_WANTREPORTERRORPROMPT=false
-export CHANGE_MINIKUBE_NONE_USER=true
-export PATH=$PATH:$APP_MINIKUBE_DIR
+# APP_MINIKUBE_DIR=$APP_DIR/_minikube
+# DATA_MINIKUBE_DIR=$DATA_DIR/_minikube
+# export MINIKUBE_HOME=$DATA_MINIKUBE_DIR
+# export MINIKUBE_WANTUPDATENOTIFICATION=false
+# export MINIKUBE_WANTREPORTERRORPROMPT=false
+# export CHANGE_MINIKUBE_NONE_USER=true
+# export PATH=$PATH:$APP_MINIKUBE_DIR
 
 # https://helm.sh/docs
 # https://github.com/helm/helm-www
@@ -95,8 +95,8 @@ export PATH=$PATH:$APP_HELM_DIR
 
 # https://github.com/mholt/caddy
 # https://caddyserver.com/docs/cli
-APP_CADDY_DIR=$APP_DIR/_caddy
-export PATH=$PATH:$APP_CADDY_DIR
+# APP_CADDY_DIR=$APP_DIR/_caddy
+# export PATH=$PATH:$APP_CADDY_DIR
 
 # https://github.com/v2ray/v2ray-core
 APP_V2RAY_DIR=$APP_DIR/_v2ray
