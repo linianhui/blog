@@ -25,16 +25,13 @@ EOF
 
 # 禁用snap
 
-umount /snap/core* -lf
-snap remove core
-snap remove core18
-snap remove core20
-snap remove snapd
-snap remove snapd
-apt remove snapd --purge -y
-rm -rf ~/snap
-rm -rf /var/snap
-rm -rf /var/lib/snapd
+# umount /snap/core* -lf
+# snap remove core
+# snap remove core18
+# snap remove core20
+# snap remove snapd
+# snap remove snapd
+# apt remove snapd --purge -y
 
 # mount disk
 
