@@ -1,4 +1,4 @@
-# sudo bash <(wget -q -O - https://linianhui.github.io/linux/ubuntu/apt.aliyun.sh)
+# sudo bash <(wget -q -O - https://linianhui.github.io/linux/ubuntu/apt.sh)
 
 set -eux
 
