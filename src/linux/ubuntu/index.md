@@ -26,11 +26,30 @@ toc: true
 
 ```sh
 sudo passwd root
+# /etc/ssh/sshd_cofig 
+# PermitRootLogin yes
 apt-get -y autoremove clean
 ```
 
 ```sh
 Optimize-VHD -Path E:\_vhd\ubts.vhdx -Mode Full
+```
+
+```sh
+# 查看硬盘
+fdisk -l
+
+# 创建新分区 n w
+gdisk /dev/sdb
+
+# 格式化新分区
+mkfs.ext4 /dev/sdb1
+
+# 挂载 /etc/fstab
+# 查看uuid
+blkid
+# UUID=f1abf791-fe61-4dab-858f-632acb7d1d8f /data  ext4  defaults 0 0
+
 ```
 
 # 3 Reference {#reference}

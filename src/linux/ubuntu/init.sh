@@ -3,7 +3,7 @@
 set -x
 
 apt-get update \
-    && apt-get -y install curl wget unzip tcpdump net-tools iproute2 vim jq coreutils tini\
+    && apt-get -y install curl wget unzip tcpdump net-tools iproute2 vim jq coreutils tini gdisk\
     && apt-get -y autoremove \
     && apt-get -y clean
 
