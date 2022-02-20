@@ -22,7 +22,11 @@ toc: true
 | aliyun | http://mirrors.aliyun.com/ubuntu/                 |
 | dde    | https://www.deepin.org/original/deepin-boot-maker |
 
+# 2 Config {#config}
 
+```sh
+sudo passwd root
+```
 # 2 Reference {#reference}
 
 {{<highlight-files title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}
