@@ -7,13 +7,13 @@ toc: true
 
 # 1 Install {#install}
 
-| iso      | url                                           |
-| -------- | --------------------------------------------- |
-| official | http://releases.ubuntu.com                    |
-| 163      | http://mirrors.163.com/ubuntu-releases        |
-| aliyun   | https://mirrors.aliyun.com/ubuntu-releases    |
-| old      | http://old-releases.ubuntu.com                |
-| vm       | http://cloud-images.ubuntu.com/bionic/current |
+| iso      | url                                                                       |
+| -------- | ------------------------------------------------------------------------- |
+| official | http://releases.ubuntu.com                                                |
+| 163      | http://mirrors.163.com/ubuntu-releases                                    |
+| aliyun   | https://mirrors.aliyun.com/ubuntu-releases                                |
+| legacy   | https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-legacy-server/ |
+| vm       | http://cloud-images.ubuntu.com/bionic/current                             |
 
 
 | source | url                                               |
