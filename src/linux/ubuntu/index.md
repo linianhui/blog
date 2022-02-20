@@ -26,7 +26,22 @@ toc: true
 
 ```sh
 sudo passwd root
+apt clean
 ```
+
+```sh
+cat /dev/zero > zero.file
+sync
+rm zero.file
+
+diskpart
+select vdisk file="xxx.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+```
+
 # 2 Reference {#reference}
 
 {{<highlight-files title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}
