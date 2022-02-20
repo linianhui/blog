@@ -1,4 +1,5 @@
 # https://netplan.io/examples
+# /etc/netplan/xxx.yaml
 network:
   version: 2
   renderer: networkd

@@ -26,22 +26,17 @@ toc: true
 
 ```sh
 sudo passwd root
-apt clean
+apt-get -y autoremove clean
 ```
 
 ```sh
-cat /dev/zero > zero.file
-sync
-rm zero.file
-
-diskpart
-select vdisk file="xxx.vhdx"
-attach vdisk readonly
-compact vdisk
-detach vdisk
-exit
+Optimize-VHD -Path E:\_vhd\ubts.vhdx -Mode Full
 ```
 
-# 2 Reference {#reference}
+# 3 Reference {#reference}
 
-{{<highlight-files title="sh文件列表"  regex="^.*\.sh$" lang="sh">}}
+{{<highlight-file path="network.yaml" lang="yaml">}}
+
+{{<highlight-file path="sources-focal.list" lang="list">}}
+
+{{<highlight-file path="init.sh" lang="sh">}}
