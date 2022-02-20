@@ -1,3 +1,5 @@
+# sudo bash <(wget -q -O - https://linianhui.github.io/linux/ubuntu/init.sh)
+
 set -x
 
 # 禁用防火墙
@@ -11,9 +13,9 @@ systemctl disable firewalld
 # 禁用swap
 sudo swapoff -a
 # 永久禁用swap
-#cat /etc/fstab
-#cat /etc/fstab | grep -v swap > /etc/fstab
-#cat /etc/fstab
+cat /etc/fstab
+cat /etc/fstab | grep -v swap > /etc/fstab
+cat /etc/fstab
 
 
 # 永久禁用SELINUX
@@ -36,8 +38,8 @@ rm -rf /var/lib/snapd
 
 # mount disk
 
-fdisk -l
-mount -l
+# fdisk -l
+# mount -l
 
 # fdisk /dev/sdb
 # mkfs -t xfs /dev/sdb1
