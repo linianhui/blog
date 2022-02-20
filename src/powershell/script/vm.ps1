@@ -18,7 +18,7 @@ function vhd-create(
 ) {
     Log-Debug "New-VHD -Path $Path -Dynamic -SizeBytes $Size"
     New-VHD `
-        -Path $Path ` 
+        -Path $Path `
     -Dynamic `
         -SizeBytes $Size
 }
@@ -90,9 +90,9 @@ function vm-ssh (
 }
 
 function ubts () {
-    vm-ssh -username lnh -hostname ubts
+    vm-ssh -username root -hostname ubts
 }
 
 function ceos () {
-    vm-ssh -username lnh -hostname ceos
+    vm-ssh -username root -hostname ceos
 }
