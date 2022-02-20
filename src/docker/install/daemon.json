@@ -26,8 +26,6 @@
   "max-concurrent-uploads": 6,
   "registry-mirrors": [
     "http://hub-mirror.c.163.com/",
-    "https://registry.docker-cn.com",
-    "https://reg-mirror.qiniu.com",
     "https://docker.mirrors.ustc.edu.cn"
   ],
   "storage-driver": "overlay2",

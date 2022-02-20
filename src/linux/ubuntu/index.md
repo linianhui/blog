@@ -36,6 +36,10 @@ Optimize-VHD -Path E:\_vhd\ubts.vhdx -Mode Full
 ```
 
 ```sh
+# 更改主机名
+# /etc/hostname
+# /etc/hosts
+
 # 查看硬盘
 fdisk -l
 
