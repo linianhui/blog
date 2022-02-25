@@ -22,7 +22,7 @@ h4 {
 a {
   position: relative;
   text-decoration: none;
-  color: #0681ba;
+  color: #0594cb;
 }
 
 a:hover {
@@ -387,7 +387,7 @@ time{
 }
 
 .highlight-file-switch{
-  color: #0681ba;
+  color: #0594cb;
   cursor: pointer;
 }
 
@@ -664,5 +664,5 @@ time{
   height: 2px;
   width: 0;
   z-index: 9999;
-  background-color: #0681ba;
+  background-color: #0594cb;
 }
