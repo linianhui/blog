@@ -1,7 +1,7 @@
 ---
-title: '[Distributed] Gossip Protocol'
+title: '[Algorithm] Gossip Protocol'
 created_at: 2021-07-03 06:25:00
-tag: ["Gossip","Protocol","Distributed","draft"]
+tag: ["Gossip","Protocol","Algorithm","Distributed","draft"]
 toc: true
 draft: true
 ---
