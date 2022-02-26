@@ -405,7 +405,6 @@ time{
   padding: 6px;
   font-style: italic;
   background-color: #eee;
-  display: flex;
 }
 
 .highlight-file-content {
