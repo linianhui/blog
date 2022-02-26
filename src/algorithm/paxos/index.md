@@ -1,7 +1,7 @@
 ---
-title: '[Distributed] Paxos'
+title: '[Algorithm] Paxos'
 created_at: 2021-07-03 06:17:00
-tag: ["Paxos","Distributed","draft"]
+tag: ["Paxos","Algorithm","Distributed","draft"]
 toc: true
 draft: true
 ---

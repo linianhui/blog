@@ -391,7 +391,7 @@ time{
   cursor: pointer;
 }
 
-.highlight-file-download::before{
+.highlight-file-switch::before{
   margin-right: 6px;
 }
 
@@ -405,10 +405,20 @@ time{
   padding: 6px;
   font-style: italic;
   background-color: #eee;
+  display: flex;
 }
 
 .highlight-file-content {
   display: none;
+}
+
+.highlight-file-content pre{
+  margin: 0  !important;
+  padding: 6px;
+}
+
+.highlight-file-content code{
+  padding: 0 !important;
 }
 
 .highlight-files .highlight-file {
@@ -429,6 +439,7 @@ time{
 
 .highlight-file_opened .highlight-file-content {
   display: block;
+  border-bottom: 1px solid #eee;
 }
 
 .highlight-files .highlight-file_opened .highlight-file-header {

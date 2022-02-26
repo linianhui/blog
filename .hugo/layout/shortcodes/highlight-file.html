@@ -9,13 +9,13 @@
 {{- $collapseClass := cond (eq $hideParam "true") " " " highlight-file_opened" -}}
 <div class="highlight-file{{$collapseClass}}" id="hf-{{$id}}">
   <div class="highlight-file-header">
-    <a class="fa fa-plus highlight-file-switch" onclick="blog.toggleClassName('hf-{{$id}}','highlight-file_opened')"></a>
+    <a class="fa fa-plus highlight-file-switch" onclick="blog.toggleClassName('hf-{{$id}}','highlight-file_opened')">{{$pathParam}}</a>
     {{- if $isAbsolutePath -}}
       <span title="{{$title}}">{{$pathParam}}</span>
       <a class="fa fa-github" target="_blank" href="{{$.Site.Params.url.repo.blob}}{{$filePath}}" title="源码"></a>
     {{- else -}}
-      <a class="fa fa-download highlight-file-download" target="_blank" href="{{$filePath}}" title="{{$title}}" download> {{$pathParam}}</a>
-      <a class="fa fa-github" target="_blank" href="{{$.Site.Params.url.repo.blobSrc}}{{$filePath}}" title="源码"></a>
+      <a class="fa fa-download highlight-file-download" target="_blank" href="{{$filePath}}" title="下载 {{$title}}" download></a>
+      <a class="fa fa-github" target="_blank" href="{{$.Site.Params.url.repo.blobSrc}}{{$filePath}}" title="源码 {{$title}}"></a>
     {{- end -}}
   </div>
   <div class="highlight-file-content">
