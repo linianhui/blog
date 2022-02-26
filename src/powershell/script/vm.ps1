@@ -89,8 +89,8 @@ function vm-ssh (
     ssh "$username@$hostname" -p $port
 }
 
-function ubts () {
-    vm-ssh -username root -hostname ubts
+function ubt1 () {
+    vm-ssh -username root -hostname ubt1
 }
 
 function ceos () {

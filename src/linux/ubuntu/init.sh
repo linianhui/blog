@@ -45,5 +45,6 @@ EOF
 
 # fdisk /dev/sdb
 # mkfs -t xfs /dev/sdb1
-# ls -l /dev/disk/by-uuid
-# /dev/disk/by-uuid/8249b2b1-fa51-4e95-8639-94b749b865ec /data xfs defaults 0 0
+# 挂载 /etc/fstab
+# 查看uuid blkid
+# UUID=f1abf791-fe61-4dab-858f-632acb7d1d8f /data xfs defaults 0 0

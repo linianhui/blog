@@ -32,7 +32,7 @@ apt-get -y autoremove clean
 ```
 
 ```sh
-Optimize-VHD -Path E:\_vhd\ubts.vhdx -Mode Full
+Optimize-VHD -Path E:\_vhd\ubt1.vhdx -Mode Full
 ```
 
 ```sh
