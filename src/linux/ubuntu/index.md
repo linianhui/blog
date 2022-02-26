@@ -47,7 +47,7 @@ fdisk -l
 gdisk /dev/sdb
 
 # 格式化新分区
-mkfs.ext4 /dev/sdb1
+mkfs.xfs /dev/sdb1
 
 # 挂载 /etc/fstab
 # 查看uuid
