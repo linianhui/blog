@@ -93,6 +93,14 @@ function ubt1 () {
     vm-ssh -username root -hostname ubt1
 }
 
+function ubt2 () {
+    vm-ssh -username root -hostname ubt2
+}
+
+function ubt3 () {
+    vm-ssh -username root -hostname ubt3
+}
+
 function ceos () {
     vm-ssh -username root -hostname ceos
 }
