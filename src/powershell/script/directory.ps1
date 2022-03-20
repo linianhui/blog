@@ -57,8 +57,7 @@ function script:Directory-ConvertToDirObject {
 
 function Directory-Add-To-Quick-Access {
     param (
-        [Parameter(Mandatory = $TRUE)]
-        [string] $Path = $(throw "Path param is null!")
+        [string] $Path)
     )
 
     if (Directory-Exists-And-Is-Directory -Path $Path) {
