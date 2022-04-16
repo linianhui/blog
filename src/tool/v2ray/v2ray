@@ -1,0 +1,26 @@
+#!/bin/sh /etc/rc.common
+
+# /etc/init.d/v2ray
+# chmod +x /etc/init.d/v2ray
+# /etc/init.d/v2ray enable
+# /etc/init.d/v2ray start
+# /etc/init.d/v2ray stop
+# /etc/init.d/v2ray reload
+
+START=99
+
+SERVICE_WRITE_PID=1
+SERVICE_DAEMONIZE=1
+
+start() {
+  service_start /usr/bin/v2ray --config=/usr/bin/config.json
+}
+
+stop() {
+  service_stop /usr/bin/v2ray
+}
+
+reload() {
+  service_reload /usr/bin/v2ray
+}
+
