@@ -23,7 +23,7 @@ toc: true
     * <http://download.cpuid.com/cpu-z/cpu-z_1.88-cn.zip>
 
 7. GPU-Z ：<https://www.techpowerup.com/gpuz/>
-    * <http://us1-dl.techpowerup.com/files/5_FKMNerfjsrEW2JgFv5gQ/1537790917/GPU-Z.2.11.0.exe
+    * <http://us1-dl.techpowerup.com/files/5_FKMNerfjsrEW2JgFv5gQ/1537790917/GPU-Z.2.11.0.exe>
 
 8. SuperPI ：<http://www.superpi.net/Download/>
 
