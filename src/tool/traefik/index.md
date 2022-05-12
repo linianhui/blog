@@ -1,5 +1,5 @@
 ---
-title: "[工具] Traefik"
+title: "[工具] traefik"
 created_at: 2018-04-20 11:21:00
 tag: ["reverse-proxy","go","network",'tool']
 toc: true

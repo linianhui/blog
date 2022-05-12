@@ -1,5 +1,5 @@
 ---
-title: "[工具] Application"
+title: "[工具] App"
 created_at: 2019-10-22 15:03:03
 tag: ["os","rufus","etcher","7z",'pdf','search','tool']
 toc: true
