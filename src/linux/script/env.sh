@@ -19,7 +19,7 @@ export PATH=$PATH:$APP_DOTNET_DIR:$DOTNET_TOOLS_DIR
 # https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 APP_JAVA_DIR=$APP_DIR/_java
 APP_JAVA_BIN_DIR=$APP_JAVA_DIR/bin
-export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+# export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export JAVA_HOME=$APP_JAVA_DIR
 export PATH=$PATH:$APP_JAVA_BIN_DIR
 
