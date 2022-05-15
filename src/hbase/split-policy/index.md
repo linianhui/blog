@@ -11,7 +11,7 @@ toc: true
 
 # 2 配置方式 {#config}
 
-# 2.1 RegionServer {#config-regionserver}
+## 2.1 RegionServer {#config-regionserver}
 
 不推荐：原因是不够灵活。
 
@@ -24,7 +24,7 @@ toc: true
 ```
 
 
-# 2.2 Table {#config-table}
+## 2.2 Table {#config-table}
 
 推荐：原因是表范围内的配置，每个表可以独立设置适合的策略。
 
