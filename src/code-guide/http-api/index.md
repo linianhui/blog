@@ -582,3 +582,7 @@ Hypermedia
 URL模板
 
 1. URI Template ( RFC6570 )  : https://tools.ietf.org/html/rfc6570
+
+彩蛋：NO SOAP!
+
+![NO SOAP!](soap.jpg)
