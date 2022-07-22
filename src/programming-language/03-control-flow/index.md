@@ -96,7 +96,7 @@ class Program
     static void Main(string[] args)
     {
         Student stu = new Student();
-        stu.Name = "Blackheart";
+        stu.Name = "Timetombs";
         stu.Age = 25;
         Student stu2 = stu;
         stu2.Name = "王尼玛";

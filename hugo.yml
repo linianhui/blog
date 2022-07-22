@@ -7,7 +7,7 @@ baseURL: https://linianhui.github.io/
 languageCode: zh-cn
 hasCJKLanguage: true
 
-title: blackheart
+title: Timetombs
 timeZone: Asia/Shanghai
 params:
   GitLastHash: ''

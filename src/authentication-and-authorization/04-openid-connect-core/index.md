@@ -129,7 +129,7 @@ ID Token通常情况下还会包含其他的Claims(毕竟上述claim中只有sub
 5. `max_age` : 可选。代表EU认证信息的有效时间，对应ID Token中auth_time的claim。比如设定是20分钟，则超过了时间，则需要引导EU重新认证。
 6. `ui_locales` : 可选。用户界面的本地化语言设置项。
 7. `id_token_hint` : 可选。之前发放的ID Token，如果ID Token经过验证且是有效的，则需要返回一个正常的响应；如果有误，则返回对应的错误提示。
-8. `login_hint` : 可选。向授权服务器提示登录标识符，EU可能会使用它登录(如果需要的话)。比如指定使用用户使用blackheart账号登录，当然EU也可以使用其他账号登录，这只是类似html中input元素的placeholder。
+8. `login_hint` : 可选。向授权服务器提示登录标识符，EU可能会使用它登录(如果需要的话)。比如指定使用用户使用Timetombs账号登录，当然EU也可以使用其他账号登录，这只是类似html中input元素的placeholder。
 9. `acr_values` : 可选。Authentication Context Class Reference values，对应ID Token中的acr的Claim。此参数允许多个值出现，使用空格分割。
 
 以上是基于Authorization Code方式的OIDC的认证请求所需的参数。在OIDC的其他认证流程中也会有其他的参数或不同的参数值(稍有差异)。一个简单的示例如下 : 

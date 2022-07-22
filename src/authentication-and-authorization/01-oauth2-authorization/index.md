@@ -266,7 +266,7 @@ POST /token HTTP/1.1
 Host: server.example.com
 Content-Type: application/x-www-form-urlencoded 
 
-grant_type=password&username=blackheart&password=1234
+grant_type=password&username=Timetombs&password=1234
 ```
 
 Access Token Response和Authorization Code一致，就不列出来了。

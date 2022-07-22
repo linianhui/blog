@@ -71,10 +71,10 @@ $ redis-server
 
 ```sh
 $ redis-cli
-127.0.0.1:6379> set test blackheart
+127.0.0.1:6379> set test Timetombs
 OK
 127.0.0.1:6379> get test
-"blackheart"
+"Timetombs"
 127.0.0.1:6379> 
 ```
 
