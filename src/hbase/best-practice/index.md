@@ -21,9 +21,9 @@ String rowKey    = prefix + '_' + rawRowKey;
 
 在设计好RowKey后，建议同时设置预分区和分区策略[^split-policy]。
 
-预分区可以提前是的数据更加均匀的落在RegionServer上，避免自动分裂后的Region和RegionServer的分配不均衡的问题。
+预分区可以提前使得数据更加均匀的落在RegionServer上，避免自动分裂后的Region和RegionServer的分配不均衡的问题。
 
-分区策略则是可以更好的使得相近的数据落在同一个Region内，减缓一次数据查询需要跨越多个Region或者RegionServer的问题。比如上面的添加RowKey前缀的方式，就可以结合KeyPrefixRegionSplitPolicy策略，固定长度为4，可以使得同一个用户的数据尽可能都都在一个Region内。
+分区策略则是可以更好的使得相近的数据落在同一个Region内（以及控制自动分裂的时机），减缓一次数据查询需要跨越多个Region或者RegionServer的问题。比如上面的添加RowKey前缀的方式，就可以结合KeyPrefixRegionSplitPolicy策略，固定长度为4，可以使得同一个用户的数据尽可能都都在一个Region内。
 
 
 # 3 数据压缩 {#compression}
@@ -36,7 +36,7 @@ HBase支持透明的数据压缩。推荐配置的算法为`SNAPPY`[^compression
 | LZO       | 20.5%       | 135 MB/s | 410 MB/s |
 | Snappy    | 22.2%       | 172 MB/s | 409 MB/s |
 
-# 4 透明加密 {#compression}
+# 4 透明加密 {#encryption}
 
 HBase支持AES加密，性能损耗大约在13%左右，可以根据需要选择是否开启。
 
