@@ -1,5 +1,7 @@
 {{ define "content" }}
   {{ range .Site.RegularPages }}
-  {{ .Render "summary"}}
+    {{- if ne .Params.noHome true }}
+      {{ .Render "summary"}}
+    {{- end -}}
   {{ end }}
 {{ end }}
