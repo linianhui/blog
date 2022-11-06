@@ -51,6 +51,9 @@ noHome: true
     * <http://www.uderzo.it/main_products/space_sniffer/>
     * <https://www.fosshub.com/SpaceSniffer.html?dwl=spacesniffer_1_3_0_2.zip>
 
+5. ChipGenius : <https://www.softpedia.com/get/System/System-Info/.shtml>
+    * <https://softpedia-secure-download.com/dl/5f8afea87878a54cd9c5243423504cd5/63674464/100251552/software/system/info/ChipGenius_v4_19_0319.zip> 
+
 
 # Download
 
