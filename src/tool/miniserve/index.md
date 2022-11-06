@@ -22,6 +22,6 @@ miniserve --color-scheme squirrel --qrcode --auth lnh:123 --upload-files
 
 下载连接：
 1. <https://github.com/svenstaro/miniserve/releases>
-2. <https://github.com/svenstaro/miniserve/releases/download/v0.12.0/miniserve-v0.12.0-x86_64-pc-windows-msvc.exe>
-3. <https://github.com/svenstaro/miniserve/releases/download/v0.12.0/miniserve-v0.12.0-x86_64-apple-darwin>
+2. <https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-x86_64-pc-windows-msvc.exe>
+3. <https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-x86_64-apple-darwin>
 
