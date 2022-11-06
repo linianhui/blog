@@ -70,6 +70,9 @@ noHome: true
     * <http://www.codecguide.com/download_k-lite_codec_pack_basic.htm>
     * <http://files2.codecguide.com/K-Lite_Codec_Pack_1455_Basic.exe>
 
+2. MP3Tag : <https://www.mp3tag.de/en/>
+    * <https://download.mp3tag.de/mp3tagv318-x64-setup.exe>
+
 # Network
 
 1. Shadowsocks  : <https://shadowsocks.org/>
