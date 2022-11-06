@@ -36,6 +36,10 @@ noHome: true
 11. Everything : <https://www.voidtools.com/>
     * <https://www.voidtools.com/Everything-1.4.1.1015.x64.zip>
 
+12. 微PE工具箱 : <https://www.wepe.com.cn/>
+    * <https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE64_V2.2.exe>
+    * <https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE32_V2.2.exe>
+
 # Disk
 
 1. CrystalDiskInfo : <https://crystalmark.info/en/download>
