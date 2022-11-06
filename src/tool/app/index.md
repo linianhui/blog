@@ -40,6 +40,8 @@ noHome: true
     * <https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE64_V2.2.exe>
     * <https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE32_V2.2.exe>
 
+13 adb : <https://linianhui.github.io/tool/android/>
+
 # Disk
 
 1. CrystalDiskInfo : <https://crystalmark.info/en/download>
