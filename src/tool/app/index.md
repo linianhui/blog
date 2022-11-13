@@ -41,6 +41,9 @@ noHome: true
     * <https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE32_V2.2.exe>
 
 13. adb : <https://linianhui.github.io/tool/android/>
+14. Ventory : <https://github.com/ventoy/ventoy>
+    * <https://www.ventoy.net/cn/download.html>  
+    * <https://github.com/ventoy/ventoy/releases/download/v1.0.81/ventoy-1.0.81-windows.zip>
 
 # Disk
 
