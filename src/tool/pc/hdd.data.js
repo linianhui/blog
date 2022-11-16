@@ -62,6 +62,14 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
+        size: 4000,
+        brand: '海康OEM',
+        series: 'Purple Surveillance',
+        model: 'DS42HKVS',
+        price: 418,
+        priceDate: '2022-10-25'
+    },
+    {
         size: 8000,
         brand: '希捷',
         series: 'Exos 7E10',
