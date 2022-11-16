@@ -1,0 +1,45 @@
+<div id="hddList">
+  <el-table :data="hdds" :default-sort="{prop: 'price'}" style="width: 100%">
+    <el-table-column prop="size" label="容量" sortable="true" min-width="40">
+      <template slot-scope="scope">
+        {{scope.row.size/1000}}T
+      </template>
+    </el-table-column>
+    <el-table-column prop="brand" label="品牌" sortable="true" min-width="40">
+      <template slot-scope="scope">
+        <a v-if="scope.row.brandUrl" :href="scope.row.brandUrl" target="_blank">{{scope.row.brand}}</a>
+        <span v-else>{{scope.row.brand}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="series" label="系列" sortable="true" min-width="40">
+      <template slot-scope="scope">
+        <a v-if="scope.row.seriesUrl" :href="scope.row.seriesUrl" target="_blank">{{scope.row.series}}</a>
+        <span v-else>{{scope.row.series}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="model" label="型号" sortable="true" min-width="80">
+      <template slot-scope="scope">
+        <a v-if="scope.row.datasheetUrl" :href="scope.row.datasheetUrl" target="_blank">{{scope.row.model}}</a>
+        <span v-else>{{scope.row.model}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="price" label="价格" sortable="true" min-width="40">
+      <template slot-scope="scope">
+        {{scope.row.price}} <span style="color: #999;font-size: 12px;font-style: italic;">{{scope.row.priceDate}}</span>
+      </template>
+    </el-table-column>
+    <el-table-column prop="fullModel" label="购买链接" min-width="60">
+      <template slot-scope="scope">
+        <a :href="'https://search.jd.com/Search?keyword='+scope.row.fullModel" target="_blank">京东</a>
+        <a :href="'https://s.taobao.com/search?q='+scope.row.fullModel" target="_blank">淘宝</a>
+      </template>
+    </el-table-column>
+  </el-table>
+</div>
+<script src="hdd.data.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: "#hddList",
+    data: { hdds: hdds }
+  })
+</script>
