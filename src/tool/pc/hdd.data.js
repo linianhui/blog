@@ -47,6 +47,14 @@ const hdds = [
     },
     {
         size: 4000,
+        brand: '海康OEM',
+        series: 'SkyHawk',
+        model: 'ST4000VX015',
+        price: 418,
+        priceDate: '2022-10-25'
+    },
+    {
+        size: 4000,
         brand: '西部数据',
         series: 'Purple Surveillance',
         model: 'WD42EJRX',
