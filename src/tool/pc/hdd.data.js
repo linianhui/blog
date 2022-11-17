@@ -169,9 +169,8 @@ function hddFill(hdd) {
     hdd.brandUrl = getHddBrandUrl(hdd);
     hdd.seriesUrl = getHddSeriesUrl(hdd);
     hdd.datasheetUrl = getHddDatasheetUrl(hdd);
-    hdd.fullModel = getHddFullModel(hdd);
-    hdd.shopJDUrl = blog.getJDSearchUrl(hdd.fullModel);
-    hdd.shopTBUrl = blog.getTBSearchUrl(hdd.fullModel);
+    hdd.shopJDUrl = blog.getJDSearchUrl(hdd.model);
+    hdd.shopTBUrl = blog.getTBSearchUrl(hdd.model);
 }
 
 function getHddBrand(hdd) {
@@ -204,17 +203,6 @@ function getHddDatasheetUrl(hdd) {
     if (series) {
         return series.datasheetUrl;
     }
-}
-
-function getHddFullModel(hdd) {
-    var fullModel = [];
-    if (hdd.series) {
-        fullModel.push(hdd.series);
-    }
-    if (hdd.model) {
-        fullModel.push(hdd.model);
-    }
-    return fullModel.join(' ');
 }
 
 hdds.forEach(hddFill);

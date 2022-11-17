@@ -34,7 +34,7 @@
         {{scope.row.price}} <sub style="color: #999;font-size: 10px;font-style: italic;">{{scope.row.priceDate}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="fullModel" label="电商">
+    <el-table-column prop="model" label="电商">
       <template slot-scope="scope">
         <a :href="scope.row.shopJDUrl" target="_blank">京东</a>
         <a :href="scope.row.shopTBUrl" target="_blank">淘宝</a>
