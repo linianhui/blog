@@ -1,34 +1,40 @@
 <div id="hddList" class="inner-html">
-  <el-table :data="hdds" :default-sort="{prop: 'price'}" style="width: 100%">
-    <el-table-column prop="size" label="容量" sortable="true" min-width="40">
+  <el-table :data="hdds" :default-sort="{prop: 'price'}">
+    <el-table-column prop="size" label="容量" sortable="true">
       <template slot-scope="scope">
         {{scope.row.size/1000}}T
       </template>
     </el-table-column>
-    <el-table-column prop="brand" label="品牌" sortable="true" min-width="40">
+    <el-table-column prop="brand" label="品牌" sortable="true">
       <template slot-scope="scope">
         <a v-if="scope.row.brandUrl" :href="scope.row.brandUrl" target="_blank">{{scope.row.brand}}</a>
         <span v-else>{{scope.row.brand}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="series" label="系列" sortable="true" min-width="40">
+    <el-table-column prop="series" label="系列" sortable="true">
       <template slot-scope="scope">
         <a v-if="scope.row.seriesUrl" :href="scope.row.seriesUrl" target="_blank">{{scope.row.series}}</a>
         <span v-else>{{scope.row.series}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="model" label="型号" sortable="true" min-width="80">
+    <el-table-column prop="model" label="型号" sortable="true">
       <template slot-scope="scope">
         <a v-if="scope.row.datasheetUrl" :href="scope.row.datasheetUrl" target="_blank">{{scope.row.model}}</a>
         <span v-else>{{scope.row.model}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="price" label="价格" sortable="true" min-width="40">
+    <el-table-column prop="recording" label="记录" sortable="true">
+    </el-table-column>
+    <el-table-column prop="cache" label="缓存" sortable="true">
+    </el-table-column>
+    <el-table-column prop="rpm" label="转速" sortable="true">
+    </el-table-column>
+    <el-table-column prop="price" label="价格" sortable="true">
       <template slot-scope="scope">
-        {{scope.row.price}} <span style="color: #999;font-size: 12px;font-style: italic;">{{scope.row.priceDate}}</span>
+        {{scope.row.price}} <sub style="color: #999;font-size: 10px;font-style: italic;">{{scope.row.priceDate}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="fullModel" label="购买链接" min-width="60">
+    <el-table-column prop="fullModel" label="电商">
       <template slot-scope="scope">
         <a :href="'https://search.jd.com/Search?keyword='+scope.row.fullModel" target="_blank">京东</a>
         <a :href="'https://s.taobao.com/search?q='+scope.row.fullModel" target="_blank">淘宝</a>

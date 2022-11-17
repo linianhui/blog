@@ -10,8 +10,7 @@ noHome: true
 
 # 机械硬盘 {#hdd}
 
-注意：购买明确标注`CMR`的机械硬盘。
-
-
 {{<inline-html path="hdd.html">}}
+
+注意：购买明确标注`CMR`的机械硬盘，希捷较西部数据安静一些。
 
