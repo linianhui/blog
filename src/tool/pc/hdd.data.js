@@ -181,12 +181,8 @@ function hddFill(hdd) {
     hdd.seriesUrl = getHddSeriesUrl(hdd);
     hdd.datasheetUrl = getHddDatasheetUrl(hdd);
     hdd.fullModel = getHddFullModel(hdd);
-    var keyword = encodeURIComponent(hdd.fullModel);
-    hdd.shopJDUrl = 'https://search.jd.com/Search?keyword=' + keyword;
-    var jdParam = encodeURIComponent('{"des":"productList","keyWord":"' + hdd.fullModel + '","from":"search","category":"jump"}');
-    hdd.shopJDAppUrl = 'openapp.jdmobile://virtual?params=' + jdParam;
-    hdd.shopTBUrl = 'https://s.taobao.com/search?q=' + keyword;
-    hdd.shopTBAppUrl = 'taobao://s.taobao.com/search?q=' + keyword;
+    hdd.shopJDUrl = blog.getJDSearchUrl(hdd.fullModel);
+    hdd.shopTBUrl = blog.getTBSearchUrl(hdd.fullModel);
 }
 
 function getHddBrand(hdd) {

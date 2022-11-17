@@ -226,12 +226,28 @@
         refreshStyleOnHeightChange();
     }
 
+    function getJDSearchUrl(keyword) {
+        if (isMobile()) {
+            return 'openapp.jdmobile://virtual?params=' + encodeURIComponent('{"des":"productList","keyWord":"' + keyword + '","from":"search","category":"jump"}');
+        }
+        return 'https://search.jd.com/Search?keyword=' + encodeURIComponent(keyword);
+    }
+
+    function getTBSearchUrl(keyword) {
+        if (isMobile()) {
+            return 'taobao://s.taobao.com/search?q=' + encodeURIComponent(keyword);
+        }
+        return 'https://s.taobao.com/search?q=' + encodeURIComponent(keyword);
+    }
+
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
         toggleClassName: toggleClassName,
         addOnScorllEvent: addOnScorllEvent,
-        toggleToc: toggleToc
+        toggleToc: toggleToc,
+        getJDSearchUrl: getJDSearchUrl,
+        getTBSearchUrl: getTBSearchUrl
     };
 
 })(window, document, navigator);
