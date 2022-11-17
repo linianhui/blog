@@ -1,5 +1,5 @@
 ---
-title: "[工具] PC"
+title: "[工具] pc"
 created_at: 2012-11-16 23:09:01
 tag: ["pc",'tool',"hdd"]
 toc: true

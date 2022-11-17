@@ -49,6 +49,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
+        rvSensors: true,
         price: 498,
         priceDate: '2022-10-25'
     },
@@ -60,6 +61,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
+        rvSensors: true,
         price: 418,
         priceDate: '2022-10-25'
     },
@@ -71,6 +73,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
+        rvSensors: true,
         price: 445,
         priceDate: '2022-10-25'
     },
@@ -82,6 +85,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
+        rvSensors: true,
         price: 418,
         priceDate: '2022-10-25'
     },
@@ -93,6 +97,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
+        rvSensors: true,
         price: 1068,
         priceDate: '2022-10-25'
     },
@@ -104,6 +109,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
+        rvSensors: true,
         price: 999,
         priceDate: '2022-10-25'
     },
@@ -115,6 +121,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 5640,
         cache: '128MB',
+        rvSensors: true,
         price: 1249,
         priceDate: '2022-11-17'
     },
@@ -126,6 +133,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
+        rvSensors: true,
         price: 1678,
         priceDate: '2022-10-25'
     },
@@ -137,6 +145,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
+        rvSensors: true,
         price: 1599,
         priceDate: '2022-10-25'
     },
@@ -148,6 +157,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
+        rvSensors: true,
         price: 1998,
         priceDate: '2022-10-25'
     },
@@ -159,6 +169,7 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
+        rvSensors: true,
         price: 1899,
         priceDate: '2022-10-25'
     }
@@ -170,6 +181,12 @@ function hddFill(hdd) {
     hdd.seriesUrl = getHddSeriesUrl(hdd);
     hdd.datasheetUrl = getHddDatasheetUrl(hdd);
     hdd.fullModel = getHddFullModel(hdd);
+    var keyword = encodeURIComponent(hdd.fullModel);
+    hdd.shopJDUrl = 'https://search.jd.com/Search?keyword=' + keyword;
+    var jdParam = encodeURIComponent('{"des":"productList","keyWord":"' + hdd.fullModel + '","from":"search","category":"jump"}');
+    hdd.shopJDAppUrl = 'openapp.jdmobile://virtual?params=' + jdParam;
+    hdd.shopTBUrl = 'https://s.taobao.com/search?q=' + keyword;
+    hdd.shopTBAppUrl = 'taobao://s.taobao.com/search?q=' + keyword;
 }
 
 function getHddBrand(hdd) {
