@@ -49,7 +49,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
-        rvSensors: true,
         price: 498,
         priceDate: '2022-10-25'
     },
@@ -61,7 +60,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
-        rvSensors: true,
         price: 418,
         priceDate: '2022-10-25'
     },
@@ -73,7 +71,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
-        rvSensors: true,
         price: 445,
         priceDate: '2022-10-25'
     },
@@ -85,7 +82,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
-        rvSensors: true,
         price: 418,
         priceDate: '2022-10-25'
     },
@@ -97,7 +93,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
-        rvSensors: true,
         price: 1068,
         priceDate: '2022-10-25'
     },
@@ -109,7 +104,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
-        rvSensors: true,
         price: 999,
         priceDate: '2022-10-25'
     },
@@ -121,7 +115,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 5640,
         cache: '128MB',
-        rvSensors: true,
         price: 1249,
         priceDate: '2022-11-17'
     },
@@ -133,7 +126,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
-        rvSensors: true,
         price: 1678,
         priceDate: '2022-10-25'
     },
@@ -145,7 +137,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
-        rvSensors: true,
         price: 1599,
         priceDate: '2022-10-25'
     },
@@ -157,7 +148,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
-        rvSensors: true,
         price: 1998,
         priceDate: '2022-10-25'
     },
@@ -169,7 +159,6 @@ const hdds = [
         recording: 'CMR',
         rpm: 7200,
         cache: '256MB',
-        rvSensors: true,
         price: 1899,
         priceDate: '2022-10-25'
     }

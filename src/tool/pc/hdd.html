@@ -1,41 +1,35 @@
 <div id="hddList" class="inner-html">
   <el-table :data="hdds" :default-sort="{prop: 'price'}" highlight-current-row="true">
-    <el-table-column prop="size" label="容量" sortable="true" width="70">
+    <el-table-column prop="size" label="容量" sortable="true" min-width="70">
       <template slot-scope="scope">
         {{scope.row.size/1000}}T
       </template>
     </el-table-column>
-    <el-table-column prop="brand" label="品牌" sortable="true" width="80">
+    <el-table-column prop="brand" label="品牌" sortable="true" min-width="80">
       <template slot-scope="scope">
         <a v-if="scope.row.brandUrl" :href="scope.row.brandUrl" target="_blank">{{scope.row.brand}}</a>
         <span v-else>{{scope.row.brand}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="series" label="系列" sortable="true" width="150">
+    <el-table-column prop="series" label="系列" sortable="true" min-width="150">
       <template slot-scope="scope">
         <a v-if="scope.row.seriesUrl" :href="scope.row.seriesUrl" target="_blank">{{scope.row.series}}</a>
         <span v-else>{{scope.row.series}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="model" label="型号" sortable="true" width="150">
+    <el-table-column prop="model" label="型号" sortable="true" min-width="150">
       <template slot-scope="scope">
         <a v-if="scope.row.datasheetUrl" :href="scope.row.datasheetUrl" target="_blank">{{scope.row.model}}</a>
         <span v-else>{{scope.row.model}}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="recording" label="记录" sortable="true" width="60">
+    <el-table-column prop="recording" label="记录" sortable="true" min-width="60">
     </el-table-column>
-    <el-table-column prop="cache" label="缓存" sortable="true" width="70">
+    <el-table-column prop="cache" label="缓存" sortable="true" min-width="70">
     </el-table-column>
-    <el-table-column prop="rpm" label="转速" sortable="true" width="70">
+    <el-table-column prop="rpm" label="转速" sortable="true" min-width="70">
     </el-table-column>
-    <el-table-column prop="rvSensors" label="旋转震动传感器" sortable="true" width="130">
-      <template slot-scope="scope">
-      <span v-if="scope.row.rvSensors">支持</span>
-      <span v-else>无</span>
-      </template>
-    </el-table-column>
-    <el-table-column prop="price" label="价格" sortable="true" width="120">
+    <el-table-column prop="price" label="价格" sortable="true" min-width="120">
       <template slot-scope="scope">
         {{scope.row.price}} <sub style="color: #999;font-size: 10px;font-style: italic;">{{scope.row.priceDate}}</span>
       </template>
