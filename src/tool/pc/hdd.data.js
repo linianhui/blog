@@ -69,7 +69,7 @@ const hdds = [
         series: 'Purple Surveillance',
         model: 'WD42EJRX',
         recording: 'CMR',
-        rpm: 5400,
+        rpm: 5040,
         cache: '256MB',
         price: 445,
         priceDate: '2022-10-25'
