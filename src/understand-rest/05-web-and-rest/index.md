@@ -4,6 +4,7 @@ created_at: 2017-10-15 15:44:00
 tag: ["REST", "Web", "统一接口", "按需代码", "HATEOAS", "架构视图"]
 toc: true
 weight: 1
+displayed_on_home: true
 ---
 
 衔接上文[[理解REST] 04 基于网络应用的架构风格](../04-network-based-software-architecture-style/)，上文总结了一些适用于基于网络应用的架构风格，以及其评估结果。在前文的基础上，本文介绍一下Web架构的需求，以及在对Web的关键协议进行设计和改进的过程中遇到的问题；以及在对基于网络应用的架构风格进行评估的过程中的领悟；结合Web的需求进而推导出REST这种架构风格，随后使用REST来指导Web架构的设计和改进工作。

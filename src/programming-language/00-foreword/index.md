@@ -3,6 +3,7 @@ title: '[程序设计语言] 00 前言'
 created_at: 2014-07-13 09:04:00
 tag: ["抽象"]
 toc: true
+displayed_on_home: true
 ---
 
 ## 1 为何要读这本书？ {#why-read-this-book}

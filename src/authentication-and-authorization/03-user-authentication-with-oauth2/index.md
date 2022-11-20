@@ -2,6 +2,7 @@
 title: '[认证&授权] 03 使用OAuth2进行用户认证(译)'
 created_at: 2017-04-09 16:59:00
 toc: true
+displayed_on_home: true
 ---
 
 原作者 : [Justin Richer], 原文: [User Authentication with OAuth 2.0][OAuth2-Authentication]。

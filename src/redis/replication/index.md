@@ -3,6 +3,7 @@ title: '[Redis] replication'
 created_at: 2021-03-20 09:29:23
 tag: ["cache", "redis", "replication","ops"]
 toc: true
+displayed_on_home: true
 ---
 
 绝大多数的情况下，redis中的数据都是读取远远多于写入。为了提供更高的读取QPS的支持，所以redis提供了`Replication`[^replication]的支持。

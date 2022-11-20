@@ -3,6 +3,7 @@ title: '[Docker] Best Practice'
 created_at: 2020-04-12 17:13:01
 tag: ["docker","Best Practice","PID","ENTRYPOINT","bash","dash"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 ENTRYPOINT {#entrypoint} 

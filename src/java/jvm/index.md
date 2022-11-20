@@ -3,6 +3,7 @@ title: '[Java] JVM(Java Virtual Machine)'
 created_at: 2020-03-04 19:32:01
 tag: ["Java", "JVM", "Docker"]
 toc: true
+displayed_on_home: true
 ---
 
 Java是一个跨平台的语言，当初的口号**编译一次，到处运行**。那么它是如何实现跨平台运行的呢？计算机领域有个有个著名的定理**中间层定律**：计算机科学领域的任何问题都可以通过增加一个中间层来解决。那么Java的跨平台也不例外，它就是通过添加了一个中间层来解决跨平台运行的问题的。

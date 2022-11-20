@@ -3,6 +3,7 @@ title: '[Redis] resp'
 created_at: 2021-03-19 13:07:23
 tag: ["cache", "redis", "resp","telnet","dev"]
 toc: true
+displayed_on_home: true
 ---
 
 因为Redis是基于网络的分布式缓存服务，所以其隶属于`客户端-服务器架构风格`[^client-server]。这就使得它必须通过网络进行通信，那么其客户端和服务端所采取的`应用层协议`为`RESP(REdis Serialization Protocol)`[^resp]。底层的传输协议为`TCP`[^tcp]，端口号6379。

@@ -3,6 +3,7 @@ title: "[计算机网络] NAT"
 created_at: 2020-02-20 21:20:00
 tag: ["NAT","SNAT","DNAT","PAT","NAPT"]
 toc: true
+displayed_on_home: true
 ---
   
 # 1 NAT {#nat}

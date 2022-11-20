@@ -3,6 +3,7 @@ title: '[Java] synchronized'
 created_at: 2020-11-08 19:33:01
 tag: ["Java", "AQS","CAS","Lock","synchronized"]
 toc: true
+displayed_on_home: true
 ---
 
 在Java中，有一个与锁有关的关键字`synchronized`，它是由JVM层面提供的`Monitor`来实现。

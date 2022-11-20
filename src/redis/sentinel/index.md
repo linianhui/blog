@@ -3,6 +3,7 @@ title: '[Redis] sentinel'
 created_at: 2021-03-20 09:30:23
 tag: ["cache", "redis", "replication", "high availability","sentinel","ops"]
 toc: true
+displayed_on_home: true
 ---
 
 在上一篇博客`Replication`[^replication]中我们构建了一个简单的主从复制架构的redis服务，利用Replication我们可以让redis提供读写分离、提供读取能力、数据备份等功能，也支持slave从鼓掌中恢复。但是如果master出现了故障，那么整Replication都会处于一个不可用的状态。这显然无法满足高可用的目标。而整个目标需要借助`sentinel`[^sentinel]来实现。 

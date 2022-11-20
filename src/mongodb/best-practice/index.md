@@ -3,6 +3,7 @@ title: '[MongoDB] Best Practice'
 created_at: 2020-05-10 09:27:01
 tag: ["Mongo","MongoDB","Best Practice"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 Connection String {#connection-string}

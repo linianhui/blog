@@ -3,6 +3,7 @@ title: '[计算机网络编程] 运行时架构'
 created_at: 2021-04-23 13:46:23
 tag: ["io","networking","runtime-architecture","architecture","thread-model"]
 toc: true
+displayed_on_home: true
 ---
 
 基于`IO模型`[^io-model]、`Socket API`[^socket]以及`IO Multiplexing API`[^io-multiplexing]，基本上已经涵盖了目前基于网络编程的所使用的主流技术点。那么我们就可以评估一下各种组合方式所带来的 **架构属性**[^architectural-properties-of-key-interest]。

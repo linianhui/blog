@@ -3,6 +3,7 @@ title: '[Redis] pipelining'
 created_at: 2021-03-19 19:51:12
 tag: ["cache", "redis", "pipelining","rtt","dev"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 问题分析 {#issue}

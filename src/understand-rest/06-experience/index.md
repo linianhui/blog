@@ -3,6 +3,7 @@ title: "[理解REST] 06 REST的应用经验以及教训"
 created_at: 2017-10-21 15:21:00
 tag: ["REST", "Web", "URI", "HTTP","表述","超媒体","HATEOAS","RPC"]
 toc: true
+displayed_on_home: true
 ---
 
 衔接上文[[理解REST] 05 Web的需求 & 推导REST](../05-web-and-rest/)，上文根据Web的需求推导出了REST架构风格，以及REST的详细描述和解释。自从1994年以来，REST架构风格被用于指导Web架构的设计和开发工作，最重要的两点体现在设计HTTP和URI两个互联网规范协议的过程中，以及实现这些规范的libwww-perl客户端库，Apache HTTP项目(httpd)以及其他的实现中，所得到的经验以及教训。

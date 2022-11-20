@@ -4,6 +4,7 @@ created_at: 2018-03-31 09:02:21
 tag: ["REST", "HTTP", "API", "JSON", "URL", "资源", "表述", "i18n", "命名规则", "设计指南"]
 toc: true
 weight: 1
+displayed_on_home: true
 ---
 
 根据REST APIs的成熟度模型 ，此规范关注的是`Level 2`的APIs。

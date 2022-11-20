@@ -3,6 +3,7 @@ title: '[Java] Unsafe类'
 created_at: 2020-11-04 19:32:01
 tag: ["Java", "Unsafe"]
 toc: true
+displayed_on_home: true
 ---
 
 Unsafe类是Java提供一个底层的类型，位于`sun.misc`包中，主要用来提供一些不安全的底层内存操作。

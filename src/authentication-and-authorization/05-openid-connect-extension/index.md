@@ -3,6 +3,7 @@ title: '[认证&授权] 05 OIDC(OpenId Connect)身份认证(扩展部分)'
 created_at: 2017-11-16 13:39:00
 tag: ["OAuth2", "OIDC", "OpenId Connect", "OIDC Discovery", "OAuth 2.0 Multiple Response", "OAuth 2.0 Form Post Response", "Session Management", "SSO", "Id Token"]
 toc: true
+displayed_on_home: true
 ---
 
 在上一篇[[认证&授权] 04 OIDC(OpenId Connect)身份认证(核心部分)][04]中解释了OIDC的核心部分的功能，即OIDC如何提供`id_token`来用于认证。由于OIDC是一个协议族，如果只是简单的只关注其核心部分其实是不足以搭建一个完整的OIDC服务的。本篇则解释下OIDC中比较常用的几个相关扩展协议，可以说是搭建OIDC服务必备的几个扩展协议(在上一篇中有提到这几个协议规范): 

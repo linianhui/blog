@@ -3,6 +3,7 @@ title: '[Redis] expire'
 created_at: 2021-03-19 19:52:12
 tag: ["cache", "redis", "expire","lru","lfu","ttl","dev"]
 toc: true
+displayed_on_home: true
 ---
 
 因为redis通常主要用来作为一个缓存服务。缓存何时失效的问题号称是计算机科学领域两大难题之一（另一个是命名），这一篇文章就介绍下笔者对于缓存如何以及何时失效的问题理解。

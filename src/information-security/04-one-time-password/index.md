@@ -3,6 +3,7 @@ title: '[信息安全] 04 一次性密码 & 身份认证'
 created_at: 2017-07-23 14:24:00
 tag: ["OTP", "HOTP", "TOTP", "MFA", "2FA", "2SV"]
 toc: true
+displayed_on_home: true
 ---
 
 在信息安全领域，一般把**Cryptography**称为**密码**，而把**Password**称为**口令**。日常用户的认知中，以及我们开发人员沟通过程中，绝大多数被称作密码的东西其实都是Password(口令)，而不是真正意义上的密码。本文保持这种语义，采用密码来代指Password，而当密码和口令同时出现时，用英文表示以示区分。

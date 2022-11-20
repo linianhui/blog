@@ -3,6 +3,7 @@ title: '[计算机网络编程] IO Multiplexing API'
 created_at: 2021-04-13 17:08:23
 tag: ["io","multiplexing","networking","programming","select","poll","epoll","c10k","aio","iocp","kqueue","libuv","libevent"]
 toc: true
+displayed_on_home: true
 ---
 
 在上一节[Socket](../socket/)中介绍了socket相关的一些基础函数，以及一个基础版本的echo客户端和服务器程序，同时也遗留了一些问题[^socket-problem]。

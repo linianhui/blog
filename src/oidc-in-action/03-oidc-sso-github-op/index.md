@@ -3,6 +3,7 @@ title: '[OIDC in Action] 03 基于OIDC的SSO - GitHub OP'
 created_at: 2018-12-01 10:41:00
 tag: ["SSO", "OIDC", "OpenId Connect", "OP", "OpenID Provider", "acr_values", "IDP"]
 toc: true
+displayed_on_home: true
 ---
 
 在上上一篇[[OIDC in Action] 01 基于OIDC的SSO][01]的登录页面的截图中有出现QQ登录的地方。这个其实是通过扩展OIDC的OpenID Provider来实现的，OpenID Provider简称OP，OP是OIDC的一个很重要的角色，OIDC用它来实现兼容众多的用户认证方式的，比如基于OAuth2，SAML和WS-Federation等等的用户认证方式。关于OP在[[认证&授权] 04 OIDC(OpenId Connect)身份认证(核心部分)][authc-and-authz-oidc-core]中有提到过，但是并未详细解释。

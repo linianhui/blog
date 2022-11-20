@@ -3,6 +3,7 @@ title: '[认证&授权] 01 OAuth2授权'
 created_at: 2017-01-09 09:40:00
 tag: ["OAuth2", "Access Token", "Refresh Token", "Authorization Code", "Implicit", "Resource Owner Password Credentials", "Client Credentials"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 OAuth2解决什么问题的？ {#what-is-oauth2-use-for}

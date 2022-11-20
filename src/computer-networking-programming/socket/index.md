@@ -3,6 +3,7 @@ title: '[计算机网络编程] Socket API'
 created_at: 2021-04-13 17:01:23
 tag: ["socket"]
 toc: true
+displayed_on_home: true
 ---
 
 **Socket**[^socket]是一套抽象的用于网络通信的API，它使得应用层可以不必关心底层繁琐的传输通信细节。

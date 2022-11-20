@@ -3,6 +3,7 @@ title: '[K8S] 核心概念 02 - Pod'
 created_at: 2020-03-31 12:15:01
 tag: ["K8S", "Pod"]
 toc: true
+displayed_on_home: true
 ---
 
 

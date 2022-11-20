@@ -3,6 +3,7 @@ title: '[Redis] lua script'
 created_at: 2021-03-19 20:11:22
 tag: ["cache", "redis", "lua","dev"]
 toc: true
+displayed_on_home: true
 ---
 
 redis2.6+在server端内嵌了`lua`[^lua]的支持，可以执行client发送的自定义的`lua script`，使得一些操作逻辑可以放到server上来执行，有利于减少一些不必要的网络交互，从而提升性能。在架构风格上这隶属于`COD(Code On Demand)按需代码`[^cod]，类似于`REST`[^rest]的六大架构约束之一的`COD`约束[^rest-cod]，但是不同的是，这里的COD是运行在server端的。

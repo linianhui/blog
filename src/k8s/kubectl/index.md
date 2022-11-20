@@ -3,6 +3,7 @@ title: '[K8S] kubectl'
 created_at: 2020-04-13 22:20:01
 tag: ["K8S", "kubectl"]
 toc: true
+displayed_on_home: true
 ---
 
 kubectl是k8s的command-line工具，用来管理k8s中的各种资源。kubectl是一个go编写的单文件可执行程序，支持Windows、Linux、macOS。kubectl通过HTTPS APIs和k8s的集群的API Service进行通信，使用这些APIs来提供管理功能。

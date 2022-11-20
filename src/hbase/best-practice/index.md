@@ -3,6 +3,7 @@ title: '[HBase] Best Practice'
 created_at: 2022-09-03 10:01:00
 tag: ["hbase", "Best Practice"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 RowKey {#rowkey}

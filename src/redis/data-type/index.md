@@ -3,6 +3,7 @@ title: '[Redis] data type'
 created_at: 2021-03-19 19:50:23
 tag: ["cache", "redis", "string","list","set","sorted set","hash","module","stream","bitmap","hyperloglog","sds","dev"]
 toc: true
+displayed_on_home: true
 ---
 
 redis支持丰富的数据类型[^data-type]。我们这里从两个角度来介绍：

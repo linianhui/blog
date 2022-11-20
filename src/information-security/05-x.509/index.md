@@ -3,6 +3,7 @@ title: '[信息安全] 05 X.509 公钥证书的格式标准'
 created_at: 2020-02-15 13:07:23
 tag: ["X.509", "X.690", "ASN.1", "DER", "PEM", "CRL", "CA"]
 toc: true
+displayed_on_home: true
 ---
 
 [X.509][X.509]是[# 公钥证书](#public-key-certificate)的格式标准, 广泛用于TLS/SSL安全通信或者其他需要认证的环境中。X.509证书可以由[# CA](#certificate-authority)颁发，也可以自签名产生。

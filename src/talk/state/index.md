@@ -4,6 +4,7 @@ created_at: 2020-09-03 12:08:01
 tag: ["状态","有状态","无状态","客户端-服务器","分离关注点"]
 toc: true
 aliases: ['stateless']
+displayed_on_home: true
 ---
 
 记录一下笔者关于**状态**的一些相关认知。

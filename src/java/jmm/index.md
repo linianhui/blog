@@ -3,6 +3,7 @@ title: '[Java] JMM(Java Memory Model)'
 created_at: 2020-11-05 19:32:01
 tag: ["Java", "JMM"]
 toc: true
+displayed_on_home: true
 ---
 
 Java内存模型JMM(Java Memory Model)在Java中由两份规范文档定义:

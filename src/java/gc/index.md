@@ -3,6 +3,7 @@ title: '[Java] GC(Garbage Collection)'
 created_at: 2020-11-06 19:32:01
 tag: ["Java", "GC"]
 toc: true
+displayed_on_home: true
 ---
 
 GC要解决的三个问题：

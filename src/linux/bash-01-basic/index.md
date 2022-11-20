@@ -3,6 +3,7 @@ title: '[Linux] 01 Basic'
 created_at: 2017-01-06 16:34:01
 tag: ["Linux", "bash"]
 toc: true
+displayed_on_home: true
 ---
 
 

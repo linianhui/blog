@@ -3,6 +3,7 @@ title: '[认证&授权] 02 OAuth2授权(续) & JWT(JSON Web Token)'
 created_at: 2017-04-03 03:56:00
 tag: ["OAuth2", "JWT"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 RFC6749还有哪些可以完善的？ {#rfc6749-defects}

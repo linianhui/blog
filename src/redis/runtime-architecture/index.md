@@ -3,6 +3,7 @@ title: '[Redis] 运行时架构'
 created_at: 2021-03-19 20:12:24
 tag: ["cache", "redis", "thread","io-thread","benchmark","dev","runtime-architecture","architecture","thread-model"]
 toc: true
+displayed_on_home: true
 ---
 
 redis自从诞生之处就被称之为单线程的方式实现的，这里的单线程指的是`socket read`、`解析`、`执行`和`socket write`这四个阶段都是由主线程独自完成的。当然一个redis-server实例并不是只有这一个线程，比如还有执行RDB、AOF、LRU、AOFREWRITE等等后台线程，只是它们的运行不会参与到server的主线程处理client的request这个流程中。

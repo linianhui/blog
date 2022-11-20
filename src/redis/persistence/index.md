@@ -3,6 +3,7 @@ title: '[Redis] persistence'
 created_at: 2021-03-19 20:11:23
 tag: ["cache", "redis", "persistence","rdb","aof","ops"]
 toc: true
+displayed_on_home: true
 ---
 
 redis是基于内存存储数据的，当server意外宕机或者重启时，内存中的数据就会丢失掉。redis提供了如下几种选项来应对不同场景下的需求。

@@ -3,7 +3,6 @@ title: "[工具] openwrt"
 created_at: 2017-03-23 23:01:03
 tag: ["openwrt","v2ray","breed","mtd"]
 toc: true
-noHome: true
 ---
 
 # 1 flush

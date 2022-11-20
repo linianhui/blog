@@ -3,6 +3,7 @@ title: "[计算机网络] 01 [Layer] Physical"
 created_at: 2019-09-22 08:11:00
 tag: ["信道","单工","半双工","全双工"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 物理层的用途 {#physical-purpose}

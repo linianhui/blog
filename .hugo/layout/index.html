@@ -1,6 +1,6 @@
 {{ define "content" }}
   {{ range .Site.RegularPages }}
-    {{- if ne .Params.noHome true }}
+    {{- if eq .Params.displayed_on_home true }}
       {{ .Render "summary"}}
     {{- end -}}
   {{ end }}

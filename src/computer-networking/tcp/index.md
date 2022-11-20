@@ -3,6 +3,7 @@ title: "[计算机网络] TCP"
 created_at: 2020-02-20 20:55:00
 tag: ['tcp','full duplex','segment','pcap','syn','ack','fin','time_wait','rwnd','cwnd']
 toc: true
+displayed_on_home: true
 ---
 
 TCP(Transmission Control Protocol)是一种**全双工的**、**面向连接的**、**基于字节流的**、**可靠的（尽最大努力交付）**、**有状态的** 传输层通信协议。先看一TCP的数据包`Segment`[^segment]长什么样子，后续的各种功能都会体现在其中：

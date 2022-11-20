@@ -3,6 +3,7 @@ title: '[OIDC in Action] 02 基于OIDC的SSO - JS Client'
 created_at: 2017-11-27 12:19:00
 tag: ["OIDC", "OpenId Connect", "SSO", "oidc-client.js"]
 toc: true
+displayed_on_home: true
 ---
 
 在上一篇[[OIDC in Action] 01 基于OIDC的SSO][01]的中涉及到了4个Web站点 : 

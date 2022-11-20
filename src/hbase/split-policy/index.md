@@ -3,6 +3,7 @@ title: '[HBase] Region Split Policy'
 created_at: 2022-05-15 16:25:00
 tag: ["hbase", "Split"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 概述 {#overview}

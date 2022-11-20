@@ -3,6 +3,7 @@ title: "[计算机网络] 02 [Layer] Data Link"
 created_at: 2019-09-22 08:12:00
 tag: ["封装成帧","透明传输","差错检测","Frame","MTU","SOH","EOT","ESC","CRC","FCS","MAC","ARP","ICMPv6","Switch","L2 Switch","交换机","二层交换机","以太网交换机"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 数据链路层的用途 {#data-link-purpose}

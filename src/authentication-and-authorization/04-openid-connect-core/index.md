@@ -4,6 +4,7 @@ created_at: 2017-05-30 09:18:00
 tag: ["OAuth2", "JWT", "OIDC", "OpenId Connect", "OP", "RP", "Id Token"]
 toc: true
 weight: 1
+displayed_on_home: true
 ---
 
 # 1 什么是OIDC？ {#what-is-oidc}

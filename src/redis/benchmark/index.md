@@ -3,6 +3,7 @@ title: '[Redis] benchmark'
 created_at: 2021-03-19 20:12:23
 tag: ["cache", "redis", "benchmark"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 基本概念 {#concept}

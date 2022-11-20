@@ -3,6 +3,7 @@ title: '[Git] .gitattributes'
 created_at: 2020-01-16 20:52:01
 tag: ["Git","gitattributes"]
 toc: true
+displayed_on_home: true
 ---
 
 # 1 `.gitattributes` 的作用 {#effects}
