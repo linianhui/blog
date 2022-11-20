@@ -1,10 +1,21 @@
 <div class="stats">
-  共 {{len .Site.RegularPages }} 篇
+  <span>
+    共
+    <i>
+      {{len (where .Site.RegularPages "Params.displayed_on_home" true)}}
+      <sup>h</sup>
+    </i>
+    /
+    <i>
+      {{len .Site.RegularPages }}
+      <sup>a</sup>
+    </i>
+    篇
+  </span>
   <div class="stats-date">
-  {{ if ne $.Site.Params.GitLastHash "" }}
+    {{ if ne $.Site.Params.GitLastHash "" }}
     ，更新于 {{ (time now).Format "2006-01-02T15:04:05Z-07:00" }} by &nbsp;
-    <a class="git-commit"
-      href="{{$.Site.Params.url.repo.commit}}/{{$.Site.Params.GitLastHash}}" target="_blank">
+    <a class="git-commit" href="{{$.Site.Params.url.repo.commit}}/{{$.Site.Params.GitLastHash}}" target="_blank">
       <i class="fa fa-code-fork"></i>
       {{- substr $.Site.Params.GitLastHash 0 7 -}}
     </a>
