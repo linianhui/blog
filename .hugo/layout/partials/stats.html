@@ -2,13 +2,11 @@
   <span>
     共
     <i>
-      {{len (where .Site.RegularPages "Params.displayed_on_home" true)}}
-      <sup>h</sup>
+      {{len (where .Site.RegularPages "Params.displayed_on_home" true)}}<sub>h</sub>
     </i>
     /
     <i>
-      {{len .Site.RegularPages }}
-      <sup>a</sup>
+      {{len .Site.RegularPages }}<sub>a</sub>
     </i>
     篇
   </span>
