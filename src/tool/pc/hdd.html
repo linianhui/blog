@@ -1,8 +1,10 @@
 <div id="hddList" class="inner-html">
   <el-table :data="hdds" :default-sort="{prop: 'price'}" highlight-current-row="true">
-    <el-table-column prop="size" label="容量" sortable="true" min-width="70">
+    <el-table-column prop="capacityBytes" label="容量" sortable="true" min-width="70">
       <template slot-scope="scope">
-        {{scope.row.size/1000}}T
+        <span :title="scope.row.actualCapacityTB+'\n'+scope.row.actualCapacityGB">
+          {{scope.row.capacity}}
+        </span>
       </template>
     </el-table-column>
     <el-table-column prop="brand" label="品牌" sortable="true" min-width="80">

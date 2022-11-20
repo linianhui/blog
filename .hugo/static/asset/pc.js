@@ -1,6 +1,57 @@
 "use strict";
 
 (function (window, document, navigator) {
+    var byteUnits = [
+        {
+            unit: 'PB',
+            index: 5,
+        },
+        {
+            unit: 'TB',
+            index: 4,
+        },
+        {
+            unit: 'GB',
+            index: 3,
+        },
+        {
+            unit: 'MB',
+            index: 2,
+        },
+        {
+            unit: 'KB',
+            index: 1,
+        }
+    ];
+
+    function initByteUnits(base) {
+        for (var i = 0; i < byteUnits.length; i++) {
+            var byteUnit = byteUnits[i];
+            var min = baseIndex(base, byteUnit.index);
+            byteUnit[base] = {
+                min: min,
+                max: min * base
+            };
+        }
+
+        function baseIndex(base, index) {
+            var resut = base;
+            for (var i = 1; i < index; i++) {
+                resut = resut * base;
+            }
+            return resut;
+        }
+    }
+
+    function findByteUnit(func) {
+        for (var i = 0; i < byteUnits.length; i++) {
+            var byteUnit = byteUnits[i];
+            if (func(byteUnit)) {
+                return byteUnit;
+            }
+        }
+    }
+
     function id(id) {
         return document.getElementById(id);
     }
@@ -240,6 +291,29 @@
         return 'https://s.taobao.com/search?q=' + encodeURIComponent(keyword);
     }
 
+    function parseBytes(value, base) {
+        var item = findByteUnit(function (x) {
+            return value.endsWith(x.unit);
+        });
+
+        var size = parseFloat(value.replace(item.unit), 10);
+        return size * item[base].min;
+    }
+
+    function formatBytes(bytes, base, unit, fixed) {
+        var item = findByteUnit(function (x) {
+            if (unit) {
+                return x.unit == unit;
+            }
+            return (bytes >= x[base].min && bytes <= x[base].max);
+        });
+
+        return (bytes / item[base].min).toFixed(fixed) + item.unit;
+    }
+
+    initByteUnits(1000);
+    initByteUnits(1024);
+
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
@@ -247,7 +321,9 @@
         addOnScorllEvent: addOnScorllEvent,
         toggleToc: toggleToc,
         getJDSearchUrl: getJDSearchUrl,
-        getTBSearchUrl: getTBSearchUrl
+        getTBSearchUrl: getTBSearchUrl,
+        parseBytes: parseBytes,
+        formatBytes: formatBytes
     };
 
 })(window, document, navigator);

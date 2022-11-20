@@ -42,7 +42,7 @@ const hddBrands = {
 
 const hdds = [
     {
-        size: 4000,
+        capacity: '4TB',
         brand: '希捷',
         series: 'SkyHawk',
         model: 'ST4000VX016',
@@ -53,7 +53,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 4000,
+        capacity: '4TB',
         brand: '海康OEM',
         series: 'SkyHawk',
         model: 'ST4000VX015',
@@ -64,7 +64,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 4000,
+        capacity: '4TB',
         brand: '西部数据',
         series: 'Purple Surveillance',
         model: 'WD42EJRX',
@@ -75,7 +75,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 4000,
+        capacity: '4TB',
         brand: '海康OEM',
         series: 'Purple Surveillance',
         model: 'DS42HKVS',
@@ -86,7 +86,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 8000,
+        capacity: '8TB',
         brand: '希捷',
         series: 'Exos 7E10',
         model: 'ST8000NM017B',
@@ -97,7 +97,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 8000,
+        capacity: '8TB',
         brand: '西部数据',
         series: 'Ultrastar DC HC320',
         model: 'HUS728T8TALE6L4',
@@ -108,7 +108,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 8000,
+        capacity: '8TB',
         brand: '西部数据',
         series: 'Blue PC Desktop',
         model: 'WD80EAZZ',
@@ -119,7 +119,7 @@ const hdds = [
         priceDate: '2022-11-17'
     },
     {
-        size: 16000,
+        capacity: '16TB',
         brand: '希捷',
         series: 'Exos X18',
         model: 'ST16000NM000J',
@@ -130,7 +130,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 16000,
+        capacity: '16TB',
         brand: '西部数据',
         series: 'Ultrastar DC HC550',
         model: 'WUH721816ALE6L4',
@@ -141,7 +141,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 18000,
+        capacity: '18TB',
         brand: '希捷',
         series: 'Exos X18',
         model: 'ST18000NM000J',
@@ -152,7 +152,7 @@ const hdds = [
         priceDate: '2022-10-25'
     },
     {
-        size: 18000,
+        capacity: '18TB',
         brand: '西部数据',
         series: 'Ultrastar DC HC550',
         model: 'WUH721818ALE6L4',
@@ -167,6 +167,9 @@ const hdds = [
 
 function hddFill(hdd) {
     hdd.brandUrl = getHddBrandUrl(hdd);
+    hdd.capacityBytes = blog.parseBytes(hdd.capacity, 1000);
+    hdd.actualCapacityGB = blog.formatBytes(hdd.capacityBytes, 1024, "GB", 0);
+    hdd.actualCapacityTB = blog.formatBytes(hdd.capacityBytes, 1024, "TB", 2);
     hdd.seriesUrl = getHddSeriesUrl(hdd);
     hdd.datasheetUrl = getHddDatasheetUrl(hdd);
     hdd.shopJDUrl = blog.getJDSearchUrl(hdd.model);
