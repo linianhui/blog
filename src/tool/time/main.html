@@ -1,0 +1,95 @@
+<script src="https://unpkg.com/moment@2.29.4/min/moment-with-locales.min.js"></script>
+<script src="https://unpkg.com/md5@2.3.0/dist/md5.min.js"></script>
+<script src="https://unpkg.com/bson-objectid@2.0.4/objectid.js"></script>
+
+<div id="app">
+  <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="input" @input="onInputChange"></el-input>
+  <div>
+    <fieldset v-for="item in items" style="border-width: 1px;border-color:#ddd;border-style: dashed;">
+      <legend>{{item.name}}</legend>
+      <pre style="margin: 0;">{{item.value}}</pre>
+    </fieldset>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function valueToMoment(value) {
+    return moment(value);
+  }
+
+  function valueToBeiJingDateTime(value) {
+    var time = valueToMoment(value);
+    if (time.isValid()) {
+      return time.format();
+    } else {
+      return "无效的时间";
+    }
+  }
+
+  function valueToUtcDateTime(value) {
+    var time = valueToMoment(value);
+    if (time.isValid()) {
+      return time.utc().format();
+    } else {
+      return "无效的时间";
+    }
+  }
+
+  function valueToObjectId(value) {
+    if (ObjectID.isValid(value)) {
+      var objectId = ObjectID.createFromHexString(value);
+      var time = objectId.getTimestamp();
+      return "time:" + valueToBeiJingDateTime(time);
+    } else {
+      return "无效的ObjectID";
+    }
+  }
+
+  function valueToMD5(value) {
+    return MD5(value + '');
+  }
+
+  var functionList = {
+    "北京时间+08:00": valueToBeiJingDateTime,
+    "UTC+00:00": valueToUtcDateTime,
+    "MD5": valueToMD5,
+    "ObjectId": valueToObjectId
+  };
+
+  function handleValue(value) {
+    var result = [];
+    for (var key in functionList) {
+      var func = functionList[key];
+      var item = {
+        name: key
+      };
+      try {
+        item.value = func(value);
+      } catch (e) {
+        item.value = e;
+      }
+      result.push(item);
+    }
+    return result.sort(function (a, b) {
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+</script>
+<script type="text/javascript">
+  var initInput = new Date().getTime();
+  var initItems = handleValue(initInput);
+  new Vue({
+    el: "#app",
+    data: {
+      input: initInput,
+      items: initItems
+    },
+    methods: {
+      onInputChange(value) {
+        this.items = handleValue(value);
+        console.log(handleValue(value));
+      }
+    }
+  });
+</script>
