@@ -5,6 +5,7 @@ tag: ["pc",'tool',"hdd","afr"]
 toc: true
 ---
 
+{{<element-ui>}}
 {{<inline-html path="header.html">}}
 
 # 机械硬盘 {#hdd}

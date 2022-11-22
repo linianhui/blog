@@ -1,4 +1,4 @@
-const rates = {
+var rates = {
     "2019新税率表": {
         exempted: 5000,
         items: [

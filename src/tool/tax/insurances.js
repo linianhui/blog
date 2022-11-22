@@ -1,4 +1,4 @@
-const insurances = {
+var insurances = {
     "北京2022社保基数": {
         养老保险: {
             min: 5869,
