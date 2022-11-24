@@ -79,6 +79,18 @@ function valueToMD5(value) {
     return MD5(value + '');
 }
 
+function valueToBase64(value) {
+    return Base64.encode(value);
+}
+
+function valueToBase64Uri(value) {
+    return Base64.encodeURI(value);
+}
+
+function fromBase64(value) {
+    return Base64.decode(value);
+}
+
 var functionList = {
     "本地时间": valueToLocalDateTime,
     "北京时间": valueToBeiJingDateTime,
@@ -88,5 +100,8 @@ var functionList = {
     "MD5": valueToMD5,
     //"ObjectId": valueToObjectId,
     "Unix Timestamp": valueToUnixTimestamp,
-    "Unix Timestamp Milliseconds": valueToUnixTimestampMs
+    "Unix Timestamp Milliseconds": valueToUnixTimestampMs,
+    "Base64": valueToBase64,
+    "Base64 Uri": valueToBase64Uri,
+    "Base64 解码": fromBase64
 };
