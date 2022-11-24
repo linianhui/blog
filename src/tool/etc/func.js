@@ -1,22 +1,69 @@
+function valueToNumber(value) {
+    return numeral(value);
+}
+
 function valueToMoment(value) {
-    return moment(value);
+    var number = valueToNumber(value).value();
+    var input = number || value;
+    var result = moment(input);
+    if (result.isValid()) {
+        return result;
+    }
+}
+
+function valueToMomentBeiJing(value) {
+    var time = valueToMoment(value);
+    if (time) {
+        return time.utcOffset("+08:00");
+    }
 }
 
 function valueToBeiJingDateTime(value) {
-    var time = valueToMoment(value);
-    if (time.isValid()) {
+    var time = valueToMomentBeiJing(value);
+    if (time) {
         return time.format();
-    } else {
-        return "无效的时间";
+    }
+}
+
+function valueToLocalDateTime(value) {
+    var time = valueToMoment(value);
+    if (time) {
+        return time.format();
     }
 }
 
 function valueToUtcDateTime(value) {
     var time = valueToMoment(value);
-    if (time.isValid()) {
+    if (time) {
         return time.utc().format();
-    } else {
-        return "无效的时间";
+    }
+}
+
+function valueToUnixTimestamp(value) {
+    var time = valueToMoment(value);
+    if (time) {
+        return time.format('X');
+    }
+}
+
+function valueToUnixTimestampMs(value) {
+    var time = valueToMoment(value);
+    if (time) {
+        return time.format('x');
+    }
+}
+
+function valueToDayOfYear(value) {
+    var time = valueToMomentBeiJing(value);
+    if (time) {
+        return time.dayOfYear();
+    }
+}
+
+function valueToWeekOfYear(value) {
+    var time = valueToMomentBeiJing(value);
+    if (time) {
+        return time.weeks();
     }
 }
 
@@ -25,8 +72,6 @@ function valueToObjectId(value) {
         var objectId = ObjectID.createFromHexString(value);
         var time = objectId.getTimestamp();
         return "time:" + valueToBeiJingDateTime(time);
-    } else {
-        return "无效的ObjectID";
     }
 }
 
@@ -35,8 +80,13 @@ function valueToMD5(value) {
 }
 
 var functionList = {
-    "北京时间+08:00": valueToBeiJingDateTime,
+    "本地时间": valueToLocalDateTime,
+    "北京时间": valueToBeiJingDateTime,
     "UTC+00:00": valueToUtcDateTime,
+    "北京时间 一年中的第几天": valueToDayOfYear,
+    "北京时间 一年中的第几周": valueToWeekOfYear,
     "MD5": valueToMD5,
-    "ObjectId": valueToObjectId
+    //"ObjectId": valueToObjectId,
+    "Unix Timestamp": valueToUnixTimestamp,
+    "Unix Timestamp Milliseconds": valueToUnixTimestampMs
 };
