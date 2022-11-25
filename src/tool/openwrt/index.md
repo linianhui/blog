@@ -40,6 +40,10 @@ mtd -r write openwrt.bin firmware
 ```
 
 x86:<https://downloads.openwrt.org/releases/22.03.2/targets/x86/64/>
+```bash
+# mirror
+sed -i 's_downloads.openwrt.org_mirrors.aliyun.com/openwrt_' /etc/opkg/distfeeds.conf
+```
 
 # 2 software {#software}
 
