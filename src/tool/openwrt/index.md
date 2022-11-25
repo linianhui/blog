@@ -59,6 +59,7 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 
 1. `local_token`: <http://hiwifi.com/local-ssh>
 2. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
+3. `ssh`: <http://www.hiwifi.wtf>
 
 
 [^breed]:breed官网：<https://breed.hackpascal.net>
