@@ -1,0 +1,6 @@
+# dhcp-hostsfile=/etc/dnsmasq.dhcp.hosts
+# https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
+
+
+# [<hwaddr>][,id:<client_id>|*][,set:<tag>][,tag:<tag>][,<ipaddr>][,<hostname>][,<lease_time>][,ignore]
+00:15:5D:02:02:0B,192.168.1.2,vm.ubt1
