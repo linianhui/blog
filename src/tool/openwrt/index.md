@@ -39,6 +39,8 @@ dns     192.168.1.1
 mtd -r write openwrt.bin firmware
 ```
 
+x86:<https://downloads.openwrt.org/releases/22.03.2/targets/x86/64/>
+
 # 2 software {#software}
 
 ## 2.1 openwrt-v2ray {#openwrt-v2ray}
