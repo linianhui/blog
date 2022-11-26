@@ -11,7 +11,6 @@ toc: true
 {{<highlight-file title="/etc/dnsmasq.conf" path="dnsmasq.conf" lang="ini">}}
 {{<highlight-file title="/etc/dnsmasq.dhcp.hosts" path="dnsmasq.dhcp.hosts" lang="ini">}}
 {{<highlight-file title="/etc/dnsmasq.dns.hosts" path="dnsmasq.dns.hosts" lang="ini">}}
-{{<highlight-file title="/etc/dnsmasq.dns.upstream.conf" path="dnsmasq.dns.upstream.conf" lang="ini">}}
 
 # Reference {#reference}
 
