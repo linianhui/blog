@@ -2,4 +2,4 @@
 # https://thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
 
 # www.baidu.lan 解析到 192.168.1.2
-192.168.1.2 www.baidu.lan
+192.168.2.201 www.baidu.lan
