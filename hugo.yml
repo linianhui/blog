@@ -107,6 +107,7 @@ markup:
         block: false
         title: true
       autoHeadingID: true
+      wrapStandAloneImageWithinParagraph: false
     renderer:
       hardWraps: true
       unsafe: true
