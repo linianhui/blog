@@ -1,8 +1,8 @@
-body{
+body {
   margin-left: 0 !important;
 }
 
-.stats-date{
+.stats-date {
   display: none;
 }
 
@@ -14,30 +14,30 @@ body{
   margin-left: 12px;
 }
 
-.article{
+.article {
   padding: 0;
   box-shadow: unset;
 }
 
-.article-copyright{
+.article-copyright {
   left: unset;
 }
 
-.article-meta{
+.article-meta {
   margin-top: 22px;
 }
 
-.article-content{
+.article-content {
   font-size: 14px;
 }
 
-.toc{
+.toc {
   top: unset;
   left: 0;
   bottom: 44px;
 }
 
-.toolbar{
+.toolbar {
   left: 0;
   right: 0;
   bottom: 0;
@@ -46,7 +46,7 @@ body{
   box-shadow: 0 0 4px #ccc;
 }
 
-.toolbar a{
+.toolbar a {
   display: inline-block;
   margin: 10px 18px;
 }

@@ -33,7 +33,7 @@ a img {
   border-width: 0;
 }
 
-a .fa{
+a .fa {
   margin-right: 4px;
 }
 
@@ -49,7 +49,7 @@ table {
   max-width: 100%;
 }
 
-summary{
+summary {
   position: relative;
   display: block;
   margin-top: 0.5em;
@@ -62,13 +62,13 @@ code {
   color: #dc322f;
 }
 
-mark{
+mark {
   background-color: #FF0;
   padding-left: 4px;
   padding-right: 4px;
 }
 
-time{
+time {
   font-family: monospace, Courier, 'Courier New'
 }
 
@@ -106,18 +106,18 @@ time{
   text-align: center;
 }
 
-.header-nav-item img{
+.header-nav-item img {
   display: inline-block;
   height: 15px;
   vertical-align: middle;
   margin-right: 6px;
 }
 
-.header-stats{
+.header-stats {
   position: relative;
 }
 
-.stats{
+.stats {
   position: relative;
   padding-top: 6px;
   color: #999;
@@ -125,11 +125,11 @@ time{
   font-style: italic;
 }
 
-.stats-date{
+.stats-date {
   display: inline-block;
 }
 
-.search{
+.search {
   position: absolute;
   box-sizing: border-box;
   top: 0;
@@ -137,7 +137,7 @@ time{
   font-size: 0;
 }
 
-.search-input{
+.search-input {
   border-style: solid;
   border-color: #eee;
   border-width: 0 1px 1px 1px;
@@ -164,7 +164,7 @@ time{
   text-align: center;
 }
 
-.footer section{
+.footer section {
   margin-top: 1em;
 }
 
@@ -185,15 +185,15 @@ time{
   padding: 0.5em 0px;
 }
 
-.article-title-weight{
+.article-title-weight {
   margin-left: 6px;
   color: #F00;
   font-size: 16px;
   position: relative;
 }
 
-.article-copyright{
-  position:absolute;
+.article-copyright {
+  position: absolute;
   display: inline-block;
   left: 32px;
   padding-top: 4px;
@@ -201,22 +201,22 @@ time{
   font-weight: normal;
 }
 
-.article-copyright span{
+.article-copyright span {
   color: #999;
 }
 
-.article-meta{
+.article-meta {
   text-align: right;
   margin-top: 6px;
   color: #999;
   font-size: 12px;
 }
 
-.article-meta section{
+.article-meta section {
   margin-top: 4px;
 }
 
-.article-topic{
+.article-topic {
   margin-left: 4px;
 }
 
@@ -224,7 +224,7 @@ time{
   margin-left: 4px;
 }
 
-.article-content{
+.article-content {
   font-size: 16px;
   margin: 2em 0;
 }
@@ -240,7 +240,7 @@ time{
   margin-bottom: 0;
 }
 
-.article-content .article-h-a{
+.article-content .article-h-a {
   margin: 0;
 }
 
@@ -260,7 +260,7 @@ time{
   font-size: 16px;
 }
 
-.article-content .header-locator{
+.article-content .header-locator {
   position: fixed;
   display: inline-block;
   width: 0;
@@ -268,14 +268,14 @@ time{
   font-size: 0;
 }
 
-.article-content p{
+.article-content p {
   margin-left: 0;
   margin-top: 1em;
   margin-right: 0;
   margin-bottom: 0;
 }
 
-.article-content blockquote{
+.article-content blockquote {
   position: relative;
   font-size: 14px;
   margin-left: 1em;
@@ -290,18 +290,18 @@ time{
   font-style: italic;
 }
 
-.article-content blockquote::before{
+.article-content blockquote::before {
   position: relative;
   display: block;
   content: "⚠️ 注意事项";
   font-size: 14px;
 }
 
-.article-content blockquote p{
+.article-content blockquote p {
   margin: 0;
 }
 
-.article-content a{
+.article-content a {
   margin-left: 6px;
   margin-right: 6px;
   word-break: break-all;
@@ -319,42 +319,42 @@ time{
   box-shadow: 0 0 4px #ddd;
 }
 
-.article-content ol{
+.article-content ol {
   margin-top: 8px;
   margin-bottom: 0;
 }
 
-.article-content ol li{
+.article-content ol li {
   padding-left: 8px;
   word-break: break-all;
 }
 
-.article-content table{
+.article-content table {
   margin-top: 1em;
   word-break: break-all;
 }
 
-.article-content .footnotes{
+.article-content .footnotes {
   position: relative;
   font-style: italic;
   line-height: 1.6;
 }
 
-.article-content .footnotes p{
+.article-content .footnotes p {
   margin-top: 8px;
 }
 
-.article-content .footnotes a{
+.article-content .footnotes a {
   margin-left: 0;
 }
 
-.article-content .footnote-backref{
+.article-content .footnote-backref {
   margin: 0;
   padding-left: 6px;
   padding-right: 6px;
 }
 
-.article-content .footnote-ref{
+.article-content .footnote-ref {
   font-size: 14px;
   margin: 0;
   padding-left: 6px;
@@ -386,12 +386,12 @@ time{
   margin-top: 0;
 }
 
-.highlight-file-switch{
+.highlight-file-switch {
   color: #0594cb;
   cursor: pointer;
 }
 
-.highlight-file-switch::before{
+.highlight-file-switch::before {
   margin-right: 6px;
 }
 
@@ -411,12 +411,12 @@ time{
   display: none;
 }
 
-.highlight-file-content pre{
-  margin: 0  !important;
+.highlight-file-content pre {
+  margin: 0 !important;
   padding: 6px;
 }
 
-.highlight-file-content code{
+.highlight-file-content code {
   padding: 0 !important;
 }
 
@@ -445,43 +445,43 @@ time{
   background-color: #ddd;
 }
 
-.code-snippet{
+.code-snippet {
   margin-top: 16px;
 }
 
-.code-snippet .title{
+.code-snippet .title {
   background-color: #eee;
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
-.code-snippet .highlight{
+.code-snippet .highlight {
   margin-top: 0;
 }
 
-.article-page{
+.article-page {
   margin-top: 2em;
   border-top: 1px solid #eee;
 }
 
 .article-page-prev,
-.article-page-next{
+.article-page-next {
   margin-top: 1em;
 }
 
-.article-comment{
+.article-comment {
   margin-top: 2em;
 }
 
-.article-comment .utterances{
+.article-comment .utterances {
   max-width: unset;
 }
 
-.topic{
+.topic {
   margin-top: 32px;
 }
 
-.topic-content{
+.topic-content {
   font-size: 14px;
   font-style: italic;
   margin-top: 1em;
@@ -492,110 +492,110 @@ time{
   word-break: break-all;
 }
 
-.topic-content p{
+.topic-content p {
   margin: 0;
 }
 
-.topic-title{
+.topic-title {
   font-size: 22px;
 }
 
-.topic-articles-count{
+.topic-articles-count {
   font-weight: normal;
   font-size: 16px;
   color: #666;
 }
 
-.topic-article{
+.topic-article {
   list-style: decimal-leading-zero;
 }
 
-.topic-article-time{
+.topic-article-time {
   margin-left: 0.5em;
 }
 
-.tags{
+.tags {
   margin-top: 32px;
 }
 
-.tags-title h1{
+.tags-title h1 {
   font-size: 22px;
 }
 
-.tags-title .tags-count{
+.tags-title .tags-count {
   font-weight: normal;
   font-size: 16px;
   color: #666;
 }
 
-.tags .tag{
+.tags .tag {
   display: inline-block;
   line-height: 2;
 }
 
-.tags .tag .tag-link{
+.tags .tag .tag-link {
   margin-left: 0.5em;
 }
 
-.tags .tag .tag-count{
+.tags .tag .tag-count {
   font-size: 12px;
   color: #666;
 }
 
-.tag-title{
+.tag-title {
   font-size: 22px;
 }
 
-.tag-title-count{
+.tag-title-count {
   font-weight: normal;
   font-size: 16px;
   color: #666;
 }
 
-.tag-articles{
+.tag-articles {
   margin-top: 2em;
 }
 
-.tag-article{
+.tag-article {
   list-style: decimal-leading-zero;
 }
 
-.tag-article-time{
+.tag-article-time {
   margin-left: 0.5em;
 }
 
-.archives-title{
+.archives-title {
   font-size: 22px;
 }
 
-.archives-count{
+.archives-count {
   font-weight: normal;
   font-size: 16px;
   color: #666;
 }
 
-.archive-group{
+.archive-group {
   margin-top: 2em;
 }
 
-.archive-group-title{
+.archive-group-title {
   font-size: 22px;
 }
 
-.archive-group-count{
+.archive-group-count {
   font-size: 16px;
   color: #333;
 }
 
-.archive-group-items{
+.archive-group-items {
   margin-top: 1em;
 }
 
-.archive-group-item{
+.archive-group-item {
   list-style: decimal-leading-zero;
 }
 
-.archive-group-item-time{
+.archive-group-item-time {
   margin-left: 0.5em;
 }
 
@@ -617,7 +617,7 @@ time{
   box-sizing: border-box;
 }
 
-.toc .toc-page-title{
+.toc .toc-page-title {
   display: block;
   white-space: nowrap;
   padding: 4px 16px;
@@ -627,17 +627,17 @@ time{
   background-color: #eee;
 }
 
-.toc section.selected .toc-page-title{
+.toc section.selected .toc-page-title {
   background-color: #ccc;
 }
 
-.toc nav ul{
+.toc nav ul {
   list-style: none;
   margin: 0;
   padding-left: 16px;
 }
 
-.toc nav a{
+.toc nav a {
   display: block;
   white-space: nowrap;
   padding: 4px 8px;
@@ -647,7 +647,7 @@ time{
   color: #f60;
 }
 
-.toolbar{
+.toolbar {
   position: fixed;
   display: inline-block;
   right: 20px;
@@ -658,16 +658,16 @@ time{
   background-color: #fff;
 }
 
-.toolbar a{
+.toolbar a {
   display: block;
   margin-top: 20px;
 }
 
-.toc.opened{
+.toc.opened {
   visibility: visible;
 }
 
-.horizontal-progress{
+.horizontal-progress {
   position: fixed;
   display: inline-block;
   top: 0;
