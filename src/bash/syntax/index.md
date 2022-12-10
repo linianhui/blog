@@ -1,15 +1,17 @@
 ---
-title: '[Linux] 01 Basic'
+title: '[Bash] Syntax'
 created_at: 2017-01-06 16:34:01
-tag: ["Linux", "bash"]
+tag: ["shell","command","option","parameter","syntax"]
 toc: true
 displayed_on_home: true
 ---
 
-
-# 1 Commands, Parameters/Arguments, Options {#commands-parameters-arguments-options}
+# 1 Command Option Parameter {#command-option-parameter}
 
 ```sh
+# 查看版本
+bash --version
+
 # show the current shell.
 echo $SHELL
 
@@ -19,9 +21,29 @@ cat -n /etc/shells
 
 1. command : `cat`
 2. option : `-n`
-3. parameters/arguments : `/etc/shells`
+3. parameter : `/etc/shells`
 
-# 2 Special Characters {#special-characters}
+## 1.1 Command {#command}
+
+1. Pipeline
+2. Looping
+3. Conditional
+4. Grouping
+
+## 1.2 Parameter {#parameter}
+
+| Character | Meaning                                                       |
+| --------- | ------------------------------------------------------------- |
+| `$0`      |                                                               |
+| `$1`      |                                                               |
+| `$@`      | subshell                                                      |
+| `$#`      | subshell                                                      |
+| `$?`      | exit status of the most recently executed foreground pipeline |
+| `$-`      |                                                               |
+| `$$`      |                                                               |
+| `$!`      |                                                               |
+
+# 2 Special Characters {#special-character}
 
 | Character      | Meaning                        |
 | -------------- | ------------------------------ |
@@ -35,7 +57,7 @@ cat -n /etc/shells
 | `{`            | Start command block            |
 | `}`            | End command block              |
 | `;`            | Shell command separator        |
-| `‘`            | Strong quote                   |
+| `'`            | Strong quote                   |
 | `"`            | Weak quote                     |
 | `!`            | Pipeline logical NOT           |
 
