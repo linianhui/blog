@@ -30,6 +30,9 @@ echo {01..10}
 # 1 3 5
 echo {1..5..2}
 
+# a c e
+echo {a..f..2}
+
 # file1.txt file2.txt file3.txt file4.txt
 echo file{1..4}.txt
 ```
