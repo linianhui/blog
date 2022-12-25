@@ -40,9 +40,14 @@ mtd -r write openwrt.bin firmware
 ```
 
 x86:<https://downloads.openwrt.org/releases/22.03.2/targets/x86/64/>
+aliyun-mirror:<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/x86/64/>
 ```bash
 # mirror
 sed -i 's_downloads.openwrt.org_mirrors.aliyun.com/openwrt_' /etc/opkg/distfeeds.conf
+
+# 安装ca-certificates
+opkg update
+opkg install ca-certificates
 ```
 
 # 2 software {#software}
@@ -64,6 +69,7 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 1. `local_token`: <http://hiwifi.com/local-ssh>
 2. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
 3. `ssh`: <http://www.hiwifi.wtf>
+4. aliyun-mirrors :<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/ramips/mt7621>
 
 
 [^breed]:breed官网：<https://breed.hackpascal.net>
