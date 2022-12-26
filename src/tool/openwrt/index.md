@@ -52,7 +52,7 @@ opkg install ca-certificates
 
 # 2 software {#software}
 
-## 2.1 openwrt-v2ray {#openwrt-v2ray}
+## 2.1 openwrt-v2ray {#v2ray}
 
 `openwrt-v2ray`[^openwrt-v2ray]安装步骤
 1. `ca-certificates`：在线安装即可。
@@ -63,6 +63,16 @@ opkg install ca-certificates
 # 复制相关的配置文件
 scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 ```
+
+## 2.2 USB {#usb}
+
+{{<highlight-file path="usb.sh" lang="sh">}}
+
+
+## 2.3 Samba {#samba}
+
+{{<highlight-file path="samba.sh" lang="sh">}}
+
 
 # 3 reference {#reference}
 
