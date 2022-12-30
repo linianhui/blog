@@ -10,6 +10,7 @@ Param(
 )
 
 @(
+    '/function.ps1',
     '/log.ps1',
     '/env.ps1',
     '/file.ps1',
