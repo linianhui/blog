@@ -495,7 +495,7 @@ function Env-SetEverythingEnvironmentVariable() {
 }
 
 # iperf2 https://sourceforge.net/projects/iperf2/
-# iperf3 https://github.com/esnet/iperf
+# iperf3 https://iperf.fr/
 function Env-SetIperfEnvironmentVariable() {
     $APP_IPERF_DIR = $APP_DIR + '_iperf\';
 
