@@ -493,3 +493,17 @@ function Env-SetEverythingEnvironmentVariable() {
 
     Env-TryAppendPathVariable -Value $APP_EVERYTHING_DIR
 }
+
+# https://sourceforge.net/projects/iperf2/
+function Env-SetIperfEnvironmentVariable() {
+    $APP_IPERF_DIR = $APP_DIR + '_iperf\';
+
+    Env-TryAppendPathVariable -Value $APP_IPERF_DIR
+}
+
+# 杂项工具
+function Env-SetOtherEnvironmentVariable() {
+    $APP_OTHER_DIR = $APP_DIR + '_other\';
+
+    Env-TryAppendPathVariable -Value $APP_OTHER_DIR
+}
