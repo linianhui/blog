@@ -494,7 +494,8 @@ function Env-SetEverythingEnvironmentVariable() {
     Env-TryAppendPathVariable -Value $APP_EVERYTHING_DIR
 }
 
-# https://sourceforge.net/projects/iperf2/
+# iperf2 https://sourceforge.net/projects/iperf2/
+# iperf3 https://github.com/esnet/iperf
 function Env-SetIperfEnvironmentVariable() {
     $APP_IPERF_DIR = $APP_DIR + '_iperf\';
 

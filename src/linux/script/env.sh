@@ -166,6 +166,11 @@ APP_JMETER_DIR=$APP_DIR/_jmeter
 APP_JMETER_BIN_DIR=$APP_JMETER_DIR/bin
 export PATH=$PATH:$APP_JMETER_BIN_DIR
 
+# iperf2 https://sourceforge.net/projects/iperf2/
+# iperf3 https://github.com/esnet/iperf
+APP_IPERF_DIR=$APP_DIR/_iperf
+export PATH=$PATH:$APP_IPERF_DIR
+
 # 杂项工具
 APP_OTHER_DIR=$APP_DIR/_other
 export PATH=$PATH:$APP_OTHER_DIR
