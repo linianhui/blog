@@ -73,6 +73,10 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 
 {{<highlight-file path="samba.sh" lang="sh">}}
 
+## 2.4 Stats {#samba}
+
+{{<highlight-file path="stats.sh" lang="sh">}}
+
 
 # 3 reference {#reference}
 
