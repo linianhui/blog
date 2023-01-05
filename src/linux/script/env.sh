@@ -4,6 +4,9 @@ CACHE_DIR=$MY_HOME/_cache
 CONFIG_DIR=$MY_HOME/_config
 DATA_DIR=$MY_HOME/_data
 
+# add gnu
+PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 export XDG_CACHE_HOME=$CACHE_DIR
 export XDG_CONFIG_HOME=$CONFIG_DIR
