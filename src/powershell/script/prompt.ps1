@@ -6,13 +6,18 @@ function prompt () {
     # hold last exit code
     $OLD_LASTEXITCODE = $LASTEXITCODE
 
-    $DateTime = Get-Date -Format 'yy-MM-dd HH:mm:ss'
+    $Now = [System.DateTimeOffset]::Now
+    $DateTime = $Now.ToString('yy-MM-dd HH:mm:ss K')
+    $DayOfWeek = [System.Int32]$Now.DayOfWeek
+    $Week = $DayOfWeek.Equals(0)?7:$DayOfWeek
+    $DayOfYear = $Now.DayOfYear
+    $UnixTimeMilliseconds = $Now.ToUnixTimeMilliseconds()
     $UserPrompt = UI-GetUserPrompt
     $UserPromptPrefix = $UserPrompt.Prefix
     $UserPromptText = $UserPrompt.Text
 
-    Write-Host -NoNewline "`n$UserPromptText $DateTime" -ForegroundColor Gray
-    if($OLD_LASTEXITCODE -gt 0){
+    Write-Host -NoNewline "`n$UserPromptText $DateTime $UnixTimeMilliseconds w$Week d$DayOfYear" -ForegroundColor Gray
+    if ($OLD_LASTEXITCODE -gt 0) {
         Write-Host -NoNewline " $OLD_LASTEXITCODE" -ForegroundColor Red
     }
 
