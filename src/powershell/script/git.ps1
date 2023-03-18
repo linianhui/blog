@@ -221,7 +221,7 @@ function Git-Proxy(
     [switch]$unset = $False
 ) {
     if ($set) {
-        git config --global http.proxy 'socks5://127.0.0.1:1080'
+        git config --global http.proxy 'socks5://192.168.2.123:1080'
     }
 
     if ($unset) {
