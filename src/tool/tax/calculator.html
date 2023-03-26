@@ -88,7 +88,7 @@
 
   .insurance-table input {
     min-width: 2em;
-    max-width: 6em;
+    max-width: 4em;
     text-align: right;
   }
 </style>
@@ -131,25 +131,22 @@
                 <el-option v-for="item in insuranceNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
-              &nbsp;&nbsp;
-              <i class="header-icon el-icon-info">
-                &nbsp;社保基数：{{insurance.min | CNY}} ~ {{insurance.max | CNY}}
-              </i>
+              &nbsp;&nbsp;{{insurance.min | CNY}} ~ {{insurance.max | CNY}}
             </template>
             <table class="insurance-table">
               <tr class="row-header">
                 <th>社保类型</th>
                 <th>最低基数</th>
                 <th>最高基数</th>
-                <th>个人缴纳</th>
-                <th>公司缴纳</th>
+                <th>个人%</th>
+                <th>公司%</th>
               </tr>
               <tr v-for="item in insurance.items" class="row-data">
                 <td>{{item.name}}</td>
-                <td>￥<input v-model="item.min"></td>
-                <td>￥<input v-model="item.max"></td>
-                <td><input v-model="item.personalPercentage">%</td>
-                <td><input v-model="item.corporationPercentage">%</td>
+                <td><input v-model="item.min"></td>
+                <td><input v-model="item.max"></td>
+                <td><input v-model="item.personalPercentage"></td>
+                <td><input v-model="item.corporationPercentage"></td>
               </tr>
             </table>
           </el-collapse-item>
@@ -168,10 +165,7 @@
                 <el-option v-for="item in rateNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
-              &nbsp;&nbsp;
-              <i class="header-icon el-icon-info">
-                &nbsp;免征额：{{rate.exempted | CNY}}
-              </i>
+              &nbsp;&nbsp;免征额 {{rate.exempted | CNY}}
             </template>
             <table>
               <tr class="row-header">
