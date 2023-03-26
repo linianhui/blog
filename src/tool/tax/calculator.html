@@ -6,6 +6,7 @@
   td {
     text-align: right;
     vertical-align: baseline;
+    padding: 6px 4px;
   }
 
   .cell {
@@ -131,7 +132,7 @@
                 <el-option v-for="item in insuranceNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
-              &nbsp;&nbsp;{{insurance.min | CNY}} ~ {{insurance.max | CNY}}
+              <span>&nbsp;&nbsp;{{insurance.min | CNY}}~{{insurance.max | CNY}}</span>
             </template>
             <table class="insurance-table">
               <tr class="row-header">
@@ -165,7 +166,7 @@
                 <el-option v-for="item in rateNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
-              &nbsp;&nbsp;免征额 {{rate.exempted | CNY}}
+              <span>&nbsp;&nbsp;免征额 {{rate.exempted | CNY}}</span>
             </template>
             <table>
               <tr class="row-header">
