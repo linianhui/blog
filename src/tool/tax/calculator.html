@@ -5,6 +5,7 @@
 
   td {
     text-align: right;
+    vertical-align: baseline;
   }
 
   .cell {
@@ -258,20 +259,97 @@
             <th>税后</th>
             <th>税后YTD</th>
           </tr>
-          <template v-for="item in salarys.items.reverse()">
-            <tr class="row-data">
-              <td v-if="item.month > 12">{{item.months}}个月奖金</td>
-              <td v-else>{{item.month}}月</td>
-              <td>{{item.base | CNY}}</td>
-              <td>{{item.baseYTD | CNY}}</td>
-              <td>{{item.exemptedYTD | CNY}}</td>
-              <td>{{item.insurances.personalYTD | CNY}}</td>
-              <td>{{item.taxableYTD | CNY}}</td>
-              <td>{{item.rate.rate}}%</td>
-              <td>{{item.tax | CNY}}</td>
-              <td>{{item.taxYTD | CNY}}</td>
-              <td>{{item.actual | CNY}}</td>
-              <td>{{item.actualYTD | CNY}}</td>
+          <template v-for="salary in salarys.items.reverse()">
+            <tr class="row-data" :id="'month'+salary.month" onclick="displayOrHide(this)">
+              <td v-if="salary.month > 12"><i class="fa fa-chevron-down"></i> {{salary.months}}个月奖金</td>
+              <td v-else ><i class="fa fa-chevron-down"></i> {{salary.month}}月</td>
+              <td>{{salary.base | CNY}}</td>
+              <td>{{salary.baseYTD | CNY}}</td>
+              <td>{{salary.exemptedYTD | CNY}}</td>
+              <td>{{salary.insurances.personalYTD | CNY}}</td>
+              <td>{{salary.taxableYTD | CNY}}</td>
+              <td>{{salary.rate.rate}}%</td>
+              <td>{{salary.tax | CNY}}</td>
+              <td>{{salary.taxYTD | CNY}}</td>
+              <td>{{salary.actual | CNY}}</td>
+              <td>{{salary.actualYTD | CNY}}</td>
+            </tr>
+            <tr :id="'month'+salary.month+'detail'" style="display: none;">
+              <td style="padding: 0; font-size: 0;"> </td>
+              <td colspan="10" style="padding: 0; font-size: 0;">
+                <table style="padding: 0;margin: 0; font-size: 14px;width: 100%;border-width: 0;background-color: #efe;">
+                  <tr>
+                    <td v-if="salary.month > 12" colspan="3">{{salary.months}}个月奖金</td>
+                    <td colspan="3" v-else >{{salary.month}}月</td>
+                    <td>社保基数</td>
+                    <td>税率/费率</td>
+                    <td>本月</td>
+                    <td>YTD(年累计)</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td rowspan="11">个人</td>
+                    <td>税前</td>
+                    <td colspan="3"></td>
+                    <td>{{salary.base | CNY}}</td>
+                    <td>{{salary.baseYTD | CNY}}</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td rowspan="7">社保</td>
+                    <td>合计</td>
+                    <td colspan="2"></td>
+                    <td>{{salary.insurances.personal | CNY}}</td>
+                    <td>{{salary.insurances.personalYTD | CNY}}</td>
+                  </tr>
+                  <tr v-for="insurance in salary.insurances.items" class="row-data">
+                    <td>{{insurance.name}}</td>
+                    <td>{{insurance.base}}</td>
+                    <td>{{insurance.personalPercentage}}%</td>
+                    <td>{{insurance.personal | CNY}}</td>
+                    <td>{{insurance.personalYTD | CNY}}</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td rowspan="2">个税</td>
+                    <td >应纳税所得额</td>
+                    <td ></td>
+                    <td >{{salary.rate.rate | CNY}}%</td>
+                    <td>{{salary.taxable | CNY}}</td>
+                    <td>{{salary.taxableYTD | CNY}}</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td >应纳税</td>
+                    <td colspan="2"></td>
+                    <td>{{salary.tax | CNY}}</td>
+                    <td>{{salary.taxYTD | CNY}}</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td>税后</td>
+                    <td colspan="3"></td>
+                    <td>{{salary.actual | CNY}}</td>
+                    <td>{{salary.actualYTD | CNY}}</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td rowspan="8">公司</td>
+                    <td>支出</td>
+                    <td colspan="3"></td>
+                    <td>{{salary.corporation | CNY}}</td>
+                    <td>{{salary.corporationYTD | CNY}}</td>
+                  </tr>
+                  <tr class="row-data">
+                    <td rowspan="7">社保</td>
+                    <td>合计</td>
+                    <td colspan="2"></td>
+                    <td>{{salary.insurances.corporation | CNY}}</td>
+                    <td>{{salary.insurances.corporationYTD | CNY}}</td>
+                  </tr>
+                  <tr v-for="insurance in salary.insurances.items" class="row-data">
+                    <td>{{insurance.name}}</td>
+                    <td>{{insurance.base}}</td>
+                    <td>{{insurance.corporationPercentage}}%</td>
+                    <td>{{insurance.corporation | CNY}}</td>
+                    <td>{{insurance.corporationYTD | CNY}}</td>
+                  </tr>
+                </table>
+              </td>
             </tr>
           </template>
         </table>
@@ -343,5 +421,18 @@
         this.insurance = insurances[name];
       }
     }
-  })
+  });
+
+  function displayOrHide(element) {
+    var id = element.id + 'detail';
+    var element = document.getElementById(id);
+    if (element) {
+      console.log(element.style.display);
+      if (element.style.display == 'none') {
+        element.style.display = '';
+      } else {
+        element.style.display = 'none';
+      }
+    }
+  }
 </script>

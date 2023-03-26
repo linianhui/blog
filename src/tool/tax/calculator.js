@@ -88,7 +88,7 @@ function calculateOneMonth(salary, salaryOfPrevMonth) {
         }
 
         salary.insurances.personal = sum(salary.insurances.items, x => x.personal);
-        salary.insurances.personalYTD = round2((salary.insurances.personal || 0) + (salaryOfPrevMonth.insurances.personal || 0));
+        salary.insurances.personalYTD = round2((salary.insurances.personal || 0) + (salaryOfPrevMonth.insurances.personalYTD || 0));
         salary.insurances.corporation = sum(salary.insurances.items, x => x.corporation);
         salary.insurances.corporationYTD = round2((salary.insurances.corporation || 0) + (salaryOfPrevMonth.insurances.corporationYTD || 0));
         salary.insurances.sum = sum(salary.insurances.items, x => x.sum);
