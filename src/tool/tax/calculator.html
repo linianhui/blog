@@ -375,7 +375,7 @@
   const rateName = rateNameList[0];
   const insuranceNameList = Object.keys(insurances);
   const insuranceName = insuranceNameList[0];
-  const precision = blog.isMobile() ? 0 : 2;
+  let precision = blog.isMobile() ? 0 : 2;
 
   new Vue({
     el: "#app",
