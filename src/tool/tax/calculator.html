@@ -77,7 +77,7 @@
     font-size: 14px;
   }
 
-  .salary-summary sub{
+  .salary-summary sub {
     font-size: 10px;
     padding-left: 2px;
     color: #bbb;
@@ -198,6 +198,17 @@
             </table>
           </el-collapse-item>
         </el-collapse>
+      </div>
+    </section>
+    <section style="min-height: 47px;">
+      <div class="form-name">
+        <label for="precision">
+          小数位
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="precision" v-model="precision" :min="0" :max="2" placeholder="小数位"
+          @change="onPrecisionChange"></el-input-number>
       </div>
     </section>
     <section>
@@ -364,6 +375,7 @@
   const rateName = rateNameList[0];
   const insuranceNameList = Object.keys(insurances);
   const insuranceName = insuranceNameList[0];
+  const precision = blog.isMobile() ? 0 : 2;
 
   new Vue({
     el: "#app",
@@ -371,6 +383,7 @@
       return {
         amount: 5000,
         month: 12,
+        precision: precision,
         rateNameList: rateNameList,
         rateName: rateName,
         rate: rates[rateName],
@@ -386,7 +399,7 @@
           {
             symbol: "",
             separator: ",",
-            precision: 2
+            precision: precision
           })
           .format();
       }
@@ -418,6 +431,9 @@
       },
       onInsuranceNameChange(name) {
         this.insurance = insurances[name];
+      },
+      onPrecisionChange(value) {
+        this.precision = value;
       }
     }
   });
