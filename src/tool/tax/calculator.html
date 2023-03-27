@@ -243,7 +243,6 @@
         <table class="salary-table">
           <tr class="row-header">
             <th style="width: 5em;">月份</th>
-            <th>税前</th>
             <th>税前YTD</th>
             <th style="width: 6em;">免征额YTD</th>
             <th style="width: 7em;">社保个人YTD</th>
@@ -258,7 +257,6 @@
             <tr class="row-data" :id="'month'+salary.month" onclick="displayOrHide(this)">
               <td v-if="salary.month > 12"><i class="fa fa-chevron-down"></i> {{salary.months}}个月奖金</td>
               <td v-else ><i class="fa fa-chevron-down"></i> {{salary.month}}月</td>
-              <td>{{salary.base | CNY}}</td>
               <td>{{salary.baseYTD | CNY}}</td>
               <td>{{salary.exemptedYTD | CNY}}</td>
               <td>{{salary.insurances.personalYTD | CNY}}</td>
