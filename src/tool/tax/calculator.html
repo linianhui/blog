@@ -109,7 +109,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="salary" v-model="amount" step="1000" placeholder="请输入税前月工资">
+        <el-input-number v-model="amount" step="1000" placeholder="请输入税前月工资">
         </el-input-number>
       </div>
     </section>
@@ -120,7 +120,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="month" v-model="month" :min="1" :max="100" placeholder="请输入月数"></el-input-number>
+        <el-input-number v-model="month" :min="1" :max="100" placeholder="请输入月数"></el-input-number>
       </div>
     </section>
     <section>
@@ -133,8 +133,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-select id="insurance" v-model="insuranceName" :popper-append-to-body="false"
-                @change="onInsuranceNameChange">
+              <el-select v-model="insuranceName" :popper-append-to-body="false" @change="onInsuranceNameChange">
                 <el-option v-for="item in insuranceNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
@@ -168,7 +167,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-select id="rate" v-model="rateName" :popper-append-to-body="false">
+              <el-select v-model="rateName" :popper-append-to-body="false">
                 <el-option v-for="item in rateNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
@@ -200,18 +199,6 @@
         </el-collapse>
       </div>
     </section>
-    <section style="min-height: 47px;">
-      <div class="form-name">
-        <label for="precision">
-          小数位
-        </label>
-      </div>
-      <div colspan="2" class="form-input">
-        <el-input-number id="precision" v-model="precision" :min="0" :max="2" placeholder="小数位"
-          @change="onPrecisionChange"></el-input-number>
-      </div>
-    </section>
-    <section>
   </fieldset>
 
   <fieldset>
@@ -375,7 +362,7 @@
   const rateName = rateNameList[0];
   const insuranceNameList = Object.keys(insurances);
   const insuranceName = insuranceNameList[0];
-  let precision = blog.isMobile() ? 0 : 2;
+  const precisionDefault = blog.isMobile() ? 0 : 2;
 
   new Vue({
     el: "#app",
@@ -383,7 +370,6 @@
       return {
         amount: 5000,
         month: 12,
-        precision: precision,
         rateNameList: rateNameList,
         rateName: rateName,
         rate: rates[rateName],
@@ -399,7 +385,7 @@
           {
             symbol: "",
             separator: ",",
-            precision: precision
+            precision: precisionDefault
           })
           .format();
       }
@@ -431,9 +417,6 @@
       },
       onInsuranceNameChange(name) {
         this.insurance = insurances[name];
-      },
-      onPrecisionChange(value) {
-        this.precision = value;
       }
     }
   });
