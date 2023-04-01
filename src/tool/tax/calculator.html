@@ -109,7 +109,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number v-model="amount" step="1000" placeholder="请输入税前月工资">
+        <el-input-number id="salary" v-model="amount" step="1000" :min="0">
         </el-input-number>
       </div>
     </section>
@@ -120,7 +120,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number v-model="month" :min="1" :max="100" placeholder="请输入月数"></el-input-number>
+        <el-input-number id="month" v-model="month" :min="1"></el-input-number>
       </div>
     </section>
     <section>
@@ -133,7 +133,8 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-select v-model="insuranceName" :popper-append-to-body="false" @change="onInsuranceNameChange">
+              <el-select id="insurance" v-model="insuranceName" :popper-append-to-body="false"
+                @change="onInsuranceNameChange">
                 <el-option v-for="item in insuranceNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
@@ -167,7 +168,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-select v-model="rateName" :popper-append-to-body="false">
+              <el-select id="rate" v-model="rateName" :popper-append-to-body="false">
                 <el-option v-for="item in rateNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
@@ -199,6 +200,17 @@
         </el-collapse>
       </div>
     </section>
+    <section style="min-height: 47px;">
+      <div class="form-name">
+        <label for="precision">
+          小数位
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="precision" v-model="precision" :min="0" :max="2" @change="onPrecisionChange"></el-input-number>
+      </div>
+    </section>
+    <section>
   </fieldset>
 
   <fieldset>
@@ -257,7 +269,7 @@
             <th>税后</th>
             <th>税后YTD</th>
           </tr>
-          <template v-for="salary in salarys.items.reverse()">
+          <template v-for="salary in salarys.items">
             <tr class="row-data" :id="'month'+salary.month" onclick="displayOrHide(this)">
               <td v-if="salary.month > 12"><i class="fa fa-chevron-down"></i> {{salary.months}}个月奖金</td>
               <td v-else ><i class="fa fa-chevron-down"></i> {{salary.month}}月</td>
@@ -362,7 +374,7 @@
   const rateName = rateNameList[0];
   const insuranceNameList = Object.keys(insurances);
   const insuranceName = insuranceNameList[0];
-  const precisionDefault = blog.isMobile() ? 0 : 2;
+  let precision = blog.isMobile() ? 0 : 2;
 
   new Vue({
     el: "#app",
@@ -370,6 +382,7 @@
       return {
         amount: 5000,
         month: 12,
+        precision: precision,
         rateNameList: rateNameList,
         rateName: rateName,
         rate: rates[rateName],
@@ -385,7 +398,7 @@
           {
             symbol: "",
             separator: ",",
-            precision: precisionDefault
+            precision: precision
           })
           .format();
       }
@@ -406,7 +419,7 @@
         log("calculate salarys year summary", summary);
 
         return {
-          items: items,
+          items: items.reverse(),
           summary: summary
         };
       }
@@ -417,6 +430,9 @@
       },
       onInsuranceNameChange(name) {
         this.insurance = insurances[name];
+      },
+      onPrecisionChange(value) {
+        precision = value;
       }
     }
   });
