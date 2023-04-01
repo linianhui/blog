@@ -98,6 +98,14 @@
     max-width: 4em;
     text-align: right;
   }
+
+  .month-detail{
+    display: none;
+  }
+
+  .month-detail_opened{
+    display: table-row;
+  }
 </style>
 <div id="app">
   <fieldset class="input-fieldset">
@@ -270,7 +278,7 @@
             <th>税后YTD</th>
           </tr>
           <template v-for="salary in salarys.items">
-            <tr class="row-data" :id="'month'+salary.month" onclick="displayOrHide(this)">
+            <tr class="row-data" :onclick="'blog.toggleClassName(\'month-'+salary.month+'-detail\',\'month-detail_opened\')'">
               <td v-if="salary.month > 12"><i class="fa fa-chevron-down"></i> {{salary.months}}个月奖金</td>
               <td v-else ><i class="fa fa-chevron-down"></i> {{salary.month}}月</td>
               <td>{{salary.baseYTD | CNY}}</td>
@@ -283,7 +291,7 @@
               <td>{{salary.actual | CNY}}</td>
               <td>{{salary.actualYTD | CNY}}</td>
             </tr>
-            <tr :id="'month'+salary.month+'detail'" style="display: none;">
+            <tr :id="'month-'+salary.month+'-detail'" class="month-detail">
               <td style="padding: 0; font-size: 0;"> </td>
               <td colspan="10" style="padding: 0; font-size: 0;">
                 <table style="padding: 0;margin: 0; font-size: 14px;width: 100%;border-width: 0;background-color: #efe;">
@@ -436,16 +444,4 @@
       }
     }
   });
-
-  function displayOrHide(element) {
-    var id = element.id + 'detail';
-    var element = document.getElementById(id);
-    if (element) {
-      if (element.style.display == 'none') {
-        element.style.display = '';
-      } else {
-        element.style.display = 'none';
-      }
-    }
-  }
 </script>
