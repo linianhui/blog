@@ -99,11 +99,11 @@
     text-align: right;
   }
 
-  .month-detail{
+  .month-detail {
     display: none;
   }
 
-  .month-detail_opened{
+  .month-detail_opened {
     display: table-row;
   }
 </style>
@@ -155,6 +155,13 @@
                 <th>最高基数</th>
                 <th>个人%</th>
                 <th>公司%</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input v-model="insurance.min" @input="onInsuranceMinChange"></td>
+                <td><input v-model="insurance.max" @input="onInsuranceMaxChange"></td>
+                <td></td>
+                <td></td>
               </tr>
               <tr v-for="item in insurance.items" class="row-data">
                 <td>{{item.name}}</td>
@@ -444,6 +451,14 @@
       },
       onInsuranceNameChange(name) {
         this.insurance = insurances[name];
+      },
+      onInsuranceMinChange(e) {
+        const min = e.target.value;
+        this.insurance.items.forEach(x => x.min = min);
+      },
+      onInsuranceMaxChange(e) {
+        const max = e.target.value;
+        this.insurance.items.forEach(x => x.max = max);
       },
       onPrecisionChange(value) {
         precision = value;
