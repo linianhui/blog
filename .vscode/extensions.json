@@ -1,6 +1,8 @@
 {
   "recommendations": [
     "editorconfig.editorconfig",
-    "ms-vscode.hexeditor"
+    "ms-vscode.hexeditor",
+    "yzhang.markdown-all-in-one",
+    "ecmel.vscode-html-css"
   ]
 }
