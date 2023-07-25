@@ -1,4 +1,52 @@
 var insurances = {
+    "北京2023社保基数": {
+        min: 6326,
+        max: 33891,
+        items: [
+            {
+                name: "养老保险",
+                min: 6326,
+                max: 33891,
+                corporationPercentage: 16,
+                personalPercentage: 8
+            },
+            {
+                name: "医疗保险",
+                min: 6326,
+                max: 33891,
+                corporationPercentage: 9,
+                personalPercentage: 2
+            },
+            {
+                name: "失业保险",
+                min: 6326,
+                max: 33891,
+                corporationPercentage: 0.5,
+                personalPercentage: 0.5
+            },
+            {
+                name: "工伤保险",
+                min: 6326,
+                max: 33891,
+                corporationPercentage: 0.4,
+                personalPercentage: 0
+            },
+            {
+                name: "生育保险",
+                min: 6326,
+                max: 33891,
+                corporationPercentage: 0.8,
+                personalPercentage: 0
+            },
+            {
+                name: "公积金",
+                min: 0,
+                max: 33891,
+                corporationPercentage: 12,
+                personalPercentage: 12
+            }
+        ]
+    },
     "北京2022社保基数": {
         min: 5869,
         max: 31884,
