@@ -18,7 +18,7 @@ toc: true
 Env-SetJavaEnvironmentVariable
 
 # 查看版本信息 
-java -v
+java -version
 ```
 
 # 2 Maven {#maven}

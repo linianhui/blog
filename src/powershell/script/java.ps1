@@ -6,7 +6,7 @@ function Java-Arthas() {
 
 function Java-Set-Jdk {
     param (
-        [ValidateSet('8', '11', '17', '19',"12")]
+        [ValidateSet('8', '11', '17', '19')]
         [string] $Version
     )
     $BasePath = 'd:\_app\_java'
@@ -27,4 +27,5 @@ function Java-Set-Jdk {
     }
 
     Log-Debug "now jdk path : $((Get-Item -Path $BasePath).Target)"
+    java -version
 }
