@@ -443,8 +443,10 @@ function Env-SetRustEnvironmentVariable() {
 # https://github.com/gohugoio/hugo
 function Env-SetHugoEnvironmentVariable() {
     $APP_HUGO_DIR = $APP_DIR + '_hugo\';
+    $CACHE_HUGO_DIR = $CACHE_DIR + '_hugo\';
 
     Env-TryAppendPathVariable -Value $APP_HUGO_DIR
+    Env-TrySetVariable -Variable 'HUGO_CACHEDIR' -Value $CACHE_HUGO_DIR
 }
 
 # https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format

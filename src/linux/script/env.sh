@@ -120,7 +120,9 @@ export PATH=$PATH:$APP_CARGO_BIN_DIR
 
 # https://github.com/gohugoio/hugo
 APP_HUGO_DIR=$APP_DIR/_hugo
+CACHE_HUGO_DIR=$CACHE_DIR/_hugo
 export PATH=$PATH:$APP_HUGO_DIR
+export HUGO_CACHEDIR=$CACHE_HUGO_DIR
 
 # https://nodejs.org/en/download/
 APP_NODE_DIR=$APP_DIR/_node
