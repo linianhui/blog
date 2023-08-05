@@ -104,3 +104,15 @@ function ubt3 () {
 function ceos () {
     vm-ssh -username root -hostname ceos
 }
+
+function deb1 () {
+    vm-ssh -username root -hostname deb1
+}
+
+function deb2 () {
+    vm-ssh -username root -hostname deb2
+}
+
+function deb3 () {
+    vm-ssh -username root -hostname deb3
+}
