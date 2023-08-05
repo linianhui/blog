@@ -59,9 +59,10 @@ export PATH=$PATH:$APP_MAVEN_BIN_DIR
 # https://docs.docker.com/engine/reference/commandline/cli/
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
 APP_DOCKER_DIR=$APP_DIR/_docker
+CONFIG_DOCKER_DIR=$CONFIG_DIR/_docker
 export PATH=$PATH:$APP_DOCKER_DIR
 export DOCKER_HOST='tcp://127.0.0.1:2375'
-export DOCKER_CONFIG='/lnh/_code/blog/src/docker/install/'
+export DOCKER_CONFIG=$CONFIG_DOCKER_DIR
 
 # https://docs.docker.com/machine/
 # https://docs.docker.com/machine/drivers/virtualbox/

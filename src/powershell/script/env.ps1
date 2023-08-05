@@ -326,7 +326,9 @@ function Env-SetKubectlEnvironmentVariable() {
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
 function Env-SetDockerEnvironmentVariable() {
     $APP_DOCKER_DIR = $APP_DIR + '_docker\';
+    $CONFIG_DOCKER_DIR = $CONFIG_DIR + '_docker\';
 
+    Env-TrySetVariable -Variable 'DOCKER_CONFIG' -Value $CONFIG_DOCKER_DIR
     Env-TrySetVariable -Variable 'DOCKER_HOST' -Value 'tcp://127.0.0.1:2375'
     Env-TryAppendPathVariable -Value $APP_DOCKER_DIR
 }

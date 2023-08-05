@@ -7,6 +7,8 @@ toc: true
 
 # 1 dokcerd {#dockerd}
 
+reference: <https://docs.docker.com/engine/reference/commandline/dockerd/>
+
 ## 1.1 Ubuntu {#docker-on-ubuntu} 
 
 {{<highlight-file path="docker-on-ubuntu.sh" lang="bash">}}
@@ -35,11 +37,15 @@ MacOS : <https://download.docker.com/mac/static/stable/x86_64/>
 xattr -d com.apple.quarantine docker
 ```
 
+reference : <https://docs.docker.com/engine/reference/commandline/cli/>
+
 # 3 dokcer-compose {#docker-compose}
 
 <https://github.com/docker/compose/releases>
 
 {{<highlight-file path="docker-compose.sh" lang="bash">}}
+
+reference : <https://docs.docker.com/compose/reference/>
 
 # 4 dokcer-machine {#docker-machine}
 
