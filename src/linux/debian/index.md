@@ -16,10 +16,11 @@ toc: true
 | Installation Guide | https://www.debian.org/releases/stable/amd64/install.zh-cn.pdf |
 
 
-| source | url                                        |
-| ------ | ------------------------------------------ |
-| 163    | http://mirrors.163.com/.help/debian.html   |
-| aliyun | https://developer.aliyun.com/mirror/debian |
+| source | url                                          |
+| ------ | -------------------------------------------- |
+| 163    | http://mirrors.163.com/.help/debian.html     |
+| aliyun | https://developer.aliyun.com/mirror/debian   |
+| ustc   | https://mirrors.ustc.edu.cn/help/debian.html |
 
 # 2 Config {#config}
 
