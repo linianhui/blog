@@ -61,8 +61,14 @@ $DVDDrive = Get-VMDvdDrive -VMName $VMName
 Set-VMFirmware -VMName $VMName -FirstBootDevice $DVDDrive
 ```
 
+# 5 config {#config}
 
-# 5 参考引用 {#reference}
+{{<highlight-file path="vhd.json" lang="json">}}
+
+{{<highlight-file path="vm.json" lang="json">}}
+
+
+# 6 参考引用 {#reference}
 
 https://docs.microsoft.com/en-us/virtualization/index#pivot=main&panel=server
 

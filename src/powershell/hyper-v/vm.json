@@ -1,0 +1,38 @@
+{
+  "name": "deb1",
+  "generation": 1,
+  "path": "e:\\_hyper-v",
+  "cpu": {
+    "coreCount": 2
+  },
+  "mem": {
+    "dynamic": true,
+    "startup": "1GB",
+    "min": "1GB",
+    "max": "2GB"
+  },
+  "network": {
+    "swatch": {
+      "name": "HVS"
+    },
+    "mac": {
+      "type": "Static",
+      "address": "00:15:5D:02:02:01"
+    }
+  },
+  "vhd": {
+    "dynamic": true,
+    "path": "z:\\_vhd",
+    "size": "128GB"
+  },
+  "dvd": {
+    "iso": "z:\\linux.iso"
+  },
+  "checkpoint": {
+    "type": "Disabled"
+  },
+  "automatic": {
+    "startAction": "Nothing",
+    "stopAction": "ShutDown"
+  }
+}
