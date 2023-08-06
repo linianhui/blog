@@ -4,4 +4,4 @@
 
 # [<hwaddr>][,id:<client_id>|*][,set:<tag>][,tag:<tag>][,<ipaddr>][,<hostname>][,<lease_time>][,ignore]
 # MAC地址需小写
-00:15:5d:02:02:0b,192.168.2.22,ubt1.vm.lan
+00:15:5d:02:02:0b,192.168.2.22,deb1.vm.lan

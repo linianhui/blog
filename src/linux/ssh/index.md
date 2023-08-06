@@ -9,7 +9,7 @@ toc: true
 # 1 ssh {#ssh}
 
 ```sh
-ssh lnh@ubt1 -p 22
+ssh lnh@deb1 -p 22
 ```
 
 # 2 ssh-keygen {#ssh-keygen}
@@ -24,14 +24,14 @@ ssh-keygen -t rsa
 
 ```sh
 # Copy file.
-scp 1.txt lnh@ubt1:/home/lnh/1.txt
+scp 1.txt lnh@deb1:/home/lnh/1.txt
 ```
 
 # 4 ssh-copy-id {#ssh-copy-id}
 
 ```sh
 # Copy `id_rsa.pub` to `~/.ssh/authorized_keys`.
-ssh-copy-id -i id_rsa.pub lnh@ubt1
+ssh-copy-id -i id_rsa.pub lnh@deb1
 ```
 
 
