@@ -1,9 +1,9 @@
 {
-  "name": "deb1",
+  "name": "testvm",
   "generation": 1,
   "path": "e:\\_hyper-v",
   "cpu": {
-    "coreCount": 2
+    "count": 2
   },
   "mem": {
     "dynamic": true,
@@ -12,13 +12,8 @@
     "max": "2GB"
   },
   "network": {
-    "swatch": {
-      "name": "HVS"
-    },
-    "mac": {
-      "type": "Static",
-      "address": "00:15:5D:02:02:01"
-    }
+    "switchName": "HVS",
+    "macAddress": "00:15:5D:02:02:01"
   },
   "vhd": {
     "dynamic": true,
