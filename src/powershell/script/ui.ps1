@@ -2,10 +2,10 @@
 # powershell ui functions
 ################################
 
-function script:Test-Administrator {  
+function Ui-Test-Administrator {
     $CurrentUser = [Security.Principal.WindowsIdentity]::GetCurrent();
     $CurrentPrincipal = New-Object Security.Principal.WindowsPrincipal $CurrentUser;
-    return $CurrentPrincipal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)  
+    return $CurrentPrincipal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 }
 
 function script:UI-GetUserName() {
@@ -25,7 +25,7 @@ function UI-GetUserPrompt() {
     $UserName = UI-GetUserName
     $ComputerName = UI-GetComputerName
     $CurrentPath = $(Get-Location).ToString().ToLower();
-    if (Test-Administrator) {
+    if (Ui-Test-Administrator) {
         $Role = '#'
     }
 
