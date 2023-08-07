@@ -26,7 +26,7 @@ function vhd-create(
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmdvddrive?view=win10-ps
-function vm-from-json(
+function VM-FROM-JSON(
     [string] $JsonFilePath
 ) {
     $NamePadding = 30
@@ -34,6 +34,13 @@ function vm-from-json(
         if ($JsonFilePath) {
             $Json = Get-Content -Path $JsonFilePath | ConvertFrom-Json
 
+            $VhdPath = ($Json.vhd.path + "\" + $Json.name + ".vhdx")
+            if (!(Test-Path -Path $vhdPath -PathType Leaf)) {
+                New-VHD `
+                    -Dynamic `
+                    -Path $VhdPath `
+                    -SizeBytes $Json.vhd.size | Out-Null
+            }
 
             $VM = Get-VM -Name $Json.name -ErrorAction Ignore
             if (!$VM) {
@@ -41,22 +48,22 @@ function vm-from-json(
                     -Name $Json.name `
                     -Generation $Json.generation `
                     -Path $Json.path `
-                    -SwitchName $Json.network.switchName | Out-Null
-
+                    -SwitchName $Json.net.switch `
+                    -VHDPath $VhdPath | Out-Null
             }
             $VM = Get-VM -Name $Json.name
             Set-VM `
                 -Name $Json.name `
-                -AutomaticStartAction $Json.automatic.startAction `
-                -AutomaticStopAction $Json.automatic.stopAction `
+                -AutomaticStartAction $Json.automatic.start `
+                -AutomaticStopAction $Json.automatic.stop `
                 -CheckpointType $Json.checkpoint.type
             # print vm
             Log-NameValue -Name 'name' -NamePadding $NamePadding -Value $VM.Name
             Log-NameValue -Name 'generation' -NamePadding $NamePadding -Value $VM.Generation
             Log-NameValue -Name 'path' -NamePadding $NamePadding -Value $VM.Path
             Log-NameValue -Name 'state' -NamePadding $NamePadding -Value $VM.State
-            Log-NameValue -Name 'automatic.startAction' -NamePadding $NamePadding -Value $VM.AutomaticStartAction
-            Log-NameValue -Name 'automatic.stopAction' -NamePadding $NamePadding -Value $VM.AutomaticStopAction
+            Log-NameValue -Name 'automatic.start' -NamePadding $NamePadding -Value $VM.AutomaticStartAction
+            Log-NameValue -Name 'automatic.stop' -NamePadding $NamePadding -Value $VM.AutomaticStopAction
             Log-NameValue -Name 'checkpoint.type' -NamePadding $NamePadding -Value $VM.CheckpointType
 
             Set-VMProcessor `
@@ -81,33 +88,19 @@ function vm-from-json(
             Log-NameValue -Name 'mem.max' -NamePadding $NamePadding -Value ($MEM.Maximum | Byte-Format)
 
 
-            if ($Json.network.macAddress) {
+            if ($Json.net.mac) {
                 Set-VMNetworkAdapter `
                     -VMName $Json.name `
-                    -StaticMacAddress $Json.network.macAddress
+                    -StaticMacAddress $Json.net.mac
             }
             $VM = Get-VM -Name $Json.name
-            # print network
-            Log-NameValue -Name 'network.switchName' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].SwitchName
-            Log-NameValue -Name 'network.connected' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].Connected
-            Log-NameValue -Name 'network.macAddress' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].MacAddress
+            # print net
+            Log-NameValue -Name 'net.switch' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].SwitchName
+            Log-NameValue -Name 'net.connected' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].Connected
+            Log-NameValue -Name 'net.mac' -NamePadding $NamePadding -Value ($VM.NetworkAdapters[0].MacAddress | Mac-Format)
 
 
-            $vhdPath = ($Json.vhd.path + "\" + $Json.name + ".vhdx")
-            if (!(Test-Path -Path $vhdPath -PathType Leaf)) {
-                New-VHD `
-                    -Dynamic `
-                    -Path $vhdPath `
-                    -SizeBytes $Json.vhd.size | Out-Null
-            }
-            $VHD = Get-VHD -Path $vhdPath
-            Add-VMHardDiskDrive `
-                -VMName $Json.name `
-                -Path $VHD.Path `
-                -ControllerType IDE `
-                -ControllerNumber 0 `
-                -ControllerLocation 0 `
-                -ErrorAction Ignore
+            $VHD = Get-VHD -Path $VhdPath
             $HDD = Get-VMHardDiskDrive -VMName $Json.name
             # print hdd
             Log-NameValue -Name 'hdd.type' -NamePadding $NamePadding -Value $VHD.VhdType
@@ -121,11 +114,12 @@ function vm-from-json(
 
 
             if (Test-Path -Path $Json.dvd.iso -PathType Leaf) {
-                Add-VMDvdDrive `
+                Set-VMDvdDrive `
                     -VMName $Json.name `
                     -Path $Json.dvd.iso`
-                    -ControllerNumber 0 `
-                    -ControllerLocation 1
+                    -ControllerNumber 1 `
+                    -ControllerLocation 0 `
+                    -ErrorAction Ignore
             }
             $DVD = Get-VMDvdDrive -VMName $Json.name
             # print dvd

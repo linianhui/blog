@@ -11,9 +11,9 @@
     "min": "1GB",
     "max": "2GB"
   },
-  "network": {
-    "switchName": "HVS",
-    "macAddress": "00:15:5D:02:02:01"
+  "net": {
+    "switch": "HVS",
+    "mac": "00:15:5D:02:02:01"
   },
   "vhd": {
     "dynamic": true,
@@ -27,7 +27,7 @@
     "type": "Disabled"
   },
   "automatic": {
-    "startAction": "Nothing",
-    "stopAction": "ShutDown"
+    "start": "Nothing",
+    "stop": "ShutDown"
   }
 }
