@@ -46,7 +46,7 @@ function VM-FROM-JSON(
             if (!$VM) {
                 New-VM `
                     -Name $Json.name `
-                    -Generation $Json.generation `
+                    -Generation 1 `
                     -Path $Json.path `
                     -SwitchName $Json.net.switch `
                     -VHDPath $VhdPath | Out-Null
@@ -54,9 +54,9 @@ function VM-FROM-JSON(
             $VM = Get-VM -Name $Json.name
             Set-VM `
                 -Name $Json.name `
-                -AutomaticStartAction $Json.automatic.start `
-                -AutomaticStopAction $Json.automatic.stop `
-                -CheckpointType $Json.checkpoint.type
+                -AutomaticStartAction 'Nothing' `
+                -AutomaticStopAction 'ShutDown' `
+                -CheckpointType 'Disabled'
             # print vm
             Log-NameValue -Name 'name' -NamePadding $NamePadding -Value $VM.Name
             Log-NameValue -Name 'generation' -NamePadding $NamePadding -Value $VM.Generation
@@ -76,8 +76,8 @@ function VM-FROM-JSON(
 
             Set-VMMemory `
                 -VMName $Json.name `
-                -DynamicMemoryEnabled $Json.mem.dynamic `
-                -StartupBytes $Json.mem.startup `
+                -DynamicMemoryEnabled $True `
+                -StartupBytes $Json.mem.min `
                 -MinimumBytes $Json.mem.min `
                 -MaximumBytes $Json.mem.max
             $MEM = Get-VMMemory -VMName $Json.name
