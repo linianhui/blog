@@ -26,6 +26,7 @@ function vhd-create(
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmdvddrive?view=win10-ps
+# https://learn.microsoft.com/zh-cn/windows-server/virtualization/hyper-v/best-practices-for-running-linux-on-hyper-v
 function VM-FROM-JSON(
     [string] $JsonFilePath
 ) {
@@ -39,6 +40,7 @@ function VM-FROM-JSON(
                 New-VHD `
                     -Dynamic `
                     -Path $VhdPath `
+                    -BlockSizeBytes $Json.vhd.blockSize `
                     -SizeBytes $Json.vhd.size | Out-Null
             }
 
@@ -103,14 +105,15 @@ function VM-FROM-JSON(
             $VHD = Get-VHD -Path $VhdPath
             $HDD = Get-VMHardDiskDrive -VMName $Json.name
             # print hdd
-            Log-NameValue -Name 'hdd.type' -NamePadding $NamePadding -Value $VHD.VhdType
-            Log-NameValue -Name 'hdd.path' -NamePadding $NamePadding -Value $VHD.Path
-            Log-NameValue -Name 'hdd.format' -NamePadding $NamePadding -Value $VHD.VhdFormat
-            Log-NameValue -Name 'hdd.fileSize' -NamePadding $NamePadding -Value ($VHD.FileSize | Byte-Format)
-            Log-NameValue -Name 'hdd.size' -NamePadding $NamePadding -Value ($VHD.Size | Byte-Format)
-            Log-NameValue -Name 'hdd.controllerType' -NamePadding $NamePadding -Value $HDD.ControllerType
-            Log-NameValue -Name 'hdd.controllerNumber' -NamePadding $NamePadding -Value $HDD.ControllerNumber
-            Log-NameValue -Name 'hdd.controllerLocation' -NamePadding $NamePadding -Value $HDD.ControllerLocation
+            Log-NameValue -Name 'vhd.type' -NamePadding $NamePadding -Value $VHD.VhdType
+            Log-NameValue -Name 'vhd.path' -NamePadding $NamePadding -Value $VHD.Path
+            Log-NameValue -Name 'vhd.format' -NamePadding $NamePadding -Value $VHD.VhdFormat
+            Log-NameValue -Name 'vhd.size' -NamePadding $NamePadding -Value ($VHD.Size | Byte-Format)
+            Log-NameValue -Name 'vhd.blocksize' -NamePadding $NamePadding -Value ($VHD.BlockSize | Byte-Format)
+            Log-NameValue -Name 'vhd.fileSize' -NamePadding $NamePadding -Value ($VHD.FileSize | Byte-Format)
+            Log-NameValue -Name 'vhd.controllerType' -NamePadding $NamePadding -Value $HDD.ControllerType
+            Log-NameValue -Name 'vhd.controllerNumber' -NamePadding $NamePadding -Value $HDD.ControllerNumber
+            Log-NameValue -Name 'vhd.controllerLocation' -NamePadding $NamePadding -Value $HDD.ControllerLocation
 
 
             if (Test-Path -Path $Json.dvd.iso -PathType Leaf) {
@@ -131,8 +134,8 @@ function VM-FROM-JSON(
             Log-NameValue -Name 'dvd.controllerLocation' -NamePadding $NamePadding -Value $DVD.ControllerLocation
         }
         else {
-            Log-Info "get default from https://linianhui.github.io/powershell/hyper-v/vm.json"
-            $Response = (Invoke-WebRequest -Uri https://linianhui.github.io/powershell/hyper-v/vm.json)
+            Log-Info "get default from https://linianhui.github.io/powershell/hyper-v/linux.json"
+            $Response = (Invoke-WebRequest -Uri https://linianhui.github.io/powershell/hyper-v/linux.json)
             Log-Debug $Response.Content
         }
     }

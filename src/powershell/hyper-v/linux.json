@@ -14,7 +14,8 @@
   },
   "vhd": {
     "path": "z:\\_vhd",
-    "size": "128GB"
+    "size": "128GB",
+    "blockSize": "1MB"
   },
   "dvd": {
     "iso": "z:\\linux.iso"
