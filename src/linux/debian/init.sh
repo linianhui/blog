@@ -21,6 +21,8 @@ swapoff -a
 cat /etc/fstab
 cat /etc/fstab | grep -v swap > /etc/fstab
 cat /etc/fstab
+systemctl --type swap
+systemctl mask dev-sdb3.swap
 
 
 # 永久禁用SELINUX
