@@ -44,7 +44,7 @@ EOF
 # mount -l
 
 # fdisk /dev/sdb
-# mkfs -t xfs /dev/sdb1
+# mkfs.ext4 -G 4096 /dev/sdb1
 # 挂载 /etc/fstab
 # 查看uuid blkid
-# UUID=f1abf791-fe61-4dab-858f-632acb7d1d8f /data xfs defaults 0 0
+# UUID=f1abf791-fe61-4dab-858f-632acb7d1d8f /data ext4 defaults 0 0
