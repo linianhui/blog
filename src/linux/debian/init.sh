@@ -2,10 +2,10 @@
 
 set -x
 
-apt-get update \
-    && apt-get -y install sudo vim curl wget unzip tcpdump net-tools iproute2 vim jq coreutils tini gdisk apt-transport-https ca-certificates software-properties-common gnupg1 gnupg2\
-    && apt-get -y autoremove \
-    && apt-get -y clean
+apt update \
+    && apt -y install sudo vim curl wget unzip tcpdump net-tools iproute2 vim jq coreutils tini gdisk apt-transport-https ca-certificates software-properties-common gnupg1 gnupg2\
+    && apt -y autoremove \
+    && apt -y clean
 
 # 禁用防火墙
 # debian

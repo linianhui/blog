@@ -28,7 +28,7 @@ toc: true
 sudo passwd root
 # /etc/ssh/sshd_cofig 
 # PermitRootLogin yes
-apt-get -y autoremove clean
+apt -y autoremove clean
 ```
 
 ```sh
