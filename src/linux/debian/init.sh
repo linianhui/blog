@@ -21,6 +21,8 @@ swapoff -a
 cat /etc/fstab
 cat /etc/fstab | grep -v swap > /etc/fstab
 cat /etc/fstab
+# https://unix.stackexchange.com/questions/671940/disabling-swap-on-debian-permanently
+# https://wiki.archlinux.org/title/swap#Disabling_swap
 systemctl --type swap
 systemctl mask dev-sdb3.swap
 
