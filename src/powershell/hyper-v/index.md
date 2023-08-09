@@ -64,10 +64,16 @@ Set-VMFirmware -VMName $VMName -FirstBootDevice $DVDDrive
 # 5 config {#config}
 
 ```pwsh
+# linux
 Vm-From-Json -JsonFilePath D:\_code\blog\src\powershell\hyper-v\linux.json
+
+# windows
+Vm-From-Json -JsonFilePath D:\_code\blog\src\powershell\hyper-v\windows.json
 ```
 
 {{<highlight-file path="linux.json" lang="json">}}
+
+{{<highlight-file path="windows.json" lang="json">}}
 
 
 # 6 参考引用 {#reference}
