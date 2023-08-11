@@ -27,7 +27,7 @@ function vhd-create(
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmdvddrive?view=win10-ps
 # https://learn.microsoft.com/zh-cn/windows-server/virtualization/hyper-v/best-practices-for-running-linux-on-hyper-v
-function VM-FROM-JSON(
+function Vm-From-Json(
     [string] $JsonFilePath
 ) {
     $NamePadding = 22
@@ -154,6 +154,66 @@ function VM-FROM-JSON(
         Log-NameValue -Name 'dvd.controllerNumber' -NamePadding $NamePadding -Value $DVD.ControllerNumber
         Log-NameValue -Name 'dvd.controllerLocation' -NamePadding $NamePadding -Value $DVD.ControllerLocation
     }
+}
+
+
+function Vm-To-Json() {
+    param (
+        [string] $VMName = $(throw "VMName is null!")
+    )
+
+    $NamePadding = 22
+
+    if ((Ui-Test-Administrator) -eq $False) {
+        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value 'please use administrator'
+        return
+    }
+
+    $VM = Get-VM -Name $VMName -ErrorAction Ignore
+    if ($VM -eq $NULL) {
+        Log-NameValue -Name 'not_found' -NamePadding $NamePadding -Value $VMName
+        return
+    }
+
+    $CPU = Get-VMProcessor -VMName $VMName
+    $CPUJson = @{
+        "count" = $CPU.Count
+    }
+
+    $MEM = Get-VMMemory -VMName $VMName
+    $MEMJson = @{
+        "min" = ($MEM.Minimum | Byte-Format)
+        "max" = ($MEM.Maximum | Byte-Format)
+    }
+
+    $NETJson = @{
+        "switch" = $VM.NetworkAdapters[0].SwitchName
+        "mac" = ($VM.NetworkAdapters[0].MacAddress | Mac-Format)
+    }
+
+    $VhdPath = (Get-VMHardDiskDrive -VMName $VMName)[0].Path
+    $VHD = Get-VHD -Path $VhdPath
+    $VHDJson = @{
+        "path" = (Get-ChildItem -Path $VHD.Path).DirectoryName
+        "size" = ($VHD.Size | Byte-Format)
+        "blockSize" = ($VHD.BlockSize | Byte-Format)
+    }
+
+    $DVD = Get-VMDvdDrive -VMName $VMName
+    $DVDJson = @{
+        "iso" = $DVD.Path
+    }
+
+    $Json = @{
+        'name' = $VMName
+        'cpu' = $CPUJson
+        'mem' = $MEMJson
+        'net' = $NETJson
+        'vhd' = $VHDJson
+        'dvd' = $DVDJson
+    }
+
+    $Json | ConvertTo-Json
 }
 
 function vm-run ([string] $name) {
