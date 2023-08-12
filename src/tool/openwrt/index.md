@@ -39,7 +39,6 @@ dns     192.168.1.1
 mtd -r write openwrt.bin firmware
 ```
 
-x86:<https://downloads.openwrt.org/releases/22.03.2/targets/x86/64/>
 aliyun-mirror:<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/x86/64/>
 ```bash
 # mirror
@@ -77,8 +76,16 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 
 {{<highlight-file path="stats.sh" lang="sh">}}
 
+# 3 x86 {#x86}
 
-# 3 reference {#reference}
+x86:<https://downloads.openwrt.org/releases/22.03.2/targets/x86/64/>
+download:<https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-22.03.5-x86-64-generic-ext4-combined.img.gz>
+
+各版本区别
+1. squashfs : 只读文件系统，支持重置，不支持扩容。
+2. ext4 : 可读写，不支持重置，支持扩容。
+
+# 4 reference {#reference}
 
 1. `local_token`: <http://hiwifi.com/local-ssh>
 2. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
