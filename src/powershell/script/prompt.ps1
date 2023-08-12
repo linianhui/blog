@@ -33,7 +33,7 @@ function prompt () {
         Write-Host -NoNewline "`n$UserPromptPrefix $GitUser :" -ForegroundColor Gray
 
         # show git status
-        Write-VcsStatus
+        Write-Host -NoNewline (Write-VcsStatus)
     }
 
     Write-Host
