@@ -25,7 +25,7 @@
   },
   "vhd": {
     "path": "z:\\_vhd",
-    "size": "128GB",
+    "size": "127GB",
     "blockSize": "32MB"
   },
   "dvd": {
