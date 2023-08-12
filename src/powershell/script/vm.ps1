@@ -23,6 +23,7 @@ function vhd-create(
         -SizeBytes $Size
 }
 
+# https://www.altaro.com/hyper-v/customize-vm-powershell/
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vm?view=win10-ps
 # https://docs.microsoft.com/en-us/powershell/module/hyper-v/set-vmdvddrive?view=win10-ps
