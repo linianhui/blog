@@ -40,8 +40,19 @@ function Mac-Format(
     [Parameter(ValueFromPipeline = $True)]
     [string]$Mac
 ) {
-    if ($Mac -eq '000000000000') {
+    $Address = $Null
+    if ([System.Net.NetworkInformation.PhysicalAddress]::TryParse($Mac, [ref] $Address) -eq $False) {
         return $Null
     }
-    return [System.Net.NetworkInformation.PhysicalAddress]::Parse($Mac).ToString()
+
+    $Hex = $Address.GetAddressBytes() | ForEach-Object { Byte-To-Hex -InputObject $_ }
+    return [System.String]::Join(':', $Hex)
+}
+
+function Byte-To-Hex() {
+    param (
+        [Parameter(ValueFromPipeline = $True)]
+        [byte]$InputObject
+    )
+    return $InputObject.ToString('X2');
 }

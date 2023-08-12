@@ -57,20 +57,26 @@ function Vm-From-Json(
     if ($VM -eq $NULL) {
         New-VM `
             -Name $Json.name `
-            -Generation 2 `
+            -Generation $Json.generation `
             -Path $Json.path `
             -SwitchName $Json.net.switch `
             -VHDPath $VhdPath | Out-Null
     }
-    # 关闭安全启动
-    Set-VMFirmware `
-        -VMName $Json.name `
-        -EnableSecureBoot Off
+
+    if ($VM.Generation -eq 2) {
+        # https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmfirmware?view=windowsserver2019-ps
+        Set-VMFirmware `
+            -VMName $Json.name `
+            -EnableSecureBoot $Json.boot.secure
+    }
+
+    # https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vm?view=windowsserver2019-ps
     Set-VM `
         -Name $Json.name `
-        -AutomaticStartAction 'Nothing' `
-        -AutomaticStopAction 'ShutDown' `
-        -CheckpointType 'Disabled'
+        -AutomaticStartAction $Json.automatic.start `
+        -AutomaticStopAction $Json.automatic.stop `
+        -AutomaticCheckpointsEnabled $Json.automatic.checkpoint `
+        -CheckpointType $Json.checkpoint.type
 
     Get-VMIntegrationService -VMName $Json.name | ForEach-Object {
         Enable-VMIntegrationService -VMName $Json.name -Name $_.Name
@@ -78,16 +84,23 @@ function Vm-From-Json(
 
     # print vm
     $VM = Get-VM -Name $Json.name
-    $VMFirmware = Get-VMFirmware -VMName $Json.name
     Log-NameValue -Name 'name' -NamePadding $NamePadding -Value $VM.Name
     Log-NameValue -Name 'generation' -NamePadding $NamePadding -Value $VM.Generation
     Log-NameValue -Name 'path' -NamePadding $NamePadding -Value $VM.Path
     Log-NameValue -Name 'state' -NamePadding $NamePadding -Value $VM.State
-    Log-NameValue -Name 'boot.secure' -NamePadding $NamePadding -Value $VMFirmware.SecureBoot
+    if ($VM.Generation -eq 2) {
+        $VMFirmware = Get-VMFirmware -VMName $Json.name
+        Log-NameValue -Name 'boot.secure' -NamePadding $NamePadding -Value $VMFirmware.SecureBoot.ToString()
+    }
+    else {
+        Log-NameValue -Name 'boot.secure' -NamePadding $NamePadding -Value 'Off'
+    }
     Log-NameValue -Name 'automatic.start' -NamePadding $NamePadding -Value $VM.AutomaticStartAction
     Log-NameValue -Name 'automatic.stop' -NamePadding $NamePadding -Value $VM.AutomaticStopAction
+    Log-NameValue -Name 'automatic.checkpoint' -NamePadding $NamePadding -Value $VM.AutomaticCheckpointsEnabled
     Log-NameValue -Name 'checkpoint.type' -NamePadding $NamePadding -Value $VM.CheckpointType
 
+    # https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmprocessor?view=windowsserver2019-ps
     Set-VMProcessor `
         -VMName $Json.name `
         -Count $Json.cpu.count
@@ -96,6 +109,7 @@ function Vm-From-Json(
     Log-NameValue -Name 'cpu.count' -NamePadding $NamePadding -Value $CPU.Count
 
 
+    # https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmmemory?view=windowsserver2019-ps
     Set-VMMemory `
         -VMName $Json.name `
         -DynamicMemoryEnabled $True `
@@ -145,7 +159,7 @@ function Vm-From-Json(
         }
     }
     $DVD = Get-VMDvdDrive -VMName $Json.name
-    if ($DVD) {
+    if ($DVD.Path) {
         # print dvd
         Log-NameValue -Name 'dvd.type' -NamePadding $NamePadding -Value $DVD.DvdMediaType
         Log-NameValue -Name 'dvd.path' -NamePadding $NamePadding -Value $DVD.Path
@@ -175,42 +189,65 @@ function Vm-To-Json() {
         return
     }
 
-    $CPU = Get-VMProcessor -VMName $VMName
-    $CPUJson = @{
-        "count" = $CPU.Count
+    $AutomaticJson = [ordered]@{
+        'start'      = $VM.AutomaticStartAction.ToString()
+        'stop'       = $VM.AutomaticStopAction.ToString()
+        'checkpoint' = $VM.AutomaticCheckpointsEnabled
     }
 
-    $MEM = Get-VMMemory -VMName $VMName
-    $MEMJson = @{
-        "min" = ($MEM.Minimum | Byte-Format)
-        "max" = ($MEM.Maximum | Byte-Format)
+    $CheckpointJson = [ordered]@{
+        'type' = $VM.CheckpointType.ToString()
     }
 
-    $NETJson = @{
-        "switch" = $VM.NetworkAdapters[0].SwitchName
-        "mac" = ($VM.NetworkAdapters[0].MacAddress | Mac-Format)
+    $BootJson = [ordered]@{
+        'secure' = 'Off'
+    }
+    if ($VM.Generation -eq 2) {
+        $Boot = Get-VMFirmware -VMName $VM.Name
+        $BootJson.secure = $Boot.SecureBoot.ToString()
     }
 
-    $VhdPath = (Get-VMHardDiskDrive -VMName $VMName)[0].Path
-    $VHD = Get-VHD -Path $VhdPath
-    $VHDJson = @{
-        "path" = (Get-ChildItem -Path $VHD.Path).DirectoryName
-        "size" = ($VHD.Size | Byte-Format)
-        "blockSize" = ($VHD.BlockSize | Byte-Format)
+    $Cpu = Get-VMProcessor -VMName $VM.Name
+    $CpuJson = [ordered]@{
+        'count' = $Cpu.Count
     }
 
-    $DVD = Get-VMDvdDrive -VMName $VMName
-    $DVDJson = @{
-        "iso" = $DVD.Path
+    $Mem = Get-VMMemory -VMName $VM.Name
+    $MemJson = [ordered]@{
+        'min' = ($Mem.Minimum | Byte-Format)
+        'max' = ($Mem.Maximum | Byte-Format)
     }
 
-    $Json = @{
-        'name' = $VMName
-        'cpu' = $CPUJson
-        'mem' = $MEMJson
-        'net' = $NETJson
-        'vhd' = $VHDJson
-        'dvd' = $DVDJson
+    $NetJson = [ordered]@{
+        'switch' = $VM.NetworkAdapters[0].SwitchName
+        'mac'    = ($VM.NetworkAdapters[0].MacAddress | Mac-Format)
+    }
+
+    $VhdPath = (Get-VMHardDiskDrive -VMName $VM.Name)[0].Path
+    $Vhd = Get-VHD -Path $VhdPath
+    $VhdJson = [ordered]@{
+        'path'      = (Get-ChildItem -Path $Vhd.Path).DirectoryName
+        'size'      = ($Vhd.Size | Byte-Format)
+        'blockSize' = ($Vhd.BlockSize | Byte-Format)
+    }
+
+    $Dvd = Get-VMDvdDrive -VMName $VM.Name
+    $DvdJson = [ordered]@{
+        "iso" = $Dvd.Path
+    }
+
+    $Json = [ordered]@{
+        'name'       = $VM.Name
+        'generation' = $VM.Generation
+        'path'       = $VM.Path
+        'automatic'  = $AutomaticJson
+        'boot'       = $BootJson
+        'checkpoint' = $CheckpointJson
+        'cpu'        = $CpuJson
+        'mem'        = $MemJson
+        'net'        = $NetJson
+        'vhd'        = $VhdJson
+        'dvd'        = $DvdJson
     }
 
     $Json | ConvertTo-Json
