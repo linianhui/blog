@@ -50,13 +50,12 @@ if ($Init) {
 
     Git-GetConfig
 
-    Update-Help
+    # Update-Help
 }
 
 Git-ImportPoshGit
 
-Kubernetes-ImportPSKubectlCompletion
+# Kubernetes-ImportPSKubectlCompletion
+# UI-SetDisplayOptions
 
-UI-SetDisplayOptions
-
-Write-Host "Get-ExecutionPolicy $(Get-ExecutionPolicy)" -ForegroundColor Green
+Log-NameValue -Name 'Get-ExecutionPolicy' -Value $(Get-ExecutionPolicy)
