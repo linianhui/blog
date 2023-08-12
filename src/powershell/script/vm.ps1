@@ -151,23 +151,25 @@ function Vm-From-Json(
     Log-NameValue -Name 'vhd.controllerLocation' -NamePadding $NamePadding -Value $HDD.ControllerLocation
 
 
-    if (Test-Path -Path $Json.dvd.iso -PathType Leaf) {
-        if ((Get-VMDvdDrive -VMName $Json.name) -eq $Null) {
-            Add-VMDvdDrive `
-                -VMName $Json.name `
-                -Path $Json.dvd.iso`
-                -ErrorAction Ignore
+    if ($Json.dvd.iso) {
+        if (Test-Path -Path $Json.dvd.iso -PathType Leaf) {
+            if ((Get-VMDvdDrive -VMName $Json.name) -eq $Null) {
+                Add-VMDvdDrive `
+                    -VMName $Json.name `
+                    -Path $Json.dvd.iso`
+                    -ErrorAction Ignore
+            }
         }
-    }
-    $DVD = Get-VMDvdDrive -VMName $Json.name
-    if ($DVD.Path) {
-        # print dvd
-        Log-NameValue -Name 'dvd.type' -NamePadding $NamePadding -Value $DVD.DvdMediaType
-        Log-NameValue -Name 'dvd.path' -NamePadding $NamePadding -Value $DVD.Path
-        Log-NameValue -Name 'dvd.fileSize' -NamePadding $NamePadding -Value ((Get-Item $DVD.Path).Length | Byte-Format)
-        Log-NameValue -Name 'dvd.controllerType' -NamePadding $NamePadding -Value $DVD.ControllerType
-        Log-NameValue -Name 'dvd.controllerNumber' -NamePadding $NamePadding -Value $DVD.ControllerNumber
-        Log-NameValue -Name 'dvd.controllerLocation' -NamePadding $NamePadding -Value $DVD.ControllerLocation
+        $DVD = Get-VMDvdDrive -VMName $Json.name
+        if ($DVD.Path) {
+            # print dvd
+            Log-NameValue -Name 'dvd.type' -NamePadding $NamePadding -Value $DVD.DvdMediaType
+            Log-NameValue -Name 'dvd.path' -NamePadding $NamePadding -Value $DVD.Path
+            Log-NameValue -Name 'dvd.fileSize' -NamePadding $NamePadding -Value ((Get-Item $DVD.Path).Length | Byte-Format)
+            Log-NameValue -Name 'dvd.controllerType' -NamePadding $NamePadding -Value $DVD.ControllerType
+            Log-NameValue -Name 'dvd.controllerNumber' -NamePadding $NamePadding -Value $DVD.ControllerNumber
+            Log-NameValue -Name 'dvd.controllerLocation' -NamePadding $NamePadding -Value $DVD.ControllerLocation
+        }
     }
 }
 
