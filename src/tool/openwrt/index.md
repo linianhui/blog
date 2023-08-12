@@ -85,6 +85,24 @@ download:<https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-
 1. squashfs : 只读文件系统，支持重置，不支持扩容。
 2. ext4 : 可读写，不支持重置，支持扩容。
 
+```sh
+vim /etc/config/network
+# add wan
+# 替换镜像
+sed -i 's_downloads.openwrt.org_mirrors.aliyun.com/openwrt_' /etc/opkg/distfeeds.conf
+
+opkg install fdisk
+fdisk -l
+# F查看剩余空间 n创建新分区
+fdisk /dev/sda
+fdisk -l
+# 为新创建的分区格式化文件系统为ext4
+mkfs.ext4 /dev/sda3
+
+opkg install block-mount
+
+```
+
 # 4 reference {#reference}
 
 1. `local_token`: <http://hiwifi.com/local-ssh>
