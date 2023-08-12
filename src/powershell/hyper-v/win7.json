@@ -1,0 +1,35 @@
+{
+  "name": "win7",
+  "generation": 1,
+  "path": "e:\\_hyper-v",
+  "automatic": {
+    "start": "Nothing",
+    "stop": "ShutDown",
+    "checkpoint": false
+  },
+  "boot": {
+    "secure": "Off"
+  },
+  "checkpoint": {
+    "type": "Disabled"
+  },
+  "cpu": {
+    "count": 2
+  },
+  "mem": {
+    "min": "1GB",
+    "max": "4GB"
+  },
+  "net": {
+    "switch": "HVS",
+    "mac": "00:15:5D:02:02:07"
+  },
+  "vhd": {
+    "path": "e:\\_vhd",
+    "size": "128GB",
+    "blockSize": "32MB"
+  },
+  "dvd": {
+    "iso": "z:\\_iso\\cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.2ce0b2db34d76ed3f697ce148cb7594432405e23.iso"
+  }
+}

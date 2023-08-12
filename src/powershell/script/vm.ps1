@@ -226,20 +226,20 @@ function Vm-To-Json() {
     $VhdPath = (Get-VMHardDiskDrive -VMName $VM.Name)[0].Path
     $Vhd = Get-VHD -Path $VhdPath
     $VhdJson = [ordered]@{
-        'path'      = (Get-ChildItem -Path $Vhd.Path).DirectoryName
+        'path'      = (Get-ChildItem -Path $Vhd.Path).DirectoryName.ToLower()
         'size'      = ($Vhd.Size | Byte-Format)
         'blockSize' = ($Vhd.BlockSize | Byte-Format)
     }
 
     $Dvd = Get-VMDvdDrive -VMName $VM.Name
     $DvdJson = [ordered]@{
-        "iso" = $Dvd.Path
+        "iso" = $Dvd.Path?.ToLower()
     }
 
     $Json = [ordered]@{
         'name'       = $VM.Name
         'generation' = $VM.Generation
-        'path'       = $VM.Path
+        'path'       = $VM.Path.ToLower()
         'automatic'  = $AutomaticJson
         'boot'       = $BootJson
         'checkpoint' = $CheckpointJson
