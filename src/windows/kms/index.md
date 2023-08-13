@@ -7,7 +7,7 @@ toc: true
 
 # Docker {#docker}
 ```sh
-docker run -d -p 1688:1688 --restart=always --name vlmcsd ghcr.io/linianhui/vlmcsd
+docker run -d -p 1688:1688 --restart=always --name kms ghcr.io/linianhui/kms
 ```
 
 # Windows {#windows}
