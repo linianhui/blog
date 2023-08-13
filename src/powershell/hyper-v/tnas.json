@@ -1,6 +1,6 @@
 {
   "name": "tnas",
-  "generation": 1,
+  "generation": 2,
   "path": "e:\\_hyper-v",
   "automatic": {
     "start": "Nothing",
@@ -30,6 +30,6 @@
     "blockSize": "1MB"
   },
   "dvd": {
-    "iso": null
+    "iso": "z:\\_iso\\truenas-scale-22.12.3.3.6c5742b936cb5f0daea41333e23147eaae884834a1307952a55b1623b8f2c6e2.iso"
   }
 }
