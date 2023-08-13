@@ -22,7 +22,7 @@ slmgr.vbs -skms kms.test
 # 激活
 slmgr.vbs -ato
 # 查看激活信息
- slmgr.vbs -dlv
+slmgr.vbs -dlv
 ```
 
 # Office {#office}
