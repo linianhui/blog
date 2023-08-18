@@ -39,7 +39,7 @@ function Vm-From-Json(
     }
 
     if ((Ui-Test-Administrator) -eq $False) {
-        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value "please use administrator"
+        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value "need use administrator"
         return
     }
 
@@ -182,7 +182,7 @@ function Vm-To-Json() {
     $NamePadding = 22
 
     if ((Ui-Test-Administrator) -eq $False) {
-        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value 'please use administrator'
+        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value 'need use administrator'
         return
     }
 
@@ -257,10 +257,18 @@ function Vm-To-Json() {
 }
 
 function vm-run ([string] $name) {
+    if ((Ui-Test-Administrator) -eq $False) {
+        Log-NameValue -Name 'no_permission' -NamePadding 20 -Value 'use administrator run vm'
+        return
+    }
     Get-VM -Name $name | Start-VM
 }
 
 function vm-stop ([string] $name) {
+    if ((Ui-Test-Administrator) -eq $False) {
+        Log-NameValue -Name 'no_permission' -NamePadding 10 -Value 'use administrator stop vm'
+        return
+    }
     Get-VM -Name $name | Stop-VM
 }
 
