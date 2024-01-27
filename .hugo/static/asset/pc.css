@@ -290,12 +290,12 @@ time {
   font-style: italic;
 }
 
-.article-content blockquote::before {
+/* .article-content blockquote::before {
   position: relative;
   display: block;
   content: "⚠️";
   font-size: 14px;
-}
+} */
 
 .article-content blockquote p {
   margin: 0;
