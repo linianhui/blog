@@ -293,7 +293,7 @@ time {
 .article-content blockquote::before {
   position: relative;
   display: block;
-  content: "⚠️ 注意事项";
+  content: "⚠️";
   font-size: 14px;
 }
 
