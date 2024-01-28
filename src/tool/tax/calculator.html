@@ -434,10 +434,10 @@
         );
         calculateOneYear(items);
         items.shift();
-        log("calculate salarys", items);
+        blog.log("calculate salarys", items);
 
         var summary = buildSummary(items);
-        log("calculate salarys year summary", summary);
+        blog.log("calculate salarys year summary", summary);
 
         return {
           items: items.reverse(),
