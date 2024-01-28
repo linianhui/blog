@@ -117,7 +117,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAmount" v-model="amount" step="1000" :min="0">
+        <el-input-number id="eAmount" v-model="amount" step="10000" :min="0">
         </el-input-number>
       </div>
     </section>
@@ -128,7 +128,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eMonth" v-model="month" :min="1"></el-input-number>
+        <el-input-number id="eMonth" v-model="month" step="12"></el-input-number>
       </div>
     </section>
     <section>
@@ -138,7 +138,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eRate" v-model="rate" :min="0" step="0.1"></el-input-number>
+        <el-input-number id="eRate" v-model="rate" :min="0" step="0.01"></el-input-number>
       </div>
     </section>
     <section>
@@ -164,7 +164,7 @@
             <th>还款方式</th>
             <th>本金</th>
             <th>总利息</th>
-            <th>总额</th>
+            <th>总金额</th>
           </tr>
           <tr class="row-data" >
             <td>等额本金</td>
@@ -200,13 +200,13 @@
             <th colspan="4">等额本息</th>
           </tr>
           <tr class="row-header">
-            <th>月供总额</th>
-            <th>月供本金</th>
-            <th>月供利息</th>
+            <th>总额</th>
+            <th>本金</th>
+            <th>利息</th>
             <th>剩余本金</th>
-            <th>月供总额</th>
-            <th>月供本金</th>
-            <th>月供利息</th>
+            <th>总额</th>
+            <th>本金</th>
+            <th>利息</th>
             <th>剩余本金</th>
           </tr>
           <template v-for="month in result.months">
@@ -229,15 +229,29 @@
 </div>
 <script src="calculator.js"></script>
 <script type="text/javascript">
+  function getLocationParams() {
+    var amountParam = parseInt(blog.getLocationParam(1, 1000000));
+    var monthParam = parseInt(blog.getLocationParam(2, 360));
+    var rateParam = parseFloat(blog.getLocationParam(3, 4.2));
+    var dateParam = new Date(blog.getLocationParam(4, new Date()));
+    return {
+      amount: amountParam,
+      month: monthParam,
+      rate: rateParam,
+      date: dateParam
+    };
+  }
 
-  new Vue({
+  var defaultParam = getLocationParams();
+
+  var vueApp = new Vue({
     el: "#app",
     data: function () {
       return {
-        amount: 1000000,
-        month: 360,
-        rate: 4.2,
-        date: new Date()
+        amount: defaultParam.amount,
+        month: defaultParam.month,
+        rate: defaultParam.rate,
+        date: defaultParam.date
       }
     },
     filters: {
@@ -261,7 +275,10 @@
           this.date
         );
 
-        log("calculate result", result);
+        blog.log("calculate result", result);
+        var dateString = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
+        blog.log(dateString);
+        blog.setLocationParams(this.amount, this.month, this.rate, dateString);
 
         return result;
       }

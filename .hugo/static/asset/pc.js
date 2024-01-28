@@ -311,6 +311,39 @@
         return (bytes / item[base].min).toFixed(fixed) + item.unit;
     }
 
+    function round2(value) {
+        const number = value || 0;
+        return Math.round(number * 100) / 100;
+    }
+
+    function sum(items, func) {
+        var result = 0;
+        for (let index in items) {
+            const item = items[index];
+            result = round2(result + func(item));
+        }
+        return round2(result);
+    }
+
+    function deepClone(value) {
+        if (value) {
+            return JSON.parse(JSON.stringify(value));
+        }
+    }
+
+    function log(type, value) {
+        console.log(type, deepClone(value));
+    }
+
+    function getLocationParam(index, defaultValue) {
+        var param = window.location.hash.split("#")[index];
+        return param || defaultValue;
+    }
+
+    function setLocationParams() {
+        window.location.hash = Array.from(arguments).join("#");
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -323,7 +356,13 @@
         getJDSearchUrl: getJDSearchUrl,
         getTBSearchUrl: getTBSearchUrl,
         parseBytes: parseBytes,
-        formatBytes: formatBytes
+        formatBytes: formatBytes,
+        round2: round2,
+        sum: sum,
+        deepClone: deepClone,
+        log: log,
+        getLocationParam: getLocationParam,
+        setLocationParams: setLocationParams
     };
 
 })(window, document, navigator);
