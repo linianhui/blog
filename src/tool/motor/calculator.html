@@ -1,0 +1,241 @@
+<style>
+  th {
+    text-align: right;
+  }
+
+  td {
+    text-align: right;
+    vertical-align: baseline;
+    padding: 6px 4px;
+  }
+
+  .cell {
+    padding: 0 !important;
+  }
+
+  .input-fieldset section {
+    margin: 6px 0;
+  }
+
+  .form-name,
+  .form-input {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .form-name {
+    width: 5em;
+    text-align: right;
+  }
+
+  .form-input {
+    margin-left: 1em;
+  }
+
+  .el-collapse {
+    border: unset;
+  }
+
+  .el-collapse-item__wrap,
+  .el-collapse-item__header {
+    border: unset;
+  }
+
+  .el-input-group__prepend {
+    padding: 0;
+  }
+
+  fieldset {
+    border: unset;
+    box-shadow: 0 0 2px #ccc;
+    max-width: 100%;
+    min-width: 100%;
+    margin-top: 1em;
+    box-sizing: border-box;
+  }
+
+  legend {
+    background-color: #FFF;
+    color: #909399;
+  }
+
+  .result-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .result-pre {
+    font-family: unset;
+    font-size: 0;
+    margin: 0;
+  }
+
+  .result-table {
+    width: 100%;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .result-summary sub {
+    font-size: 10px;
+    padding-left: 2px;
+    color: #bbb;
+  }
+
+  .row-data {
+    color: #666;
+    font-family: monospace, Courier, 'Courier New'
+  }
+
+  .row-data:hover {
+    background-color: #eee;
+    cursor: pointer;
+  }
+
+  .insurance-table input {
+    min-width: 2em;
+    max-width: 4em;
+    text-align: right;
+  }
+
+  .month-detail {
+    display: none;
+  }
+
+  .month-detail_opened {
+    display: table-row;
+  }
+
+  .selected {
+    color: #FF0000;
+    font-weight: bold;
+    font-size: 110%;
+  }
+</style>
+<div id="app">
+  <fieldset class="input-fieldset">
+    <legend>参数区域</legend>
+    <section>
+      <div class="form-name">
+        <label for="eYear">
+          购车年份
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eYear" v-model="year" step="1">
+        </el-input-number>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="eAmount">
+          新车价格
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eAmount" v-model="amount" step="1000" :min="0">
+        </el-input-number>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="eRate">
+          折旧系数
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eRate" v-model="rate" :min="0" step="0.01"></el-input-number>
+      </div>
+    </section>
+  </fieldset>
+
+  <fieldset>
+    <legend>结果区域</legend>
+    <div class="result-wrapper">
+      <pre class="result-pre">
+        <table class="result-table">
+          <tr class="row-header">
+            <th>年份</th>
+            <th>每年减值</th>
+            <th>减值YTD</th>
+            <th>剩余价值</th>
+          </tr>
+          <template v-for="year in result.years">
+            <tr :class="year.class" >
+              <td>{{year.year}}</td>
+              <td>{{year.depreciation | CNY}}</td>
+              <td>{{year.depreciationYTD | CNY}}</td>
+              <td>{{year.residual | CNY}}</td>
+            </tr>
+          </template>
+        </table>
+      </pre>
+    </div>
+  </fieldset>
+</div>
+<script type="text/javascript">
+  function getLocationParams() {
+    var yearParam = parseInt(blog.getLocationParam(1, 2020));
+    var amountParam = parseInt(blog.getLocationParam(2, 15000));
+    var rateParam = parseFloat(blog.getLocationParam(3, 0.8));
+    return {
+      year: yearParam,
+      amount: amountParam,
+      rate: rateParam
+    };
+  }
+
+  var defaultParam = getLocationParams();
+  blog.log("calculate defaultParam", defaultParam);
+
+  var vueApp = new Vue({
+    el: "#app",
+    data: function () {
+      return {
+        year: defaultParam.year,
+        amount: defaultParam.amount,
+        rate: defaultParam.rate
+      }
+    },
+    filters: {
+      CNY: function (value) {
+        return currency(
+          value || 0,
+          {
+            symbol: "",
+            separator: ",",
+            precision: 2
+          })
+          .format();
+      }
+    },
+    computed: {
+      result() {
+        var years = [];
+        var depreciation = this.amount / 13;
+        var currentYear = new Date().getFullYear();
+        for (let i = 1; i <= 13; i++) {
+          var calYear = (this.year + i - 1);
+          var depreciationYTD = depreciation * i;
+          var residual = (this.amount - depreciationYTD) * this.rate;
+          var calss = (currentYear == calYear) ? "row-data selected" : "row-data";
+          years.push({
+            year: calYear,
+            depreciation: depreciation,
+            depreciationYTD: depreciationYTD,
+            residual: residual,
+            class: calss
+          });
+        }
+
+        blog.log("calculate result", years);
+        blog.setLocationParams(this.year, this.amount, this.rate);
+
+        return {
+          years: years
+        };
+      }
+    }
+  });
+</script>
