@@ -236,11 +236,13 @@
     var monthParam = parseInt(blog.getLocationParam(2, 360));
     var rateParam = parseFloat(blog.getLocationParam(3, 4.2));
     var dateParam = new Date(blog.getLocationParam(4, new Date()));
+    var aseParam = parseInt(blog.getLocationParam(5, 1)) == 1;
     return {
       amount: amountParam,
       month: monthParam,
       rate: rateParam,
-      date: dateParam
+      date: dateParam,
+      asc: aseParam,
     };
   }
 
@@ -255,7 +257,7 @@
         month: defaultParam.month,
         rate: defaultParam.rate,
         date: defaultParam.date,
-        asc: true
+        asc: defaultParam.ase,
       }
     },
     filters: {
@@ -285,7 +287,8 @@
 
         blog.log("calculate result", result);
         var dateString = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
-        blog.setLocationParams(this.amount, this.month, this.rate, dateString);
+        var ascString = this.asc ? 1 : 0;
+        blog.setLocationParams(this.amount, this.month, this.rate, dateString, ascString);
 
         return result;
       }
