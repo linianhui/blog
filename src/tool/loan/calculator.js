@@ -44,13 +44,13 @@ function avgPrincipal(principal, month, rateMonth) {
     for (let index = 0; index < month; index++) {
 
         // 每月利息
-        var interestMonth = blog.round2(principal * rateMonth);
+        var interestMonth = Math.max(blog.round2(principal * rateMonth));
 
         // 每月还款总金额
-        var amountMonth = blog.round2(principalMonth + interestMonth);
+        var amountMonth = Math.max(blog.round2(principalMonth + interestMonth));
 
         // 剩余本金
-        principal = blog.round2(principal - principalMonth);
+        principal = Math.max(blog.round2(principal - principalMonth), 0);
 
         result.push({
             amount: amountMonth,
@@ -74,13 +74,13 @@ function avgInterest(principal, month, rateMonth) {
     for (let index = 0; index < month; index++) {
 
         // 每月利息
-        var interestMonth = blog.round2(principal * rateMonth);
+        var interestMonth = Math.max(blog.round2(principal * rateMonth));
 
         // 每月本金
-        var principalMonth = blog.round2(amountMonth - interestMonth);
+        var principalMonth = Math.max(blog.round2(amountMonth - interestMonth));
 
         // 剩余本金
-        principal = blog.round2(principal - principalMonth);
+        principal = Math.max(blog.round2(principal - principalMonth));
 
         result.push({
             amount: amountMonth,
