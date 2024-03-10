@@ -129,6 +129,8 @@
       </div>
       <div colspan="2" class="form-input">
         <el-input-number id="eMonth" v-model="month" step="12"></el-input-number>
+        &nbsp;&nbsp;
+        <el-checkbox v-model="desc">倒序</el-checkbox>
       </div>
     </section>
     <section>
@@ -252,7 +254,8 @@
         amount: defaultParam.amount,
         month: defaultParam.month,
         rate: defaultParam.rate,
-        date: defaultParam.date
+        date: defaultParam.date,
+        desc: false
       }
     },
     filters: {
@@ -275,6 +278,10 @@
           this.rate,
           this.date
         );
+
+        if (this.desc) {
+          result.months = result.months.reverse();
+        }
 
         blog.log("calculate result", result);
         var dateString = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
