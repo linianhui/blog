@@ -13,13 +13,14 @@ function buildSalaryList(amount, month, insurances, rates, bonus, bonusSingleTax
     }
 
     if (bonus > 0) {
-        salaryList[13] = {
-            month: 13,
+        var months = salaryList.length;
+        salaryList[months] = {
+            month: months,
             bonus: bonus,
             bonusSingleTax: bonusSingleTax,
             bonusRates: bonusRates,
-            base: amount * (month - 12),
-            months: (month - 12),
+            base: amount * (months - month + 1),
+            months: (months - month + 1),
             exempted: 0,
             rates: blog.deepClone(rates),
             insurances: blog.deepClone(insurances),
