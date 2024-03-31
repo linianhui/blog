@@ -1,5 +1,38 @@
+function calculateMonths(principal, month, rate, date, aheadDate, aheadAmount) {
+    var defaultResult = calculateMonthsCore(principal, month, rate, date);
+    if (aheadAmount >= 10000) {
+        var aheads = calculateAhead(principal, month, rate, date, aheadAmount);
+        for (var i = 0; i < aheads.length - 1; i++) {
+            var aheadCurrent = aheads[i];
+            var aheadNext = aheads[i + 1];
+            if (inRange(defaultResult, aheadCurrent, aheadNext)) {
+                defaultResult.ahead = aheadCurrent;
+                break;
+            }
+        }
+    }
+    return defaultResult;
+}
 
-function calculateMonths(principal, month, rate, date) {
+
+function inRange(defaultResult, aheadCurrent, aheadNext) {
+    var defaultAmount = defaultResult.months[0].avgPrincipal.principal;
+    var aheadCurrentAmount = aheadCurrent.months[0].avgPrincipal.principal;
+    var aheadNextAmount = aheadNext.months[0].avgPrincipal.principal;
+    return aheadCurrentAmount < defaultAmount && defaultAmount <= aheadNextAmount;
+}
+
+function calculateAhead(principal, month, rate, date, aheadAmount) {
+    var residuePrincipal = blog.round2(principal - aheadAmount);
+    var result = [];
+    for (var i = month; i > 0; i--) {
+        var currentResult = calculateMonthsCore(residuePrincipal, i, rate, date);
+        result.push(currentResult);
+    }
+    return result;
+}
+
+function calculateMonthsCore(principal, month, rate, date) {
     var rateMonth = rate / 12 / 100;
     var months = avgPrincipalAndAvgInterest(principal, month, rateMonth, date);
     var avgPrincipalTotalInterest = blog.sum(months, x => x.avgPrincipal.interest);
