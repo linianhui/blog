@@ -47,3 +47,51 @@ var rates = {
         ]
     }
 };
+
+var bonusRates = {
+    exempted: 0,
+    items: [
+        {
+            min: 0,
+            max: 3000,
+            rate: 3,
+            quickDeduction: 0
+        },
+        {
+            min: 3000,
+            max: 12000,
+            rate: 10,
+            quickDeduction: 210
+        },
+        {
+            min: 12000,
+            max: 25000,
+            rate: 20,
+            quickDeduction: 1410
+        },
+        {
+            min: 25000,
+            max: 35000,
+            rate: 25,
+            quickDeduction: 2660
+        },
+        {
+            min: 35000,
+            max: 55000,
+            rate: 30,
+            quickDeduction: 4410
+        },
+        {
+            min: 55000,
+            max: 80000,
+            rate: 35,
+            quickDeduction: 7160
+        },
+        {
+            min: 80000,
+            max: null,
+            rate: 45,
+            quickDeduction: 15160
+        }
+    ]
+};

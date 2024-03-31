@@ -128,7 +128,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="month" v-model="month" :min="1"></el-input-number>
+        <el-input-number id="month" v-model="month" :min="1" @input="onMonthChange"></el-input-number>
       </div>
     </section>
     <section>
@@ -215,6 +215,47 @@
         </el-collapse>
       </div>
     </section>
+    <section>
+      <div class="form-name">
+        <label for="bonus">
+          奖金
+        </label>
+      </div>
+      <div class="form-input">
+        <el-collapse>
+          <el-collapse-item>
+            <template slot="title">
+              <el-input-number id="ebonus" v-model="bonus" step="1000"></el-input-number>
+              &nbsp;&nbsp;
+              <el-checkbox v-model="bonusSingleTax">单独计税</el-checkbox>
+              &nbsp;&nbsp; 税率表(月)
+            </template>
+            <table>
+              <tr class="row-header">
+                <th>范围</th>
+                <th>税率</th>
+                <th>速算扣除数</th>
+              </tr>
+              <tr v-for="item in bonusRates.items" class="row-data">
+                <td>
+                  <span>
+                    {{item.min | CNY}} ~
+                    <span v-if="item.max">{{item.max | CNY}}</span>
+                    <span v-else>￥∞</span>
+                  </span>
+                </td>
+                <td>
+                  {{item.rate}}%
+                </td>
+                <td>
+                  {{item.quickDeduction | CNY}}
+                </td>
+              </tr>
+            </table>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+    </section>
     <section style="min-height: 47px;">
       <div class="form-name">
         <label for="precision">
@@ -222,7 +263,8 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="precision" v-model="precision" :min="0" :max="2" @change="onPrecisionChange"></el-input-number>
+        <el-input-number id="precision" v-model="precision" :min="0" :max="2"
+          @change="onPrecisionChange"></el-input-number>
       </div>
     </section>
     <section>
@@ -286,7 +328,7 @@
           </tr>
           <template v-for="salary in salarys.items">
             <tr class="row-data" :onclick="'blog.toggleClassName(\'month-'+salary.month+'-detail\',\'month-detail_opened\')'">
-              <td v-if="salary.month > 12"><i class="fa fa-chevron-down"></i> {{salary.months}}个月奖金</td>
+              <td v-if="salary.bonus > 0"><i class="fa fa-chevron-down"></i>奖金</td>
               <td v-else ><i class="fa fa-chevron-down"></i> {{salary.month}}月</td>
               <td>{{salary.baseYTD | CNY}}</td>
               <td>{{salary.exemptedYTD | CNY}}</td>
@@ -303,7 +345,7 @@
               <td colspan="10" style="padding: 0; font-size: 0;">
                 <table style="padding: 0;margin: 0; font-size: 14px;width: 100%;border-width: 0;background-color: #efe;">
                   <tr>
-                    <td v-if="salary.month > 12" colspan="3">{{salary.months}}个月奖金</td>
+                    <td v-if="salary.bonus > 0" colspan="3">奖金</td>
                     <td colspan="3" v-else >{{salary.month}}月</td>
                     <td>社保基数</td>
                     <td>税率/费率</td>
@@ -409,7 +451,10 @@
         rate: rates[rateName],
         insuranceNameList: insuranceNameList,
         insuranceName: insuranceName,
-        insurance: insurances[insuranceName]
+        insurance: insurances[insuranceName],
+        bonus: 0,
+        bonusSingleTax: true,
+        bonusRates: bonusRates
       }
     },
     filters: {
@@ -430,7 +475,10 @@
           parseInt(this.amount, 10),
           this.month,
           this.insurance,
-          this.rate
+          this.rate,
+          this.bonus,
+          this.bonusSingleTax,
+          this.bonusRates
         );
         calculateOneYear(items);
         items.shift();
@@ -446,6 +494,12 @@
       }
     },
     methods: {
+      onMonthChange(month) {
+        if (month > 12) {
+          var bonusMonth = month - 12;
+          this.bonus = blog.round2(this.amount * bonusMonth);
+        }
+      },
       onRateNameChange(name) {
         this.rate = rates[name];
       },

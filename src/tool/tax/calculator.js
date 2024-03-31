@@ -1,5 +1,5 @@
 
-function buildSalaryList(amount, month, insurances, rates) {
+function buildSalaryList(amount, month, insurances, rates, bonus, bonusSingleTax, bonusRates) {
     const salaryList = [];
     const minMonthCount = Math.min(month, 12);
     for (let index = 0; index <= minMonthCount; index++) {
@@ -11,9 +11,13 @@ function buildSalaryList(amount, month, insurances, rates) {
             insurances: blog.deepClone(insurances),
         };
     }
-    if (month > 12) {
+
+    if (bonus > 0) {
         salaryList[13] = {
             month: 13,
+            bonus: bonus,
+            bonusSingleTax: bonusSingleTax,
+            bonusRates: bonusRates,
             base: amount * (month - 12),
             months: (month - 12),
             exempted: 0,
@@ -41,8 +45,57 @@ function calculateOneYear(salaryList) {
     for (let index = 1; index < salaryList.length; index++) {
         const salaryOfPrevMonth = salaryList[index - 1];
         const salary = salaryList[index];
-        calculateOneMonth(salary, salaryOfPrevMonth);
+        try {
+            if (salary.bonus > 0 && salary.bonusSingleTax) {
+                calculateBonusSingleTax(salary, salaryOfPrevMonth);
+            }
+            else {
+                calculateOneMonth(salary, salaryOfPrevMonth);
+            }
+        } catch (e) {
+            console.log(salary, e);
+        }
     }
+}
+
+function calculateBonusSingleTax(salary, salaryOfPrevMonth) {
+    salary.baseYTD = blog.round2((salary.bonus || 0));
+    salary.exemptedYTD = salaryOfPrevMonth.exemptedYTD;
+    salary.insurances = blog.deepClone(salaryOfPrevMonth.insurances);
+
+    for (let index in salary.insurances.items) {
+        var insurance = salary.insurances.items[index];
+        insurance.personal = 0;
+        insurance.corporation = 0;
+        insurance.sum = 0;
+    }
+    salary.insurances.personal = 0;
+    salary.insurances.corporation = 0;
+    salary.insurances.sum;
+
+    salary.taxable = blog.round2((salary.bonus || 0));
+    salary.taxableYTD = blog.round2((salary.taxable + salaryOfPrevMonth.taxableYTD));
+
+    var monthAmount = blog.round2((salary.taxable / 12));
+
+    var rates = salary.bonusRates.items;
+    salary.rate = rates[rates.length - 1];
+    for (let key in rates) {
+        const rateItem = rates[key];
+        if (monthAmount >= rateItem.min && monthAmount <= rateItem.max) {
+            salary.rate = rateItem;
+            break;
+        }
+    }
+
+    salary.tax = Math.max(0, blog.round2((salary.taxable * salary.rate.rate / 100 - salary.rate.quickDeduction)));
+    salary.taxYTD = blog.round2(salary.tax + salaryOfPrevMonth.taxYTD);
+
+    salary.actual = blog.round2(salary.taxable - salary.tax);
+    salary.actualYTD = blog.round2(salary.actual + salaryOfPrevMonth.actualYTD);
+
+    salary.corporation = blog.round2(salary.taxable);
+    salary.corporationYTD = blog.round2(salary.corporation + salaryOfPrevMonth.corporationYTD);
 }
 
 function calculateOneMonth(salary, salaryOfPrevMonth) {
@@ -64,8 +117,8 @@ function calculateOneMonth(salary, salaryOfPrevMonth) {
 
     function insurances() {
         for (let index in salary.insurances.items) {
-            const insurance = salary.insurances.items[index];
-            const insuranceOfPrevMonth = findInsurance(salaryOfPrevMonth.insurances.items, insurance.name);
+            var insurance = salary.insurances.items[index];
+            var insuranceOfPrevMonth = findInsurance(salaryOfPrevMonth.insurances.items, insurance.name);
 
             insurance.base = Math.min(Math.max(insurance.min, salary.base), insurance.max);
 
