@@ -3,6 +3,7 @@ title: "[工具] 摩托车折旧计算器"
 created_at: 2024-03-08 22:05:01
 tag: ["摩托车折旧计算器",'tool']
 toc: true
+draft: true
 ---
 
 {{<element-ui>}}
