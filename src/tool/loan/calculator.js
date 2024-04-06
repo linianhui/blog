@@ -1,7 +1,6 @@
 function calculate(principal, month, rate, date, aheadAmount) {
     var result = calculateCore(principal, month, rate, date);
     var ahead = calculateAhead(result, principal, month, rate, date, aheadAmount);
-    console.log("a", ahead);
     return tryMerge(result, ahead);
 }
 
