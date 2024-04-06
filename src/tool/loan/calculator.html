@@ -33,6 +33,10 @@
     margin-left: 1em;
   }
 
+  .e-input{
+    width: 13.7em;
+  }
+
   .el-collapse {
     border: unset;
   }
@@ -106,6 +110,13 @@
   .month-detail_opened {
     display: table-row;
   }
+
+  .ahead {
+    display: inline-block;
+    color: rgb(12, 176, 12);
+    margin-left: 2px;
+    font-family: monospace, Courier, 'Courier New'
+  }
 </style>
 <div id="app">
   <fieldset class="input-fieldset">
@@ -117,7 +128,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAmount" v-model="amount" step="10000" :min="0">
+        <el-input-number id="eAmount" v-model="amount" step="10000" :min="0" class="e-input">
         </el-input-number>
       </div>
     </section>
@@ -128,7 +139,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eMonth" v-model="month" step="12"></el-input-number>
+        <el-input-number id="eMonth" v-model="month" step="12" class="e-input"> </el-input-number>
         &nbsp;&nbsp;
         <el-checkbox v-model="asc">正序</el-checkbox>
       </div>
@@ -140,7 +151,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eRate" v-model="rate" :min="0" step="0.01"></el-input-number>
+        <el-input-number id="eRate" v-model="rate" :min="0" step="0.01" class="e-input"></el-input-number>
       </div>
     </section>
     <section>
@@ -150,7 +161,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-date-picker v-model="date" type="date" placeholder="选择日期">
+        <el-date-picker v-model="date" type="date" placeholder="选择日期" class="e-input">
         </el-date-picker>
       </div>
     </section>
@@ -161,44 +172,10 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0">
+        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input">
         </el-input-number>
       </div>
     </section>
-  </fieldset>
-
-  <fieldset v-if="result.ahead">
-    <legend>结果区域-总和-提前还款后</legend>
-    <div class="result-wrapper">
-      <pre class="result-pre">
-        <table class="result-table">
-          <tr class="row-header">
-            <th>还款方式</th>
-            <th>本金</th>
-            <th>总利息</th>
-            <th>总金额</th>
-          </tr>
-          <tr class="row-data" >
-            <td>等额本金</td>
-            <td>{{amount - aheadAmount | CNY}}</td>
-            <td>{{result.ahead.avgPrincipalTotalInterest | CNY}}</td>
-            <td>{{result.ahead.avgPrincipalTotal | CNY}}</td>
-          </tr>
-          <tr class="row-data" >
-            <td>等额本息</td>
-            <td>{{amount - aheadAmount | CNY}}</td>
-            <td>{{result.ahead.avgInterestTotalInterest | CNY}}</td>
-            <td>{{result.ahead.avgInterestTotal | CNY}}</td>
-          </tr>
-          <tr class="row-data" >
-            <td>差额</td>
-            <td></td>
-            <td>{{result.ahead.diff | CNY}}</td>
-            <td></td>
-          </tr>
-        </table>
-      </pre>
-    </div>
   </fieldset>
 
   <fieldset>
@@ -213,61 +190,23 @@
             <th>总金额</th>
           </tr>
           <tr class="row-data" >
-            <td>等额本金</td>
-            <td>{{amount | CNY}}</td>
-            <td>{{result.avgPrincipalTotalInterest | CNY}}</td>
-            <td>{{result.avgPrincipalTotal | CNY}}</td>
+            <td>等额本金-{{month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
+            <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.principal | CNY}}</sub></td>
+            <td>{{result.sum.avgPrincipal.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.interest | CNY}}</sub></td>
+            <td>{{result.sum.avgPrincipal.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.total | CNY}}</sub></td>
           </tr>
           <tr class="row-data" >
-            <td>等额本息</td>
-            <td>{{amount | CNY}}</td>
-            <td>{{result.avgInterestTotalInterest | CNY}}</td>
-            <td>{{result.avgInterestTotal | CNY}}</td>
+            <td>等额本息-{{month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
+            <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.principal | CNY}}</sub></td>
+            <td>{{result.sum.avgInterest.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.interest | CNY}}</sub></td>
+            <td>{{result.sum.avgInterest.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.total | CNY}}</sub></td>
           </tr>
           <tr class="row-data" >
-            <td>差额</td>
+            <td>利息差额</td>
             <td></td>
-            <td>{{result.diff | CNY}}</td>
-            <td></td>
+            <td>{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
+            <td>{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
           </tr>
-        </table>
-      </pre>
-    </div>
-  </fieldset>
-
-  <fieldset v-if="result.ahead">
-    <legend>结果区域-月列表-提前还款后</legend>
-    <div class="result-wrapper">
-      <pre class="result-pre">
-        <table class="result-table">
-          <tr class="row-header">
-            <th rowspan="2">月份</th>
-            <th colspan="4">等额本金</th>
-            <th colspan="4">等额本息</th>
-          </tr>
-          <tr class="row-header">
-            <th>总额</th>
-            <th>本金</th>
-            <th>利息</th>
-            <th>剩余本金</th>
-            <th>总额</th>
-            <th>本金</th>
-            <th>利息</th>
-            <th>剩余本金</th>
-          </tr>
-          <template v-for="month in result.ahead.months">
-            <tr class="row-data" >
-              <td>{{month.month}}</td>
-              <td>{{month.avgPrincipal.amount | CNY}}</td>
-              <td>{{month.avgPrincipal.principal | CNY}}</td>
-              <td>{{month.avgPrincipal.interest | CNY}}</td>
-              <td>{{month.avgPrincipal.principalBalance | CNY}}</td>
-              <td>{{month.avgInterest.amount | CNY}}</td>
-              <td>{{month.avgInterest.principal | CNY}}</td>
-              <td>{{month.avgInterest.interest | CNY}}</td>
-              <td>{{month.avgInterest.principalBalance | CNY}}</td>
-            </tr>
-          </template>
         </table>
       </pre>
     </div>
@@ -296,14 +235,14 @@
           <template v-for="month in result.months">
             <tr class="row-data" >
               <td>{{month.month}}</td>
-              <td>{{month.avgPrincipal.amount | CNY}}</td>
-              <td>{{month.avgPrincipal.principal | CNY}}</td>
-              <td>{{month.avgPrincipal.interest | CNY}}</td>
-              <td>{{month.avgPrincipal.principalBalance | CNY}}</td>
-              <td>{{month.avgInterest.amount | CNY}}</td>
-              <td>{{month.avgInterest.principal | CNY}}</td>
-              <td>{{month.avgInterest.interest | CNY}}</td>
-              <td>{{month.avgInterest.principalBalance | CNY}}</td>
+              <td>{{month.avgPrincipal.amount | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.amount}}</sub></td>
+              <td>{{month.avgPrincipal.principal | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.principal}}</sub></td>
+              <td>{{month.avgPrincipal.interest | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.interest}}</sub></td>
+              <td>{{month.avgPrincipal.principalBalance | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.principalBalance}}</sub></td>
+              <td>{{month.avgInterest.amount | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.amount}}</sub></td>
+              <td>{{month.avgInterest.principal | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.principal}}</sub></td>
+              <td>{{month.avgInterest.interest | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.interest}}</sub></td>
+              <td>{{month.avgInterest.principalBalance | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.principalBalance}}</sub></td>
             </tr>
           </template>
         </table>
@@ -340,7 +279,6 @@
         rate: defaultParam.rate,
         date: defaultParam.date,
         asc: defaultParam.asc,
-        aheadDate: new Date(),
         aheadAmount: 0
       }
     },
@@ -358,12 +296,11 @@
     },
     computed: {
       result() {
-        var result = calculateMonths(
+        var result = calculate(
           parseInt(this.amount, 10),
           this.month,
           this.rate,
           this.date,
-          this.aheadDate,
           this.aheadAmount
         );
 
