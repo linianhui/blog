@@ -190,19 +190,19 @@
             <th>总金额</th>
           </tr>
           <tr class="row-data" >
-            <td>等额本金-{{month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
+            <td>等额本金-{{result.sum.month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
             <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.principal | CNY}}</sub></td>
             <td>{{result.sum.avgPrincipal.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.interest | CNY}}</sub></td>
             <td>{{result.sum.avgPrincipal.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.total | CNY}}</sub></td>
           </tr>
           <tr class="row-data" >
-            <td>等额本息-{{month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
+            <td>等额本息-{{result.sum.month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
             <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.principal | CNY}}</sub></td>
             <td>{{result.sum.avgInterest.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.interest | CNY}}</sub></td>
             <td>{{result.sum.avgInterest.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.total | CNY}}</sub></td>
           </tr>
           <tr class="row-data" >
-            <td>利息差额</td>
+            <td>差额</td>
             <td></td>
             <td>{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
             <td>{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>

@@ -1,7 +1,7 @@
 function calculate(principal, month, rate, date, aheadAmount) {
     var result = calculateCore(principal, month, rate, date);
     var ahead = calculateAhead(result, principal, month, rate, date, aheadAmount);
-    console.log("a",ahead);
+    console.log("a", ahead);
     return tryMerge(result, ahead);
 }
 
@@ -10,7 +10,6 @@ function tryMerge(result, ahead) {
         var oldSum = blog.deepClone(result.sum);
         result.sum = ahead.sum;
         result.sum.ahead = diffSum(oldSum, ahead.sum);
-        result.sum.ahead.month = ahead.months.length - result.months.length;
         for (let index = 0; index < result.months.length; index++) {
             var oldMonth = result.months[index];
             var newMonth = ahead.months[index];
@@ -72,6 +71,7 @@ function calculateCore(principal, month, rate, date) {
     return {
         months: months,
         sum: {
+            month: months.length,
             avgPrincipal: avgPrincipalSum,
             avgInterest: avgInterestSum,
             interestDiff: blog.round2(avgInterestSum.interest - avgPrincipalSum.interest),
@@ -83,6 +83,7 @@ function diffSum(old, ahead) {
     var avgPrincipal = diffSumItem(old.avgPrincipal, ahead.avgPrincipal);
     var avgInterest = diffSumItem(old.avgInterest, ahead.avgInterest);
     return {
+        month: ahead.month - old.month,
         avgPrincipal: avgPrincipal,
         avgInterest: avgInterest,
         interestDiff: blog.round2(avgInterest.interest - avgPrincipal.interest),
@@ -90,7 +91,7 @@ function diffSum(old, ahead) {
 }
 
 function calculateSum(principal, months, func) {
-    var sum = blog.sum(months, func);
+    var sum = blog.round2(blog.sum(months, func));
     return {
         principal: principal,
         interest: sum,
