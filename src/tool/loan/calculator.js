@@ -1,6 +1,7 @@
-function calculate(principal, month, rate, date, aheadAmount) {
-    var result = calculateCore(principal, month, rate, date);
-    var ahead = calculateAhead(result, principal, month, rate, date, aheadAmount);
+function calculate(param) {
+    param.rateMonth = param.rateYear / 12 / 100;
+    var result = calculateCore(param);
+    var ahead = calculateAhead(result, param);
     return tryMerge(result, ahead);
 }
 
@@ -30,9 +31,15 @@ function tryMergeMonth(old, ahead) {
     return old;
 }
 
-function calculateAhead(defaultResult, principal, month, rate, date, aheadAmount) {
-    if (aheadAmount >= 10000) {
-        var aheads = tryCalculateAheadAll(principal, month, rate, date, aheadAmount);
+function calculateAhead(defaultResult, param) {
+    if (param.aheadAmount >= 10000) {
+        if (!param.reduceDate) {
+            var aheadParam = blog.deepClone(param);
+            aheadParam.date = param.date;
+            aheadParam.principal = blog.round2(param.principal - param.aheadAmount);
+            return calculateCore(aheadParam);
+        }
+        var aheads = tryCalculateAheadAll(param);
         for (var i = 0; i < aheads.length - 1; i++) {
             var aheadCurrent = aheads[i];
             var aheadNext = aheads[i + 1];
@@ -51,26 +58,29 @@ function inRange(defaultResult, aheadCurrent, aheadNext) {
     return aheadCurrentAmount < defaultAmount && defaultAmount <= aheadNextAmount;
 }
 
-function tryCalculateAheadAll(principal, month, rate, date, aheadAmount) {
-    var residuePrincipal = blog.round2(principal - aheadAmount);
+function tryCalculateAheadAll(param) {
     var result = [];
-    for (var i = month; i > 0; i--) {
-        result.push(calculateCore(residuePrincipal, i, rate, date));
+    var aheadParam = blog.deepClone(param);
+    aheadParam.date = param.date;
+    aheadParam.principal = blog.round2(param.principal - param.aheadAmount);
+    for (var i = param.month; i > 0; i--) {
+        aheadParam.month = i;
+        result.push(calculateCore(aheadParam));
     }
     return result;
 }
 
-function calculateCore(principal, month, rate, date) {
-    var rateMonth = rate / 12 / 100;
-    var months = calculateMonths(principal, month, rateMonth, date);
+function calculateCore(param) {
+    var months = calculateMonths(param);
 
-    var avgPrincipalSum = calculateSum(principal, months, x => x.avgPrincipal.interest);
-    var avgInterestSum = calculateSum(principal, months, x => x.avgInterest.interest);
-
+    var avgPrincipalSum = calculateSum(param.principal, months, x => x.avgPrincipal.interest);
+    var avgInterestSum = calculateSum(param.principal, months, x => x.avgInterest.interest);
+    var month = months.length;
     return {
         months: months,
         sum: {
-            month: months.length,
+            month: month,
+            year: getYearString(month),
             avgPrincipal: avgPrincipalSum,
             avgInterest: avgInterestSum,
             interestDiff: blog.round2(avgInterestSum.interest - avgPrincipalSum.interest),
@@ -81,8 +91,10 @@ function calculateCore(principal, month, rate, date) {
 function diffSum(old, ahead) {
     var avgPrincipal = diffSumItem(old.avgPrincipal, ahead.avgPrincipal);
     var avgInterest = diffSumItem(old.avgInterest, ahead.avgInterest);
+    var month = ahead.month - old.month;
     return {
-        month: ahead.month - old.month,
+        month: month,
+        year: getYearString(month),
         avgPrincipal: avgPrincipal,
         avgInterest: avgInterest,
         interestDiff: blog.round2(avgInterest.interest - avgPrincipal.interest),
@@ -106,16 +118,16 @@ function diffSumItem(old, ahead) {
     };
 }
 
-function calculateMonths(principal, month, rateMonth, date) {
+function calculateMonths(param) {
     var result = [];
-    var avgPrincipalMonths = calculateAvgPrincipalMonths(principal, month, rateMonth);
-    var avgInterestMonths = calculateAvgInterestMonths(principal, month, rateMonth);
+    var avgPrincipalMonths = calculateAvgPrincipalMonths(param);
+    var avgInterestMonths = calculateAvgInterestMonths(param);
 
-    for (let index = 0; index < month; index++) {
+    for (let index = 0; index < param.month; index++) {
         var avgPrincipalMonth = avgPrincipalMonths[index];
         var avgInterestMonth = avgInterestMonths[index];
         result.push({
-            month: addMonth(date, index),
+            month: addMonth(param.date, index),
             avgPrincipal: avgPrincipalMonth,
             avgInterest: avgInterestMonth
         });
@@ -141,16 +153,18 @@ function defaultMonth() {
 }
 
 // 等额本金
-function calculateAvgPrincipalMonths(principal, month, rateMonth) {
+function calculateAvgPrincipalMonths(param) {
     var result = [];
 
+    // 贷款总金额
+    var principal = param.principal;
     // 每月本金
-    var principalMonth = blog.round2(principal / month);
+    var principalMonth = blog.round2(principal / param.month);
 
-    for (let index = 0; index < month; index++) {
+    for (let index = 0; index < param.month; index++) {
 
         // 每月利息
-        var interestMonth = Math.max(blog.round2(principal * rateMonth));
+        var interestMonth = Math.max(blog.round2(principal * param.rateMonth));
 
         // 每月还款总金额
         var amountMonth = Math.max(blog.round2(principalMonth + interestMonth));
@@ -188,17 +202,19 @@ function defaultMonthItem() {
 }
 
 // 等额本息
-function calculateAvgInterestMonths(principal, month, rateMonth) {
+function calculateAvgInterestMonths(param) {
     var result = [];
 
+    // 贷款总金额
+    var principal = param.principal;
     // 每月还款总金额
-    var x = Math.pow((1 + rateMonth), month);
-    var amountMonth = blog.round2(principal * rateMonth * x / (x - 1));
+    var x = Math.pow((1 + param.rateMonth), param.month);
+    var amountMonth = blog.round2(principal * param.rateMonth * x / (x - 1));
 
-    for (let index = 0; index < month; index++) {
+    for (let index = 0; index < param.month; index++) {
 
         // 每月利息
-        var interestMonth = Math.max(blog.round2(principal * rateMonth));
+        var interestMonth = Math.max(blog.round2(principal * param.rateMonth));
 
         // 每月本金
         var principalMonth = Math.max(blog.round2(amountMonth - interestMonth));
@@ -232,4 +248,19 @@ function fill0(value) {
         return "0" + value;
     }
     return value;
+}
+
+function getYearString(month) {
+    var prefix = month >= 0 ? "" : "-";
+    var year = Math.abs(Math.floor(month / 12));
+    var yearMonth = Math.abs(month % 12);
+    if (year == 0) {
+        return prefix + yearMonth + "个月";
+    }
+
+    if (yearMonth == 0) {
+        return prefix + year + "年";
+    }
+
+    return prefix + year + "年" + yearMonth + "个月";
 }

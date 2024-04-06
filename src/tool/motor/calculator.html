@@ -185,7 +185,7 @@
   }
 
   var defaultParam = getLocationParams();
-  blog.log("calculate defaultParam", defaultParam);
+  console.log("calculate defaultParam", defaultParam);
 
   var vueApp = new Vue({
     el: "#app",
@@ -227,7 +227,7 @@
           });
         }
 
-        blog.log("calculate result", years);
+        console.log("calculate result", years);
         blog.setLocationParams(this.year, this.amount, this.rate);
 
         return {

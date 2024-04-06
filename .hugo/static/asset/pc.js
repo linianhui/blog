@@ -331,8 +331,8 @@
         }
     }
 
-    function log(type, value) {
-        console.log(type, deepClone(value));
+    function log() {
+        console.log(arguments);
     }
 
     function getLocationParam(index, defaultValue) {

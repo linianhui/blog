@@ -33,7 +33,7 @@
     margin-left: 1em;
   }
 
-  .e-input{
+  .e-input {
     width: 13.7em;
   }
 
@@ -118,7 +118,7 @@
     font-family: monospace, Courier, 'Courier New'
   }
 
-  .e-input-ahead input{
+  .e-input-ahead input {
     color: #093;
   }
 </style>
@@ -127,12 +127,12 @@
     <legend>参数区域</legend>
     <section>
       <div class="form-name">
-        <label for="eAmount">
+        <label for="ePrincipal">
           贷款总额
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAmount" v-model="amount" step="10000" :min="0" class="e-input">
+        <el-input-number id="ePrincipal" v-model="principal" step="10000" :min="0" class="e-input">
         </el-input-number>
       </div>
     </section>
@@ -150,12 +150,12 @@
     </section>
     <section>
       <div class="form-name">
-        <label for="eRate">
+        <label for="eRateYear">
           利率
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eRate" v-model="rate" :min="0" step="0.01" class="e-input"></el-input-number>
+        <el-input-number id="eRateYear" v-model="rateYear" :min="0" step="0.01" class="e-input"></el-input-number>
       </div>
     </section>
     <section>
@@ -178,6 +178,8 @@
       <div colspan="2" class="form-input">
         <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input e-input-ahead">
         </el-input-number>
+        &nbsp;&nbsp;
+        <el-checkbox v-model="reduceDate">自动缩短年限</el-checkbox>
       </div>
     </section>
   </fieldset>
@@ -189,27 +191,28 @@
         <table class="result-table">
           <tr class="row-header">
             <th>还款方式</th>
+            <th>年限</th>
+            <th>总金额</th>
             <th>本金</th>
             <th>总利息</th>
-            <th>总金额</th>
           </tr>
           <tr class="row-data" >
-            <td>等额本金-{{result.sum.month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
+            <td>等额本金</td>
+            <td>{{result.sum.year}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.year}}</sub></td>
+            <td>{{result.sum.avgPrincipal.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.total | CNY}}</sub></td>
             <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.principal | CNY}}</sub></td>
             <td>{{result.sum.avgPrincipal.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.interest | CNY}}</sub></td>
-            <td>{{result.sum.avgPrincipal.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.total | CNY}}</sub></td>
           </tr>
           <tr class="row-data" >
-            <td>等额本息-{{result.sum.month}}个月<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.month}}</sub></td>
+            <td>等额本息</td>
+            <td>{{result.sum.year}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.year}}</sub></td>
+            <td>{{result.sum.avgInterest.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.total | CNY}}</sub></td>
             <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.principal | CNY}}</sub></td>
             <td>{{result.sum.avgInterest.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.interest | CNY}}</sub></td>
-            <td>{{result.sum.avgInterest.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.total | CNY}}</sub></td>
           </tr>
           <tr class="row-data" >
             <td>差额</td>
-            <td></td>
-            <td>{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
-            <td>{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
+            <td colspan="4">{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
           </tr>
         </table>
       </pre>
@@ -257,33 +260,31 @@
 <script src="calculator.js"></script>
 <script type="text/javascript">
   function getLocationParams() {
-    var amountParam = parseInt(blog.getLocationParam(1, 1000000));
-    var monthParam = parseInt(blog.getLocationParam(2, 360));
-    var rateParam = parseFloat(blog.getLocationParam(3, 4.2));
-    var dateParam = new Date(blog.getLocationParam(4, new Date()));
-    var aseParam = parseInt(blog.getLocationParam(5, 1)) == 1;
     return {
-      amount: amountParam,
-      month: monthParam,
-      rate: rateParam,
-      date: dateParam,
-      asc: aseParam,
+      principal: parseInt(blog.getLocationParam(1, 1000000)),
+      month: parseInt(blog.getLocationParam(2, 360)),
+      rateYear: parseFloat(blog.getLocationParam(3, 4.2)),
+      date: new Date(blog.getLocationParam(4, new Date())),
+      asc: parseInt(blog.getLocationParam(5, 1)) != 0,
+      aheadAmount: parseInt(blog.getLocationParam(6, 0)),
+      reduceDate: parseInt(blog.getLocationParam(7, 1)) != 0
     };
   }
 
   var defaultParam = getLocationParams();
-  blog.log("calculate defaultParam", defaultParam);
+  console.log("defaultParam", defaultParam);
 
   var vueApp = new Vue({
     el: "#app",
     data: function () {
       return {
-        amount: defaultParam.amount,
+        principal: defaultParam.principal,
         month: defaultParam.month,
-        rate: defaultParam.rate,
+        rateYear: defaultParam.rateYear,
         date: defaultParam.date,
         asc: defaultParam.asc,
-        aheadAmount: 0
+        aheadAmount: defaultParam.aheadAmount,
+        reduceDate: defaultParam.reduceDate
       }
     },
     filters: {
@@ -300,22 +301,28 @@
     },
     computed: {
       result() {
-        var result = calculate(
-          parseInt(this.amount, 10),
-          this.month,
-          this.rate,
-          this.date,
-          this.aheadAmount
-        );
+        var param = {
+          principal: parseInt(this.principal, 10),
+          month: this.month,
+          rateYear: this.rateYear,
+          date: this.date,
+          asc: this.asc,
+          aheadAmount: this.aheadAmount,
+          reduceDate: this.reduceDate
+        };
+
+        var result = calculate(param);
 
         if (!this.asc) {
           result.months = result.months.reverse();
         }
 
-        blog.log("calculate result", result);
+        console.log("result", result, "param", param);
+
         var dateString = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
         var ascString = this.asc ? 1 : 0;
-        blog.setLocationParams(this.amount, this.month, this.rate, dateString, ascString);
+        var reduceDateString = this.reduceDate ? 1 : 0;
+        blog.setLocationParams(this.principal, this.month, this.rateYear, dateString, ascString, this.aheadAmount, reduceDateString);
 
         return result;
       }
