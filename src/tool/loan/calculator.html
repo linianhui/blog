@@ -113,9 +113,13 @@
 
   .ahead {
     display: inline-block;
-    color: rgb(12, 176, 12);
+    color: #093;
     margin-left: 2px;
     font-family: monospace, Courier, 'Courier New'
+  }
+
+  .e-input-ahead input{
+    color: #093;
   }
 </style>
 <div id="app">
@@ -172,7 +176,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input">
+        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input e-input-ahead">
         </el-input-number>
       </div>
     </section>
