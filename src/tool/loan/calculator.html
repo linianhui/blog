@@ -93,8 +93,12 @@
   }
 
   .row-data:hover {
-    background-color: #eee;
+    background-color: #ccc;
     cursor: pointer;
+  }
+
+  .row-data-year-first-month{
+    background-color: #eee;
   }
 
   .insurance-table input {
@@ -240,7 +244,7 @@
             <th>剩余本金</th>
           </tr>
           <template v-for="month in result.months">
-            <tr class="row-data" >
+            <tr class="row-data" :class="{'row-data-year-first-month': month.month.includes('-01-')}">
               <td>{{month.month}}</td>
               <td>{{month.avgPrincipal.amount | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.amount}}</sub></td>
               <td>{{month.avgPrincipal.principal | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.principal}}</sub></td>
