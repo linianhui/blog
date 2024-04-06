@@ -13,13 +13,13 @@ toc: true
 
 ## 2.1 Windows {#client-install-windows}
 
-下载客户端<https://github.com/v2fly/v2ray-core/releases/download/v4.32.1/v2ray-windows-64.zip>。
+下载客户端<https://github.com/v2fly/v2ray-core/releases/download/v5.14.1/v2ray-windows-64.zip>。
 
 然后用[服务器安装](#server-install)中生成的`client-config.json`替换zip解压后的`config.json`即可。
 
 ## 2.2 macOS {#client-install-macos}
 
-下载客户端<https://github.com/v2fly/v2ray-core/releases/download/v4.32.1/v2ray-macos-64.zip>。
+下载客户端<https://github.com/v2fly/v2ray-core/releases/download/v5.14.1/v2ray-macos-64.zip>。
 
 然后用[服务器安装](#server-install)中生成的`client-config.json`替换zip解压后的`config.json`即可。
 
@@ -50,4 +50,5 @@ SwitchyOmega : <https://chrome.google.com/webstore/detail/proxy-switchyomega/pad
 
 ## 4.4 OpenWrt {#openwrt}
 
+[openwrt安装文档](/tool/openwrt)
 {{<highlight-file path="v2ray" lang="sh">}}

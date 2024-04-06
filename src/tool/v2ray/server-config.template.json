@@ -1,10 +1,10 @@
 {
   "log": {
-    "logLevel": "none"
+    "logLevel": "None"
   },
   "inbounds": [
     {
-      "listen": "0.0.0.0",
+      "listen": "$V2RAY_SERVER_IP",
       "port": 443,
       "protocol": "vless",
       "settings": {

@@ -1,6 +1,6 @@
 {
   "log": {
-    "logLevel": "warning"
+    "logLevel": "None"
   },
   "inbounds": [
     {
@@ -19,7 +19,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "换成你的服务器IP",
+            "address": "$V2RAY_SERVER_IP",
             "port": 443,
             "users": [
               {
