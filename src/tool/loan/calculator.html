@@ -25,16 +25,12 @@
   }
 
   .form-name {
-    width: 5em;
+    width: 4.5em;
     text-align: right;
   }
 
   .form-input {
-    margin-left: 1em;
-  }
-
-  .e-input {
-    width: 13.7em;
+    margin-left: 6px;
   }
 
   .el-collapse {
@@ -57,6 +53,7 @@
     min-width: 100%;
     margin-top: 1em;
     box-sizing: border-box;
+    padding: 6px;
   }
 
   legend {
@@ -136,7 +133,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="ePrincipal" v-model="principal" step="10000" :min="0" class="e-input">
+        <el-input-number id="ePrincipal" v-model="principal" step="10000" :min="0">
         </el-input-number>
       </div>
     </section>
@@ -147,8 +144,8 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eMonth" v-model="month" step="12" class="e-input"> </el-input-number>
-        &nbsp;&nbsp;
+        <el-input-number id="eMonth" v-model="month" step="12"> </el-input-number>
+        &nbsp;
         <el-checkbox v-model="asc">正序</el-checkbox>
       </div>
     </section>
@@ -159,7 +156,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eRateYear" v-model="rateYear" :min="0" step="0.01" class="e-input"></el-input-number>
+        <el-input-number id="eRateYear" v-model="rateYear" :min="0" step="0.01"></el-input-number>
       </div>
     </section>
     <section>
@@ -169,7 +166,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-date-picker v-model="date" type="date" placeholder="选择日期" class="e-input">
+        <el-date-picker v-model="date" type="date" placeholder="选择日期" >
         </el-date-picker>
       </div>
     </section>
@@ -180,10 +177,10 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input e-input-ahead">
+        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input-ahead">
         </el-input-number>
-        &nbsp;&nbsp;
-        <el-checkbox v-model="reduceDate">自动缩短年限</el-checkbox>
+        &nbsp;
+        <el-checkbox v-model="reduceDate">缩短年限</el-checkbox>
       </div>
     </section>
   </fieldset>
