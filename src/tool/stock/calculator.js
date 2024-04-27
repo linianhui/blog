@@ -27,32 +27,23 @@ function applyAction(items, action) {
         return;
     }
 
-    var actionPrice = calculateAction(action);
-    if (!actionPrice) {
+    action = calculateAction(action);
+    if (!action) {
         return;
     }
 
-    var buy = action.type == "买入";
-
     var last = items[items.length - 1];
 
-    var number = buy
-        ? last.cost.number + actionPrice.number
-        : last.cost.number - actionPrice.number;
-
-    var costAmount = buy
-        ? last.cost.amount + actionPrice.amount
-        : last.cost.amount - actionPrice.amount;
-
     var cost = {
-        price: number == 0 ? -actionPrice.amount : blog.round2(costAmount / number),
-        number: number,
-        amount: costAmount
+        number: calculateCostNumber(last.cost, action),
+        amount: calculateCostAmount(last.cost, action)
     };
 
+    cost.price = calculateCostPrice(cost, action);
+
     var price = calculateCore({
-        price: actionPrice.price,
-        number: number
+        price: action.price,
+        number: cost.number
     });
 
     var costDiff = calculateDiff(last.cost, cost);
@@ -61,7 +52,7 @@ function applyAction(items, action) {
 
     var item = {
         type: action.type,
-        action: actionPrice,
+        action: action,
         cost: cost,
         costDiff: costDiff,
         price: price,
@@ -70,6 +61,29 @@ function applyAction(items, action) {
     };
 
     items.push(item);
+}
+
+function calculateCostNumber(lastCost, action) {
+    if (isBuy(action)) {
+        return lastCost.number + action.number;
+    }
+
+    return lastCost.number - action.number;
+}
+
+function calculateCostAmount(lastCost, action) {
+    if (isBuy(action)) {
+        return lastCost.amount + action.amount;
+    }
+
+    return lastCost.amount - action.amount;
+}
+
+function calculateCostPrice(cost) {
+    if (cost.number == 0) {
+        return cost.amount;
+    }
+    return blog.round2(cost.amount / cost.number);
 }
 
 function calculateCurrent(action) {
@@ -93,6 +107,23 @@ function calculateCurrent(action) {
     };
 }
 
+function calculateDiff(a, b) {
+    var price = blog.round2(b.price - a.price);
+    var number = blog.round2(b.number - a.number);
+    var priceClass = calculateDiffCssClass(price);
+    var amount = blog.round2(b.amount - a.amount);
+    var amountPercent = blog.round2(amount * 100 / a.amount);
+    var amountClass = calculateDiffCssClass(amount);
+    return {
+        price: price,
+        priceClass: priceClass,
+        number: number,
+        amount: amount,
+        amountPercent: amountPercent,
+        amountClass: amountClass
+    };
+}
+
 function calculateAction(action) {
     if (!action) {
         return;
@@ -102,42 +133,23 @@ function calculateAction(action) {
         return;
     }
 
-    if (action.number <= 0) {
-        return;
-    }
-
-    var result = calculateCore({
-        price: action.price,
-        number: action.number
-    });
-
-    result.type = action.type;
-    result.actionClass = calculateActionCssClass(action.type);
+    var result = blog.deepClone(action);
+    result.amount = calculateAmountCore(action);
+    result.actionClass = calculateActionCssClass(result);
     return result;
 }
 
-function calculateDiff(a, b) {
-    var price = blog.round2(b.price - a.price);
-    var priceClass = calculateDiffCssClass(price);
-    var amount = blog.round2(b.amount - a.amount);
-    var amountPercent = blog.round2(amount * 100 / a.amount);
-    var amountClass = calculateDiffCssClass(amount);
-    return {
-        price: price,
-        priceClass: priceClass,
-        amount: amount,
-        amountPercent: amountPercent,
-        amountClass: amountClass
-    };
-}
-
 function calculateCore(param) {
-    var amount = blog.round2(param.price * param.number);
+    var amount = calculateAmountCore(param);
     return {
         price: param.price,
         number: param.number,
         amount: amount
     };
+}
+
+function calculateAmountCore(param) {
+    return blog.round2(param.price * param.number);
 }
 
 function calculateDiffCssClass(value) {
@@ -152,14 +164,22 @@ function calculateDiffCssClass(value) {
     return "diff-none";
 }
 
-function calculateActionCssClass(actionType) {
-    if ("买入" == actionType) {
+function calculateActionCssClass(action) {
+    if (isBuy(action)) {
         return "action-buy";
     }
 
-    if ("卖出" == actionType) {
+    if (isSell(action)) {
         return "action-sell";
     }
 
     return "action-none";
+}
+
+function isBuy(action) {
+    return action && "买入" == action.type;
+}
+
+function isSell(action) {
+    return action && "卖出" == action.type;
 }

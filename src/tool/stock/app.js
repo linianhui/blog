@@ -16,10 +16,14 @@ var vueApp = new Vue({
             cost: defaultParam.cost,
             price: defaultParam.price,
             number: defaultParam.number,
+            actionTypes: [
+                "买入",
+                "卖出",
+            ],
             actions: [{
-                type: "卖出",
+                type: "买入",
                 price: defaultParam.price,
-                number: 1000,
+                number: 0,
                 enabled: true
             }]
         }
@@ -38,7 +42,8 @@ var vueApp = new Vue({
     },
     methods: {
         addAction() {
-            this.actions.push({
+            var index = this.actions.lenght - 1;
+            this.actions.splice(index, 0, {
                 type: "买入",
                 price: this.price,
                 number: 100,

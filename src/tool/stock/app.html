@@ -204,24 +204,21 @@
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
-            <th>类型</th>
+            <th>管理 <i class="el-icon-circle-plus-outline" @click="addAction()" style="font-size: 16px;cursor:pointer;"></i> </th>
+            <th>操作类型</th>
             <th>买卖股价</th>
             <th>买卖股数</th>
-            <th>管理</th>
           </tr>
           <template v-for="action in actions">
             <tr>
-              <td><el-checkbox v-model="action.type" true-label="买入" false-label="卖出" :disabled="!action.enabled">{{action.type}}</el-checkbox></td>
+              <td><el-checkbox v-model="action.enabled"></el-checkbox> </td>
+              <td><el-select v-model="action.type" :disabled="!action.enabled">
+                  <el-option v-for="item in actionTypes" :key="item" :label="item":value="item"></el-option>
+                </el-select></td>
               <td><el-input-number v-model="action.price" step="0.01" :disabled="!action.enabled"></el-input-number></td>
-              <td><el-input-number v-model="action.number" step="100" :disabled="!action.enabled"> </el-input-number></td>
-              <td><el-switch v-model="action.enabled" active-text="启用" inactive-text="禁用"></el-switch></td>
+              <td><el-input-number v-model="action.number" step="100" :disabled="!action.enabled"></el-input-number></td>
             </tr>
           </template>
-          <tr>
-            <td colspan="4" style="text-align: left;">
-              <el-button type="primary" @click="addAction()">新增操作</el-button>
-            </td>
-          </tr>
         </table>
       </pre>
     </div>
