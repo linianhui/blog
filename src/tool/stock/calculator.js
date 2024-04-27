@@ -45,7 +45,7 @@ function applyAction(items, action) {
         : last.cost.amount - actionPrice.amount;
 
     var cost = {
-        price: blog.round2(costAmount / number),
+        price: number == 0 ? -actionPrice.amount : blog.round2(costAmount / number),
         number: number,
         amount: costAmount
     };

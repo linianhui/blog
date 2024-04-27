@@ -1,7 +1,7 @@
 function getLocationParams() {
     return {
-        cost: parseFloat(blog.getLocationParam(1, 10)),
-        price: parseFloat(blog.getLocationParam(2, 9)),
+        cost: parseFloat(blog.getLocationParam(1, 9)),
+        price: parseFloat(blog.getLocationParam(2, 10)),
         number: parseInt(blog.getLocationParam(3, 1000)),
     };
 }
@@ -18,8 +18,8 @@ var vueApp = new Vue({
             number: defaultParam.number,
             actions: [{
                 type: "卖出",
-                price: 11,
-                number: 100,
+                price: defaultParam.price,
+                number: 1000,
                 enabled: true
             }]
         }
@@ -40,7 +40,7 @@ var vueApp = new Vue({
         addAction() {
             this.actions.push({
                 type: "买入",
-                price: 10,
+                price: this.price,
                 number: 100,
                 enabled: true
             });
