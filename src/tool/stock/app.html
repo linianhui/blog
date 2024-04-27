@@ -1,0 +1,262 @@
+<style>
+  th {
+    text-align: right;
+  }
+
+  td {
+    text-align: right;
+    vertical-align: baseline;
+    padding: 6px 4px;
+  }
+
+  .cell {
+    padding: 0 !important;
+  }
+
+  .input-fieldset section {
+    margin: 6px 0;
+  }
+
+  .form-name,
+  .form-input {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .form-name {
+    width: 4.5em;
+    text-align: right;
+  }
+
+  .form-input {
+    margin-left: 6px;
+  }
+
+  .el-collapse {
+    border: unset;
+  }
+
+  .el-collapse-item__wrap,
+  .el-collapse-item__header {
+    border: unset;
+  }
+
+  .el-input-group__prepend {
+    padding: 0;
+  }
+
+  fieldset {
+    border: unset;
+    box-shadow: 0 0 2px #ccc;
+    max-width: 100%;
+    min-width: 100%;
+    margin-top: 1em;
+    box-sizing: border-box;
+    padding: 6px;
+  }
+
+  legend {
+    background-color: #FFF;
+    color: #909399;
+  }
+
+  .result-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .result-pre {
+    font-family: unset;
+    font-size: 0;
+    margin: 0;
+  }
+
+  .result-table {
+    width: 100%;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .result-summary sub {
+    font-size: 10px;
+    padding-left: 2px;
+    color: #bbb;
+  }
+
+  .row-data {
+    color: #666;
+    font-family: monospace, Courier, 'Courier New'
+  }
+
+  .row-data:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+
+  .row-data-year-first-month {
+    background-color: #eee;
+  }
+
+  .insurance-table input {
+    min-width: 2em;
+    max-width: 4em;
+    text-align: right;
+  }
+
+  .month-detail {
+    display: none;
+  }
+
+  .month-detail_opened {
+    display: table-row;
+  }
+
+  .ahead {
+    display: inline-block;
+    color: #093;
+    margin-left: 2px;
+    font-family: monospace, Courier, 'Courier New'
+  }
+
+  .e-input-ahead input {
+    color: #093;
+  }
+
+  .diff-none {
+    color: #909399;
+  }
+
+  .diff-up {
+    color: #ee2500;
+    font-weight: bold;
+  }
+
+  .diff-down {
+    color: #093;
+    font-weight: bold;
+  }
+
+  .action-none {
+    color: #909399;
+  }
+
+  .action-buy {
+    color: #ee2500;
+  }
+
+  .action-sell {
+    color: #093;
+  }
+
+  .action-buy::before {
+    display: inline-block;
+    color: #ee2500;
+    content: "B+";
+  }
+
+  .action-sell::before {
+    display: inline-block;
+    color: #093;
+    content: "S-";
+  }
+</style>
+<div id="app">
+  <fieldset class="input-fieldset">
+    <legend>参数区域</legend>
+    <section>
+      <div class="form-name">
+        <label for="eCost">
+          当前成本
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eCost" v-model="cost" step="0.01">
+        </el-input-number>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="ePrice">
+          当前股价
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="ePrice" v-model="price" step="0.01">
+        </el-input-number>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="eNumber">
+          持仓股数
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eNumber" v-model="number" step="100"> </el-input-number>
+      </div>
+    </section>
+  </fieldset>
+
+  <fieldset>
+    <legend>操作区域</legend>
+    <div class="result-wrapper">
+      <pre class="result-pre">
+        <table class="result-table">
+          <tr class="row-header">
+            <th>类型</th>
+            <th>买卖股价</th>
+            <th>买卖股数</th>
+            <th>管理</th>
+          </tr>
+          <template v-for="action in actions">
+            <tr>
+              <td><el-checkbox v-model="action.type" true-label="买入" false-label="卖出" :disabled="!action.enabled">{{action.type}}</el-checkbox></td>
+              <td><el-input-number v-model="action.price" step="0.01" :disabled="!action.enabled"></el-input-number></td>
+              <td><el-input-number v-model="action.number" step="100" :disabled="!action.enabled"> </el-input-number></td>
+              <td><el-switch v-model="action.enabled" active-text="启用" inactive-text="禁用"></el-switch></td>
+            </tr>
+          </template>
+          <tr>
+            <td colspan="4" style="text-align: left;">
+              <el-button type="primary" @click="addAction()">新增操作</el-button>
+            </td>
+          </tr>
+        </table>
+      </pre>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>结果区域</legend>
+    <div class="result-wrapper">
+      <pre class="result-pre">
+        <table class="result-table">
+          <tr class="row-header">
+            <th>类型</th>
+            <th>最新成本</th>
+            <th>当前股价</th>
+            <th>持仓股数</th>
+            <th>持仓成本</th>
+            <th>持仓金额</th>
+            <th>收益比例</th>
+            <th>收益金额</th>
+          </tr>
+            <template v-for="item in result.items">
+            <tr class="row-data" v-if="item">
+              <td>{{item.type}}</td>
+              <td>{{item.cost.price | CNY}}<sub v-if="item.costDiff && (item.costDiff.price != 0)" :class="[item.costDiff.priceClass]">{{item.costDiff.price | CNY}}</sub></td>
+              <td>{{item.price.price | CNY}}<sub v-if="item.priceDiff && (item.priceDiff.price != 0)" :class="[item.priceDiff.priceClass]">{{item.priceDiff.price | CNY}}</sub></td>
+              <td>{{item.cost.number }}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.number}}</sub></td>
+              <td>{{item.cost.amount | CNY}}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.amount | CNY}}</sub></td>
+              <td>{{item.price.amount | CNY}}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.amount | CNY}}</sub></td>
+              <td :class="[item.income.amountClass]">{{item.income.amountPercent }}%</td>
+              <td :class="[item.income.amountClass]">{{item.income.amount | CNY}}</sub></td>
+              </tr>
+          </template>
+      </pre>
+    </div>
+  </fieldset>
+</div>
+<script src="calculator.js"></script>
+<script src="app.js"></script>
