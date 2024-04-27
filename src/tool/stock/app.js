@@ -42,11 +42,10 @@ var vueApp = new Vue({
     },
     methods: {
         addAction() {
-            var index = this.actions.lenght - 1;
-            this.actions.splice(index, 0, {
+            this.actions.push({
                 type: "买入",
                 price: this.price,
-                number: 100,
+                number: 0,
                 enabled: true
             });
         }
