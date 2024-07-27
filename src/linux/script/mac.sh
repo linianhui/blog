@@ -9,9 +9,11 @@ source $(dirname $0)/a.sh
 # sudo ln shf /lnh/_app/_java8 java8
 # sudo ln shf /lnh/_app/_java11 java11
 # sudo ln shf /lnh/_app/_java17 java17
+# sudo ln shf /lnh/_app/_java21 java21
 export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8`
 export JAVA_11_HOME=`/usr/libexec/java_home -v 11`
 export JAVA_17_HOME=`/usr/libexec/java_home -v 17`
+export JAVA_21_HOME=`/usr/libexec/java_home -v 21`
 export JAVA_HOME=$JAVA_8_HOME
 
 launchctl setenv JAVA_HOME $JAVA_HOME

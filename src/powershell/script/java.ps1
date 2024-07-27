@@ -6,7 +6,7 @@ function Java-Arthas() {
 
 function Java-Set-Jdk {
     param (
-        [ValidateSet('8', '11', '17', '19')]
+        [ValidateSet('8', '11', '17', '21')]
         [string] $Version
     )
     $BasePath = 'd:\_app\_java'

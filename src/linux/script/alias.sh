@@ -78,6 +78,7 @@ alias java-xx='java -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOpti
 alias java8='export JAVA_HOME=$JAVA_8_HOME && java -version'
 alias java11='export JAVA_HOME=$JAVA_11_HOME && java -version'
 alias java17='export JAVA_HOME=$JAVA_17_HOME && java -version'
+alias java21='export JAVA_HOME=$JAVA_21_HOME && java -version'
 
 alias proxy='export ALL_PROXY=socks5://127.0.0.1:1080'
 alias unproxy='unset ALL_PROXY'
