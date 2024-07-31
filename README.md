@@ -5,10 +5,10 @@
 ## 运行
 
 ```bash
-hugo server --port 13131
+hugo server --port 1345
 
 ...
-Web Server is available at http://localhost:13131/ (bind address 127.0.0.1)
+Web Server is available at http://localhost:1345/ (bind address 127.0.0.1)
 ```
 
 ## 依赖
