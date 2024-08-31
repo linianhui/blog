@@ -10,7 +10,7 @@ toc: true
 
 # USB {#usb}
 
-## RTL9210B-CG {#usb-rtl9210b-cg}
+## RTL9210B {#usb-rtl9210b}
 
 最新固件下载：<https://www.station-drivers.com/index.php/zh/component/search/?searchword=RTL9210&searchphrase=all&Itemid=101>
 
