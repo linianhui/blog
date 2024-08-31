@@ -8,6 +8,15 @@ toc: true
 {{<element-ui>}}
 {{<inline-html path="header.html">}}
 
+# USB {#usb}
+
+## RTL9210B-CG {#usb-rtl9210b-cg}
+
+最新固件下载：<https://www.station-drivers.com/index.php/zh/component/search/?searchword=RTL9210&searchphrase=all&Itemid=101>
+
+
+{{<highlight-file path="i9A-2242.cfg" lang="ini">}}
+
 # 机械硬盘 {#hdd}
 
 {{<inline-html path="hdd.html">}}
@@ -18,4 +27,3 @@ toc: true
     1. <https://www.backblaze.com/blog/category/cloud-storage/hard-drive-stats>
     2. <https://www.backblaze.com/blog/backblaze-drive-stats-for-q3-2022>
     3. <https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data>
-
