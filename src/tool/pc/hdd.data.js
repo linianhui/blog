@@ -25,7 +25,7 @@ const hddBrands = {
             },
             "Blue PC Desktop": {
                 url: 'https://www.westerndigital.com/zh-cn/products/internal-drives/wd-blue-desktop-sata-hdd#WD80EAZZ',
-                datasheetUrl: 'https://documents.westerndigital.com/content/dam/doc-library/zh_cn/assets/public/western-digital/product/internal-drives/wd-blue-hdd/product-brief-western-digital-wd-blue-pc-hdd.pdf'
+                datasheetUrl: 'https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/product/internal-drives/wd-blue-hdd/product-brief-western-digital-wd-blue-pc-hdd.pdf'
             },
             "Ultrastar DC HC320": {
                 url: 'https://www.westerndigital.com/zh-cn/products/internal-drives/data-center-drives/ultrastar-dc-hc320-hdd',
@@ -33,7 +33,7 @@ const hddBrands = {
             },
             "Ultrastar DC HC550": {
                 url: 'https://www.westerndigital.com/zh-cn/products/internal-drives/data-center-drives/ultrastar-dc-hc550-hdd',
-                datasheetUrl: 'https://documents.westerndigital.com/content/dam/doc-library/zh_cn/assets/public/western-digital/product/data-center-drives/ultrastar-dc-hc500-series/data-sheet-ultrastar-dc-hc550.pdf'
+                datasheetUrl: 'https://documents.westerndigital.com/content/dam/doc-library/en_us/assets/public/western-digital/product/data-center-drives/ultrastar-dc-hc500-series/data-sheet-ultrastar-dc-hc550.pdf'
             }
         }
     }
@@ -117,6 +117,17 @@ const hdds = [
         cache: '128MB',
         price: 1249,
         priceDate: '2022-11-17'
+    },
+    {
+        capacity: '8TB',
+        brand: '西部数据',
+        series: 'Blue PC Desktop',
+        model: 'WD80EAAZ',
+        recording: 'CMR',
+        rpm: 5640,
+        cache: '256MB',
+        price: 1299,
+        priceDate: '2024-08-31'
     },
     {
         capacity: '16TB',
