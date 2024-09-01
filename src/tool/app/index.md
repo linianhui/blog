@@ -46,20 +46,24 @@ toc: true
 
 # Disk
 
+cybermania: <https://www.cybermania.ws/>
+
 1. CrystalDiskInfo : <https://crystalmark.info/en/download>
     * <https://mirrors.gigenet.com/OSDN//crystaldiskinfo/70295/CrystalDiskInfo8_0_0.zip>
+2. CrystalDiskMark : <https://sourceforge.net/projects/crystaldiskmark/>
+   1. <https://sourceforge.net/projects/crystaldiskmark/files/8.0.5/CrystalDiskMark8_0_5.zip>
 
-2. DiskGenius : <https://www.diskgenius.cn/download.php>
+3. DiskGenius : <https://www.diskgenius.cn/download.php>
     * <https://download.eassos.cn/DG5431342_x64.zip>
     
-3. AS SSD Benchmark : <https://www.alex-is.de/PHP/fusion/downloads.php?cat_id=4&download_id=9>
+4. AS SSD Benchmark : <https://www.alex-is.de/PHP/fusion/downloads.php?cat_id=4&download_id=9>
     * <https://www.alex-is.de/progs/AS%20SSD%20Benchmark.zip>
     
-4. Spacesniffer : <http://www.uderzo.it>
+5. Spacesniffer : <http://www.uderzo.it>
     * <http://www.uderzo.it/main_products/space_sniffer/>
     * <https://www.fosshub.com/SpaceSniffer.html?dwl=spacesniffer_1_3_0_2.zip>
 
-5. ChipGenius : <https://www.softpedia.com/get/System/System-Info/.shtml>
+6. ChipGenius : <https://www.softpedia.com/get/System/System-Info/ChipGenius.shtml>
     * <https://softpedia-secure-download.com/dl/5f8afea87878a54cd9c5243423504cd5/63674464/100251552/software/system/info/ChipGenius_v4_19_0319.zip> 
 
 
