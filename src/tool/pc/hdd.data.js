@@ -69,10 +69,21 @@ const hdds = [
         series: 'Purple Surveillance',
         model: 'WD42EJRX',
         recording: 'CMR',
-        rpm: 5040,
+        rpm: 5400,
         cache: '256MB',
         price: 445,
         priceDate: '2022-10-25'
+    },
+    {
+        capacity: '4TB',
+        brand: '西部数据',
+        series: 'Purple Surveillance',
+        model: 'WD43PURZ',
+        recording: 'CMR',
+        rpm: 5400,
+        cache: '64MB',
+        price: 519,
+        priceDate: '2024-09-02'
     },
     {
         capacity: '4TB',
