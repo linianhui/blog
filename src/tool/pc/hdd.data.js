@@ -89,7 +89,7 @@ const hdds = [
         capacity: '4TB',
         brand: '海康OEM',
         series: 'Purple Surveillance',
-        model: 'DS42HKVS',
+        model: 'WD42HKVS',
         recording: 'CMR',
         rpm: 5400,
         cache: '256MB',
