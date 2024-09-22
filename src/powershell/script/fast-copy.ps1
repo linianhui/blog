@@ -7,7 +7,7 @@ function PS-Fast-Copy() {
     $fcpPath = 'c:\_fast-copy\fastcopy.exe';
     $option = '/cmd=diff /auto_close /force_close /open_window /estimate /balloon /error_stop=FALSE /speed=full /stream';
     $commonExclude='\$RECYCLE.BIN\;\System Volume Information\;\Recovery\;';
-    $exclude = "/exclude='\_cache\;\_code\;\_data\;\_github\;\_lang\;$commonExclude'";
+    $exclude = "/exclude='\_cache\;\_code\;\_data\;\_github\;\_lang\;\_video2\;$commonExclude'";
     $command = "$fcpPath $option $exclude `"$source`" /to=`"$target`""
     Log-Debug $command
     Invoke-Expression $command
