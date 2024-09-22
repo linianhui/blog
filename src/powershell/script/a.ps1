@@ -36,6 +36,7 @@ Param(
     '/idea.ps1',
     '/auto-complete.ps1',
     '/fast-copy.ps1',
+    '/dism.ps1',
     '/alias.ps1'
 ) | Foreach-Object { . "$PSScriptRoot$_" }
 
