@@ -9,7 +9,7 @@ function Java-Set-Jdk {
         [ValidateSet('8', '11', '17', '21')]
         [string] $Version
     )
-    $BasePath = 'd:\_app\_java'
+    $BasePath = 'd:\_lang\_java'
     $JdkPath = $BasePath + $Version
 
     $CurrentJdkPath = (Get-Item -Path $BasePath).Target

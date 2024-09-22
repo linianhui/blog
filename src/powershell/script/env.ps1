@@ -3,6 +3,7 @@
 ################################
 
 [string]$APP_DIR    = 'd:\_app\';
+[string]$LANG_DIR    = 'd:\_lang\';
 [string]$CACHE_DIR  = 'd:\_cache\';
 [string]$CONFIG_DIR = 'd:\_config\';
 [string]$DATA_DIR   = 'd:\_data\';
@@ -115,7 +116,7 @@ function Env-SetPuttyEnvironmentVariable() {
 # https://adoptopenjdk.net/upstream.html
 # https://developers.redhat.com/products/openjdk/download
 function Env-SetJavaEnvironmentVariable() {
-    $APP_JAVA_DIR = $APP_DIR + '_java\';
+    $APP_JAVA_DIR = $LANG_DIR + '_java\';
     $APP_JAVA_BIN_DIR = $APP_JAVA_DIR + 'bin\';
 
     Env-TrySetVariable -Variable 'JAVA_TOOL_OPTIONS' -Value '-Dfile.encoding=UTF-8'
@@ -127,7 +128,7 @@ function Env-SetJavaEnvironmentVariable() {
 
 # https://golang.org/doc/install
 function Env-SetGoEnvironmentVariable() {
-    $APP_GO_DIR = $APP_DIR + '_go\';
+    $APP_GO_DIR = $LANG_DIR + '_go\';
     $APP_GO_BIN_DIR = $APP_GO_DIR + 'bin\';
 
     $CACHE_GO_DIR = $CACHE_DIR + '_go\';
@@ -139,7 +140,7 @@ function Env-SetGoEnvironmentVariable() {
 
 # https://rubyinstaller.org/downloads/
 function Env-SetRubyEnvironmentVariable() {
-    $APP_RUBY_DIR = $APP_DIR + '_ruby\';
+    $APP_RUBY_DIR = $LANG_DIR + '_ruby\';
     $APP_RUBY_BIN_DIR = $APP_RUBY_DIR + 'bin\';
 
     Env-TrySetVariable -Variable 'RUBY_HOME' -Value $APP_RUBY_DIR
@@ -148,7 +149,7 @@ function Env-SetRubyEnvironmentVariable() {
 
 # https://nodejs.org/en/download/
 function Env-SetNodeEnvironmentVariable() {
-    $APP_NODE_DIR = $APP_DIR + '_node\';
+    $APP_NODE_DIR = $LANG_DIR + '_node\';
     $APP_NODE_MODULES_DIR = $APP_NODE_DIR + 'node_modules\';
 
     $CACHE_NODE_DIR = $CACHE_DIR + '_node\';
@@ -164,7 +165,7 @@ function Env-SetNodeEnvironmentVariable() {
 
 # https://kotlinlang.org/docs/tutorials/command-line.html
 function Env-SetKotlinEnvironmentVariable() {
-    $APP_KOTLIN_DIR = $APP_DIR + '_kotlin\'
+    $APP_KOTLIN_DIR = $LANG_DIR + '_kotlin\'
     $APP_KOTLIN_BIN_DIR = $APP_KOTLIN_DIR + 'bin\'
 
     Env-TryAppendPathVariable -Value $APP_KOTLIN_BIN_DIR
@@ -180,7 +181,7 @@ function Env-SetNetEnvironmentVariable() {
 # https://www.python.org/downloads/windows/
 # Windows x86-64 embeddable zip file
 function Env-SetPythonEnvironmentVariable() {
-    $APP_PYTHON_DIR = $APP_DIR + '_python\';
+    $APP_PYTHON_DIR = $LANG_DIR + '_python\';
     $APP_PYTHON_SCRIPTS_DIR = $APP_PYTHON_DIR + 'scripts\';
 
     Env-TryAppendPathVariable -Value $APP_PYTHON_DIR
@@ -189,7 +190,7 @@ function Env-SetPythonEnvironmentVariable() {
 
 # https://github.com/icsharpcode/ILSpy/releases
 function Env-SetILSpyEnvironmentVariable() {
-    $APP_ILSPY_DIR = $APP_DIR + '_ilspy\';
+    $APP_ILSPY_DIR = $LANG_DIR + '_ilspy\';
 
     Env-TryAppendPathVariable -Value $APP_ILSPY_DIR
 }
@@ -197,7 +198,7 @@ function Env-SetILSpyEnvironmentVariable() {
 # https://www.nuget.org/downloads
 # https://docs.microsoft.com/en-us/nuget/tools/cli-ref-environment-variables
 function Env-SetNugetEnvironmentVariable() {
-    $APP_NUGET_DIR = $APP_DIR + '_nuget\';
+    $APP_NUGET_DIR = $LANG_DIR + '_nuget\';
 
     $CACHE_NUGET_DIR = $CACHE_DIR + '_nuget\';
 
@@ -235,7 +236,7 @@ function Env-SetPIEnvironmentVariable() {
 
 # https://maven.apache.org/
 function Env-SetMavenEnvironmentVariable() {
-    $APP_MAVEN_DIR = $APP_DIR + '_maven\'
+    $APP_MAVEN_DIR = $LANG_DIR + '_maven\'
     $APP_MAVEN_BIN_DIR = $APP_MAVEN_DIR + 'bin\'
     $CACHE_MAVEN_DIR = $CACHE_DIR + '_maven\'
 
@@ -258,7 +259,7 @@ function Env-SetMavenEnvironmentVariable() {
 # https://docs.gradle.org/current/userguide/installation.html
 # https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_environment_variables
 function Env-SetGradleEnvironmentVariable() {
-    $APP_GRADLE_DIR = $APP_DIR + '_gradle\';
+    $APP_GRADLE_DIR = $LANG_DIR + '_gradle\';
     $APP_GRADLE_BIN_DIR = $APP_GRADLE_DIR + 'bin\';
 
     $CACHE_GRADLE_DIR = $CACHE_DIR + '_gradle\';
@@ -278,7 +279,7 @@ function Env-SetSpringBootCliEnvironmentVariable() {
 
 # http://httpd.apache.org/download.cgi
 function Env-SetHttpdEnvironmentVariable() {
-    $APP_HTTPD_DIR = $APP_DIR + '_httpd\';
+    $APP_HTTPD_DIR = $LANG_DIR + '_httpd\';
     $APP_HTTPD_BIN_DIR = $APP_HTTPD_DIR + 'bin\';
 
     Env-TryAppendPathVariable -Value $APP_HTTPD_BIN_DIR
@@ -286,7 +287,7 @@ function Env-SetHttpdEnvironmentVariable() {
 
 # https://jmeter.apache.org/download_jmeter.cgi
 function Env-SetJmeterEnvironmentVariable() {
-    $APP_JMETER_DIR = $APP_DIR + '_jmeter\';
+    $APP_JMETER_DIR = $LANG_DIR + '_jmeter\';
     $APP_JMETER_BIN_DIR = $APP_JMETER_DIR + 'bin\';
 
     Env-TryAppendPathVariable -Value $APP_JMETER_BIN_DIR
