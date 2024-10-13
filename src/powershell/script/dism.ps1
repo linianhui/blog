@@ -3,23 +3,33 @@
 ################################
 
 
-function DISM-BACKUP-OS {
+function Dism-Backup-Os {
     param (
-        [string] $Driver = 'C',
-        [string] $TargetPath = 'Z:\'
+        [string] $SourceDriver = 'c',
+        [string] $TargetDriver = 'd'
     )
 
-    $ComputerInfo = Get-ComputerInfo;
-    [string]$CsCaption = $($ComputerInfo.CsCaption -Replace ' ', '-').ToLower();
-    [string]$WindowsProductName = $($ComputerInfo.WindowsProductName -Replace ' ', '-').ToLower();
+    [string]$OsName= Dism-Get-OsName;
     [string]$Date = $(Get-Date -Format 'yyyy-MM-dd');
-    [string]$DateTime = $(Get-Date -Format 'yyyy-MM-dd-HH-mm');
-    [string]$Name = "${CsCaption}-${WindowsProductName}-${DateTime}".ToLower();
-    [string]$ImageName = "${CsCaption}-${WindowsProductName}-${Date}".ToLower();
-
-    [string]$Caption = $((Get-CimInstance -ClassName Win32_OperatingSystem).Caption -Replace ' ', '-').ToLower();
-
-    $COMMAND="DISM /Capture-Image /CaptureDir:${Driver}:\ /Name:${Name}  /ImageFile:${TargetPath}${ImageName}.wim";
+    [string]$Name = "${OsName}-${Date}".ToLower();
+    $COMMAND = "DISM /Capture-Image /CaptureDir:${SourceDriver}:\ /Name:${Name} /ImageFile:${TargetDriver}:\${Name}.wim";
     Log-Debug "$COMMAND";
-    Invoke-Expression $COMMAND
+    $COMMAND | Out-File -FilePath "${TargetDriver}:\dism-${Name}.bat"
+}
+
+function Dism-Get-Intl {
+    Log-Debug 'DISM /Online /Get-Intl';
+    DISM /Online /Get-Intl
+}
+
+function Dism-Get-Lang {
+    Log-Debug 'Get-Culture | Format-List -Property *';
+    Get-Culture | Format-List -Property *
+}
+
+function Dism-Get-OsName {
+    $ComputerInfo = Get-ComputerInfo;
+    [string]$CsName = $ComputerInfo.CsName.Trim().ToLower();
+    [string]$OsName = $($($ComputerInfo.OsName.ToLower() -Replace 'microsoft','').Trim() -Replace ' ', '-');
+    return "${CsName}-${OsName}";
 }
