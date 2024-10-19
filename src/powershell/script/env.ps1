@@ -87,14 +87,14 @@ function Env-SetXDGEnvironmentVariable() {
 
 # https://github.com/MicrosoftArchive/redis/releases
 function Env-SetRedisEnvironmentVariable() {
-    $APP_REDIS_DIR = $APP_DIR + '_redis\';
+    $APP_REDIS_DIR = $LANG_DIR + '_redis\';
 
     Env-TryAppendPathVariable -Value $APP_REDIS_DIR
 }
 
 # https://www.mongodb.org/dl/win32/x86_64-2008plus-ssl
 function Env-SetMongoDBEnvironmentVariable() {
-    $APP_MONGO_DIR = $APP_DIR + '_mongo\';
+    $APP_MONGO_DIR = $LANG_DIR + '_mongo\';
 
     Env-TryAppendPathVariable -Value $APP_MONGO_DIR
 }
@@ -271,7 +271,7 @@ function Env-SetGradleEnvironmentVariable() {
 
 # https://projects.spring.io/spring-boot/
 function Env-SetSpringBootCliEnvironmentVariable() {
-    $APP_SPRING_BOOT_CLI_DIR = $APP_DIR + '_spring-boot-cli\';
+    $APP_SPRING_BOOT_CLI_DIR = $LANG_DIR + '_spring-boot-cli\';
     $APP_SPRING_BOOT_CLI_BIN_DIR = $APP_SPRING_BOOT_CLI_DIR + 'bin\';
 
     Env-TryAppendPathVariable -Value $APP_SPRING_BOOT_CLI_BIN_DIR
@@ -295,14 +295,14 @@ function Env-SetJmeterEnvironmentVariable() {
 
 # http://nginx.org/en/download.html
 function Env-SetNginxEnvironmentVariable() {
-    $APP_NGINX_DIR = $APP_DIR + '_nginx\';
+    $APP_NGINX_DIR = $LANG_DIR + '_nginx\';
 
     Env-TryAppendPathVariable -Value $APP_NGINX_DIR
 }
 
 # https://kubernetes.io/docs/tasks/tools/install-kubectl
 function Env-SetKubectlEnvironmentVariable() {
-    $APP_KUBECTL_DIR = $APP_DIR + '_kubectl\';
+    $APP_KUBECTL_DIR = $LANG_DIR + '_kubectl\';
 
     $CONFIG_KUBECTL_DIR = $CONFIG_DIR + '_kubectl\';
     $CONFIG_KUBECTL_CONFIG_FILE = $CONFIG_KUBECTL_DIR + 'config.yml';
@@ -313,7 +313,7 @@ function Env-SetKubectlEnvironmentVariable() {
 
 # https://github.com/kubernetes/minikube/releases
 # function Env-SetMinikubeEnvironmentVariable() {
-#     $APP_MINIKUBE_DIR = $APP_DIR + '_minikube\';
+#     $APP_MINIKUBE_DIR = $LANG_DIR + '_minikube\';
 #     $DATA_MINIKUBE_DIR = 'e:\_minikube\';
 
 #     Env-TrySetVariable -Variable 'MINIKUBE_HOME' -Value $DATA_MINIKUBE_DIR
@@ -326,7 +326,7 @@ function Env-SetKubectlEnvironmentVariable() {
 # https://docs.docker.com/engine/reference/commandline/cli/#environment-variables
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
 function Env-SetDockerEnvironmentVariable() {
-    $APP_DOCKER_DIR = $APP_DIR + '_docker\';
+    $APP_DOCKER_DIR = $LANG_DIR + '_docker\';
     $CONFIG_DOCKER_DIR = $CONFIG_DIR + '_docker\';
 
     Env-TrySetVariable -Variable 'DOCKER_CONFIG' -Value $CONFIG_DOCKER_DIR
@@ -337,7 +337,7 @@ function Env-SetDockerEnvironmentVariable() {
 # https://docs.docker.com/machine
 # https://docs.docker.com/machine/drivers/hyper-v/
 # function Env-SetDockerMachineEnvironmentVariable() {
-#     $APP_DOCKER_DIR = $APP_DIR + '_docker\';
+#     $APP_DOCKER_DIR = $LANG_DIR + '_docker\';
 #     $BOOT2DOCKER_ISO_DIR = 'file://' + $APP_DOCKER_DIR + 'boot2docker.iso';
 
 #     $DATA_DOCKER_DIR = 'e:\_docker\';
@@ -357,7 +357,7 @@ function Env-SetDockerEnvironmentVariable() {
 # https://github.com/helm/helm-www
 # https://github.com/helm/helm/releases
 function Env-SetHelmEnvironmentVariable() {
-    $APP_HLEM_DIR = $APP_DIR + '_helm\';
+    $APP_HLEM_DIR = $LANG_DIR + '_helm\';
 
     Env-TryAppendPathVariable -Value $APP_HLEM_DIR
 }
@@ -365,7 +365,7 @@ function Env-SetHelmEnvironmentVariable() {
 # https://github.com/mholt/caddy
 # https://caddyserver.com/docs/cli
 # function Env-SetCaddyEnvironmentVariable() {
-#     $APP_CADDY_DIR = $APP_DIR + '_caddy\';
+#     $APP_CADDY_DIR = $LANG_DIR + '_caddy\';
 
 #     Env-TryAppendPathVariable -Value $APP_CADDY_DIR
 # }
@@ -373,7 +373,7 @@ function Env-SetHelmEnvironmentVariable() {
 # https://coreos.com/os/docs/1911.5.0/overview-of-ct.html
 # https://github.com/coreos/container-linux-config-transpiler
 # function Env-SetCoreOSEnvironmentVariable() {
-#     $APP_COREOS_DIR = $APP_DIR + '_coreos\';
+#     $APP_COREOS_DIR = $LANG_DIR + '_coreos\';
 
 #     Env-TryAppendPathVariable -Value $APP_COREOS_DIR
 # }
@@ -425,8 +425,8 @@ function Env-SetFFmpegEnvironmentVariable() {
 
 # https://www.rust-lang.org/
 function Env-SetRustEnvironmentVariable() {
-    $APP_RUSTUP_DIR = $APP_DIR + '_rustup\';
-    $APP_CARGO_DIR = $APP_DIR + '_cargo\';
+    $APP_RUSTUP_DIR = $LANG_DIR + '_rustup\';
+    $APP_CARGO_DIR = $LANG_DIR + '_cargo\';
     $APP_CARGO_BIN_DIR = $APP_CARGO_DIR + 'bin\';
 
     # https://github.com/rust-lang/rustup.rs#environment-variables
@@ -466,7 +466,7 @@ function Env-SetSslKeyLogFileEnvironmentVariable() {
 # https://dev.mysql.com/doc/refman/8.0/en/windows-install-archive.html
 # https://dev.mysql.com/doc/refman/8.0/en/environment-variables.html
 function Env-SetMySqlEnvironmentVariable() {
-    $APP_MYSQL_DIR = $APP_DIR + '_mysql\';
+    $APP_MYSQL_DIR = $LANG_DIR + '_mysql\';
     $CACHE_MYSQL_DIR = $CACHE_DIR + '_mysql\';
     $DATA_MYSQL_DIR = $DATA_DIR + '_mysql\';
     $APP_MYSQL_BIN_DIR = $APP_MYSQL_DIR + 'bin\';
