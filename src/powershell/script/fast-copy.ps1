@@ -34,3 +34,10 @@ function PS-Fast-Copy-Media {
     PS-Fast-Copy-Driver -driver g -targetDir _media
 }
 
+
+function PS-Fast-Copy-All {
+    PS-Fast-Copy-Home
+    PS-Fast-Copy-Blob
+    PS-Fast-Copy-Mirror
+    PS-Fast-Copy-Media
+}
