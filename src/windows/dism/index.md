@@ -39,8 +39,6 @@ toc: true
 
 [WIM]
 
-https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism---deployment-image-servicing-and-management-technical-reference-for-windows
-
-https://msdn.microsoft.com/zh-cn/library/windows/hardware/dn898558(v=vs.85).aspx
+https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/dism-image-management-command-line-options-s14?view=windows-11
 
 [WIM]:../wim
