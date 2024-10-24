@@ -65,6 +65,9 @@ cybermania: <https://www.cybermania.ws/>
 
 6. ChipGenius : <https://www.softpedia.com/get/System/System-Info/ChipGenius.shtml>
     * <https://softpedia-secure-download.com/dl/5f8afea87878a54cd9c5243423504cd5/63674464/100251552/software/system/info/ChipGenius_v4_19_0319.zip> 
+7. R-Studio : <https://www.r-studio.com/data-recovery-software/>
+      1. <https://www.r-studio.com/downloads/RStudioEmg9.iso>
+      2. <https://www.r-studio.com/downloads/RStudioEmg9.exe>
 
 
 # Download
