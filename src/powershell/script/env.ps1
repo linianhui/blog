@@ -507,6 +507,14 @@ function Env-SetIperfEnvironmentVariable() {
     Env-TryAppendPathVariable -Value $APP_IPERF_DIR
 }
 
+# https://download.sysinternals.com/files/SysinternalsSuite.zip
+# https://learn.microsoft.com/zh-cn/sysinternals/downloads/
+function Env-SetSysinternalsEnvironmentVariable() {
+    $APP_SYSINTERNALS_DIR = $APP_DIR + '_sysinternals\';
+
+    Env-TryAppendPathVariable -Value $APP_SYSINTERNALS_DIR
+}
+
 # 杂项工具
 function Env-SetOtherEnvironmentVariable() {
     $APP_OTHER_DIR = $APP_DIR + '_other\';
