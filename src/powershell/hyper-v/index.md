@@ -35,6 +35,11 @@ $VHDFilePath = 'd:\test.vhdx'
 New-VHD -Path $VHDFilePath -Dynamic -SizeBytes 32GB
 ```
 
+```bash
+# 回收文件系统中未使用的块资源
+fstrim /
+```
+
 https://docs.microsoft.com/en-us/powershell/module/hyper-v/new-vhd?view=win10-ps
 
 
