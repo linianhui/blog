@@ -246,6 +246,8 @@ toc: true
 
 <https://www.ventoy.net/cn/download.html>  
 
+<https://mirrors.sdu.edu.cn/github-release/ventoy_Ventoy/>
+
 <https://github.com/ventoy/ventoy/releases/download/v1.0.99/ventoy-1.0.99-windows.zip>
 
 # Wepe 
