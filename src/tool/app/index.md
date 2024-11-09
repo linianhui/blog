@@ -52,6 +52,14 @@ toc: true
 
 <https://softpedia-secure-download.com/dl/5f8afea87878a54cd9c5243423504cd5/63674464/100251552/software/system/info/ChipGenius_v4_19_0319.zip> 
 
+# Context Menu Manager
+
+<https://github.com/BluePointLilac/ContextMenuManager>
+
+<https://mirrors.sdu.edu.cn/github-release/BluePointLilac_ContextMenuManager/>
+
+<https://mirrors.sdu.edu.cn/github-release/BluePointLilac_ContextMenuManager/3.3.3.1/ContextMenuManager.zip>
+
 # Cpu-z
 
 <https://www.cpuid.com/softwares/cpu-z.html>
@@ -80,6 +88,14 @@ toc: true
 
 <https://download.eassos.cn/DG5431342_x64.zip>
     
+# Dism++
+
+<https://github.com/Chuyu-Team/Dism-Multi-language>
+
+<https://mirrors.sdu.edu.cn/github-release/Chuyu-Team_Dism-Multi-language/>
+
+<https://mirrors.sdu.edu.cn/github-release/Chuyu-Team_Dism-Multi-language/v10.1.1002.2/Dism++10.1.1002.1B.zip>
+
 # Etcher
 
 <https://etcher.balena.io/>
@@ -259,6 +275,18 @@ toc: true
 <https://mirrors.sdu.edu.cn/github-release/ventoy_Ventoy/>
 
 <https://github.com/ventoy/ventoy/releases/download/v1.0.99/ventoy-1.0.99-windows.zip>
+
+# Vlmcsd
+
+<https://github.com/Wind4/vlmcsd>
+
+<https://github.com/Wind4/vlmcsd/releases/download/svn1113/binaries.tar.gz>
+
+<https://github.com/linianhui/docker/pkgs/container/vlmcsd>
+
+```
+docker pull ghcr.io/linianhui/vlmcsd:latest
+```
 
 # Wepe 
 
