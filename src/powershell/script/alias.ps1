@@ -26,7 +26,7 @@ Set-Alias -Name gti -Value git
 
 Set-Alias -Name hs -Value http-server
 
-Set-Alias -Name hus -Value hugo-server
+Set-Alias -Name hsb -Value hugo-server-blog
 
 Set-Alias -Name env -Value Env-GetAllVariable
 
