@@ -9,28 +9,32 @@ toc: true
 
 <https://www.7-zip.org/download.html>
 
-<https://www.7-zip.org/a/7z1900-x64.exe>
+<https://www.7-zip.org/a/7z2408-x64.exe>
 
-# AS SSD Benchmark
+# Adb 
+
+<https://linianhui.github.io/tool/android/>
+
+# Aida64
+
+<https://www.aida64.com/downloads>
+
+<https://download2.aida64.com/aida64extreme740.zip>
+
+# Aomei 
+
+<https://www.disktool.cn/>
+
+<https://www.disktool.cn/go/download/PAInstall.zip>
+
+<https://www.disktool.cn/go/download/PAGreen.zip>
+
+# As ssd benchmark
 
 <https://www.alex-is.de/PHP/fusion/downloads.php?cat_id=4&download_id=9>
 
 <https://www.alex-is.de/progs/AS%20SSD%20Benchmark.zip>
     
-# Adb 
-
-<https://linianhui.github.io/tool/android/>
-
-# Backup & Restore Software
-
-<https://www.backup-utility.com/free-backup-software.html>
-
-# CPU-Z
-
-<https://www.cpuid.com/softwares/cpu-z.html>
-
-<http://download.cpuid.com/cpu-z/cpu-z_1.88-cn.zip>
-
 # Caddy
 
 <https://github.com/mholt/caddy>
@@ -40,20 +44,27 @@ toc: true
 
 <https://github.com/kovidgoyal/calibre>
 
-<https://github.com/kovidgoyal/calibre/releases/download/v3.31.0/calibre-portable-installer-3.31.0.exe>
+<https://github.com/kovidgoyal/calibre/releases/download/v7.21.0/calibre-portable-installer-7.21.0.exe>
 
-# ChipGenius
+# Chip genius
 
 <https://www.softpedia.com/get/System/System-Info/ChipGenius.shtml>
 
 <https://softpedia-secure-download.com/dl/5f8afea87878a54cd9c5243423504cd5/63674464/100251552/software/system/info/ChipGenius_v4_19_0319.zip> 
-# CrystalDiskInfo
+
+# Cpu-z
+
+<https://www.cpuid.com/softwares/cpu-z.html>
+
+<https://www.cpuid.com/downloads/cpu-z/cpu-z_2.12-en.zip>
+
+# Crystal disk info
 
 <https://crystalmark.info/en/download>
 
-<https://mirrors.gigenet.com/OSDN//crystaldiskinfo/70295/CrystalDiskInfo8_0_0.zip>
+<https://jaist.dl.sourceforge.net/project/crystaldiskinfo/9.4.4/CrystalDiskInfo9_4_4.zip>
 
-# CrystalDiskMark
+# Crystal disk mark
 
 <https://sourceforge.net/projects/crystaldiskmark/>
 
@@ -63,7 +74,7 @@ toc: true
 
 <https://www.cybermania.ws/>
 
-# DiskGenius
+# Disk-genius
 
 <https://www.diskgenius.cn/download.php>
 
@@ -71,16 +82,25 @@ toc: true
     
 # Etcher
 
-<https://github.com/resin-io/etcher>
+<https://etcher.balena.io/>
 
-<https://github.com/resin-io/etcher/releases/download/v1.4.4/Etcher-Portable-1.4.4-x86.exe>
+<https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-1.19.25.Setup.exe>
+
+<https://github.com/balena-io/etcher/releases/download/v1.19.25/balenaEtcher-1.19.25-x64.dmg>
 
 # Everything
 
 <https://www.voidtools.com/>
-<https://www.voidtools.com/Everything-1.4.1.1015.x64.zip>
 
-# FastCopy
+<https://www.voidtools.com/Everything-1.4.1.1026.x64.zip>
+
+# FFmpeg
+
+<https://ffmpeg.org/download.html>
+
+<https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z>
+
+# Fast-copy
 
 <https://fastcopy.jp>
 
@@ -96,32 +116,46 @@ toc: true
 
 <https://www.foobar2000.org/>
 
-<https://www.foobar2000.org/getfile/foobar2000-x64_v2.1.6.exe># Free Download Manager
+<https://www.foobar2000.org/getfile/foobar2000-x64_v2.1.6.exe>
+
+# Free download manager
 
 <https://www.freedownloadmanager.org/>
 
-<https://dn3.freedownloadmanager.org/5/5.1-latest/fdm5_x64_setup.exe>
+<https://files2.freedownloadmanager.org/6/latest/fdm_x64_setup.exe>
 
 
-# GPU-Z
-
-<https://www.techpowerup.com/gpuz/>
-
-<http://us1-dl.techpowerup.com/files/5_FKMNerfjsrEW2JgFv5gQ/1537790917/GPU-Z.2.11.0.exe>
-
-# Geek Uninstaller
+# Geek uninstaller
 
 <https://geekuninstaller.com>
 
 <https://geekuninstaller.com/geek.zip>
 
-# K-Lite Codec Pack
+# Gpu-z
+
+<https://www.techpowerup.com/gpuz/>
+
+<https://us1-dl.techpowerup.com/files/clJ3G3pM7bysIDdbJ90OCw/1731166269/GPU-Z.2.60.0.exe>
+
+# HD Tune
+
+<https://www.hdtune.com/>
+
+<https://www.hdtune.com/files/HDTunePro_610_trial.exe>
+
+# HWMonitor
+
+<https://www.cpuid.com/softwares/hwmonitor.html>
+
+<https://www.cpuid.com/downloads/hwmonitor/hwmonitor_1.55.zip>
+
+# K-lite codec pack
 
 <http://www.codecguide.com>
 
-<http://www.codecguide.com/download_k-lite_codec_pack_basic.htm>
+<https://www.codecguide.com/download_k-lite_codec_pack_standard.htm>
 
-<http://files2.codecguide.com/K-Lite_Codec_Pack_1455_Basic.exe>
+<https://files2.codecguide.com/K-Lite_Codec_Pack_1865_Standard.exe>
 
 # Kindlegen
 
@@ -129,22 +163,29 @@ toc: true
 
 <http://kindlegen.s3.amazonaws.com/kindlegen_win32_v2_9.zip>
 
-# MP3Tag
-
-<https://www.mp3tag.de/en/>
-
-<https://download.mp3tag.de/mp3tagv318-x64-setup.exe>
-
 # Miniserve
 
 <https://linianhui.github.io/tool/miniserve/>
 
 
-# PDFgear
+# Mp3tag
+
+<https://www.mp3tag.de/en/>
+
+<https://download.mp3tag.de/mp3tagv327a-x64-setup.exe>
+
+# Pdfgear
 
 <https://www.pdfgear.com/>
 
 <https://www.pdfgear.com/download/pdfgear_setup_v2.1.8.exe>
+
+# Proxyman
+
+<https://proxyman.io/>
+
+<https://github.com/ProxymanApp/Proxyman>
+
 
 # Putty
 
@@ -152,7 +193,7 @@ toc: true
 
 <https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>
 
-# R-Studio
+# R-studio
 
 <https://www.r-studio.com/data-recovery-software/>
 
@@ -162,9 +203,11 @@ toc: true
 
 # Rufus
 
+<https://rufus.ie>
+
 <https://github.com/pbatard/rufus>
 
-<https://github.com/pbatard/rufus/releases/download/v3.8/rufus-3.8p.exe>
+<https://github.com/pbatard/rufus/releases/download/v4.6/rufus-4.6p.exe>
 
 # Spacesniffer
 
@@ -174,18 +217,22 @@ toc: true
 
 <https://www.fosshub.com/SpaceSniffer.html?dwl=spacesniffer_1_3_0_2.zip>
 
-# Sumatra PDF
+# Sumatra pdf
 
 <https://github.com/sumatrapdfreader/sumatrapdf>
 
-<https://www.sumatrapdfreader.org/dl/SumatraPDF-3.1.2-64-install.exe>
+<https://www.sumatrapdfreader.org>
+
+<https://www.sumatrapdfreader.org/download-free-pdf-viewer>
+
+<https://www.sumatrapdfreader.org/dl/rel/3.5.2/SumatraPDF-3.5.2-64.zip>
 
 
-# SuperPI
+# Super pi
 
 <http://www.superpi.net/Download/>
 
-# Usb Tree View
+# Usb tree view
 
 <https://www.uwe-sieber.de/>
 
@@ -201,15 +248,15 @@ toc: true
 
 <https://github.com/ventoy/ventoy/releases/download/v1.0.99/ventoy-1.0.99-windows.zip>
 
-# WePE 
+# Wepe 
 
 <https://www.wepe.com.cn/>
 
-<https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE64_V2.2.exe>
+<https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE_64_V2.3.exe>
 
-<https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE32_V2.2.exe>
+<https://mirrors.sdu.edu.cn/software/Windows/WePE/WePE_32_V2.3.exe>
 
-# Windows USB/DVD Download Tool
+# Windows usb/dvd download tool
 
 <https://www.microsoft.com/en-us/download/details.aspx?id=56485>
 
@@ -222,6 +269,6 @@ toc: true
 
 <https://www.wireshark.org/download/>
 
-<https://www.wireshark.org/download/win32/WiresharkPortable_2.6.4.paf.exe>
+<https://www.wireshark.org/download/win64/WiresharkPortable64_latest.paf.exe>
 
-<https://www.wireshark.org/download/osx/Wireshark%202.6.4%20Intel%2064.dmg>
+<https://www.wireshark.org/download/osx/Wireshark%20Latest%20Intel%2064.dmg>
