@@ -180,6 +180,16 @@ toc: true
 
 <https://www.pdfgear.com/download/pdfgear_setup_v2.1.8.exe>
 
+# PowerToys
+
+<https://github.com/microsoft/PowerToys>
+
+<https://learn.microsoft.com/zh-cn/windows/powertoys/>
+
+<https://github.com/microsoft/PowerToys/releases/download/v0.86.0/PowerToysSetup-0.86.0-x64.exe>
+
+<https://mirrors.sdu.edu.cn/github-release/microsoft_PowerToys/>
+
 # Proxyman
 
 <https://proxyman.io/>
