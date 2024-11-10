@@ -1,5 +1,5 @@
 ---
-title: '[Windows] vlmcsd'
+title: '[工具] vlmcsd'
 created_at: 2024-11-10 12:00:08
 tag: ["Windows", "kms","vlmcsd"]
 toc: true
