@@ -4,6 +4,6 @@
   {{ partial "article-meta-date.html" . }}
   </section>
   <summary>
-  {{ .Summary }} ...
+  {{ substr .Plain 0 255 }} ...
   </summary>
 </article>
