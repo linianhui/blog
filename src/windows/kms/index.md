@@ -9,9 +9,9 @@ toc: true
 
 <https://github.com/Wind4/vlmcsd>
 
-```
+```sh
 # 服务端 -s 注册为windows服务 -l 日志
-vlmcsd-Windows-x64.exe -s -l d:\_app\_vlmcsd\server.log
+vlmcsd-Windows-x64.exe -s -l c:\_vlmcsd\server.log
 
 # 客户端-查看支持的版本
 vlmcs-Windows-x64.exe -x
