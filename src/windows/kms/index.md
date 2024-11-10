@@ -15,6 +15,9 @@ vlmcsd-Windows-x64.exe -s -l c:\_vlmcsd\server.log
 
 # 客户端-查看支持的版本
 vlmcs-Windows-x64.exe -x
+
+# 开放端口
+netsh advfirewall firewall add rule name=vlmcsd1688 dir=in action=allow protocol=TCP localport=1688
 ```
 
 # Docker {#docker}
