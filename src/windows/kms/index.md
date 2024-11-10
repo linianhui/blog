@@ -1,29 +1,9 @@
 ---
 title: '[Windows] kms'
 created_at: 2023-08-13 17:20:08
-tag: ["Windows", "kms","vlmcsd"]
+tag: ["Windows", "kms"]
 toc: true
 ---
-
-# vlmcsd
-
-<https://github.com/Wind4/vlmcsd>
-
-```sh
-# 服务端 -s 注册为windows服务 -l 日志
-vlmcsd-Windows-x64.exe -s -l c:\_vlmcsd\server.log
-
-# 客户端-查看支持的版本
-vlmcs-Windows-x64.exe -x
-
-# 开放端口
-netsh advfirewall firewall add rule name=vlmcsd1688 dir=in action=allow protocol=TCP localport=1688
-```
-
-# Docker {#docker}
-```sh
-docker run -d -p 1688:1688 --restart=always --name vlmcsd ghcr.io/linianhui/vlmcsd:1113-2020-03-28
-```
 
 # Windows {#windows}
 
@@ -33,7 +13,7 @@ slmgr.vbs -upk
 # 导入密钥
 slmgr.vbs -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
 # 设置kms服务器
-slmgr.vbs -skms vlmcsd.test
+slmgr.vbs -skms vlmcsd.lan
 # 激活
 slmgr.vbs -ato
 # 查看激活信息
@@ -45,7 +25,7 @@ slmgr.vbs -dlv
 ```sh
 cd C:\Program Files\Microsoft Office\Office15
 cscript ospp.vbs /inpkey:YC7DK-G2NP3-2QQC3-J6H88-GVGXT
-cscript ospp.vbs /sethst:vlmcsd.test
+cscript ospp.vbs /sethst:vlmcsd.lan
 cscript ospp.vbs /act
 cscript ospp.vbs /dstatusall
 ```

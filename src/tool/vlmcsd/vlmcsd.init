@@ -1,0 +1,27 @@
+#!/bin/sh /etc/rc.common
+
+
+# openwrt
+# /etc/init.d/vlmcsd
+# chmod +x /etc/init.d/vlmcsd
+# /etc/init.d/vlmcsd enable
+# /etc/init.d/vlmcsd start
+# /etc/init.d/vlmcsd stop
+# /etc/init.d/vlmcsd reload
+
+START=98
+
+SERVICE_WRITE_PID=1
+SERVICE_DAEMONIZE=1
+
+start() {
+  service_start /usr/bin/vlmcsd
+}
+
+stop() {
+  service_stop /usr/bin/vlmcsd
+}
+
+reload() {
+  service_reload /usr/bin/vlmcsd
+}
