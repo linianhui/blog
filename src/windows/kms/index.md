@@ -19,7 +19,7 @@ vlmcs-Windows-x64.exe -x
 
 # Docker {#docker}
 ```sh
-docker run -d -p 1688:1688 --restart=always --name vlmcsd ghcr.io/linianhui/vlmcsd:1311
+docker run -d -p 1688:1688 --restart=always --name vlmcsd ghcr.io/linianhui/vlmcsd:1113-2020-03-28
 ```
 
 # Windows {#windows}
