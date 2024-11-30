@@ -8,6 +8,10 @@ toc: true
 {{<element-ui>}}
 {{<inline-html path="header.html">}}
 
+# CPU
+
+<https://nanoreview.net/en/cpu-list/desktop-chips-rating>
+
 # USB {#usb}
 
 ## RTL9210B {#usb-rtl9210b}
