@@ -4,11 +4,36 @@ function calculate(param) {
     var current = calculateCurrent(param);
     items.push(current);
 
+    var limitUpActions = buildLimitUpActions(param.price, param.limitUp);
+    if (limitUpActions) {
+        param.actions = param.actions.filter(x => x.type.startsWith("涨停"));
+        limitUpActions.forEach(x => param.actions.push(x));
+    }
+
     applyActions(items, param.actions);
 
     return {
         items: items
     };
+}
+
+function buildLimitUpActions(price, limitUp) {
+    if (limitUp <= 0) {
+        return null;
+    }
+    var result = [];
+    var prevPrice = price;
+    for (let index = 1; index <= limitUp; index++) {
+        var action = {
+            type: "涨停" + index,
+            price: blog.round2(prevPrice * 1.1),
+            number: 0,
+            enabled: true
+        };
+        prevPrice = action.price;
+        result.push(action);
+    }
+    return result;
 }
 
 function applyActions(items, actions) {

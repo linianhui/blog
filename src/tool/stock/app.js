@@ -3,6 +3,7 @@ function getLocationParams() {
         cost: parseFloat(blog.getLocationParam(1, 9)),
         price: parseFloat(blog.getLocationParam(2, 10)),
         number: parseInt(blog.getLocationParam(3, 1000)),
+        limitUp: parseInt(blog.getLocationParam(4, 0)),
     };
 }
 
@@ -16,6 +17,7 @@ var vueApp = new Vue({
             cost: defaultParam.cost,
             price: defaultParam.price,
             number: defaultParam.number,
+            limitUp: defaultParam.limitUp,
             actionTypes: [
                 "买入",
                 "卖出",
@@ -58,6 +60,7 @@ var vueApp = new Vue({
                 cost: parseFloat(this.cost),
                 price: parseFloat(this.price),
                 number: parseInt(this.number),
+                limitUp: parseInt(this.limitUp),
                 actions: this.actions
             };
 
@@ -66,7 +69,7 @@ var vueApp = new Vue({
             console.log("calculate param", param);
             console.log("calculate result", result);
 
-            blog.setLocationParams(this.cost, this.price, this.number);
+            blog.setLocationParams(this.cost, this.price, this.number, this.limitUp);
 
             return result;
         }

@@ -25,7 +25,7 @@
   }
 
   .form-name {
-    width: 4.5em;
+    width: 6em;
     text-align: right;
   }
 
@@ -194,6 +194,16 @@
       </div>
       <div colspan="2" class="form-input">
         <el-input-number id="eNumber" v-model="number" step="100"> </el-input-number>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="eLimitUp">
+          涨停数(10%)
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eLimitUp" v-model="limitUp" step="1"> </el-input-number>
       </div>
     </section>
   </fieldset>
