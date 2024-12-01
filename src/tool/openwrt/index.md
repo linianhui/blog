@@ -49,6 +49,28 @@ opkg update
 opkg install ca-certificates
 ```
 
+## 1.3 upgrade {#upgrade}
+
+<https://firmware-selector.openwrt.org/>
+
+### 1.3.1 initramfs-kernel
+
+测试用，不会保存任何设置。
+
+<https://downloads.openwrt.org/releases/22.03.2/targets/ramips/mt7621/openwrt-22.03.2-ramips-mt7621-hiwifi_hc5962-initramfs-kernel.bin>
+
+### 1.3.2 squashfs-factory
+
+从bootloader安装的包，会抹除当前设置，相当于重新安装。不过可以从旧版的openwrt导出 config archive文件，然后再恢复。
+
+<https://downloads.openwrt.org/releases/22.03.2/targets/ramips/mt7621/openwrt-22.03.2-ramips-mt7621-hiwifi_hc5962-squashfs-factory.bin>
+
+### 1.3.3 squashfs-sysupgrade
+
+从openwrt升级openwrt的包，可以保留当前版本设置。
+
+<https://downloads.openwrt.org/releases/22.03.2/targets/ramips/mt7621/openwrt-22.03.2-ramips-mt7621-hiwifi_hc5962-squashfs-sysupgrade.bin>
+
 # 2 software {#software}
 
 ## 2.1 openwrt-v2ray {#v2ray}
