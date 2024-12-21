@@ -1,5 +1,5 @@
 ---
-title: '[Linux] Bash Script'
+title: '[Linux] Script'
 created_at: 2017-01-01 09:42:01
 tag: ["Linux", "sh"]
 toc: true
