@@ -112,13 +112,16 @@ function Env-SetPuttyEnvironmentVariable() {
 
 # https://adoptopenjdk.net/upstream.html
 # https://developers.redhat.com/products/openjdk/download
+# https://arthas.aliyun.com/arthas-boot.jar
 function Env-SetJavaEnvironmentVariable() {
     $APP_JAVA_DIR = $LANG_DIR + '_java\';
+    $APP_ARTHAS_BOOT_DIR = $LANG_DIR + '_arthas_boot\';
     $APP_JAVA_BIN_DIR = $APP_JAVA_DIR + 'bin\';
 
     Env-TrySetVariable -Variable 'JAVA_TOOL_OPTIONS' -Value '-Dfile.encoding=UTF-8'
 
     Env-TrySetVariable -Variable 'JAVA_HOME' -Value $APP_JAVA_DIR
+    Env-TrySetVariable -Variable 'ARTHAS_BOOT_HOME' -Value $APP_ARTHAS_BOOT_DIR
 
     Env-TryAppendPathVariable -Value $APP_JAVA_BIN_DIR
 }
