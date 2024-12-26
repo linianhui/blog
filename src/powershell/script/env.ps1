@@ -2,11 +2,12 @@
 # powershell env functions
 ################################
 
-[string]$APP_DIR    = 'd:\_app\';
-[string]$LANG_DIR    = 'd:\_lang\';
-[string]$CACHE_DIR  = 'd:\_cache\';
+[string]$APP_DIR = 'd:\_app\';
+[string]$LANG_DIR = 'd:\_lang\';
+[string]$CACHE_DIR = 'd:\_cache\';
 [string]$CONFIG_DIR = 'd:\_config\';
-[string]$DATA_DIR   = 'd:\_data\';
+[string]$DATA_DIR = 'd:\_data\';
+[string]$PATH_SPLIT = ';';
 
 function script:Env-TrySetVariable (
     [string]$Variable = $(throw "Variable is null!"),
@@ -39,9 +40,10 @@ function script:Env-TryAppendPathVariable (
     $Variable = 'Path'
     # 获取旧值
     [string]$OldValue = [System.Environment]::GetEnvironmentVariable($Variable, $Target);
+    [array]$OldValueArray = $OldValue -Split $PATH_SPLIT
 
     # 检测是否已经存在
-    if ($OldValue.Split(';').Contains($Value)) {
+    if ($OldValueArray -Contains $Value) {
         Log-Warn "[$Target][$Variable] EXISTS_VALUE : $Value"
         return
     }
@@ -49,13 +51,8 @@ function script:Env-TryAppendPathVariable (
     Log-Debug "[$Target][$Variable] APPEND_VALUE : $Value"
 
     # 追加新值
-    [string]$NewValue = $OldValue;
-    if ($OldValue.EndsWith(';')) {
-        $NewValue = $OldValue + $Value + ';'
-    }
-    else {
-        $NewValue = $OldValue + ';' + $Value + ';'
-    }
+    $OldValueArray += $Value;
+    [string]$NewValue = $($OldValueArray | Where-Object { $_ } | Sort-Object -Unique -CaseSensitive:$false | Join-String -Separator $PATH_SPLIT);
 
     Env-TrySetVariable -Variable $Variable -Value $NewValue
 }
@@ -75,7 +72,7 @@ function Env-GetAllVariable() {
 }
 
 function Env-GetPathVariavle() {
-    $ENV:PATH.Split(';')
+    $ENV:PATH -Split $PATH_SPLIT | Sort-Object
 }
 
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
