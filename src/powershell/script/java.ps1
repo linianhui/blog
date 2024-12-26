@@ -29,3 +29,19 @@ function Java-Set-Jdk {
     Log-Debug "now jdk path : $((Get-Item -Path $BasePath).Target)"
     java -version
 }
+
+function Java8 {
+    Java-Set-Jdk -Version 8
+}
+
+function Java11 {
+    Java-Set-Jdk -Version 11
+}
+
+function Java17 {
+    Java-Set-Jdk -Version 17
+}
+
+function Java21 {
+    Java-Set-Jdk -Version 21
+}
