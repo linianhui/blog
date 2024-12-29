@@ -1,5 +1,5 @@
 name: Deploy Github Pages
-run-name: Deploy to https://linianhui.github.io by ${{ github.event.head_commit.message }}
+#run-name: Deploy to https://linianhui.github.io by ${{ github.event.head_commit.message }}
 
 on:
   push:
