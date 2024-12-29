@@ -206,7 +206,7 @@ Request-Id: {id}
 [HTTP-Header-Location]:https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location
 
 
-## 3.3 HTTP Stauts Code {#http-status-code}
+## 3.3 HTTP Status Code {#http-status-code}
 
 [HTTP Status Code][HTTP-Status-Code]用来指示`HTTP协议层面的请求状态`。它由一个数字和一个描述消息构成，比如`200 OK`。有以下几类状态码 : 
 
