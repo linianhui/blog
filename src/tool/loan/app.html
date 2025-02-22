@@ -90,7 +90,7 @@
   }
 
   .row-data:hover {
-    background-color: #ccc;
+    background-color: #eee;
     cursor: pointer;
   }
 
@@ -204,7 +204,7 @@
           <td><el-input-number v-model="prepaymentAction.principal" :min="10000" step="10000"></el-input-number></td>
           <td><el-select v-model="prepaymentAction.afterAction"><el-option v-for="item in afterActionTypes" :key="item"
                 :label="item" :value="item"></el-option></el-select></td>
-          <td><el-button v-on:click="addPrepaymentAction" type="success" icon="el-icon-circle-plus-outline" size="small"></el-button>
+          <td><el-button v-on:click="addPrepaymentAction" type="success" icon="el-icon-circle-plus-outline" size="small" plain></el-button>
           </td>
         </tr>
         <tr>
@@ -213,7 +213,7 @@
               format="yyyy-MM-dd"></el-date-picker></td>
           <td><el-input-number v-model="resetRateAction.yearRate" :min="0" step="0.01"></el-input-number></td>
           <td></td>
-          <td><el-button v-on:click="addResetRateAction" type="primary" icon="el-icon-circle-plus-outline" size="small"></el-button>
+          <td><el-button v-on:click="addResetRateAction" type="primary" icon="el-icon-circle-plus-outline" size="small" plain></el-button>
           </td>
         </tr>
         <template v-for="(action,i) in actions">
@@ -222,7 +222,7 @@
             <td>{{action.date}}</td>
             <td>{{action.yearRate}}{{action.principal}}</td>
             <td>{{action.afterAction}}</td>
-            <td><el-button @click="deleteAction(i)" type="danger" icon="el-icon-delete" size="small"></el-button></td>
+            <td><el-button @click="deleteAction(i)" type="danger" icon="el-icon-delete" size="small" plain></el-button></td>
           </tr>
         </template>
       </table>
