@@ -94,8 +94,18 @@
     cursor: pointer;
   }
 
-  .row-data-year-first-month{
+  .row-data-year-first-month {
     background-color: #eee;
+  }
+
+  .row-data-action-prepayment {
+    color: rgb(103, 194, 58);
+    font-weight: bold;
+  }
+
+  .row-data-action-reset-rate {
+    color: rgb(64, 158, 255);
+    font-weight: bold;
   }
 
   .insurance-table input {
@@ -133,7 +143,7 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="ePrincipal" v-model="principal" step="10000" :min="0">
+        <el-input-number id="ePrincipal" v-model="loan.totalPrincipal" step="10000" :min="0">
         </el-input-number>
       </div>
     </section>
@@ -144,45 +154,80 @@
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eMonth" v-model="month" step="12"> </el-input-number>
+        <el-input-number id="eMonth" v-model="loan.totalNumberOfRepayment" step="12"> </el-input-number>
         &nbsp;
         <el-checkbox v-model="asc">正序</el-checkbox>
       </div>
     </section>
     <section>
       <div class="form-name">
-        <label for="eRateYear">
+        <label for="eYearRate">
           利率
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eRateYear" v-model="rateYear" :min="0" step="0.01"></el-input-number>
+        <el-input-number id="eYearRate" v-model="loan.yearRate" :min="0" step="0.01"></el-input-number>
       </div>
     </section>
     <section>
       <div class="form-name">
-        <label for="eRate">
-          首次还款
+        <label for="eBeginDate">
+          贷款时间
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-date-picker v-model="date" type="date" placeholder="选择日期" >
+        <el-date-picker id="eBeginDate" v-model="loan.beginDate" type="date" placeholder="贷款时间"
+          value-format="yyyy-MM-dd" format="yyyy-MM-dd">
         </el-date-picker>
       </div>
     </section>
     <section>
       <div class="form-name">
-        <label for="eAheadRate">
-          提前还款
+        <label for="eRepaymentDayOfMonth">
+          还款日期
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-input-number id="eAheadRate" v-model="aheadAmount" step="10000" :min="0" class="e-input-ahead">
+        <el-input-number id="eRepaymentDayOfMonth" v-model="loan.repaymentDayOfMonth" step="1" :min="1" :max="31">
         </el-input-number>
-        &nbsp;
-        <el-checkbox v-model="reduceDate">缩短年限</el-checkbox>
       </div>
     </section>
+  </fieldset>
+
+  <fieldset>
+    <legend>操作区域</legend>
+    <div class="result-wrapper">
+      <table class="result-table">
+        <tr>
+          <td>{{prepaymentAction.type}}</td>
+          <td><el-date-picker v-model="prepaymentAction.date" type="date" placeholder="提前还款的扣款日期"
+              value-format="yyyy-MM-dd" format="yyyy-MM-dd"></el-date-picker></td>
+          <td><el-input-number v-model="prepaymentAction.principal" :min="10000" step="10000"></el-input-number></td>
+          <td><el-select v-model="prepaymentAction.afterAction"><el-option v-for="item in afterActionTypes" :key="item"
+                :label="item" :value="item"></el-option></el-select></td>
+          <td><el-button v-on:click="addPrepaymentAction" type="success" icon="el-icon-circle-plus-outline"></el-button>
+          </td>
+        </tr>
+        <tr>
+          <td>{{resetRateAction.type}}</td>
+          <td><el-date-picker v-model="resetRateAction.date" type="date" placeholder="利率变更日期" value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"></el-date-picker></td>
+          <td><el-input-number v-model="resetRateAction.yearRate" :min="0" step="0.01"></el-input-number></td>
+          <td></td>
+          <td><el-button v-on:click="addResetRateAction" type="primary" icon="el-icon-circle-plus-outline"></el-button>
+          </td>
+        </tr>
+        <template v-for="(action,i) in actions">
+          <tr class="row-data" :class="{'row-data-action-reset-rate': action.type=='调整利率','row-data-action-prepayment':action.type=='提前还款'}">
+            <td>{{action.type}}</td>
+            <td>{{action.date}}</td>
+            <td>{{action.yearRate}}{{action.principal}}</td>
+            <td>{{action.afterAction}}</td>
+            <td><el-button @click="deleteAction(i)" type="danger" icon="el-icon-delete" circle></el-button></td>
+          </tr>
+        </template>
+      </table>
+    </div>
   </fieldset>
 
   <fieldset>
@@ -191,29 +236,12 @@
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
-            <th>还款方式</th>
-            <th>年限</th>
             <th>总金额</th>
-            <th>本金</th>
             <th>总利息</th>
           </tr>
           <tr class="row-data" >
-            <td>等额本金</td>
-            <td>{{result.sum.year}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.year}}</sub></td>
-            <td>{{result.sum.avgPrincipal.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.total | CNY}}</sub></td>
-            <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.principal | CNY}}</sub></td>
-            <td>{{result.sum.avgPrincipal.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgPrincipal.interest | CNY}}</sub></td>
-          </tr>
-          <tr class="row-data" >
-            <td>等额本息</td>
-            <td>{{result.sum.year}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.year}}</sub></td>
-            <td>{{result.sum.avgInterest.total | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.total | CNY}}</sub></td>
-            <td>{{result.sum.avgPrincipal.principal | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.principal | CNY}}</sub></td>
-            <td>{{result.sum.avgInterest.interest | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.avgInterest.interest | CNY}}</sub></td>
-          </tr>
-          <tr class="row-data" >
-            <td>差额</td>
-            <td colspan="4">{{result.sum.interestDiff | CNY}}<sub v-if="result.sum.ahead" class="ahead">{{result.sum.ahead.interestDiff | CNY}}</sub></td>
+            <td>{{result.sum.principal | CNY}}</td>
+            <td>{{result.sum.interest | CNY}}</td>
           </tr>
         </table>
       </pre>
@@ -226,37 +254,29 @@
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
-            <th rowspan="2">月份</th>
-            <th colspan="4">等额本金</th>
-            <th colspan="4">等额本息</th>
-          </tr>
-          <tr class="row-header">
-            <th>总额</th>
+            <th>月份</th>
             <th>本金</th>
-            <th>利息</th>
-            <th>剩余本金</th>
-            <th>总额</th>
-            <th>本金</th>
-            <th>利息</th>
+            <th>利率</th>
+            <th>还款利息</th>
+            <th>还款本金</th>
+            <th>还款金额</th>
             <th>剩余本金</th>
           </tr>
-          <template v-for="month in result.months">
-            <tr class="row-data" :class="{'row-data-year-first-month': month.month.includes('-01-')}">
-              <td>{{month.month}}</td>
-              <td>{{month.avgPrincipal.amount | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.amount}}</sub></td>
-              <td>{{month.avgPrincipal.principal | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.principal}}</sub></td>
-              <td>{{month.avgPrincipal.interest | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.interest}}</sub></td>
-              <td>{{month.avgPrincipal.principalBalance | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgPrincipal.principalBalance}}</sub></td>
-              <td>{{month.avgInterest.amount | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.amount}}</sub></td>
-              <td>{{month.avgInterest.principal | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.principal}}</sub></td>
-              <td>{{month.avgInterest.interest | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.interest}}</sub></td>
-              <td>{{month.avgInterest.principalBalance | CNY}}<sub v-if="month.ahead" class="ahead">{{month.ahead.avgInterest.principalBalance}}</sub></td>
-            </tr>
+          <template v-for="item in result.items">
+            <tr class="row-data" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" >
+              <td>{{item.plan.repaymentDate}}<span v-for="action in item.plan.actionTextList"><br/>{{action}}</span></td>
+              <td>{{item.plan.balancePrincipal | CNY}}</td>
+              <td>{{item.repayment.yearRateText}}<span v-for="rate in item.plan.rateTextList"><br/>{{rate}}</span></td>
+              <td>{{item.repayment.interest | CNY}}</td>
+              <td>{{item.repayment.principal | CNY}}</td>
+              <td>{{item.repayment.amount | CNY}}</td>
+              <td>{{item.balance.principal | CNY}}</td>
+              </tr>
           </template>
         </table>
       </pre>
     </div>
   </fieldset>
 </div>
-<script src="calculator.js"></script>
+<script src="calculator2.js"></script>
 <script src="app.js"></script>

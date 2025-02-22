@@ -340,6 +340,22 @@
         return param || defaultValue;
     }
 
+    function getLocationParamJson() {
+        var json = getLocationParam(1);
+        if (json) {
+            try {
+                return JSON.parse(decodeURI(json));
+            } catch (error) {
+                console.error(json, error);
+            }
+        }
+        return null;
+    }
+
+    function setLocationParamJson(value) {
+        setLocationParams(encodeURI(JSON.stringify(value)));
+    }
+
     function setLocationParams() {
         window.location.hash = Array.from(arguments).join("#");
     }
@@ -362,7 +378,9 @@
         deepClone: deepClone,
         log: log,
         getLocationParam: getLocationParam,
-        setLocationParams: setLocationParams
+        getLocationParamJson: getLocationParamJson,
+        setLocationParams: setLocationParams,
+        setLocationParamJson: setLocationParamJson
     };
 
 })(window, document, navigator);
