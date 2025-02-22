@@ -50,7 +50,7 @@ function calculateRepaymentPlan(plan) {
 
     var balance = {};
     // 本金余额 = 本金余额 - 本期应偿还本金
-    balance.principal = blog.round2(plan.balancePrincipal - repayment.principal);
+    balance.principal = Math.max(blog.round2(plan.balancePrincipal - repayment.principal), 0);
     result.balance = balance;
     return result;
 }
