@@ -161,8 +161,6 @@
       </div>
       <div colspan="2" class="form-input">
         <el-input-number id="eMonth" v-model="loan.totalNumberOfRepayment" step="12"> </el-input-number>
-        &nbsp;
-        <el-checkbox v-model="asc">正序</el-checkbox>
       </div>
     </section>
     <section>
@@ -262,7 +260,7 @@
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
-            <th>月份</th>
+            <th><span @click="sortTable()" style="cursor:pointer;">月份 <i :class="{'el-icon-arrow-up':asc,'el-icon-arrow-down':!asc}"></i></span></th>
             <th>本金</th>
             <th>利率</th>
             <th>还款利息</th>

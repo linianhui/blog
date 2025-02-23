@@ -71,6 +71,9 @@ var vueApp = new Vue({
         }
     },
     methods: {
+        sortTable() {
+            this.asc = !this.asc;
+        },
         addResetRateAction() {
             this.actions.push(blog.deepClone(this.resetRateAction));
             this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
