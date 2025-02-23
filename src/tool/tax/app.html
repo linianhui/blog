@@ -106,6 +106,10 @@
   .month-detail_opened {
     display: table-row;
   }
+
+  .form-input-weight{
+    width: 14em !important;
+  }
 </style>
 <div id="app">
   <fieldset class="input-fieldset">
@@ -141,7 +145,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-select id="insurance" v-model="insuranceName" :popper-append-to-body="false"
+              <el-select id="insurance" v-model="insuranceName" :popper-append-to-body="false" class="form-input-weight"
                 @change="onInsuranceNameChange">
                 <el-option v-for="item in insuranceNameList" :key="item" :label="item" :value="item">
                 </el-option>
@@ -183,7 +187,7 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-select id="rate" v-model="rateName" :popper-append-to-body="false">
+              <el-select id="rate" v-model="rateName" :popper-append-to-body="false" class="form-input-weight">
                 <el-option v-for="item in rateNameList" :key="item" :label="item" :value="item">
                 </el-option>
               </el-select>
