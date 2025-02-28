@@ -46,12 +46,12 @@ var vueApp = new Vue({
             loan: loan,
             resetRateAction: {
                 type: LOAN_REPLAMENT_PLAN_TYPE_RESET_RATE,
-                date: moment().add(12, MONTHS).format(LOAN_DATE_FORMAT),
+                date: moment().add(1, MONTHS).format(LOAN_DATE_FORMAT),
                 yearRate: loan.yearRate
             },
             prepaymentAction: {
                 type: LOAN_REPLAMENT_PLAN_TYPE_PREPAYMENT,
-                date: moment().add(12, MONTHS).format(LOAN_DATE_FORMAT),
+                date: moment().add(1, MONTHS).format(LOAN_DATE_FORMAT),
                 principal: 10000,
                 afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL
             },
