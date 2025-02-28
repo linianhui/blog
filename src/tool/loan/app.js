@@ -51,7 +51,7 @@ var vueApp = new Vue({
             },
             prepaymentAction: {
                 type: LOAN_REPLAMENT_PLAN_TYPE_PREPAYMENT,
-                date: moment().add(1, MONTHS).format(LOAN_DATE_FORMAT),
+                date: moment().add(3, MONTHS).format(LOAN_DATE_FORMAT),
                 principal: 10000,
                 afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL
             },
