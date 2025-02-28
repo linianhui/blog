@@ -36,7 +36,7 @@ function calculateAhead(defaultResult, param) {
         if (!param.reduceDate) {
             var aheadParam = blog.deepClone(param);
             aheadParam.date = param.date;
-            aheadParam.principal = blog.round2(param.principal - param.aheadAmount);
+            aheadParam.principal = blog.round(param.principal - param.aheadAmount);
             return calculateCore(aheadParam);
         }
         var aheads = tryCalculateAheadAll(param);
@@ -62,7 +62,7 @@ function tryCalculateAheadAll(param) {
     var result = [];
     var aheadParam = blog.deepClone(param);
     aheadParam.date = param.date;
-    aheadParam.principal = blog.round2(param.principal - param.aheadAmount);
+    aheadParam.principal = blog.round(param.principal - param.aheadAmount);
     for (var i = param.month; i > 0; i--) {
         aheadParam.month = i;
         result.push(calculateCore(aheadParam));
@@ -83,7 +83,7 @@ function calculateCore(param) {
             year: getYearString(month),
             avgPrincipal: avgPrincipalSum,
             avgInterest: avgInterestSum,
-            interestDiff: blog.round2(avgInterestSum.interest - avgPrincipalSum.interest),
+            interestDiff: blog.round(avgInterestSum.interest - avgPrincipalSum.interest),
         }
     };
 }
@@ -97,24 +97,24 @@ function diffSum(old, ahead) {
         year: getYearString(month),
         avgPrincipal: avgPrincipal,
         avgInterest: avgInterest,
-        interestDiff: blog.round2(avgInterest.interest - avgPrincipal.interest),
+        interestDiff: blog.round(avgInterest.interest - avgPrincipal.interest),
     }
 }
 
 function calculateSum(principal, months, func) {
-    var sum = blog.round2(blog.sum(months, func));
+    var sum = blog.round(blog.sum(months, func));
     return {
         principal: principal,
         interest: sum,
-        total: blog.round2(principal + sum),
+        total: blog.round(principal + sum),
     };
 }
 
 function diffSumItem(old, ahead) {
     return {
-        principal: blog.round2(ahead.principal - old.principal),
-        interest: blog.round2(ahead.interest - old.interest),
-        total: blog.round2(ahead.total - old.total),
+        principal: blog.round(ahead.principal - old.principal),
+        interest: blog.round(ahead.interest - old.interest),
+        total: blog.round(ahead.total - old.total),
     };
 }
 
@@ -159,18 +159,18 @@ function calculateAvgPrincipalMonths(param) {
     // 贷款总金额
     var principal = param.principal;
     // 每月本金
-    var principalMonth = blog.round2(principal / param.month);
+    var principalMonth = blog.round(principal / param.month);
 
     for (let index = 0; index < param.month; index++) {
 
         // 每月利息
-        var interestMonth = Math.max(blog.round2(principal * param.rateMonth));
+        var interestMonth = Math.max(blog.round(principal * param.rateMonth));
 
         // 每月还款总金额
-        var amountMonth = Math.max(blog.round2(principalMonth + interestMonth));
+        var amountMonth = Math.max(blog.round(principalMonth + interestMonth));
 
         // 剩余本金
-        principal = Math.max(blog.round2(principal - principalMonth), 0);
+        principal = Math.max(blog.round(principal - principalMonth), 0);
 
         result.push({
             amount: amountMonth,
@@ -185,10 +185,10 @@ function calculateAvgPrincipalMonths(param) {
 
 function diffMonthItem(old, ahead) {
     return {
-        amount: blog.round2(ahead.amount - old.amount),
-        principal: blog.round2(ahead.principal - old.principal),
-        interest: blog.round2(ahead.interest - old.interest),
-        principalBalance: blog.round2(ahead.principalBalance - old.principalBalance)
+        amount: blog.round(ahead.amount - old.amount),
+        principal: blog.round(ahead.principal - old.principal),
+        interest: blog.round(ahead.interest - old.interest),
+        principalBalance: blog.round(ahead.principalBalance - old.principalBalance)
     }
 }
 
@@ -209,18 +209,18 @@ function calculateAvgInterestMonths(param) {
     var principal = param.principal;
     // 每月还款总金额
     var x = Math.pow((1 + param.rateMonth), param.month);
-    var amountMonth = blog.round2(principal * param.rateMonth * x / (x - 1));
+    var amountMonth = blog.round(principal * param.rateMonth * x / (x - 1));
 
     for (let index = 0; index < param.month; index++) {
 
         // 每月利息
-        var interestMonth = Math.max(blog.round2(principal * param.rateMonth));
+        var interestMonth = Math.max(blog.round(principal * param.rateMonth));
 
         // 每月本金
-        var principalMonth = Math.max(blog.round2(amountMonth - interestMonth));
+        var principalMonth = Math.max(blog.round(amountMonth - interestMonth));
 
         // 剩余本金
-        principal = Math.max(blog.round2(principal - principalMonth));
+        principal = Math.max(blog.round(principal - principalMonth));
 
         result.push({
             amount: amountMonth,

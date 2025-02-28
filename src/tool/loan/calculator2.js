@@ -50,7 +50,7 @@ function calculateRepaymentPlan(plan) {
 
     var balance = {};
     // 本金余额 = 本金余额 - 本期应偿还本金
-    balance.principal = Math.max(blog.round2(plan.balancePrincipal - repayment.principal), 0);
+    balance.principal = Math.max(blog.number(plan.balancePrincipal).subtract(repayment.principal).value, 0);
     result.balance = balance;
     return result;
 }
@@ -61,7 +61,7 @@ function buildFirstPlan(loan) {
     result.totalPrincipal = loan.totalPrincipal;
     result.beginDate = loan.beginDate;
     result.totalNumberOfRepayment = loan.totalNumberOfRepayment;
-    result.repaymentPrincipal = blog.round2(result.totalPrincipal / result.totalNumberOfRepayment);
+    result.repaymentPrincipal = blog.number(result.totalPrincipal).divide(result.totalNumberOfRepayment).value;
     result.rateList = [];
     result.actionList = [];
     result.rateList.push({
@@ -128,13 +128,13 @@ function buildNextPlanList(repaymentPlan, actionList) {
             prepaymentPlan.repaymentPrincipal = action.principal;
 
             // 原始还款剩余本金 = 原始还款金额减去提前还款金额
-            originPlan.balancePrincipal = originPlan.balancePrincipal - action.principal;
+            originPlan.balancePrincipal = blog.number(originPlan.balancePrincipal).subtract(action.principal).value;
             // 延后原始还款计划的计息时间
             originPlan.beginInterestDate = action.date;
             // 期数减少，本金减少
             if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL == action.afterAction) {
                 originPlan.totalNumberOfRepayment = calculateTotalNumberOfRepayment(originPlan);
-                originPlan.repaymentPrincipal = blog.round2(originPlan.balancePrincipal / originPlan.totalNumberOfRepayment);
+                originPlan.repaymentPrincipal = blog.number(originPlan.balancePrincipal).divide(originPlan.totalNumberOfRepayment).value;
             }
             // 期数减少，本金不变
             if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL == action.afterAction) {
@@ -142,7 +142,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
             }
             // 期数不变，本金减少
             if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME == action.afterAction) {
-                originPlan.repaymentPrincipal = blog.round2(originPlan.balancePrincipal / originPlan.totalNumberOfRepayment);
+                originPlan.repaymentPrincipal = blog.number(originPlan.balancePrincipal).divide(originPlan.totalNumberOfRepayment).value;
             }
             result.push(prepaymentPlan);
         }
@@ -198,29 +198,33 @@ function calculateRepaymentSamePrincipal(plan) {
             if (next) {
                 days = dateDiffDays(next.date, current.date);
             }
-            var partRate = current.yearRate * days / allDays;
-            result.yearRate = result.yearRate + partRate;
+            var partRate = blog.number(current.yearRate, 8).multiply(days).divide(allDays).value;
+            result.yearRate = blog.number(result.yearRate, 8).add(partRate).value;
         }
     }
 
     // 按月计算利息
     if (useMonthRate(plan.beginInterestDate, plan.endInterestDate, plan.repaymentDate)) {
         result.rateType = MONTHS;
-        result.rate = result.yearRate / 12;
+        result.rate = blog.number(result.yearRate, 8).divide(12).value;
         result.rateTimes = 1;
     }
     // 按日利率计算利息
     else {
         result.rateType = DAYS;
-        result.rate = result.yearRate / 360;
+        result.rate = blog.number(result.yearRate, 8).divide(360).value;
         result.rateTimes = dateDiffDays(plan.endInterestDate, plan.beginInterestDate) + 1;
     }
 
     // 本期应偿还的利息 = 需要计算利息的本金 * 利息 * 利息次数 / 100
-    result.interest = blog.round2(plan.balancePrincipal * result.rate * result.rateTimes / 100);
+    result.interest = blog.number(plan.balancePrincipal)
+        .multiply(result.rate)
+        .multiply(result.rateTimes)
+        .divide(100)
+        .value;
 
     // 本前应偿还总金额 = 本期应偿还本金 + 本期应偿还的利息
-    result.amount = blog.round2(result.principal + result.interest);
+    result.amount = blog.number(result.principal).add(result.interest).value;
 
     return result;
 }
@@ -230,16 +234,16 @@ function calculateRepaymentPlanSameRepayment(plan) {
 
     // 本前应偿还总金额
     var x = Math.pow((1 + plan.rate), param.totalNumberOfRepayment);
-    result.repaymentAmount = blog.round2(plan.totalPrincipal * plan.rate * x / (x - 1));
+    result.repaymentAmount = blog.round(plan.totalPrincipal * plan.rate * x / (x - 1));
 
     // 本期应偿还的利息 = 需要计算利息的本金 * 利息 / 100
-    result.repaymentInterest = blog.round2(plan.principalOfNeedInterest * plan.rate / 100);
+    result.repaymentInterest = blog.round(plan.principalOfNeedInterest * plan.rate / 100);
 
     // 本前应偿还总金额 = 本前应偿还总金额 - 本期应偿还的利息
-    result.repaymentPrincipal = blog.round2(result.repaymentAmount - result.repaymentInterest);
+    result.repaymentPrincipal = blog.round(result.repaymentAmount - result.repaymentInterest);
 
     // 剩余需要计算利息的本金 = 需要计算利息的本金 - 本期应偿还本金
-    result.principalOfNeedInterest = blog.round2(plan.principalOfNeedInterest - result.repaymentPrincipal);
+    result.principalOfNeedInterest = blog.round(plan.principalOfNeedInterest - result.repaymentPrincipal);
 
     return result;
 }

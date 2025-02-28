@@ -26,7 +26,7 @@ function buildLimitUpActions(price, limitUp) {
     for (let index = 1; index <= limitUp; index++) {
         var action = {
             type: "涨停" + index,
-            price: blog.round2(prevPrice * 1.1),
+            price: blog.round(prevPrice * 1.1),
             number: 0,
             enabled: true
         };
@@ -108,7 +108,7 @@ function calculateCostPrice(cost) {
     if (cost.number == 0) {
         return cost.amount;
     }
-    return blog.round2(cost.amount / cost.number);
+    return blog.round(cost.amount / cost.number);
 }
 
 function calculateCurrent(action) {
@@ -133,11 +133,11 @@ function calculateCurrent(action) {
 }
 
 function calculateDiff(a, b) {
-    var price = blog.round2(b.price - a.price);
-    var number = blog.round2(b.number - a.number);
+    var price = blog.round(b.price - a.price);
+    var number = blog.round(b.number - a.number);
     var priceClass = calculateDiffCssClass(price);
-    var amount = blog.round2(b.amount - a.amount);
-    var amountPercent = blog.round2(amount * 100 / a.amount);
+    var amount = blog.round(b.amount - a.amount);
+    var amountPercent = blog.round(amount * 100 / a.amount);
     var amountClass = calculateDiffCssClass(amount);
     return {
         price: price,
@@ -174,7 +174,7 @@ function calculateCore(param) {
 }
 
 function calculateAmountCore(param) {
-    return blog.round2(param.price * param.number);
+    return blog.round(param.price * param.number);
 }
 
 function calculateDiffCssClass(value) {

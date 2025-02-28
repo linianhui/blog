@@ -24,14 +24,7 @@ new Vue({
     },
     filters: {
         CNY: function (value) {
-            return currency(
-                value || 0,
-                {
-                    symbol: "",
-                    separator: ",",
-                    precision: precision
-                })
-                .format();
+            return blog.number(value || 0,this.precision).format();
         }
     },
     computed: {
@@ -62,7 +55,7 @@ new Vue({
         onMonthChange(month) {
             if (month > 12) {
                 var bonusMonth = month - 12;
-                this.bonus = blog.round2(this.amount * bonusMonth);
+                this.bonus = blog.round(this.amount * bonusMonth);
             }
         },
         onRateNameChange(name) {

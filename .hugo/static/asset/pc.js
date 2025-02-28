@@ -311,18 +311,19 @@
         return (bytes / item[base].min).toFixed(fixed) + item.unit;
     }
 
-    function round2(value) {
-        const number = value || 0;
-        return Math.round(number * 100) / 100;
+    function round(value, precision) {
+        precision = precision || 2;
+        value = value || 0;
+        return number(value, precision).value;
     }
 
     function sum(items, func) {
         var result = 0;
         for (let index in items) {
-            const item = items[index];
-            result = round2(result + func(item));
+            var item = items[index];
+            result = round(result + func(item));
         }
-        return round2(result);
+        return round(result);
     }
 
     function deepClone(value) {
@@ -360,6 +361,18 @@
         window.location.hash = Array.from(arguments).join("#");
     }
 
+    function number(value, precision) {
+        var optionPrecision = precision || 2;
+        var option = {
+            symbol: '',
+            decimal: '.',
+            separator: ',',
+            errorOnInvalid: false,
+            precision: optionPrecision
+        };
+        return currency(value, option);
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -373,14 +386,15 @@
         getTBSearchUrl: getTBSearchUrl,
         parseBytes: parseBytes,
         formatBytes: formatBytes,
-        round2: round2,
+        round: round,
         sum: sum,
         deepClone: deepClone,
         log: log,
         getLocationParam: getLocationParam,
         getLocationParamJson: getLocationParamJson,
         setLocationParams: setLocationParams,
-        setLocationParamJson: setLocationParamJson
+        setLocationParamJson: setLocationParamJson,
+        number: number
     };
 
 })(window, document, navigator);

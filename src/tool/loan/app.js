@@ -60,14 +60,7 @@ var vueApp = new Vue({
     },
     filters: {
         CNY: function (value) {
-            return currency(
-                value || 0,
-                {
-                    symbol: "",
-                    separator: ",",
-                    precision: 2
-                })
-                .format();
+            return blog.number(value || 0).format();
         }
     },
     methods: {
@@ -102,7 +95,7 @@ var vueApp = new Vue({
 
             for (var index = 0; index < items.length; index++) {
                 var item = items[index];
-                item.repayment.yearRateText = blog.round2(item.repayment.yearRate);
+                item.repayment.yearRateText = blog.round(item.repayment.yearRate);
                 item.plan.rateTextList = [];
                 if (item.plan.rateList && item.plan.rateList.length > 1) {
                     for (var n = 1; n < item.plan.rateList.length; n++) {
@@ -120,7 +113,7 @@ var vueApp = new Vue({
                     item.hasAction = true;
                 }
 
-                sum.interest = blog.round2(sum.interest + item.repayment.interest);
+                sum.interest = blog.round(sum.interest + item.repayment.interest);
             }
             sum.principal = sum.interest + loan.totalPrincipal;
 
