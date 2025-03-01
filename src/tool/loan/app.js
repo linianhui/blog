@@ -102,7 +102,7 @@ var vueApp = new Vue({
                 csv += blog.number(item.repayment.amount) + ",";
                 csv += blog.number(item.balance.principal);
             }
-            var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + ".csv";
+            var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + "-" + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + ".csv";
             var csvFile = new File([csv], { type: "text/csv" });
             var csvUrl = URL.createObjectURL(csvFile);
             var cavA = document.createElement('a');
