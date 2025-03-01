@@ -5,7 +5,7 @@ var actionsParam = localtionParam.actions || [];
 
 var loan = {};
 loan.totalPrincipal = loanParam.totalPrincipal || 1000000;
-loan.beginDate = loanParam.beginDate || moment().format(LOAN_DATE_FORMAT);
+loan.beginDate = loanParam.beginDate || dateFormat(moment());
 loan.totalNumberOfRepayment = loanParam.totalNumberOfRepayment || 240;
 loan.yearRate = loanParam.yearRate || 3.5;
 loan.repaymentDayOfMonth = loanParam.repaymentDayOfMonth || 1;
