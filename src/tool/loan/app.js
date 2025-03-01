@@ -80,7 +80,7 @@ var vueApp = new Vue({
             this.actions.splice(i, 1);
         },
         downloadCsv() {
-            var csv = "类型,还款日期,计息开始,计息结束,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金";
+            var csv = "类型,还款日期,计息开始,计息结束,计息本金,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金";
             for (var index = 0; index < this.items.length; index++) {
                 var item = this.items[index];
                 csv += "\n";
@@ -88,6 +88,7 @@ var vueApp = new Vue({
                 csv += item.plan.repaymentDate + ",";
                 csv += item.plan.beginInterestDate + ",";
                 csv += item.plan.endInterestDate + ",";
+                csv += blog.number(item.plan.balancePrincipal) + ",";
                 csv += item.repayment.yearRate + ",";
                 csv += item.repayment.rate + ",";
                 csv += item.repayment.rateType + ",";
