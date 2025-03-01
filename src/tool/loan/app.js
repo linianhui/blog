@@ -34,24 +34,19 @@ var vueApp = new Vue({
     data: function () {
         return {
             asc: true,
-            actionTypes: [
-                LOAN_REPLAMENT_PLAN_TYPE_RESET_RATE,
-                LOAN_REPLAMENT_PLAN_TYPE_PREPAYMENT,
-            ],
-            afterActionTypes: [
-                LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL,
-                LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL,
-                LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME
-            ],
+            showAction: false,
+            showRepaired: false,
+            actionTypes: LOAN_REPLAMENT_PLAN_ACTION_TYPE_LIST,
+            afterActionTypes: LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST,
             loan: loan,
             resetRateAction: {
-                type: LOAN_REPLAMENT_PLAN_TYPE_RESET_RATE,
-                date: moment().add(3, MONTHS).format(LOAN_DATE_FORMAT),
+                type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE,
+                date: dateAddMonths(moment(), 3),
                 yearRate: loan.yearRate
             },
             prepaymentAction: {
-                type: LOAN_REPLAMENT_PLAN_TYPE_PREPAYMENT,
-                date: moment().add(1, MONTHS).format(LOAN_DATE_FORMAT),
+                type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT,
+                date: dateAddMonths(moment(), 1),
                 principal: 10000,
                 afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL
             },
@@ -67,6 +62,12 @@ var vueApp = new Vue({
         sortTable() {
             this.asc = !this.asc;
         },
+        showRepairedArea() {
+            this.showRepaired = !this.showRepaired;
+        },
+        showActionArea() {
+            this.showAction = !this.showAction;
+        },
         addResetRateAction() {
             this.actions.push(blog.deepClone(this.resetRateAction));
             this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
@@ -77,56 +78,68 @@ var vueApp = new Vue({
         },
         deleteAction(i) {
             this.actions.splice(i, 1);
+        },
+        downloadCsv() {
+            var csv = "类型,还款日期,计息开始,计息结束,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金";
+            for (var index = 0; index < this.items.length; index++) {
+                var item = this.items[index];
+                csv += "\n";
+                csv += item.type + ",";
+                csv += item.plan.repaymentDate + ",";
+                csv += item.plan.beginInterestDate + ",";
+                csv += item.plan.endInterestDate + ",";
+                csv += item.repayment.yearRate + ",";
+                csv += item.repayment.rate + ",";
+                csv += item.repayment.rateType + ",";
+                csv += item.repayment.rateTimesText + ",";
+                csv += blog.number(item.repayment.interest) + ",";
+                csv += blog.number(item.repayment.principal) + ",";
+                csv += blog.number(item.repayment.amount) + ",";
+                csv += blog.number(item.balance.principal);
+            }
+            var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + ".csv";
+            var csvFile = new File([csv], { type: "text/csv" });
+            var csvUrl = URL.createObjectURL(csvFile);
+            var cavA = document.createElement('a');
+            cavA.href = csvUrl;
+            cavA.download = csvFileName;
+            document.body.appendChild(cavA);
+            cavA.click();
+            document.body.removeChild(cavA);
+            URL.revokeObjectURL(csvUrl);
         }
     },
     computed: {
         result() {
             var result = {};
             var items = calculateRepaymentPlanList(this.loan, this.actions);
-
+            var sums = sumRepaymentPlanList(items);
             if (!this.asc) {
                 items = items.reverse();
             }
-
-            var sum = {
-                principal: 0,
-                interest: 0
-            };
-
+            var repairedItems = [];
+            var balanceItems = [];
             for (var index = 0; index < items.length; index++) {
                 var item = items[index];
-                item.repayment.yearRateText = blog.round(item.repayment.yearRate);
-                item.plan.rateTextList = [];
-                if (item.plan.rateList && item.plan.rateList.length > 1) {
-                    for (var n = 1; n < item.plan.rateList.length; n++) {
-                        var rate = item.plan.rateList[n];
-                        item.plan.rateTextList.push(rate.date + " " + rate.yearRate);
-                    }
-                    item.hasRate = true;
+                if (item.repaired) {
+                    repairedItems.push(item);
+                } else {
+                    balanceItems.push(item);
                 }
-                item.plan.actionTextList = [];
-                if (item.plan.actionList && item.plan.actionList.length > 0) {
-                    for (var m = 0; m < item.plan.actionList.length; m++) {
-                        var action = item.plan.actionList[m];
-                        item.plan.actionTextList.push(action.type);
-                    }
-                    item.hasAction = true;
-                }
-
-                sum.interest = blog.round(sum.interest + item.repayment.interest);
             }
-            sum.principal = sum.interest + loan.totalPrincipal;
 
             var param = {};
             param.loan = blog.deepClone(this.loan);
             param.actions = blog.deepClone(this.actions);
             console.log("param", param);
 
-            result.items = items;
-            result.sum = sum;
+            result.repairedItems = repairedItems;
+            result.balanceItems = balanceItems;
+            result.sums = sums;
             console.log("result", result);
 
             blog.setLocationParams(JSON.stringify(param));
+            this.items = items;
             return result;
         }
     }

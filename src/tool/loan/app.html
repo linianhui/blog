@@ -139,6 +139,14 @@
   .e-input-ahead input {
     color: #093;
   }
+
+  .area-hidden {
+    display: none;
+  }
+
+  .area-show {
+    display: block;
+  }
 </style>
 <div id="app">
   <fieldset class="input-fieldset">
@@ -197,11 +205,21 @@
         </el-input-number>
       </div>
     </section>
+    <section>
+      <div class="form-name">
+        <label for="eRepaymentDayOfMonth">
+          下载结果
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-button @click="downloadCsv()">下载CSV<i class="el-icon-download el-icon--right"></i></el-button>
+      </div>
+    </section>
   </fieldset>
 
   <fieldset>
-    <legend>操作区域</legend>
-    <div class="result-wrapper">
+    <legend @click="showActionArea()" style="cursor:pointer;">操作区域 <i class="el" :class="{'el-icon-arrow-up':showAction,'el-icon-arrow-down':!showAction}"></i></legend>
+    <div class="result-wrapper" :class="{'area-show':showAction,'area-hidden':!showAction}">
       <pre class="result-pre">
       <table class="result-table">
         <tr>
@@ -238,42 +256,87 @@
   </fieldset>
 
   <fieldset>
-    <legend>结果区域-总和</legend>
+    <legend>结果区域-合计</legend>
     <div class="result-wrapper">
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
+            <th>类型</th>
+            <th>本金</th>
+            <th>利息</th>
             <th>总金额</th>
-            <th>总利息</th>
           </tr>
-          <tr class="row-data" >
-            <td>{{result.sum.principal | CNY}}</td>
-            <td>{{result.sum.interest | CNY}}</td>
-          </tr>
+          <template v-for="sum in result.sums">
+            <tr class="row-data">
+              <td>{{sum.type}}</td>
+              <td>{{sum.principal | CNY}}</td>
+              <td>{{sum.interest | CNY}}</td>
+              <td>{{sum.amount | CNY}}</td>
+              </tr>
+          </template>
         </table>
       </pre>
     </div>
   </fieldset>
 
   <fieldset>
-    <legend>结果区域-月列表</legend>
+    <legend @click="showRepairedArea()" style="cursor:pointer;">结果区域-明细-已还 <i class="el" :class="{'el-icon-arrow-up':showRepaired,'el-icon-arrow-down':!showRepaired}"></i></legend>
+    <div class="result-wrapper" :class="{'area-show':showRepaired,'area-hidden':!showRepaired}">
+      <pre class="result-pre">
+        <table class="result-table">
+          <tr class="row-header">
+            <th style="cursor:pointer;width: 8em;" @click="sortTable()">月份  <i :class="{'el-icon-arrow-up':asc,'el-icon-arrow-down':!asc}"></i></th>
+            <th style="width: 8em;">计息本金</th>
+            <th>利率</th>
+            <th>还款利息</th>
+            <th>还款本金</th>
+            <th>还款金额</th>
+            <th>剩余本金</th>
+          </tr>
+          <template v-for="item in result.repairedItems">
+            <tr class="row-data" :class="{'row-data-action-reset-rate': item.hasAdditionalRateTextList,'row-data-action-prepayment':item.hasAdditionalActionTextList}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
+              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right"></i><span v-for="action in item.additionalActionTextList"><br/>{{action}}</span></td>
+              <td>{{item.plan.balancePrincipal | CNY}}</td>
+              <td>{{item.repayment.yearRate}}<span v-for="rate in item.additionalRateTextList"><br/>{{rate}}</span></td>
+              <td>{{item.repayment.interest | CNY}}</td>
+              <td>{{item.repayment.principal | CNY}}</td>
+              <td>{{item.repayment.amount | CNY}}</td>
+              <td>{{item.balance.principal | CNY}}</td>
+              </tr>
+              <tr :id="'month-'+item.plan.repaymentDate+'-detail'" class="row-data month-detail" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" >
+                <td>{{item.plan.beginInterestDate}}<br/>{{item.plan.endInterestDate}}<br/>{{item.repayment.rateTimesText}}</td>
+                <td></td>
+                <td><span v-for="rateFormula in item.repayment.yearRateFormulaList">{{rateFormula.endDate}} - {{rateFormula.beginDate}} = {{rateFormula.days}} 天<br/>{{rateFormula.weightRateFormula}} = {{rateFormula.weightRate}}<br/>{{rateFormula.yearRateFormula}} = {{rateFormula.yearRate}}<br/></span>{{item.repayment.rateFormula}} = {{item.repayment.rate}}</td>
+                <td>{{item.repayment.interestFormula}}</td>
+                <td>{{item.plan.repaymentPrincipalFormula}}</td>
+                <td>{{item.repayment.amountFormula}}</td>
+                <td>{{item.balance.principalFormula}}</td>
+              </tr>
+          </template>
+        </table>
+      </pre>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>结果区域-明细-待还</legend>
     <div class="result-wrapper">
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
             <th style="cursor:pointer;width: 8em;" @click="sortTable()">月份  <i :class="{'el-icon-arrow-up':asc,'el-icon-arrow-down':!asc}"></i></th>
             <th style="width: 8em;">计息本金</th>
-            <th style="width: 20em;">利率</th>
+            <th>利率</th>
             <th>还款利息</th>
-            <th style="width: 8em;">还款本金</th>
-            <th style="width: 8em;">还款金额</th>
-            <th style="width: 11em;">剩余本金</th>
+            <th>还款本金</th>
+            <th>还款金额</th>
+            <th>剩余本金</th>
           </tr>
-          <template v-for="item in result.items">
-            <tr class="row-data" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
-              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right"></i><span v-for="action in item.plan.actionTextList"><br/>{{action}}</span></td>
+          <template v-for="item in result.balanceItems">
+            <tr class="row-data" :class="{'row-data-action-reset-rate': item.hasAdditionalRateTextList,'row-data-action-prepayment':item.hasAdditionalActionTextList}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
+              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right"></i><span v-for="action in item.additionalActionTextList"><br/>{{action}}</span></td>
               <td>{{item.plan.balancePrincipal | CNY}}</td>
-              <td>{{item.repayment.yearRateText}}<span v-for="rate in item.plan.rateTextList"><br/>{{rate}}</span></td>
+              <td>{{item.repayment.yearRate}}<span v-for="rate in item.additionalRateTextList"><br/>{{rate}}</span></td>
               <td>{{item.repayment.interest | CNY}}</td>
               <td>{{item.repayment.principal | CNY}}</td>
               <td>{{item.repayment.amount | CNY}}</td>

@@ -2,17 +2,81 @@
 var LOAN_REPALMENT_TYPE_SAME_PRINCIPAL = "等额本金";
 // 贷款还款类型 - 等额本息
 var LOAN_REPALMENT_TYPE_SAME_REPALMENT = "等额本息";
-// 月
-var MONTHS = "months";
-// 天
-var DAYS = "days";
-// 贷款日期格式化
-var LOAN_DATE_FORMAT = "YYYY-MM-DD";
-var LOAN_REPLAMENT_PLAN_TYPE_RESET_RATE = "调整利率";
-var LOAN_REPLAMENT_PLAN_TYPE_PREPAYMENT = "提前还款";
+
+var LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE = "调整利率";
+var LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT = "提前还款";
+var LOAN_REPLAMENT_PLAN_ACTION_TYPE_LIST = [
+    LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE,
+    LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT,
+];
+
 var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL = "期数减少，本金减少";
 var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL = "期数减少，本金不变";
 var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME = "期数不变，本金减少";
+var LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST = [
+    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL,
+    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL,
+    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME
+];
+
+function sumRepaymentPlanList(items) {
+    var result = [];
+
+    var repaired = {
+        principal: 0,
+        interest: 0,
+        amount: 0
+    };
+    result.push(repaired);
+
+    var balance = {
+        principal: 0,
+        interest: 0,
+        amount: 0
+    };
+    result.push(balance);
+
+    var total = {
+        type: "合计",
+        principal: 0,
+        interest: 0,
+        amount: 0
+    };
+    result.push(total);
+
+    for (var index = 0; index < items.length; index++) {
+        var item = items[index];
+        var sum = item.repaired ? repaired : balance;
+        sum.type = item.type;
+        sum.interest = blog.number(sum.interest).add(item.repayment.interest).value;
+        sum.principal = blog.number(sum.principal).add(item.repayment.principal).value;
+        sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
+
+        if (item.plan.rateList && item.plan.rateList.length > 1) {
+            item.hasAdditionalRateTextList = true;
+            item.additionalRateTextList = [];
+            for (var n = 1; n < item.plan.rateList.length; n++) {
+                var rate = item.plan.rateList[n];
+                item.additionalRateTextList.push(rate.date + " " + rate.yearRate);
+            }
+        }
+
+        if (item.plan.actionList && item.plan.actionList.length > 0) {
+            item.hasAdditionalActionTextList = true;
+            item.additionalActionTextList = [];
+            for (var m = 0; m < item.plan.actionList.length; m++) {
+                var action = item.plan.actionList[m];
+                item.additionalActionTextList.push(action.type);
+            }
+        }
+    }
+
+    total.principal = blog.number(repaired.principal).add(balance.principal).value;
+    total.interest = blog.number(repaired.interest).add(balance.interest).value;
+    total.amount = blog.number(total.principal).add(total.principal).value;
+
+    return result;
+}
 
 function calculateRepaymentPlanList(loan, actions) {
     var actionList = blog.deepClone(actions);
@@ -53,6 +117,8 @@ function calculateRepaymentPlan(plan) {
     balance.principal = Math.max(blog.number(plan.balancePrincipal).subtract(repayment.principal).value, 0);
     balance.principalFormula = plan.balancePrincipal + " - " + repayment.principal;
     result.balance = balance;
+    result.repaired = dateIsBefore(result.plan.repaymentDate, new Date());
+    result.type = result.repaired ? "已还" : "待还";
     return result;
 }
 
@@ -114,7 +180,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
     for (var index = 0; index < currentPlanActionList.length; index++) {
         var action = currentPlanActionList[index];
         // 调整房贷利率
-        if (LOAN_REPLAMENT_PLAN_TYPE_RESET_RATE == action.type) {
+        if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE == action.type) {
             originPlan.actionList.push(blog.deepClone(action));
             originPlan.rateList.push({
                 yearRate: action.yearRate,
@@ -122,7 +188,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
             });
         }
 
-        if (LOAN_REPLAMENT_PLAN_TYPE_PREPAYMENT == action.type) {
+        if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT == action.type) {
             var prepaymentPlan = blog.deepClone(originPlan);
             prepaymentPlan.actionList = [blog.deepClone(action)];
             prepaymentPlan.endInterestDate = dateAddDays(action.date, -1);
@@ -225,8 +291,7 @@ function calculateRepaymentSamePrincipal(plan) {
 
     // 按月计算利息
     if (useMonthRate(plan.beginInterestDate, plan.endInterestDate, plan.repaymentDate)) {
-        result.rateType = MONTHS;
-        result.rateTypeText = "按月";
+        result.rateType = "按月";
         result.rate = blog.number(result.yearRate, 8).divide(12).value;
         result.rateFormula = result.yearRate + " / 12";
         result.rateTimes = 1;
@@ -234,8 +299,7 @@ function calculateRepaymentSamePrincipal(plan) {
     }
     // 按日利率计算利息
     else {
-        result.rateType = DAYS;
-        result.rateTypeText = "按天";
+        result.rateType = "按天";
         result.rate = blog.number(result.yearRate, 8).divide(360).value;
         result.rateFormula = result.yearRate + " / 360";
         result.rateTimes = dateDiffDays(plan.endInterestDate, plan.beginInterestDate) + 1;
@@ -283,19 +347,19 @@ function useMonthRate(beginInterestDate, endInterestDate, repaymentDate) {
 }
 
 function dateAddDays(date, days) {
-    return dateFormat(moment(date).add(days, DAYS));
+    return dateFormat(moment(date).add(days, "days"));
 }
 
 function dateAddMonths(date, months) {
-    return dateFormat(moment(date).add(months, MONTHS));
+    return dateFormat(moment(date).add(months, "months"));
 }
 
 function dateAddMonthsSetDay(date, months, dayOfMonth) {
-    return dateFormat(moment(date).add(months, MONTHS).date(dayOfMonth));
+    return dateFormat(moment(dateAddMonths(date, months)).date(dayOfMonth));
 }
 
 function dateFormat(date) {
-    return date.format(LOAN_DATE_FORMAT);
+    return date.format("YYYY-MM-DD");
 }
 
 function dateIsBefore(date1, date2) {
@@ -307,5 +371,5 @@ function dateIsBetween(beginDate, endDate, date) {
 }
 
 function dateDiffDays(date1, date2) {
-    return moment(date1).diff(date2, DAYS);
+    return moment(date1).diff(date2, "days");
 }
