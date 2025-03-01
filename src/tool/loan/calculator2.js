@@ -23,6 +23,7 @@ function sumRepaymentPlanList(items) {
     var result = [];
 
     var repaired = {
+        type:"已还",
         principal: 0,
         interest: 0,
         amount: 0
@@ -30,6 +31,7 @@ function sumRepaymentPlanList(items) {
     result.push(repaired);
 
     var balance = {
+        type:"待还",
         principal: 0,
         interest: 0,
         amount: 0
@@ -47,7 +49,6 @@ function sumRepaymentPlanList(items) {
     for (var index = 0; index < items.length; index++) {
         var item = items[index];
         var sum = item.repaired ? repaired : balance;
-        sum.type = item.type;
         sum.interest = blog.number(sum.interest).add(item.repayment.interest).value;
         sum.principal = blog.number(sum.principal).add(item.repayment.principal).value;
         sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
