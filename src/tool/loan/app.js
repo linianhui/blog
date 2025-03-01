@@ -144,7 +144,9 @@ var vueApp = new Vue({
             var paramJson = JSON.stringify(param);
             if (paramJson != defautParamJson) {
                 console.log("localtionParam", param);
-                blog.setLocationParams(JSON.stringify(param));
+                blog.setLocationParams(paramJson);
+            }else{
+                blog.setLocationParams();
             }
 
             this.items = items;
