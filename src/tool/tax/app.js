@@ -24,7 +24,7 @@ new Vue({
     },
     filters: {
         CNY: function (value) {
-            return blog.number(value || 0,this.precision).format();
+            return blog.number(value || 0, precision).format();
         }
     },
     computed: {

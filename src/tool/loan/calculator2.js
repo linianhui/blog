@@ -51,6 +51,7 @@ function calculateRepaymentPlan(plan) {
     var balance = {};
     // 本金余额 = 本金余额 - 本期应偿还本金
     balance.principal = Math.max(blog.number(plan.balancePrincipal).subtract(repayment.principal).value, 0);
+    balance.principalFormula = plan.balancePrincipal + " - " + repayment.principal;
     result.balance = balance;
     return result;
 }
@@ -62,6 +63,7 @@ function buildFirstPlan(loan) {
     result.beginDate = loan.beginDate;
     result.totalNumberOfRepayment = loan.totalNumberOfRepayment;
     result.repaymentPrincipal = blog.number(result.totalPrincipal).divide(result.totalNumberOfRepayment).value;
+    result.repaymentPrincipalFormula = result.totalPrincipal + " / " + result.totalNumberOfRepayment;
     result.rateList = [];
     result.actionList = [];
     result.rateList.push({
@@ -126,6 +128,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
             prepaymentPlan.endInterestDate = dateAddDays(action.date, -1);
             prepaymentPlan.repaymentDate = action.date;
             prepaymentPlan.repaymentPrincipal = action.principal;
+            prepaymentPlan.repaymentPrincipalFormula = "提前还款 " + prepaymentPlan.repaymentPrincipal;
 
             // 原始还款剩余本金 = 原始还款金额减去提前还款金额
             originPlan.balancePrincipal = blog.number(originPlan.balancePrincipal).subtract(action.principal).value;
@@ -135,14 +138,17 @@ function buildNextPlanList(repaymentPlan, actionList) {
             if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL == action.afterAction) {
                 originPlan.totalNumberOfRepayment = calculateTotalNumberOfRepayment(originPlan);
                 originPlan.repaymentPrincipal = blog.number(originPlan.balancePrincipal).divide(originPlan.totalNumberOfRepayment).value;
+                originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + " / " + originPlan.totalNumberOfRepayment;
             }
             // 期数减少，本金不变
             if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL == action.afterAction) {
-                originPlan.totalNumberOfRepayment = calculateTotalNumberOfRepayment(originPlan);
+                originPlan.totalNumberOfRepayment = Math.ceil(originPlan.balancePrincipal / originPlan.repaymentPrincipal);
+                originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + " / " + originPlan.totalNumberOfRepayment;
             }
             // 期数不变，本金减少
             if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME == action.afterAction) {
                 originPlan.repaymentPrincipal = blog.number(originPlan.balancePrincipal).divide(originPlan.totalNumberOfRepayment).value;
+                originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + " / " + originPlan.totalNumberOfRepayment;
             }
             result.push(prepaymentPlan);
         }
@@ -190,6 +196,7 @@ function calculateRepaymentSamePrincipal(plan) {
         result.yearRate = plan.rateList[0].yearRate;
     } else {
         result.yearRate = 0;
+        result.yearRateFormulaList = [];
         var allDays = moment(plan.endInterestDate).date();
         for (var index = 0; index < plan.rateList.length; index++) {
             var current = plan.rateList[index];
@@ -198,22 +205,41 @@ function calculateRepaymentSamePrincipal(plan) {
             if (next) {
                 days = dateDiffDays(next.date, current.date);
             }
-            var partRate = blog.number(current.yearRate, 8).multiply(days).divide(allDays).value;
-            result.yearRate = blog.number(result.yearRate, 8).add(partRate).value;
+            var weightRate = blog.number(current.yearRate, 8).multiply(days).divide(allDays).value;
+
+            var oldYearRate = result.yearRate;
+            result.yearRate = blog.number(result.yearRate, 8).add(weightRate).value;
+            result.yearRateFormulaList.push(
+                {
+                    beginDate: plan.endInterestDate,
+                    endDate: current.date,
+                    days: days,
+                    weightRate: weightRate,
+                    weightRateFormula: current.yearRate + " * " + days + " / " + allDays,
+                    yearRate: result.yearRate,
+                    yearRateFormula: oldYearRate + " + " + weightRate
+                }
+            );
         }
     }
 
     // 按月计算利息
     if (useMonthRate(plan.beginInterestDate, plan.endInterestDate, plan.repaymentDate)) {
         result.rateType = MONTHS;
+        result.rateTypeText = "按月";
         result.rate = blog.number(result.yearRate, 8).divide(12).value;
+        result.rateFormula = result.yearRate + " / 12";
         result.rateTimes = 1;
+        result.rateTimesText = result.rateTimes + "个月";
     }
     // 按日利率计算利息
     else {
         result.rateType = DAYS;
+        result.rateTypeText = "按天";
         result.rate = blog.number(result.yearRate, 8).divide(360).value;
+        result.rateFormula = result.yearRate + " / 360";
         result.rateTimes = dateDiffDays(plan.endInterestDate, plan.beginInterestDate) + 1;
+        result.rateTimesText = result.rateTimes + "天";
     }
 
     // 本期应偿还的利息 = 需要计算利息的本金 * 利息 * 利息次数 / 100
@@ -222,9 +248,11 @@ function calculateRepaymentSamePrincipal(plan) {
         .multiply(result.rateTimes)
         .divide(100)
         .value;
+    result.interestFormula = plan.balancePrincipal + " * " + result.rate + " * " + result.rateTimes + " / 100";
 
     // 本前应偿还总金额 = 本期应偿还本金 + 本期应偿还的利息
     result.amount = blog.number(result.principal).add(result.interest).value;
+    result.amountFormula = result.principal + " + " + result.interest;
 
     return result;
 }

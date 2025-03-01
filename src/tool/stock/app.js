@@ -32,14 +32,7 @@ var vueApp = new Vue({
     },
     filters: {
         CNY: function (value) {
-            return currency(
-                value || 0,
-                {
-                    symbol: "",
-                    separator: ",",
-                    precision: 2
-                })
-                .format();
+            return blog.number(value || 0).format();
         }
     },
     methods: {
