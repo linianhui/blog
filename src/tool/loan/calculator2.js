@@ -73,7 +73,7 @@ function sumRepaymentPlanList(items) {
 
     total.principal = blog.number(repaired.principal).add(balance.principal).value;
     total.interest = blog.number(repaired.interest).add(balance.interest).value;
-    total.amount = blog.number(total.principal).add(total.principal).value;
+    total.amount = blog.number(total.principal).add(total.interest).value;
 
     return result;
 }
