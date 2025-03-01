@@ -10,8 +10,6 @@ loan.totalNumberOfRepayment = loanParam.totalNumberOfRepayment || 240;
 loan.yearRate = loanParam.yearRate || 3.5;
 loan.repaymentDayOfMonth = loanParam.repaymentDayOfMonth || 1;
 
-console.log("loan", loan);
-
 var actions = [];
 for (var index = 0; index < actionsParam.length; index++) {
     var actionParam = actionsParam[index];
@@ -27,7 +25,13 @@ for (var index = 0; index < actionsParam.length; index++) {
     }
 }
 actions.sort((a, b) => dateDiffDays(a.date, b.date));
-console.log("actions", actions);
+
+var defautParam = {
+    loan: loan,
+    actions: actions
+};
+var defautParamJson = JSON.stringify(defautParam);
+console.log("defautParam", defautParam);
 
 var vueApp = new Vue({
     el: "#app",
@@ -129,17 +133,20 @@ var vueApp = new Vue({
                 }
             }
 
-            var param = {};
-            param.loan = blog.deepClone(this.loan);
-            param.actions = blog.deepClone(this.actions);
-            console.log("param", param);
-
             result.repairedItems = repairedItems;
             result.balanceItems = balanceItems;
             result.sums = sums;
             console.log("result", result);
 
-            blog.setLocationParams(JSON.stringify(param));
+            var param = {};
+            param.loan = blog.deepClone(this.loan);
+            param.actions = blog.deepClone(this.actions);
+            var paramJson = JSON.stringify(param);
+            if (paramJson != defautParamJson) {
+                console.log("localtionParam", param);
+                blog.setLocationParams(JSON.stringify(param));
+            }
+
             this.items = items;
             return result;
         }
