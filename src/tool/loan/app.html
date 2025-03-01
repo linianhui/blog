@@ -280,7 +280,7 @@
   </fieldset>
 
   <fieldset>
-    <legend @click="showRepairedArea()" style="cursor:pointer;">结果区域-明细-已还 <i class="el" :class="{'el-icon-arrow-up':showRepaired,'el-icon-arrow-down':!showRepaired}"></i></legend>
+    <legend @click="showRepairedArea()" style="cursor:pointer;">结果区域-明细-已还-{{result.repairedItems}}期 <i class="el" :class="{'el-icon-arrow-up':showRepaired,'el-icon-arrow-down':!showRepaired}"></i></legend>
     <div class="result-wrapper" :class="{'area-show':showRepaired,'area-hidden':!showRepaired}">
       <pre class="result-pre">
         <table class="result-table">
@@ -319,7 +319,7 @@
   </fieldset>
 
   <fieldset>
-    <legend>结果区域-明细-待还</legend>
+    <legend>结果区域-明细-待还-{{result.balanceItems}}期</legend>
     <div class="result-wrapper">
       <pre class="result-pre">
         <table class="result-table">
