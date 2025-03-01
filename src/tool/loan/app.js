@@ -105,12 +105,12 @@ var vueApp = new Vue({
             var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + "-" + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + ".csv";
             var csvFile = new File([csv], { type: "text/csv" });
             var csvUrl = URL.createObjectURL(csvFile);
-            var cavA = document.createElement('a');
-            cavA.href = csvUrl;
-            cavA.download = csvFileName;
-            document.body.appendChild(cavA);
-            cavA.click();
-            document.body.removeChild(cavA);
+            var csvA = document.createElement('a');
+            csvA.href = csvUrl;
+            csvA.download = csvFileName;
+            document.body.appendChild(csvA);
+            csvA.click();
+            document.body.removeChild(csvA);
             URL.revokeObjectURL(csvUrl);
         }
     },
