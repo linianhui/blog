@@ -7,7 +7,7 @@ var loan = {};
 loan.totalPrincipal = loanParam.totalPrincipal || 1000000;
 loan.beginDate = loanParam.beginDate || dateFormat(moment());
 loan.totalNumberOfRepayment = loanParam.totalNumberOfRepayment || 240;
-loan.yearRate = loanParam.yearRate || 3.5;
+loan.yearRate = blog.number(loanParam.yearRate || 3.5).value;
 loan.repaymentDayOfMonth = loanParam.repaymentDayOfMonth || 1;
 
 var actions = [];
