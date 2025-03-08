@@ -98,25 +98,14 @@ var vueApp = new Vue({
         deleteAction(i) {
             this.actions.splice(i, 1);
         },
+        downloadCsvUtf8Bom(){
+            this.downloadCsvCore('\uFEFF');
+        },
         downloadCsv() {
-            var csv = "类型,还款日期,计息开始,计息结束,计息本金,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金";
-            for (var index = 0; index < this.items.length; index++) {
-                var item = this.items[index];
-                csv += "\n";
-                csv += item.type + ",";
-                csv += item.plan.repaymentDate + ",";
-                csv += item.plan.beginInterestDate + ",";
-                csv += item.plan.endInterestDate + ",";
-                csv += blog.number(item.plan.balancePrincipal) + ",";
-                csv += item.repayment.yearRate + ",";
-                csv += item.repayment.rate + ",";
-                csv += item.repayment.rateType + ",";
-                csv += item.repayment.rateTimesText + ",";
-                csv += blog.number(item.repayment.interest) + ",";
-                csv += blog.number(item.repayment.principal) + ",";
-                csv += blog.number(item.repayment.amount) + ",";
-                csv += blog.number(item.balance.principal);
-            }
+           this.downloadCsvCore('');
+        },
+        downloadCsvCore(bom) {
+            var csv = buildCsv(items,'');
             var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + "-" + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + ".csv";
             var csvFile = new File([csv], { type: "text/csv" });
             var csvUrl = URL.createObjectURL(csvFile);
