@@ -100,18 +100,9 @@ function sumToRepaymentPlanTotal(repaired, balance) {
     total.days = blog.number(repaired.days).add(balance.days).value;
     total.daysText = dateYearMonthDayDuration(total.days);
     total.amount = blog.number(total.principal).add(total.interest).value;
-    total.beginInterestDate = repaired.beginInterestDate;
-    total.endInterestDate = repaired.endInterestDate;
-    total.repaymentDate = repaired.repaymentDate;
-    if (!total.beginInterestDate) {
-        total.beginInterestDate = balance.beginInterestDate;
-    }
-    if (!total.endInterestDate) {
-        total.endInterestDate = balance.endInterestDate;
-    }
-    if (!total.repaymentDate) {
-        total.repaymentDate = balance.repaymentDate;
-    }
+    total.beginInterestDate = dateMin(repaired.beginInterestDate, balance.beginInterestDate);
+    total.endInterestDate = dateMax(repaired.endInterestDate, balance.endInterestDate);
+    total.repaymentDate = dateMax(repaired.repaymentDate, balance.repaymentDate);
     return total;
 }
 
@@ -120,11 +111,9 @@ function addToRepaymentPlanSum(sum, item) {
     sum.principal = blog.number(sum.principal).add(item.repayment.principal).value;
     sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
     sum.totalNumberOfRepayment = blog.number(sum.totalNumberOfRepayment).add(1).value;
-    if (!sum.beginInterestDate) {
-        sum.beginInterestDate = item.plan.beginInterestDate;
-    }
-    sum.endInterestDate = item.plan.endInterestDate;
-    sum.repaymentDate = item.plan.repaymentDate;
+    sum.beginInterestDate = dateMin(sum.beginInterestDate, item.plan.beginInterestDate);
+    sum.endInterestDate = dateMin(sum.endInterestDate, item.plan.endInterestDate);
+    sum.repaymentDate = dateMin(sum.repaymentDate, item.plan.repaymentDate);
     sum.days = dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
     sum.daysText = dateYearMonthDayDuration(sum.days);
 }
@@ -437,6 +426,26 @@ function dateFormat(date) {
 
 function dateIsBefore(date1, date2) {
     return moment(date1).isBefore(moment(date2));
+}
+
+function dateMax(date1, date2) {
+    if (!date1) {
+        return date2;
+    }
+    if (!date2) {
+        return date1;
+    }
+    return dateIsBefore(date1, date2) ? date2 : date1;
+}
+
+function dateMin(date1, date2) {
+    if (!date1) {
+        return date2;
+    }
+    if (!date2) {
+        return date1;
+    }
+    return dateIsBefore(date1, date2) ? date1 : date2;
 }
 
 function dateIsBetween(beginDate, endDate, date) {
