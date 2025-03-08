@@ -16,8 +16,8 @@ var LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST = [
     LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME
 ];
 
-function buildCsv(items,bom) {
-    var csv = bom+'类型,还款日期,计息开始,计息结束,计息本金,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金';
+function buildCsv(items, bom) {
+    var csv = bom + '类型,还款日期,计息开始,计息结束,计息本金,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金';
     for (var index = 0; index < items.length; index++) {
         var item = items[index];
         csv += '\n';
@@ -98,6 +98,7 @@ function sumToRepaymentPlanTotal(repaired, balance) {
     total.interest = blog.number(repaired.interest).add(balance.interest).value;
     total.totalNumberOfRepayment = blog.number(repaired.totalNumberOfRepayment).add(balance.totalNumberOfRepayment).value;
     total.days = blog.number(repaired.days).add(balance.days).value;
+    total.daysText = dateYearMonthDayDuration(total.days);
     total.amount = blog.number(total.principal).add(total.interest).value;
     total.beginInterestDate = repaired.beginInterestDate;
     total.beginInterestDate = repaired.endInterestDate;
@@ -120,6 +121,7 @@ function addToRepaymentPlanSum(sum, item) {
     }
     sum.endInterestDate = item.plan.endInterestDate;
     sum.days = dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
+    sum.daysText = dateYearMonthDayDuration(sum.days);
 }
 
 function buildDefaultRepaymentPlanSum(type) {
@@ -435,4 +437,22 @@ function dateIsBetween(beginDate, endDate, date) {
 
 function dateDiffDays(date1, date2) {
     return moment(date1).diff(date2, 'days');
+}
+
+function dateYearMonthDayDuration(days) {
+    var duration = moment.duration(days, 'days');
+    var result = '';
+    var years = duration.years();
+    if (years) {
+        result = result + years + '年';
+    }
+    var months = duration.months();
+    if (months) {
+        result = result + months + '月';
+    }
+    var days = duration.days();
+    if (days) {
+        result = result + days + '天';
+    }
+    return result;
 }
