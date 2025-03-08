@@ -5,10 +5,7 @@ var LOAN_REPALMENT_TYPE_SAME_REPALMENT = "等额本息";
 
 var LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE = "调整利率";
 var LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT = "提前还款";
-var LOAN_REPLAMENT_PLAN_ACTION_TYPE_LIST = [
-    LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE,
-    LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT,
-];
+var LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL = "调整月本金";
 
 var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL = "期数减少，本金减少";
 var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL = "期数减少，本金不变";
@@ -19,39 +16,30 @@ var LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST = [
     LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME
 ];
 
-function sumRepaymentPlanList(items) {
-    var result = [];
+function sumRepaymentPlanList(items, asc) {
+    var result = {};
+    if (!asc) {
+        items = items.reverse();
+    }
 
-    var repaired = {
-        type:"已还",
-        principal: 0,
-        interest: 0,
-        amount: 0
-    };
-    result.push(repaired);
+    var sumItems = [];
+    var repairedItems = [];
+    var balanceItems = [];
 
-    var balance = {
-        type:"待还",
-        principal: 0,
-        interest: 0,
-        amount: 0
-    };
-    result.push(balance);
-
-    var total = {
-        type: "合计",
-        principal: 0,
-        interest: 0,
-        amount: 0
-    };
-    result.push(total);
+    var repaired = buildDefaultRepaymentPlanSum('已还');
+    var balance = buildDefaultRepaymentPlanSum('待还');
+    sumItems.push(repaired);
+    sumItems.push(balance);
 
     for (var index = 0; index < items.length; index++) {
         var item = items[index];
-        var sum = item.repaired ? repaired : balance;
-        sum.interest = blog.number(sum.interest).add(item.repayment.interest).value;
-        sum.principal = blog.number(sum.principal).add(item.repayment.principal).value;
-        sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
+        if (item.repaired) {
+            repairedItems.push(item);
+            addToRepaymentPlanSum(repaired, item);
+        } else {
+            balanceItems.push(item);
+            addToRepaymentPlanSum(balance, item);
+        }
 
         if (item.plan.rateList && item.plan.rateList.length > 1) {
             item.hasAdditionalRateTextList = true;
@@ -72,11 +60,56 @@ function sumRepaymentPlanList(items) {
         }
     }
 
-    total.principal = blog.number(repaired.principal).add(balance.principal).value;
-    total.interest = blog.number(repaired.interest).add(balance.interest).value;
-    total.amount = blog.number(total.principal).add(total.interest).value;
+    result.repairedItems = repairedItems;
+    result.balanceItems = balanceItems;
+
+    sumItems.push(sumToRepaymentPlanTotal(repaired, balance));
+    result.sumItems = sumItems;
 
     return result;
+}
+
+function sumToRepaymentPlanTotal(repaired, balance) {
+    var total = buildDefaultRepaymentPlanSum('合计');
+    total.principal = blog.number(repaired.principal).add(balance.principal).value;
+    total.interest = blog.number(repaired.interest).add(balance.interest).value;
+    total.totalNumberOfRepayment = blog.number(repaired.totalNumberOfRepayment).add(balance.totalNumberOfRepayment).value;
+    total.days = blog.number(repaired.days).add(balance.days).value;
+    total.amount = blog.number(total.principal).add(total.interest).value;
+    total.beginInterestDate = repaired.beginInterestDate;
+    total.beginInterestDate = repaired.endInterestDate;
+    if (!total.beginInterestDate) {
+        total.beginInterestDate = balance.beginInterestDate;
+    }
+    if (!total.endInterestDate) {
+        total.endInterestDate = balance.endInterestDate;
+    }
+    return total;
+}
+
+function addToRepaymentPlanSum(sum, item) {
+    sum.interest = blog.number(sum.interest).add(item.repayment.interest).value;
+    sum.principal = blog.number(sum.principal).add(item.repayment.principal).value;
+    sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
+    sum.totalNumberOfRepayment = blog.number(sum.totalNumberOfRepayment).add(1).value;
+    if (!sum.beginInterestDate) {
+        sum.beginInterestDate = item.plan.beginInterestDate;
+    }
+    sum.endInterestDate = item.plan.endInterestDate;
+    sum.days = dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
+}
+
+function buildDefaultRepaymentPlanSum(type) {
+    return {
+        type: type,
+        principal: 0,
+        interest: 0,
+        amount: 0,
+        totalNumberOfRepayment: 0,
+        beginInterestDate: '',
+        endInterestDate: '',
+        days: 0
+    };
 }
 
 function calculateRepaymentPlanList(loan, actions) {
@@ -218,6 +251,12 @@ function buildNextPlanList(repaymentPlan, actionList) {
                 originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + " / " + originPlan.totalNumberOfRepayment;
             }
             result.push(prepaymentPlan);
+        }
+
+        if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL == action.type) {
+            originPlan.repaymentPrincipal = blog.number(action.principal).value;
+            originPlan.totalNumberOfRepayment = Math.ceil(originPlan.balancePrincipal / originPlan.repaymentPrincipal);
+            originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + " / " + originPlan.totalNumberOfRepayment;
         }
     }
 
@@ -368,7 +407,7 @@ function dateIsBefore(date1, date2) {
 }
 
 function dateIsBetween(beginDate, endDate, date) {
-    return moment(date).isBetween(beginDate, endDate)
+    return moment(date).isBetween(beginDate, endDate, undefined, '[]');
 }
 
 function dateDiffDays(date1, date2) {

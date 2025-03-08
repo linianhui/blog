@@ -218,7 +218,8 @@
   </fieldset>
 
   <fieldset>
-    <legend @click="showActionArea()" style="cursor:pointer;">操作区域 <i class="el" :class="{'el-icon-arrow-up':showAction,'el-icon-arrow-down':!showAction}"></i></legend>
+    <legend @click="showActionArea()" style="cursor:pointer;">操作区域 <i class="el"
+        :class="{'el-icon-arrow-up':showAction,'el-icon-arrow-down':!showAction}"></i></legend>
     <div class="result-wrapper" :class="{'area-show':showAction,'area-hidden':!showAction}">
       <pre class="result-pre">
       <table class="result-table">
@@ -239,6 +240,15 @@
           <td><el-input-number v-model="resetRateAction.yearRate" :min="0" step="0.01"></el-input-number></td>
           <td></td>
           <td><el-button v-on:click="addResetRateAction" type="primary" icon="el-icon-circle-plus-outline" size="small" plain></el-button>
+          </td>
+        </tr>
+        <tr>
+          <td>{{changePrinicipalAction.type}}</td>
+          <td><el-date-picker v-model="changePrinicipalAction.date" type="date" placeholder="提前还款的扣款日期"
+              value-format="yyyy-MM-dd" format="yyyy-MM-dd" class="form-input-weight"></el-date-picker></td>
+          <td><el-input-number v-model="changePrinicipalAction.principal"></el-input-number></td>
+          <td></td>
+          <td><el-button v-on:click="addChangePrinicipalAction" type="success" icon="el-icon-circle-plus-outline" size="small" plain></el-button>
           </td>
         </tr>
         <template v-for="(action,i) in actions">
@@ -262,13 +272,19 @@
         <table class="result-table">
           <tr class="row-header">
             <th>类型</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>期数</th>
             <th>本金</th>
             <th>利息</th>
             <th>总金额</th>
           </tr>
-          <template v-for="sum in result.sums">
+          <template v-for="sum in result.sumItems">
             <tr class="row-data">
               <td>{{sum.type}}</td>
+              <td>{{sum.beginInterestDate}}</td>
+              <td>{{sum.endInterestDate}}</td>
+              <td>{{sum.totalNumberOfRepayment}}({{sum.days}}天)</td>
               <td>{{sum.principal | CNY}}</td>
               <td>{{sum.interest | CNY}}</td>
               <td>{{sum.amount | CNY}}</td>
@@ -280,7 +296,8 @@
   </fieldset>
 
   <fieldset>
-    <legend @click="showRepairedArea()" style="cursor:pointer;">结果区域-明细-已还-{{result.repairedItems.length}}期 <i class="el" :class="{'el-icon-arrow-up':showRepaired,'el-icon-arrow-down':!showRepaired}"></i></legend>
+    <legend @click="showRepairedArea()" style="cursor:pointer;">结果区域-明细-已还-{{result.repairedItems.length}}期 <i
+        class="el" :class="{'el-icon-arrow-up':showRepaired,'el-icon-arrow-down':!showRepaired}"></i></legend>
     <div class="result-wrapper" :class="{'area-show':showRepaired,'area-hidden':!showRepaired}">
       <pre class="result-pre">
         <table class="result-table">

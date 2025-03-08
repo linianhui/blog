@@ -3,13 +3,20 @@ console.log("localtionParam", localtionParam);
 var loanParam = localtionParam.loan || {};
 var actionsParam = localtionParam.actions || [];
 
-var loan = {};
-loan.totalPrincipal = loanParam.totalPrincipal || 1000000;
-loan.beginDate = loanParam.beginDate || dateFormat(moment());
-loan.totalNumberOfRepayment = loanParam.totalNumberOfRepayment || 240;
-loan.yearRate = blog.number(loanParam.yearRate || 3.5).value;
-loan.repaymentDayOfMonth = loanParam.repaymentDayOfMonth || 1;
+var defaultLoan = {
+    totalPrincipal: 1000000,
+    beginDate: dateFormat(moment()),
+    totalNumberOfRepayment: 240,
+    yearRate: 3.5,
+    repaymentDayOfMonth: 1
+};
 
+var loan = {};
+loan.totalPrincipal = loanParam.totalPrincipal || defaultLoan.totalPrincipal;
+loan.beginDate = loanParam.beginDate || defaultLoan.beginDate;
+loan.totalNumberOfRepayment = loanParam.totalNumberOfRepayment || defaultLoan.totalNumberOfRepayment;
+loan.yearRate = blog.number(loanParam.yearRate || defaultLoan.yearRate).value;
+loan.repaymentDayOfMonth = loanParam.repaymentDayOfMonth || defaultLoan.repaymentDayOfMonth;
 var actions = [];
 for (var index = 0; index < actionsParam.length; index++) {
     var actionParam = actionsParam[index];
@@ -30,8 +37,8 @@ var defautParam = {
     loan: loan,
     actions: actions
 };
-var defautParamJson = JSON.stringify(defautParam);
-console.log("defautParam", defautParam);
+var defautParamJson = JSON.stringify({ loan: defaultLoan, actions: [] });
+console.log("defautParam", defautParamJson);
 
 var vueApp = new Vue({
     el: "#app",
@@ -40,7 +47,6 @@ var vueApp = new Vue({
             asc: true,
             showAction: false,
             showRepaired: false,
-            actionTypes: LOAN_REPLAMENT_PLAN_ACTION_TYPE_LIST,
             afterActionTypes: LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST,
             loan: loan,
             resetRateAction: {
@@ -53,6 +59,11 @@ var vueApp = new Vue({
                 date: dateAddMonths(moment(), 1),
                 principal: 10000,
                 afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL
+            },
+            changePrinicipalAction: {
+                type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL,
+                date: dateAddMonths(moment(), 1),
+                principal: 10000,
             },
             actions: actions
         }
@@ -78,6 +89,10 @@ var vueApp = new Vue({
         },
         addPrepaymentAction() {
             this.actions.push(blog.deepClone(this.prepaymentAction));
+            this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
+        },
+        addChangePrinicipalAction() {
+            this.actions.push(blog.deepClone(this.changePrinicipalAction));
             this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
         },
         deleteAction(i) {
@@ -116,26 +131,9 @@ var vueApp = new Vue({
     },
     computed: {
         result() {
-            var result = {};
             var items = calculateRepaymentPlanList(this.loan, this.actions);
-            var sums = sumRepaymentPlanList(items);
-            if (!this.asc) {
-                items = items.reverse();
-            }
-            var repairedItems = [];
-            var balanceItems = [];
-            for (var index = 0; index < items.length; index++) {
-                var item = items[index];
-                if (item.repaired) {
-                    repairedItems.push(item);
-                } else {
-                    balanceItems.push(item);
-                }
-            }
-
-            result.repairedItems = repairedItems;
-            result.balanceItems = balanceItems;
-            result.sums = sums;
+            console.log("items", items);
+            var result = sumRepaymentPlanList(items, this.asc);
             console.log("result", result);
 
             var param = {};
@@ -145,7 +143,7 @@ var vueApp = new Vue({
             if (paramJson != defautParamJson) {
                 console.log("localtionParam", param);
                 blog.setLocationParams(paramJson);
-            }else{
+            } else {
                 blog.setLocationParams();
             }
 
