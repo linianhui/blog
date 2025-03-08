@@ -98,11 +98,11 @@ function sumToRepaymentPlanTotal(repaired, balance) {
     total.interest = blog.number(repaired.interest).add(balance.interest).value;
     total.totalNumberOfRepayment = blog.number(repaired.totalNumberOfRepayment).add(balance.totalNumberOfRepayment).value;
     total.days = blog.number(repaired.days).add(balance.days).value;
-    total.daysText = dateYearMonthDayDuration(total.days);
+    total.daysText = blog.dateYearMonthDayDuration(total.days);
     total.amount = blog.number(total.principal).add(total.interest).value;
-    total.beginInterestDate = dateMin(repaired.beginInterestDate, balance.beginInterestDate);
-    total.endInterestDate = dateMax(repaired.endInterestDate, balance.endInterestDate);
-    total.repaymentDate = dateMax(repaired.repaymentDate, balance.repaymentDate);
+    total.beginInterestDate = blog.dateMin(repaired.beginInterestDate, balance.beginInterestDate);
+    total.endInterestDate = blog.dateMax(repaired.endInterestDate, balance.endInterestDate);
+    total.repaymentDate = blog.dateMax(repaired.repaymentDate, balance.repaymentDate);
     return total;
 }
 
@@ -111,11 +111,11 @@ function addToRepaymentPlanSum(sum, item) {
     sum.principal = blog.number(sum.principal).add(item.repayment.principal).value;
     sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
     sum.totalNumberOfRepayment = blog.number(sum.totalNumberOfRepayment).add(1).value;
-    sum.beginInterestDate = dateMin(sum.beginInterestDate, item.plan.beginInterestDate);
-    sum.endInterestDate = dateMax(sum.endInterestDate, item.plan.endInterestDate);
-    sum.repaymentDate = dateMax(sum.repaymentDate, item.plan.repaymentDate);
-    sum.days = dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
-    sum.daysText = dateYearMonthDayDuration(sum.days);
+    sum.beginInterestDate = blog.dateMin(sum.beginInterestDate, item.plan.beginInterestDate);
+    sum.endInterestDate = blog.dateMax(sum.endInterestDate, item.plan.endInterestDate);
+    sum.repaymentDate = blog.dateMax(sum.repaymentDate, item.plan.repaymentDate);
+    sum.days = blog.dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
+    sum.daysText = blog.dateYearMonthDayDuration(sum.days);
 }
 
 function buildDefaultRepaymentPlanSum(type) {
@@ -170,7 +170,7 @@ function calculateRepaymentPlan(plan) {
     balance.principal = Math.max(blog.number(plan.balancePrincipal).subtract(repayment.principal).value, 0);
     balance.principalFormula = plan.balancePrincipal + ' - ' + repayment.principal;
     result.balance = balance;
-    result.repaired = dateIsBefore(result.plan.repaymentDate, new Date());
+    result.repaired = blog.dateIsBefore(result.plan.repaymentDate, new Date());
     result.type = result.repaired ? '已还' : '待还';
     return result;
 }
@@ -194,9 +194,9 @@ function buildFirstPlan(loan) {
 
     result.beginInterestDate = result.beginDate;
     result.balancePrincipal = result.totalPrincipal;
-    result.endDate = dateAddMonths(result.beginDate, result.totalNumberOfRepayment);
-    result.repaymentDate = dateAddMonthsSetDay(result.beginInterestDate, 1, result.repaymentDayOfMonth);
-    result.endInterestDate = dateAddDays(result.repaymentDate, -1);
+    result.endDate = blog.dateAddMonths(result.beginDate, result.totalNumberOfRepayment);
+    result.repaymentDate = blog.dateAddMonthsSetDay(result.beginInterestDate, 1, result.repaymentDayOfMonth);
+    result.endInterestDate = blog.dateAddDays(result.repaymentDate, -1);
 
     return result;
 }
@@ -210,12 +210,12 @@ function buildNextPlanList(repaymentPlan, actionList) {
     // 复制上一期的本金余额
     originPlan.balancePrincipal = balance.principal;
     originPlan.beginInterestDate = originPlan.repaymentDate;
-    originPlan.repaymentDate = dateAddMonthsSetDay(originPlan.beginInterestDate, 1, originPlan.repaymentDayOfMonth);
-    originPlan.endInterestDate = dateAddDays(originPlan.repaymentDate, -1);
+    originPlan.repaymentDate = blog.dateAddMonthsSetDay(originPlan.beginInterestDate, 1, originPlan.repaymentDayOfMonth);
+    originPlan.endInterestDate = blog.dateAddDays(originPlan.repaymentDate, -1);
     if (originPlan.repaymentPrincipal > originPlan.balancePrincipal) {
         originPlan.repaymentPrincipal = originPlan.balancePrincipal;
     }
-    if (dateIsBefore(originPlan.endDate, originPlan.endInterestDate)) {
+    if (blog.dateIsBefore(originPlan.endDate, originPlan.endInterestDate)) {
         originPlan.endInterestDate = originPlan.endDate;
     }
 
@@ -247,7 +247,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
         if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT == action.type) {
             var prepaymentPlan = blog.deepClone(originPlan);
             prepaymentPlan.actionList = [blog.deepClone(action)];
-            prepaymentPlan.endInterestDate = dateAddDays(action.date, -1);
+            prepaymentPlan.endInterestDate = blog.dateAddDays(action.date, -1);
             prepaymentPlan.repaymentDate = action.date;
             prepaymentPlan.repaymentPrincipal = action.principal;
             prepaymentPlan.repaymentPrincipalFormula = '提前还款 ' + prepaymentPlan.repaymentPrincipal;
@@ -282,7 +282,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
         }
     }
 
-    result.sort((a, b) => dateDiffDays(a.beginInterestDate, b.beginInterestDate));
+    result.sort((a, b) => blog.dateDiffDays(a.beginInterestDate, b.beginInterestDate));
 
     return result;
 }
@@ -295,7 +295,7 @@ function findCurrentPlanActionList(actionList, plan) {
     var result = [];
     for (var index = 0; index < actionList.length; index++) {
         var action = actionList[index];
-        if (dateIsBetween(plan.beginInterestDate, plan.endInterestDate, action.date)) {
+        if (blog.dateIsBetween(plan.beginInterestDate, plan.endInterestDate, action.date)) {
             result.push(action);
         }
     }
@@ -329,9 +329,9 @@ function calculateRepaymentSamePrincipal(plan) {
         for (var index = 0; index < plan.rateList.length; index++) {
             var current = plan.rateList[index];
             var next = plan.rateList[index + 1];
-            var days = dateDiffDays(plan.endInterestDate, current.date) + 1;
+            var days = blog.dateDiffDays(plan.endInterestDate, current.date) + 1;
             if (next) {
-                days = dateDiffDays(next.date, current.date);
+                days = blog.dateDiffDays(next.date, current.date);
             }
             var weightRate = blog.number(current.yearRate, 8).multiply(days).divide(allDays).value;
 
@@ -364,7 +364,7 @@ function calculateRepaymentSamePrincipal(plan) {
         result.rateType = '按天';
         result.rate = blog.number(result.yearRate, 8).divide(360).value;
         result.rateFormula = result.yearRate + ' / 360';
-        result.rateTimes = dateDiffDays(plan.endInterestDate, plan.beginInterestDate) + 1;
+        result.rateTimes = blog.dateDiffDays(plan.endInterestDate, plan.beginInterestDate) + 1;
         result.rateTimesText = result.rateTimes + '天';
     }
 
@@ -403,73 +403,7 @@ function calculateRepaymentPlanSameRepayment(plan) {
 }
 
 function useMonthRate(beginInterestDate, endInterestDate, repaymentDate) {
-    var nextRepaymentDate1 = dateAddMonths(beginInterestDate, 1);
-    var nextRepaymentDate2 = dateAddDays(endInterestDate, 1);
+    var nextRepaymentDate1 = blog.dateAddMonths(beginInterestDate, 1);
+    var nextRepaymentDate2 = blog.dateAddDays(endInterestDate, 1);
     return nextRepaymentDate1 == repaymentDate && nextRepaymentDate2 == repaymentDate;
-}
-
-function dateAddDays(date, days) {
-    return dateFormat(moment(date).add(days, 'days'));
-}
-
-function dateAddMonths(date, months) {
-    return dateFormat(moment(date).add(months, 'months'));
-}
-
-function dateAddMonthsSetDay(date, months, dayOfMonth) {
-    return dateFormat(moment(dateAddMonths(date, months)).date(dayOfMonth));
-}
-
-function dateFormat(date) {
-    return date.format('YYYY-MM-DD');
-}
-
-function dateIsBefore(date1, date2) {
-    return moment(date1).isBefore(moment(date2));
-}
-
-function dateMax(date1, date2) {
-    if (!date1) {
-        return date2;
-    }
-    if (!date2) {
-        return date1;
-    }
-    return dateIsBefore(date1, date2) ? date2 : date1;
-}
-
-function dateMin(date1, date2) {
-    if (!date1) {
-        return date2;
-    }
-    if (!date2) {
-        return date1;
-    }
-    return dateIsBefore(date1, date2) ? date1 : date2;
-}
-
-function dateIsBetween(beginDate, endDate, date) {
-    return moment(date).isBetween(beginDate, endDate, undefined, '[]');
-}
-
-function dateDiffDays(date1, date2) {
-    return moment(date1).diff(date2, 'days');
-}
-
-function dateYearMonthDayDuration(days) {
-    var duration = moment.duration(days, 'days');
-    var result = '';
-    var years = duration.years();
-    if (years) {
-        result = result + years + '年';
-    }
-    var months = duration.months();
-    if (months) {
-        result = result + months + '月';
-    }
-    var days = duration.days();
-    if (days) {
-        result = result + days + '天';
-    }
-    return result;
 }

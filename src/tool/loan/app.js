@@ -5,7 +5,7 @@ var actionsParam = localtionParam.actions || [];
 
 var defaultLoan = {
     totalPrincipal: 1000000,
-    beginDate: dateFormat(moment()),
+    beginDate: blog.dateNow(),
     totalNumberOfRepayment: 240,
     yearRate: 3.5,
     repaymentDayOfMonth: 1
@@ -31,7 +31,7 @@ for (var index = 0; index < actionsParam.length; index++) {
         actions.push(action);
     }
 }
-actions.sort((a, b) => dateDiffDays(a.date, b.date));
+actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
 
 var defautParam = {
     loan: loan,
@@ -51,18 +51,18 @@ var vueApp = new Vue({
             loan: loan,
             resetRateAction: {
                 type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE,
-                date: dateAddMonths(moment(), 3),
+                date: blog.dateAddMonths(moment(), 3),
                 yearRate: loan.yearRate
             },
             prepaymentAction: {
                 type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT,
-                date: dateAddMonths(moment(), 1),
+                date: blog.dateAddMonths(moment(), 1),
                 principal: 10000,
                 afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL
             },
             changePrinicipalAction: {
                 type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL,
-                date: dateAddMonths(moment(), 1),
+                date: blog.dateAddMonths(moment(), 1),
                 principal: 10000,
             },
             actions: actions
@@ -85,15 +85,15 @@ var vueApp = new Vue({
         },
         addResetRateAction() {
             this.actions.push(blog.deepClone(this.resetRateAction));
-            this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
+            this.actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
         },
         addPrepaymentAction() {
             this.actions.push(blog.deepClone(this.prepaymentAction));
-            this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
+            this.actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
         },
         addChangePrinicipalAction() {
             this.actions.push(blog.deepClone(this.changePrinicipalAction));
-            this.actions.sort((a, b) => dateDiffDays(a.date, b.date));
+            this.actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
         },
         deleteAction(i) {
             this.actions.splice(i, 1);

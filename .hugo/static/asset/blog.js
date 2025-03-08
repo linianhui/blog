@@ -373,6 +373,77 @@
         return currency(value, option);
     }
 
+    function dateNow(){
+        return dateFormat(moment());
+    }
+
+    function dateAddDays(date, days) {
+        return dateFormat(moment(date).add(days, 'days'));
+    }
+
+    function dateAddMonths(date, months) {
+        return dateFormat(moment(date).add(months, 'months'));
+    }
+
+    function dateAddMonthsSetDay(date, months, dayOfMonth) {
+        return dateFormat(moment(dateAddMonths(date, months)).date(dayOfMonth));
+    }
+
+    function dateFormat(date) {
+        return date.format('YYYY-MM-DD');
+    }
+
+    function dateIsBefore(date1, date2) {
+        return moment(date1).isBefore(moment(date2));
+    }
+
+    function dateMax(date1, date2) {
+        if (!date1) {
+            return date2;
+        }
+        if (!date2) {
+            return date1;
+        }
+        return dateIsBefore(date1, date2) ? date2 : date1;
+    }
+
+    function dateMin(date1, date2) {
+        if (!date1) {
+            return date2;
+        }
+        if (!date2) {
+            return date1;
+        }
+        return dateIsBefore(date1, date2) ? date1 : date2;
+    }
+
+    function dateIsBetween(beginDate, endDate, date, option) {
+        option = option || '[]';
+        return moment(date).isBetween(beginDate, endDate, undefined, option);
+    }
+
+    function dateDiffDays(date1, date2) {
+        return moment(date1).diff(date2, 'days');
+    }
+
+    function dateYearMonthDayDuration(days) {
+        var duration = moment.duration(days, 'days');
+        var result = '';
+        var years = duration.years();
+        if (years) {
+            result = result + years + '年';
+        }
+        var months = duration.months();
+        if (months) {
+            result = result + months + '月';
+        }
+        var days = duration.days();
+        if (days) {
+            result = result + days + '天';
+        }
+        return result;
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -394,7 +465,18 @@
         getLocationParamJson: getLocationParamJson,
         setLocationParams: setLocationParams,
         setLocationParamJson: setLocationParamJson,
-        number: number
+        number: number,
+        dateNow:dateNow,
+        dateAddDays: dateAddDays,
+        dateAddMonths: dateAddMonths,
+        dateAddMonthsSetDay: dateAddMonthsSetDay,
+        dateDiffDays: dateDiffDays,
+        dateFormat: dateFormat,
+        dateIsBefore: dateIsBefore,
+        dateIsBetween: dateIsBetween,
+        dateMax: dateMax,
+        dateMin: dateMin,
+        dateYearMonthDayDuration: dateYearMonthDayDuration
     };
 
 })(window, document, navigator);

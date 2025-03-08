@@ -1,6 +1,6 @@
 function Hugo-Server() {
-    Log-Debug " hugo server --config hugo.yml --watch --buildDrafts --forceSyncStatic --panicOnWarning --port 13131"
-    hugo server --config hugo.yml --watch --buildDrafts --forceSyncStatic --panicOnWarning --port 13131
+    Log-Debug " hugo server --config hugo.yml --watch --buildDrafts --forceSyncStatic --panicOnWarning  --disableFastRender --port 13131"
+    hugo server --config hugo.yml --watch --buildDrafts --forceSyncStatic --panicOnWarning  --disableFastRender --port 13131
 }
 
 function Hugo-Server-Blog() {
