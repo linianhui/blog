@@ -273,22 +273,24 @@
         <table class="result-table">
           <tr class="row-header">
             <th>类型</th>
-            <th>开始时间</th>
-            <th>结束时间</th>
-            <th>期数</th>
             <th>本金</th>
             <th>利息</th>
             <th>总金额</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>最后还款</th>
+            <th>期数</th>
           </tr>
           <template v-for="sum in result.sumItems">
             <tr class="row-data">
               <td>{{sum.type}}</td>
-              <td>{{sum.beginInterestDate}}</td>
-              <td>{{sum.endInterestDate}}</td>
-              <td>{{sum.totalNumberOfRepayment}}期 {{sum.daysText}}</td>
               <td>{{sum.principal | CNY}}</td>
               <td>{{sum.interest | CNY}}</td>
               <td>{{sum.amount | CNY}}</td>
+              <td>{{sum.beginInterestDate}}</td>
+              <td>{{sum.endInterestDate}}</td>
+              <td>{{sum.repaymentDate}}</td>
+              <td>{{sum.totalNumberOfRepayment}}期 {{sum.daysText}}</td>
               </tr>
           </template>
         </table>

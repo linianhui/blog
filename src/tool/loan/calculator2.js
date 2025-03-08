@@ -101,12 +101,16 @@ function sumToRepaymentPlanTotal(repaired, balance) {
     total.daysText = dateYearMonthDayDuration(total.days);
     total.amount = blog.number(total.principal).add(total.interest).value;
     total.beginInterestDate = repaired.beginInterestDate;
-    total.beginInterestDate = repaired.endInterestDate;
+    total.endInterestDate = repaired.endInterestDate;
+    total.repaymentDate = repaired.repaymentDate;
     if (!total.beginInterestDate) {
         total.beginInterestDate = balance.beginInterestDate;
     }
     if (!total.endInterestDate) {
         total.endInterestDate = balance.endInterestDate;
+    }
+    if (!total.repaymentDate) {
+        total.repaymentDate = balance.repaymentDate;
     }
     return total;
 }
@@ -120,6 +124,7 @@ function addToRepaymentPlanSum(sum, item) {
         sum.beginInterestDate = item.plan.beginInterestDate;
     }
     sum.endInterestDate = item.plan.endInterestDate;
+    sum.repaymentDate = item.plan.repaymentDate;
     sum.days = dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
     sum.daysText = dateYearMonthDayDuration(sum.days);
 }
