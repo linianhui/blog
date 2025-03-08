@@ -112,8 +112,8 @@ function addToRepaymentPlanSum(sum, item) {
     sum.amount = blog.number(sum.amount).add(item.repayment.amount).value;
     sum.totalNumberOfRepayment = blog.number(sum.totalNumberOfRepayment).add(1).value;
     sum.beginInterestDate = dateMin(sum.beginInterestDate, item.plan.beginInterestDate);
-    sum.endInterestDate = dateMin(sum.endInterestDate, item.plan.endInterestDate);
-    sum.repaymentDate = dateMin(sum.repaymentDate, item.plan.repaymentDate);
+    sum.endInterestDate = dateMax(sum.endInterestDate, item.plan.endInterestDate);
+    sum.repaymentDate = dateMax(sum.repaymentDate, item.plan.repaymentDate);
     sum.days = dateDiffDays(sum.endInterestDate, sum.beginInterestDate);
     sum.daysText = dateYearMonthDayDuration(sum.days);
 }
