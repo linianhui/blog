@@ -98,15 +98,16 @@ var vueApp = new Vue({
         deleteAction(i) {
             this.actions.splice(i, 1);
         },
-        downloadCsvUtf8Bom(){
+        downloadCsvUtf8Bom() {
             this.downloadCsvCore('\uFEFF');
         },
         downloadCsv() {
-           this.downloadCsvCore('');
+            this.downloadCsvCore('');
         },
         downloadCsvCore(bom) {
-            var csv = buildCsv(items,'');
-            var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + "-" + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + ".csv";
+            var csv = buildCsv(this.items, bom);
+            var bomName = bom ? '-utf8-bom' : '';
+            var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + "-" + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + bomName + ".csv";
             var csvFile = new File([csv], { type: "text/csv" });
             var csvUrl = URL.createObjectURL(csvFile);
             var csvA = document.createElement('a');

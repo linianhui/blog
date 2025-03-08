@@ -18,8 +18,8 @@ var LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST = [
 
 function buildCsv(items,bom) {
     var csv = bom+'类型,还款日期,计息开始,计息结束,计息本金,年利率%,本期利率%,计息类型,计息,本期利息,本期本金,本金总额,剩余本金';
-    for (var index = 0; index < this.items.length; index++) {
-        var item = this.items[index];
+    for (var index = 0; index < items.length; index++) {
+        var item = items[index];
         csv += '\n';
         csv += item.type + ',';
         csv += item.plan.repaymentDate + ',';
