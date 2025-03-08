@@ -223,6 +223,9 @@ function buildNextPlanList(repaymentPlan, actionList) {
     originPlan.beginInterestDate = originPlan.repaymentDate;
     originPlan.repaymentDate = dateAddMonthsSetDay(originPlan.beginInterestDate, 1, originPlan.repaymentDayOfMonth);
     originPlan.endInterestDate = dateAddDays(originPlan.repaymentDate, -1);
+    if (originPlan.repaymentPrincipal > originPlan.balancePrincipal) {
+        originPlan.repaymentPrincipal = originPlan.balancePrincipal;
+    }
     if (dateIsBefore(originPlan.endDate, originPlan.endInterestDate)) {
         originPlan.endInterestDate = originPlan.endDate;
     }
