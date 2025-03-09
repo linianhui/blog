@@ -208,12 +208,12 @@
     <section>
       <div class="form-name">
         <label for="eRepaymentDayOfMonth">
-          下载结果
+          下载
         </label>
       </div>
       <div colspan="2" class="form-input">
-        <el-button @click="downloadCsv()">下载CSV<i class="el-icon-download el-icon--right"></i></el-button>
-        <el-button @click="downloadCsvUtf8Bom(true)">下载CSV-UTF8BOM<i class="el-icon-download el-icon--right"></i></el-button>
+        <el-link icon="el-icon-download" @click="downloadCsv()" :underline="false">CSV-UTF8</el-link>
+        <el-link icon="el-icon-download" @click="downloadCsvUtf8Bom()" :underline="false">CSV-UTF8-BOM</el-link>
       </div>
     </section>
   </fieldset>

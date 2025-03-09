@@ -1,5 +1,5 @@
 var localtionParam = blog.getLocationParamJson() || {};
-console.log("localtionParam", localtionParam);
+console.log('localtionParam', localtionParam);
 var loanParam = localtionParam.loan || {};
 var actionsParam = localtionParam.actions || [];
 
@@ -38,10 +38,10 @@ var defautParam = {
     actions: actions
 };
 var defautParamJson = JSON.stringify({ loan: defaultLoan, actions: [] });
-console.log("defautParam", defautParamJson);
+console.log('defautParam', defautParamJson);
 
 var vueApp = new Vue({
-    el: "#app",
+    el: '#app',
     data: function () {
         return {
             asc: true,
@@ -106,9 +106,9 @@ var vueApp = new Vue({
         },
         downloadCsvCore(bom) {
             var csv = buildCsv(this.items, bom);
-            var bomName = bom ? '-utf8-bom' : '';
-            var csvFileName = this.loan.totalPrincipal + "-" + this.loan.beginDate + "-" + this.loan.totalNumberOfRepayment + "-" + this.loan.yearRate + bomName + ".csv";
-            var csvFile = new File([csv], { type: "text/csv" });
+            var bomName = bom ? '-bom' : '';
+            var csvFileName = this.loan.totalPrincipal + '-' + this.loan.beginDate + '-' + this.loan.totalNumberOfRepayment + '-' + this.loan.yearRate + '-utf8' + bomName + '.csv';
+            var csvFile = new File([csv], { type: 'text/csv' });
             var csvUrl = URL.createObjectURL(csvFile);
             var csvA = document.createElement('a');
             csvA.href = csvUrl;
@@ -122,16 +122,16 @@ var vueApp = new Vue({
     computed: {
         result() {
             var items = calculateRepaymentPlanList(this.loan, this.actions);
-            console.log("items", items);
+            console.log('items', items);
             var result = sumRepaymentPlanList(items, this.asc);
-            console.log("result", result);
+            console.log('result', result);
 
             var param = {};
             param.loan = blog.deepClone(this.loan);
             param.actions = blog.deepClone(this.actions);
             var paramJson = JSON.stringify(param);
             if (paramJson != defautParamJson) {
-                console.log("localtionParam", param);
+                console.log('localtionParam', param);
                 blog.setLocationParams(paramJson);
             } else {
                 blog.setLocationParams();
