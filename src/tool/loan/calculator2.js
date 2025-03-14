@@ -95,11 +95,29 @@ function sumRepaymentPlanList(items, asc) {
 function sumToRepaymentPlanTotal(repaired, balance) {
     var total = buildDefaultRepaymentPlanSum('合计');
     total.principal = blog.number(repaired.principal).add(balance.principal).value;
+    repaired.principalPercent = blog.number(repaired.principal).multiply(100).divide(total.principal).value;
+    balance.principalPercent = blog.number(balance.principal).multiply(100).divide(total.principal).value;
+
     total.interest = blog.number(repaired.interest).add(balance.interest).value;
+    repaired.interestPercent = blog.number(repaired.interest).multiply(100).divide(total.interest).value;
+    balance.interestPercent = blog.number(balance.interest).multiply(100).divide(total.interest).value;
+
     total.totalNumberOfRepayment = blog.number(repaired.totalNumberOfRepayment).add(balance.totalNumberOfRepayment).value;
+    repaired.totalNumberOfRepaymentPercent = blog.number(repaired.totalNumberOfRepayment).multiply(100).divide(total.totalNumberOfRepayment).value;
+    balance.totalNumberOfRepaymentPercent = blog.number(balance.totalNumberOfRepayment).multiply(100).divide(total.totalNumberOfRepayment).value;
+
     total.days = blog.number(repaired.days).add(balance.days).value;
+    repaired.daysPercent = blog.number(repaired.days).multiply(100).divide(total.days).value;
+    balance.daysPercent = blog.number(balance.days).multiply(100).divide(total.days).value;
+
     total.daysText = blog.dateYearMonthDayDuration(total.days);
     total.amount = blog.number(total.principal).add(total.interest).value;
+    repaired.amountPercent = blog.number(repaired.amount).multiply(100).divide(total.amount).value;
+    balance.amountPercent = blog.number(balance.amount).multiply(100).divide(total.amount).value;
+
+    total.principalPercent = blog.number(total.principal).multiply(100).divide(total.amount).value;
+    total.interestPercent = blog.number(total.interest).multiply(100).divide(total.amount).value;
+
     total.beginInterestDate = blog.dateMin(repaired.beginInterestDate, balance.beginInterestDate);
     total.endInterestDate = blog.dateMax(repaired.endInterestDate, balance.endInterestDate);
     total.repaymentDate = blog.dateMax(repaired.repaymentDate, balance.repaymentDate);

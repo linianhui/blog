@@ -6,4 +6,5 @@ toc: true
 ---
 
 {{<element-ui>}}
+{{<echarts>}}
 {{<inline-html path="app.html">}}

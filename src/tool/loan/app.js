@@ -38,15 +38,17 @@ var defautParam = {
     actions: actions
 };
 var defautParamJson = JSON.stringify({ loan: defaultLoan, actions: [] });
-console.log('defautParam', defautParamJson);
 
 var vueApp = new Vue({
     el: '#app',
+    mounted() {
+        this.initChart();
+    },
     data: function () {
         return {
             asc: true,
             showAction: false,
-            showRepaired: false,
+            showRepaired: true,
             afterActionTypes: LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST,
             loan: loan,
             resetRateAction: {
@@ -74,6 +76,12 @@ var vueApp = new Vue({
         }
     },
     methods: {
+        initChart() {
+            this.repairedChart = echarts.init(this.$refs.repairedChartDiv);
+            this.balanceChart = echarts.init(this.$refs.balanceChartDiv);
+            this.renderMonthChart(this.repairedChart, this.repairedItems);
+            this.renderMonthChart(this.balanceChart, this.balanceItems);
+        },
         sortTable() {
             this.asc = !this.asc;
         },
@@ -117,15 +125,8 @@ var vueApp = new Vue({
             csvA.click();
             document.body.removeChild(csvA);
             URL.revokeObjectURL(csvUrl);
-        }
-    },
-    computed: {
-        result() {
-            var items = calculateRepaymentPlanList(this.loan, this.actions);
-            console.log('items', items);
-            var result = sumRepaymentPlanList(items, this.asc);
-            console.log('result', result);
-
+        },
+        storeParams() {
             var param = {};
             param.loan = blog.deepClone(this.loan);
             param.actions = blog.deepClone(this.actions);
@@ -136,9 +137,105 @@ var vueApp = new Vue({
             } else {
                 blog.setLocationParams();
             }
-
-            this.items = items;
+        },
+        renderMonthChart(chart,items) {
+            var data = items.map(item => {
+                return {
+                    '还款日期': item.plan.repaymentDate,
+                    '本金': item.repayment.principal,
+                    '利息': item.repayment.interest,
+                    '总额': item.repayment.amount
+                }
+            });
+            var option = {
+                title: {
+                    text: '每期还款明细'
+                },
+                backgroundColor: '#efe',
+                legend: {
+                    show: true
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross'
+                    },
+                },
+                toolbox: {
+                    show: true,
+                    right: '20px',
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        magicType: { type: ['line', 'bar'] },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                dataset: {
+                    sourceHeader: false,
+                    source: data
+                },
+                dataZoom: [{
+                    type: 'slider',
+                }],
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name: '本金',
+                        type: 'bar',
+                        stack: 'total',
+                        symbol: 'none',
+                        encode: {
+                            x: '还款日期',
+                            y: '本金',
+                        }
+                    },
+                    {
+                        name: '利息',
+                        type: 'bar',
+                        stack: 'total',
+                        symbol: 'none',
+                        encode: {
+                            x: '还款日期',
+                            y: '利息',
+                        }
+                    },
+                    {
+                        name: '总额',
+                        type: 'line',
+                        symbol: 'none',
+                        encode: {
+                            x: '还款日期',
+                            y: '总额',
+                        }
+                    }
+                ]
+            };
+            chart.setOption(option);
+        }
+    },
+    computed: {
+        result() {
+            this.items = calculateRepaymentPlanList(this.loan, this.actions);
+            var result = sumRepaymentPlanList(this.items, this.asc);
+            console.log('result', result);
+            this.repairedItems = result.repairedItems;
+            this.balanceItems = result.balanceItems;
+            this.sumItems = result.sumItems;
+            this.storeParams();
             return result;
         }
+    },
+    updated: function () {
+        this.renderMonthChart(this.repairedChart, this.repairedItems);
+        this.renderMonthChart(this.balanceChart, this.balanceItems);
     }
 });
