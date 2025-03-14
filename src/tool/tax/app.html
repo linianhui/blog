@@ -103,8 +103,12 @@
     display: none;
   }
 
-  .month-detail_opened {
+  .month-detail_opened+tr {
     display: table-row;
+  }
+
+  .month-detail_opened .month-action-icon::before{
+    content: "\e6df";
   }
 
   .form-input-weight{
@@ -331,9 +335,9 @@
             <th>税后YTD</th>
           </tr>
           <template v-for="salary in salarys.items">
-            <tr class="row-data" :onclick="'blog.toggleClassName(\'month-'+salary.month+'-detail\',\'month-detail_opened\')'">
-              <td v-if="salary.bonus > 0"><i class="fa fa-chevron-down"></i>奖金</td>
-              <td v-else ><i class="fa fa-chevron-down"></i> {{salary.month}}月</td>
+            <tr :id="'month-'+salary.month+'-detail'" class="row-data" :onclick="'blog.toggleClassName(\'month-'+salary.month+'-detail\',\'month-detail_opened\')'">
+              <td v-if="salary.bonus > 0">奖金 <i class="el-icon-arrow-right month-action-icon"></i></td>
+              <td v-else >{{salary.month}}月 <i class="el-icon-arrow-right month-action-icon"></i></td>
               <td>{{salary.baseYTD | CNY}}</td>
               <td>{{salary.exemptedYTD | CNY}}</td>
               <td>{{salary.insurances.personalYTD | CNY}}</td>
@@ -344,7 +348,7 @@
               <td>{{salary.actual | CNY}}</td>
               <td>{{salary.actualYTD | CNY}}</td>
             </tr>
-            <tr :id="'month-'+salary.month+'-detail'" class="month-detail">
+            <tr class="month-detail">
               <td style="padding: 0; font-size: 0;"> </td>
               <td colspan="10" style="padding: 0; font-size: 0;">
                 <table style="padding: 0;margin: 0; font-size: 14px;width: 100%;border-width: 0;background-color: #efe;">

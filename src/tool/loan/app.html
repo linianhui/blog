@@ -125,8 +125,12 @@
     background-color: #efe;
   }
 
-  .month-detail_opened {
+  .month-detail_opened+tr {
     display: table-row;
+  }
+
+  .month-detail_opened .month-action-icon::before{
+    content: "\e6df";
   }
 
   .ahead {
@@ -220,7 +224,7 @@
 
   <fieldset>
     <legend @click="showActionArea()" style="cursor:pointer;">操作区域 <i class="el"
-        :class="{'el-icon-arrow-up':showAction,'el-icon-arrow-down':!showAction}"></i></legend>
+        :class="{'el-icon-arrow-down':showAction,'el-icon-arrow-right':!showAction}"></i></legend>
     <div class="result-wrapper" :class="{'area-show':showAction,'area-hidden':!showAction}">
       <pre class="result-pre">
       <table class="result-table">
@@ -300,12 +304,12 @@
 
   <fieldset>
     <legend @click="showRepairedArea()" style="cursor:pointer;">结果区域-明细-已还-{{result.repairedItems.length}}期 <i
-        class="el" :class="{'el-icon-arrow-up':showRepaired,'el-icon-arrow-down':!showRepaired}"></i></legend>
+        class="el" :class="{'el-icon-arrow-down':showRepaired,'el-icon-arrow-right':!showRepaired}"></i></legend>
     <div class="result-wrapper" :class="{'area-show':showRepaired,'area-hidden':!showRepaired}">
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
-            <th style="cursor:pointer;width: 8em;" @click="sortTable()">月份  <i :class="{'el-icon-arrow-up':asc,'el-icon-arrow-down':!asc}"></i></th>
+            <th style="cursor:pointer;width: 8em;" @click="sortTable()">月份  <i :class="{'el-icon-caret-top':asc,'el-icon-caret-bottom':!asc}"></i></th>
             <th style="width: 8em;">计息本金</th>
             <th>利率</th>
             <th>还款利息</th>
@@ -314,8 +318,8 @@
             <th>剩余本金</th>
           </tr>
           <template v-for="item in result.repairedItems">
-            <tr class="row-data" :class="{'row-data-action-reset-rate': item.hasAdditionalRateTextList,'row-data-action-prepayment':item.hasAdditionalActionTextList}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
-              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right"></i><span v-for="action in item.additionalActionTextList"><br/>{{action}}</span></td>
+            <tr :id="'month-'+item.plan.repaymentDate+'-detail'" class="row-data"  :class="{'row-data-action-reset-rate': item.hasAdditionalRateTextList,'row-data-action-prepayment':item.hasAdditionalActionTextList}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
+              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right month-action-icon"></i><span v-for="action in item.additionalActionTextList"><br/>{{action}}</span></td>
               <td>{{item.plan.balancePrincipal | CNY}}</td>
               <td>{{item.repayment.yearRate}}<span v-for="rate in item.additionalRateTextList"><br/>{{rate}}</span></td>
               <td>{{item.repayment.interest | CNY}}</td>
@@ -323,7 +327,7 @@
               <td>{{item.repayment.amount | CNY}}</td>
               <td>{{item.balance.principal | CNY}}</td>
               </tr>
-              <tr :id="'month-'+item.plan.repaymentDate+'-detail'" class="row-data month-detail" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" >
+              <tr class="row-data month-detail" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" >
                 <td>{{item.plan.beginInterestDate}}<br/>{{item.plan.endInterestDate}}<br/>{{item.repayment.rateTimesText}}</td>
                 <td></td>
                 <td><span v-for="rateFormula in item.repayment.yearRateFormulaList">{{rateFormula.endDate}} - {{rateFormula.beginDate}} = {{rateFormula.days}} 天<br/>{{rateFormula.weightRateFormula}} = {{rateFormula.weightRate}}<br/>{{rateFormula.yearRateFormula}} = {{rateFormula.yearRate}}<br/></span>{{item.repayment.rateFormula}} = {{item.repayment.rate}}</td>
@@ -344,7 +348,7 @@
       <pre class="result-pre">
         <table class="result-table">
           <tr class="row-header">
-            <th style="cursor:pointer;width: 8em;" @click="sortTable()">月份  <i :class="{'el-icon-arrow-up':asc,'el-icon-arrow-down':!asc}"></i></th>
+            <th style="cursor:pointer;width: 8em;" @click="sortTable()">月份  <i :class="{'el-icon-caret-top':asc,'el-icon-caret-bottom':!asc}"></i></th>
             <th style="width: 8em;">计息本金</th>
             <th>利率</th>
             <th>还款利息</th>
@@ -353,8 +357,8 @@
             <th>剩余本金</th>
           </tr>
           <template v-for="item in result.balanceItems">
-            <tr class="row-data" :class="{'row-data-action-reset-rate': item.hasAdditionalRateTextList,'row-data-action-prepayment':item.hasAdditionalActionTextList}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
-              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right"></i><span v-for="action in item.additionalActionTextList"><br/>{{action}}</span></td>
+            <tr :id="'month-'+item.plan.repaymentDate+'-detail'" class="row-data" :class="{'row-data-action-reset-rate': item.hasAdditionalRateTextList,'row-data-action-prepayment':item.hasAdditionalActionTextList}" :onclick="'blog.toggleClassName(\'month-'+item.plan.repaymentDate+'-detail\',\'month-detail_opened\')'">
+              <td>{{item.plan.repaymentDate}}<i class="el el-icon-arrow-right month-action-icon"></i><span v-for="action in item.additionalActionTextList"><br/>{{action}}</span></td>
               <td>{{item.plan.balancePrincipal | CNY}}</td>
               <td>{{item.repayment.yearRate}}<span v-for="rate in item.additionalRateTextList"><br/>{{rate}}</span></td>
               <td>{{item.repayment.interest | CNY}}</td>
@@ -362,7 +366,7 @@
               <td>{{item.repayment.amount | CNY}}</td>
               <td>{{item.balance.principal | CNY}}</td>
               </tr>
-              <tr :id="'month-'+item.plan.repaymentDate+'-detail'" class="row-data month-detail" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" >
+              <tr class="row-data month-detail" :class="{'row-data-action-reset-rate': item.hasRate,'row-data-action-prepayment':item.hasAction}" >
                 <td>{{item.plan.beginInterestDate}}<br/>{{item.plan.endInterestDate}}<br/>{{item.repayment.rateTimesText}}</td>
                 <td></td>
                 <td><span v-for="rateFormula in item.repayment.yearRateFormulaList">{{rateFormula.endDate}} - {{rateFormula.beginDate}} = {{rateFormula.days}} 天<br/>{{rateFormula.weightRateFormula}} = {{rateFormula.weightRate}}<br/>{{rateFormula.yearRateFormula}} = {{rateFormula.yearRate}}<br/></span>{{item.repayment.rateFormula}} = {{item.repayment.rate}}</td>
