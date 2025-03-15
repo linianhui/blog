@@ -79,8 +79,10 @@ var vueApp = new Vue({
         initChart() {
             this.repairedChart = echarts.init(this.$refs.repairedChartDiv);
             this.balanceChart = echarts.init(this.$refs.balanceChartDiv);
+            this.sumChart = echarts.init(this.$refs.sumChartDiv);
             this.renderMonthChart(this.repairedChart, this.repairedItems);
             this.renderMonthChart(this.balanceChart, this.balanceItems);
+            this.renderSumChart(this.sumChart, this.sumItems);
         },
         sortTable() {
             this.asc = !this.asc;
@@ -227,6 +229,116 @@ var vueApp = new Vue({
                 ]
             };
             chart.setOption(option);
+        },
+        renderSumChart(chart, items) {
+            var data = [];
+            for (var index = 0; index < items.length; index++) {
+                var item = items[index];
+                data.push({
+                    amount: item.amount,
+                    amountName: item.type + '金额' + item.amount,
+                    principal: item.principal,
+                    principalName: item.type + '本金' + item.principal,
+                    interest: item.interest,
+                    interestName: item.type + '利息' + item.interest
+                });
+            }
+
+            var repaired = data[0];
+            var balance = data[1];
+            var total = data[2];
+            var nodes = [
+                { depth: 0, name: total.amountName },
+                { depth: 1, name: repaired.amountName },
+                { depth: 1, name: balance.amountName },
+                { depth: 2, name: repaired.principalName },
+                { depth: 2, name: repaired.interestName },
+                { depth: 2, name: balance.principalName },
+                { depth: 2, name: balance.interestName },
+                { depth: 4, name: total.principalName },
+                { depth: 4, name: total.interestName },
+            ];
+
+            var links = [
+                {
+                    source: total.amountName,
+                    target: repaired.amountName,
+                    value: calculatePercent(repaired.amount, total.amount)
+                },
+                {
+                    source: total.amountName,
+                    target: balance.amountName,
+                    value: calculatePercent(balance.amount, total.amount)
+                },
+                {
+                    source: repaired.amountName,
+                    target: repaired.principalName,
+                    value: calculatePercent(repaired.principal, total.amount)
+                },
+                {
+                    source: repaired.amountName,
+                    target: repaired.interestName,
+                    value: calculatePercent(repaired.interest, total.amount)
+                },
+                {
+                    source: balance.amountName,
+                    target: balance.principalName,
+                    value: calculatePercent(balance.principal, total.amount)
+                },
+                {
+                    source: balance.amountName,
+                    target: balance.interestName,
+                    value: calculatePercent(balance.interest, total.amount)
+                },
+                {
+                    source: total.principalName,
+                    target: repaired.principalName,
+                    value: calculatePercent(repaired.principal, total.principal)
+                },
+                {
+                    source: total.principalName,
+                    target: balance.principalName,
+                    value: calculatePercent(balance.interest, total.principal)
+                },
+                {
+                    source: total.interestName,
+                    target: repaired.interestName,
+                    value: calculatePercent(repaired.interest, total.interest)
+                },
+                {
+                    source: total.interestName,
+                    target: balance.interestName,
+                    value: calculatePercent(balance.interest, total.interest)
+                }
+            ];
+            var option = {
+                title: {
+                    text: '总还款'
+                },
+                backgroundColor: '#efe',
+                grid: {
+                    left: 20,
+                    right: 20,
+                    top: 60,
+                    bottom: 60,
+                    containLabel: true
+                },
+                tooltip: {
+                    show: true,
+                    trigger: 'item'
+                },
+                series: [
+                    {
+                        type: 'sankey',
+                        nodes: nodes,
+                        links: links,
+                        lineStyle: {
+                            curveness: 0.5
+                        }
+                    }
+                ]
+            };
+            chart.setOption(option);
         }
     },
     computed: {
@@ -244,5 +356,6 @@ var vueApp = new Vue({
     updated: function () {
         this.renderMonthChart(this.repairedChart, this.repairedItems);
         this.renderMonthChart(this.balanceChart, this.balanceItems);
+        this.renderSumChart(this.sumChart, this.sumItems);
     }
 });

@@ -95,33 +95,38 @@ function sumRepaymentPlanList(items, asc) {
 function sumToRepaymentPlanTotal(repaired, balance) {
     var total = buildDefaultRepaymentPlanSum('合计');
     total.principal = blog.number(repaired.principal).add(balance.principal).value;
-    repaired.principalPercent = blog.number(repaired.principal).multiply(100).divide(total.principal).value;
-    balance.principalPercent = blog.number(balance.principal).multiply(100).divide(total.principal).value;
+    repaired.principalPercent = calculatePercent(repaired.principal, total.principal);
+    balance.principalPercent = calculatePercent(balance.principal, total.principal);
 
     total.interest = blog.number(repaired.interest).add(balance.interest).value;
-    repaired.interestPercent = blog.number(repaired.interest).multiply(100).divide(total.interest).value;
-    balance.interestPercent = blog.number(balance.interest).multiply(100).divide(total.interest).value;
+    repaired.interestPercent = calculatePercent(repaired.interest, total.interest);
+    balance.interestPercent = calculatePercent(balance.interest, total.interest);
 
     total.totalNumberOfRepayment = blog.number(repaired.totalNumberOfRepayment).add(balance.totalNumberOfRepayment).value;
-    repaired.totalNumberOfRepaymentPercent = blog.number(repaired.totalNumberOfRepayment).multiply(100).divide(total.totalNumberOfRepayment).value;
-    balance.totalNumberOfRepaymentPercent = blog.number(balance.totalNumberOfRepayment).multiply(100).divide(total.totalNumberOfRepayment).value;
+    repaired.totalNumberOfRepaymentPercent = calculatePercent(repaired.totalNumberOfRepayment, total.totalNumberOfRepayment);
+    balance.totalNumberOfRepaymentPercent = calculatePercent(balance.totalNumberOfRepayment, total.totalNumberOfRepayment);
 
     total.days = blog.number(repaired.days).add(balance.days).value;
-    repaired.daysPercent = blog.number(repaired.days).multiply(100).divide(total.days).value;
-    balance.daysPercent = blog.number(balance.days).multiply(100).divide(total.days).value;
+    repaired.daysPercent = calculatePercent(repaired.days, total.days).value;
+    balance.daysPercent = calculatePercent(balance.days, total.days).value;
 
     total.daysText = blog.dateYearMonthDayDuration(total.days);
     total.amount = blog.number(total.principal).add(total.interest).value;
-    repaired.amountPercent = blog.number(repaired.amount).multiply(100).divide(total.amount).value;
-    balance.amountPercent = blog.number(balance.amount).multiply(100).divide(total.amount).value;
+    repaired.amountPercent = calculatePercent(repaired.amount, total.amount);
+    balance.amountPercent = calculatePercent(balance.amount, total.amount);
 
-    total.principalPercent = blog.number(total.principal).multiply(100).divide(total.amount).value;
-    total.interestPercent = blog.number(total.interest).multiply(100).divide(total.amount).value;
+    total.principalPercent = calculatePercent(total.principal, total.amount);
+    total.interestPercent = calculatePercent(total.interest, total.amount);
+    total.amountPercent = 100;
 
     total.beginInterestDate = blog.dateMin(repaired.beginInterestDate, balance.beginInterestDate);
     total.endInterestDate = blog.dateMax(repaired.endInterestDate, balance.endInterestDate);
     total.repaymentDate = blog.dateMax(repaired.repaymentDate, balance.repaymentDate);
     return total;
+}
+
+function calculatePercent(value, sum) {
+    return blog.number(value).multiply(100).divide(sum).value;
 }
 
 function addToRepaymentPlanSum(sum, item) {
