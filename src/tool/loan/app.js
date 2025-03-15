@@ -247,18 +247,6 @@ var vueApp = new Vue({
             var repaired = data[0];
             var balance = data[1];
             var total = data[2];
-            var nodes = [
-                { depth: 0, name: total.amountName },
-                { depth: 1, name: total.principalName },
-                { depth: 1, name: total.interestName },
-                { depth: 2, name: repaired.principalName },
-                { depth: 2, name: repaired.interestName },
-                { depth: 2, name: balance.principalName },
-                { depth: 2, name: balance.interestName },
-                { depth: 3, name: repaired.amountName },
-                { depth: 3, name: balance.amountName }
-            ];
-
             var links = [
                 {
                     source: total.amountName,
@@ -311,6 +299,9 @@ var vueApp = new Vue({
                     value: balance.interestPercent
                 }
             ];
+
+            var nodes = blog.echartsSankeyLinks2Nodes(links);
+
             var option = {
                 title: {
                     text: '总还款百分比分布'

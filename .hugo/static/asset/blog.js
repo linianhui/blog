@@ -373,7 +373,7 @@
         return currency(value, option);
     }
 
-    function dateNow(){
+    function dateNow() {
         return dateFormat(moment());
     }
 
@@ -444,6 +444,26 @@
         return result;
     }
 
+    function arrayUnique(values) {
+        if (values) {
+            return Array.from(new Set(values));
+        }
+    }
+
+    function echartsSankeyLinks2Nodes(links) {
+        var nodeNames = [];
+        for (var index = 0; index < links.length; index++) {
+            var link = links[index];
+            nodeNames.push(link.source)
+            nodeNames.push(link.target);
+        }
+
+        var uniqueNodeNames = arrayUnique(nodeNames);
+        return uniqueNodeNames.map(name => {
+            return { name: name };
+        });
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -466,7 +486,7 @@
         setLocationParams: setLocationParams,
         setLocationParamJson: setLocationParamJson,
         number: number,
-        dateNow:dateNow,
+        dateNow: dateNow,
         dateAddDays: dateAddDays,
         dateAddMonths: dateAddMonths,
         dateAddMonthsSetDay: dateAddMonthsSetDay,
@@ -476,7 +496,9 @@
         dateIsBetween: dateIsBetween,
         dateMax: dateMax,
         dateMin: dateMin,
-        dateYearMonthDayDuration: dateYearMonthDayDuration
+        dateYearMonthDayDuration: dateYearMonthDayDuration,
+        arrayUnique: arrayUnique,
+        echartsSankeyLinks2Nodes: echartsSankeyLinks2Nodes
     };
 
 })(window, document, navigator);
