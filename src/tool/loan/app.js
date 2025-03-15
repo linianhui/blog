@@ -5,7 +5,7 @@ var actionsParam = localtionParam.actions || [];
 
 var defaultLoan = {
     totalPrincipal: 1000000,
-    beginDate: blog.dateNow(),
+    beginDate: blog.dateAddMonths(blog.dateNow(), -12),
     totalNumberOfRepayment: 240,
     yearRate: 3.5,
     repaymentDayOfMonth: 1
@@ -235,12 +235,12 @@ var vueApp = new Vue({
             for (var index = 0; index < items.length; index++) {
                 var item = items[index];
                 data.push({
-                    amount: item.amount,
-                    amountName: item.type + '金额' + item.amount,
-                    principal: item.principal,
-                    principalName: item.type + '本金' + item.principal,
-                    interest: item.interest,
-                    interestName: item.type + '利息' + item.interest
+                    amountName: item.type + '金额 ' + item.amount + ' (' + item.amountPercent + '%)',
+                    amountPercent: item.amountPercent,
+                    principalName: item.type + '本金 ' + item.principal + ' (' + item.principalPercent + '%)',
+                    principalPercent: item.principalPercent,
+                    interestName: item.type + '利息 ' + item.interest + ' (' + item.interestPercent + '%)',
+                    interestPercent: item.interestPercent
                 });
             }
 
@@ -256,64 +256,64 @@ var vueApp = new Vue({
                 { depth: 2, name: balance.principalName },
                 { depth: 2, name: balance.interestName },
                 { depth: 4, name: total.principalName },
-                { depth: 4, name: total.interestName },
+                { depth: 4, name: total.interestName }
             ];
 
             var links = [
                 {
                     source: total.amountName,
                     target: repaired.amountName,
-                    value: calculatePercent(repaired.amount, total.amount)
+                    value: repaired.amountPercent
                 },
                 {
                     source: total.amountName,
                     target: balance.amountName,
-                    value: calculatePercent(balance.amount, total.amount)
+                    value: balance.amountPercent
                 },
                 {
                     source: repaired.amountName,
                     target: repaired.principalName,
-                    value: calculatePercent(repaired.principal, total.amount)
+                    value: repaired.principalPercent
                 },
                 {
                     source: repaired.amountName,
                     target: repaired.interestName,
-                    value: calculatePercent(repaired.interest, total.amount)
+                    value: repaired.interestPercent
                 },
                 {
                     source: balance.amountName,
                     target: balance.principalName,
-                    value: calculatePercent(balance.principal, total.amount)
+                    value: balance.principalPercent
                 },
                 {
                     source: balance.amountName,
                     target: balance.interestName,
-                    value: calculatePercent(balance.interest, total.amount)
+                    value: balance.interestPercent
                 },
                 {
-                    source: total.principalName,
-                    target: repaired.principalName,
-                    value: calculatePercent(repaired.principal, total.principal)
+                    source: repaired.principalName,
+                    target: total.principalName,
+                    value: repaired.principalPercent
                 },
                 {
-                    source: total.principalName,
-                    target: balance.principalName,
-                    value: calculatePercent(balance.interest, total.principal)
+                    source: balance.principalName,
+                    target: total.principalName,
+                    value: balance.principalPercent
                 },
                 {
-                    source: total.interestName,
-                    target: repaired.interestName,
-                    value: calculatePercent(repaired.interest, total.interest)
+                    source: repaired.interestName,
+                    target: total.interestName,
+                    value: repaired.interestPercent
                 },
                 {
-                    source: total.interestName,
-                    target: balance.interestName,
-                    value: calculatePercent(balance.interest, total.interest)
+                    source: balance.interestName,
+                    target: total.interestName,
+                    value: balance.interestPercent
                 }
             ];
             var option = {
                 title: {
-                    text: '总还款'
+                    text: '总还款百分比分布'
                 },
                 backgroundColor: '#efe',
                 grid: {
