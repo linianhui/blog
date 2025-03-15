@@ -197,7 +197,7 @@ var vueApp = new Vue({
                 series: [
                     {
                         name: '本金',
-                        type: 'line',
+                        type: 'bar',
                         stack: 'total',
                         symbol: 'none',
                         encode: {
@@ -207,7 +207,7 @@ var vueApp = new Vue({
                     },
                     {
                         name: '利息',
-                        type: 'line',
+                        type: 'bar',
                         stack: 'total',
                         symbol: 'none',
                         encode: {
