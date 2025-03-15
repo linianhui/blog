@@ -327,6 +327,13 @@ var vueApp = new Vue({
                     show: true,
                     trigger: 'item'
                 },
+                toolbox: {
+                    show: true,
+                    right: '20px',
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
                 series: [
                     {
                         type: 'sankey',
