@@ -138,7 +138,7 @@ var vueApp = new Vue({
                 blog.setLocationParams();
             }
         },
-        renderMonthChart(chart,items) {
+        renderMonthChart(chart, items) {
             var data = items.map(item => {
                 return {
                     '还款日期': item.plan.repaymentDate,
@@ -154,6 +154,13 @@ var vueApp = new Vue({
                 backgroundColor: '#efe',
                 legend: {
                     show: true
+                },
+                grid: {
+                    left: 20,
+                    right: 20,
+                    top: 60,
+                    bottom: 60,
+                    containLabel: true
                 },
                 tooltip: {
                     show: true,
@@ -190,7 +197,7 @@ var vueApp = new Vue({
                 series: [
                     {
                         name: '本金',
-                        type: 'bar',
+                        type: 'line',
                         stack: 'total',
                         symbol: 'none',
                         encode: {
@@ -200,7 +207,7 @@ var vueApp = new Vue({
                     },
                     {
                         name: '利息',
-                        type: 'bar',
+                        type: 'line',
                         stack: 'total',
                         symbol: 'none',
                         encode: {
