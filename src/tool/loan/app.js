@@ -249,65 +249,65 @@ var vueApp = new Vue({
             var total = data[2];
             var nodes = [
                 { depth: 0, name: total.amountName },
-                { depth: 1, name: repaired.amountName },
-                { depth: 1, name: balance.amountName },
+                { depth: 1, name: total.principalName },
+                { depth: 1, name: total.interestName },
                 { depth: 2, name: repaired.principalName },
                 { depth: 2, name: repaired.interestName },
                 { depth: 2, name: balance.principalName },
                 { depth: 2, name: balance.interestName },
-                { depth: 4, name: total.principalName },
-                { depth: 4, name: total.interestName }
+                { depth: 3, name: repaired.amountName },
+                { depth: 3, name: balance.amountName }
             ];
 
             var links = [
                 {
                     source: total.amountName,
-                    target: repaired.amountName,
-                    value: repaired.amountPercent
+                    target: total.principalName,
+                    value: total.principalPercent
                 },
                 {
                     source: total.amountName,
-                    target: balance.amountName,
-                    value: balance.amountPercent
+                    target: total.interestName,
+                    value: total.interestPercent
                 },
                 {
-                    source: repaired.amountName,
+                    source: total.principalName,
                     target: repaired.principalName,
                     value: repaired.principalPercent
                 },
                 {
-                    source: repaired.amountName,
-                    target: repaired.interestName,
-                    value: repaired.interestPercent
-                },
-                {
-                    source: balance.amountName,
+                    source: total.principalName,
                     target: balance.principalName,
                     value: balance.principalPercent
                 },
                 {
-                    source: balance.amountName,
+                    source: total.interestName,
+                    target: repaired.interestName,
+                    value: repaired.interestPercent
+                },
+                {
+                    source: total.interestName,
                     target: balance.interestName,
                     value: balance.interestPercent
                 },
                 {
                     source: repaired.principalName,
-                    target: total.principalName,
+                    target: repaired.amountName,
                     value: repaired.principalPercent
                 },
                 {
                     source: balance.principalName,
-                    target: total.principalName,
+                    target: balance.amountName,
                     value: balance.principalPercent
                 },
                 {
                     source: repaired.interestName,
-                    target: total.interestName,
+                    target: repaired.amountName,
                     value: repaired.interestPercent
                 },
                 {
                     source: balance.interestName,
-                    target: total.interestName,
+                    target: balance.amountName,
                     value: balance.interestPercent
                 }
             ];
