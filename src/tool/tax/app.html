@@ -107,11 +107,11 @@
     display: table-row;
   }
 
-  .month-detail_opened .month-action-icon::before{
+  .month-detail_opened .month-action-icon::before {
     content: "\e6df";
   }
 
-  .form-input-weight{
+  .form-input-weight {
     width: 14em !important;
   }
 </style>
@@ -166,17 +166,17 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input v-model="insurance.min" @input="onInsuranceMinChange"></td>
-                <td><input v-model="insurance.max" @input="onInsuranceMaxChange"></td>
+                <td><input v-model="insurance.min" @input="onInsuranceMinChange" type="number" min="0" placeholder="最低基数"></td>
+                <td><input v-model="insurance.max" @input="onInsuranceMaxChange" type="number" min="0" placeholder="最高基数"></td>
                 <td></td>
                 <td></td>
               </tr>
               <tr v-for="item in insurance.items" class="row-data">
                 <td>{{item.name}}</td>
-                <td><input v-model="item.min"></td>
-                <td><input v-model="item.max"></td>
-                <td><input v-model="item.personalPercentage"></td>
-                <td><input v-model="item.corporationPercentage"></td>
+                <td><input v-model="item.min" type="number" min="0" placeholder="最低基数"></td>
+                <td><input v-model="item.max" type="number" min="0" placeholder="最高基数"></td>
+                <td><input v-model="item.personalPercentage" type="number" min="0" max="100" placeholder="个人比例"></td>
+                <td><input v-model="item.corporationPercentage" type="number" min="0" max="100" placeholder="公司比例"></td>
               </tr>
             </table>
           </el-collapse-item>
