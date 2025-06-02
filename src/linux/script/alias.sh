@@ -4,7 +4,7 @@ alias ...='cd ../..'
 alias d='__directory_to'
 alias c='__vscode_open'
 alias i='__idea_open'
-alias t='__timestamp_2_iso8601'
+alias t='__timestamp'
 
 alias dr='docker run --rm --tty --interactive'
 alias dre='dr --entrypoint'
