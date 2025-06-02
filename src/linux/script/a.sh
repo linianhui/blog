@@ -2,6 +2,7 @@
 
 source $(dirname $0)/env.sh
 source $(dirname $0)/function.sh
+source $(dirname $0)/function-byte.sh
 source $(dirname $0)/function-string.sh
 source $(dirname $0)/function-directory.sh
 source $(dirname $0)/function-git.sh

@@ -1,6 +1,7 @@
 # alias
 alias ..='cd ..'
 alias ...='cd ../..'
+alias b='__byte_unit'
 alias d='__directory_to'
 alias c='__vscode_open'
 alias i='__idea_open'
