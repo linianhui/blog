@@ -127,10 +127,14 @@ opkg install block-mount
 
 # 4 reference {#reference}
 
-1. `local_token`: <http://hiwifi.com/local-ssh>
-2. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
-3. `ssh`: <http://www.hiwifi.wtf>
-4. aliyun-mirrors :<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/ramips/mt7621>
+1. `toh-online` : <https://toh.openwrt.org/>
+2. `toh-online-json` : <https://openwrt.org/toh.json>
+3. `toh-home` : <https://openwrt.org/toh/views/start>
+4. `supported_devices` : <https://openwrt.org/supported_devices>
+5. `local_token`: <http://hiwifi.com/local-ssh>
+6. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
+7. `ssh`: <http://www.hiwifi.wtf>
+8. aliyun-mirrors :<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/ramips/mt7621>
 
 
 [^breed]:breed官网：<https://breed.hackpascal.net>
