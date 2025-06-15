@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function __timestamp(){
-    if [ "$2" == "i" ]
+    if [[ $# == 2 ]]
     then
         __iso8601_2_timestamp $1
     else
