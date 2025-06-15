@@ -25,6 +25,6 @@ function __iso8601_2_timestamp(){
     second=${dateTimeString:12:2}
     millisecond=${dateTimeString:14:3}
     timezone="+08:00"
-    iso8601=$"${year}-${month}-${day}T${hour:-00}:${minute:-00}:${second:-00}Z${timezone}"
+    iso8601="${year}-${month}-${day}T${hour:-00}:${minute:-00}:${second:-00}Z${timezone}"
     date --date "${iso8601}" "+%s${millisecond:-000}"
 }
