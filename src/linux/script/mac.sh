@@ -6,10 +6,10 @@ source $(dirname $0)/a.sh
 # tar xvf openjdk.tar.gz /lnh/_app/_java11
 # export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 # /usr/libexec/java_home -v 1.8
-export JAVA_8_HOME=/lnh/_app/_java8
-export JAVA_11_HOME=/lnh/_app/_java11
-export JAVA_17_HOME=/lnh/_app/_java17
-export JAVA_21_HOME=/lnh/_app/_java21
+export JAVA_8_HOME=/lnh/_app/_java8/Contents/Home
+export JAVA_11_HOME=/lnh/_app/_java11/Contents/Home
+export JAVA_17_HOME=/lnh/_app/_java17/Contents/Home
+export JAVA_21_HOME=/lnh/_app/_java21/Contents/Home
 export JAVA_HOME=$JAVA_8_HOME
 
 launchctl setenv JAVA_HOME $JAVA_HOME
