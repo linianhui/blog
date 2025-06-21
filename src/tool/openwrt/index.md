@@ -100,6 +100,7 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 
 # 3 x86 {#x86}
 
+mirror: <https://developer.aliyun.com/mirror/openwrt>
 x86:<https://downloads.openwrt.org/releases/22.03.2/targets/x86/64/>
 download:<https://downloads.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-22.03.5-x86-64-generic-ext4-combined.img.gz>
 
