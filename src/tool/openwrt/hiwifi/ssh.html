@@ -1,6 +1,6 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.2.0/crypto-js.js"></script>
 <script src="/tool/openwrt/hiwifi/ssh.js"></script>
-
+在浏览器中计算开启SSH，可在断网下使用。
 <table>
   <tr>
     <td>
@@ -69,11 +69,10 @@
     var cloud_token = calcCloudToken(uuid, local_token);
     if (cloud_token) {
       hiwifiCloudToken.innerHTML = cloud_token;
-      aOpenSsh.href = buildOpenSshUrl(hiwifiDomain.value, cloud_token);
     } else {
       hiwifiCloudToken.innerHTML = "计算cloud_token失败";
-      aOpenSsh.href = '';
     }
+    aOpenSsh.href = buildOpenSshUrl(hiwifiDomain.value, cloud_token);
     that.disabled = false;
   }
 
