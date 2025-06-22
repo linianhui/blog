@@ -72,7 +72,13 @@
     that.disabled = true;
     var uuid = hiwifiUuid.value;
     var local_token = hiwifiLocalToken.value;
-    var cloud_token = calcCloudToken(uuid, local_token);
+    var cloud_token
+    try {
+      cloud_token = calcCloudToken(uuid, local_token);
+    } catch (e) {
+      cloud_token = null;
+      console.error(e);
+    }
     if (cloud_token) {
       hiwifiCloudToken.innerHTML = cloud_token;
     } else {
