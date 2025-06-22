@@ -1,0 +1,85 @@
+<script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.2.0/crypto-js.js"></script>
+<script src="/tool/openwrt/hiwifi/ssh.js"></script>
+
+<table>
+  <tr>
+    <td>
+      <label for="hiwifiDomain">hiwifi</label>
+    </td>
+    <td>
+      <input id="hiwifiDomain" type="text" value="192.168.199.1" size="32" onchange="onHiwifiDomainChange()" />
+    </td>
+    <td>
+      <button type="button" onclick="bthAutoCalcCloudToken(this)">自动计算cloud_token</button><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="hiwifiUuid">uuid</label>
+    </td>
+    <td>
+      <input id="hiwifiUuid" type="text" size="32" />
+    </td>
+    <td rowspan="2">
+      <button type="button" onclick="bthCalcCloudToken(this)">手动计算cloud_token</button><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="hiwifiLocalToken">local_token</label>
+    </td>
+    <td>
+      <input id="hiwifiLocalToken" type="text" size="80" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="hiwifiCloudToken">cloud_token</label>
+    </td>
+    <td>
+      <label id="hiwifiCloudToken" />
+    </td>
+    <td>
+      <a id="aOpenSsh" target="_blank">打开SSH</a>
+      <a id="aCloseSsh" target="_blank">关闭SSH</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+
+  function bthAutoCalcCloudToken(that) {
+    that.disabled = true;
+    var uuid = getHiwifiUuid(hiwifiDomain.value);
+    if (uuid) {
+      hiwifiUuid.value = uuid;
+    }
+    var local_token = getHiwifiLocalToken(hiwifiDomain.value);
+    if (local_token) {
+      hiwifiLocalToken.value = local_token;
+    }
+    bthCalcCloudToken(that);
+    that.disabled = false;
+  }
+
+  function bthCalcCloudToken(that) {
+    that.disabled = true;
+    var uuid = hiwifiUuid.value;
+    var local_token = hiwifiLocalToken.value;
+    var cloud_token = calcCloudToken(uuid, local_token);
+    if (cloud_token) {
+      hiwifiCloudToken.innerHTML = cloud_token;
+      aOpenSsh.href = buildOpenSshUrl(hiwifiDomain.value, cloud_token);
+    } else {
+      hiwifiCloudToken.innerHTML = "计算cloud_token失败";
+      aOpenSsh.href = '';
+    }
+    that.disabled = false;
+  }
+
+  function onHiwifiDomainChange() {
+    aCloseSsh.href = buildCloseSshUrl(hiwifiDomain.value);
+  }
+
+  onHiwifiDomainChange();
+</script>

@@ -464,6 +464,25 @@
         });
     }
 
+    function httpGet(url, callback) {
+        var xhr = new XMLHttpRequest();
+        var async = callback != null;
+        xhr.onloaded = function (e) {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                callback(xhr.responseText);
+            }
+        };
+        xhr.open("GET", url, async);
+        xhr.send();
+        if (!async) {
+            return xhr.responseText;
+        }
+    }
+
+    function httpGetJson(url) {
+        return JSON.stringify(httpGet(url));
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -498,7 +517,9 @@
         dateMin: dateMin,
         dateYearMonthDayDuration: dateYearMonthDayDuration,
         arrayUnique: arrayUnique,
-        echartsSankeyLinks2Nodes: echartsSankeyLinks2Nodes
+        echartsSankeyLinks2Nodes: echartsSankeyLinks2Nodes,
+        httpGet: httpGet,
+        httpGetJson: httpGetJson
     };
 
 })(window, document, navigator);

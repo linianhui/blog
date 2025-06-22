@@ -126,7 +126,11 @@ opkg install block-mount
 
 ```
 
-# 4 reference {#reference}
+# 4 hiwifi ssh {#hiwifi-ssh}
+
+{{<inline-html path="hiwifi/ssh.html">}}
+
+# 5 reference {#reference}
 
 1. `toh-online` : <https://toh.openwrt.org/>
 2. `toh-online-json` : <https://openwrt.org/toh.json>
