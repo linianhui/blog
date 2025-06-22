@@ -52,16 +52,20 @@
 
   function bthAutoCalcCloudToken(that) {
     that.disabled = true;
-    var uuid = blog.httpGetJson(aGetUuid.href).data.uuid;
-    if (uuid) {
-      hiwifiUuid.value = uuid;
-    }
-    var local_token = blog.httpGetJson(aGetLocalToken.href).data;
-    if (local_token) {
-      hiwifiLocalToken.value = local_token;
-    }
-    bthCalcCloudToken(that);
-    that.disabled = false;
+    blog.httpGetJson(aGetUuid.href, function (uuid) {
+      console.log("get uuid response", uuid);
+      if (uuid) {
+        hiwifiUuid.value = uuid.data.uuid;
+      }
+      blog.httpGetJson(aGetLocalToken.href, function (local_token) {
+        console.log("get local_token response", local_token);
+        if (local_token) {
+          hiwifiLocalToken.value = local_token.data;
+        }
+        bthCalcCloudToken(that);
+        that.disabled = false;
+      });
+    });
   }
 
   function bthCalcCloudToken(that) {
@@ -72,7 +76,11 @@
     if (cloud_token) {
       hiwifiCloudToken.innerHTML = cloud_token;
     } else {
-      hiwifiCloudToken.innerHTML = "计算cloud_token失败";
+      if (that.innerText.startsWith("自动")) {
+        hiwifiCloudToken.innerHTML = "自动计算cloud_token失败，请尝试手动计算";
+      } else {
+        hiwifiCloudToken.innerHTML = "手动计算cloud_token失败";
+      }
     }
     aOpenSsh.href = buildOpenSshUrl(hiwifiDomain.value, cloud_token);
     that.disabled = false;

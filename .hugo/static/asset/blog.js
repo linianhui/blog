@@ -467,7 +467,7 @@
     function httpGet(url, callback) {
         var xhr = new XMLHttpRequest();
         var async = callback != null;
-        xhr.onloaded = function (e) {
+        xhr.onreadystatechange = function (e) {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 callback(xhr.responseText);
             }
@@ -479,8 +479,8 @@
         }
     }
 
-    function httpGetJson(url) {
-        return JSON.stringify(httpGet(url));
+    function httpGetJson(url,callback) {
+        return JSON.stringify(httpGet(url,callback));
     }
 
     initByteUnits(1000);

@@ -11,11 +11,11 @@ function buildCloseSshUrl(domain) {
     return 'http://' + domain + HIWIFI_CLOSE_SSH_PATH;
 }
 
-function buildGetUuidUrl(domain){
+function buildGetUuidUrl(domain) {
     return 'http://' + domain + HIWIFI_GET_UUID_PATH;
 }
 
-function buildGetLocalTokenUrl(domain){
+function buildGetLocalTokenUrl(domain) {
     return 'http://' + domain + HIWIFI_GET_LOCAL_TOKEN_PATH;
 }
 
@@ -28,6 +28,9 @@ function testCalcColudToken() {
 }
 
 function calcCloudToken(uuid, local_token) {
+    if (!uuid || !local_token) {
+        return;
+    }
     var key = calcCloudTokenKeyHex(uuid);
     var data = calcCloudTokenDataUtf8(local_token);
     var result = calcCloudTokenCore(key, data);
@@ -35,10 +38,8 @@ function calcCloudToken(uuid, local_token) {
     return result;
 }
 
-
 function calcCloudTokenKeyHex(uuid) {
     if (!uuid) {
-        console.log('input-uuid', uuid, 'output-hex', undefined);
         return;
     }
     var sha1 = CryptoJS.SHA1(uuid);
@@ -49,7 +50,6 @@ function calcCloudTokenKeyHex(uuid) {
 
 function calcCloudTokenDataUtf8(local_token) {
     if (!local_token) {
-        console.log("input-local_token", local_token, 'output-data', undefined);
         return;
     }
     var usedLocalTokenBase64 = local_token.substring(0, 40);
@@ -64,7 +64,6 @@ function calcCloudTokenDataUtf8(local_token) {
 
 function calcCloudTokenCore(keyHex, dataUtf8) {
     if (!keyHex || !dataUtf8) {
-        console.log('input-key', keyHex, 'input-data', dataUtf8, 'output-cloud_token', undefined);
         return;
     }
     var key = CryptoJS.enc.Hex.parse(keyHex);
