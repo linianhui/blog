@@ -38,7 +38,7 @@ function calcCloudToken(uuid, local_token) {
 
 function calcCloudTokenKeyHex(uuid) {
     if (!uuid) {
-        console.log('input-uuid', uuid, 'output-hex', null);
+        console.log('input-uuid', uuid, 'output-hex', undefined);
         return;
     }
     var sha1 = CryptoJS.SHA1(uuid);
@@ -49,7 +49,7 @@ function calcCloudTokenKeyHex(uuid) {
 
 function calcCloudTokenDataUtf8(local_token) {
     if (!local_token) {
-        console.log("input-local_token", local_token, 'output-data', null);
+        console.log("input-local_token", local_token, 'output-data', undefined);
         return;
     }
     var usedLocalTokenBase64 = local_token.substring(0, 40);
@@ -64,7 +64,7 @@ function calcCloudTokenDataUtf8(local_token) {
 
 function calcCloudTokenCore(keyHex, dataUtf8) {
     if (!keyHex || !dataUtf8) {
-        console.log('input-key', keyHex, 'input-data', dataUtf8, 'output-cloud_token', null);
+        console.log('input-key', keyHex, 'input-data', dataUtf8, 'output-cloud_token', undefined);
         return;
     }
     var key = CryptoJS.enc.Hex.parse(keyHex);
