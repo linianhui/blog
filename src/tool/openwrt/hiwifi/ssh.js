@@ -11,12 +11,12 @@ function buildCloseSshUrl(domain) {
     return 'http://' + domain + HIWIFI_CLOSE_SSH_PATH;
 }
 
-function getHiwifiUuid(domain) {
-    return blog.httpGetJson('http://' + domain + HIWIFI_GET_UUID_PATH).data.uuid;
+function buildGetUuidUrl(domain){
+    return 'http://' + domain + HIWIFI_GET_UUID_PATH;
 }
 
-function getHiwifiLocalToken(domain) {
-    return blog.httpGetJson('http://' + domain + HIWIFI_GET_LOCAL_TOKEN_PATH).data;
+function buildGetLocalTokenUrl(domain){
+    return 'http://' + domain + HIWIFI_GET_LOCAL_TOKEN_PATH;
 }
 
 function testCalcColudToken() {

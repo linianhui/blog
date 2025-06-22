@@ -7,7 +7,7 @@
       <label for="hiwifiDomain">hiwifi</label>
     </td>
     <td>
-      <input id="hiwifiDomain" type="text" value="192.168.199.1" size="32" onchange="onHiwifiDomainChange()" />
+      <input id="hiwifiDomain" type="text" value="192.168.199.1" size="32" oninput="onHiwifiDomainChange()" />
     </td>
     <td>
       <button type="button" onclick="bthAutoCalcCloudToken(this)">自动计算cloud_token</button><br />
@@ -18,6 +18,7 @@
       <label for="hiwifiUuid">uuid</label>
     </td>
     <td>
+      <a id="aGetUuid" target="_blank" style="margin: 0;"></a><br />
       <input id="hiwifiUuid" type="text" size="32" />
     </td>
     <td rowspan="2">
@@ -29,6 +30,7 @@
       <label for="hiwifiLocalToken">local_token</label>
     </td>
     <td>
+      <a id="aGetLocalToken" target="_blank" style="margin: 0;"></a><br />
       <input id="hiwifiLocalToken" type="text" size="80" />
     </td>
   </tr>
@@ -50,11 +52,11 @@
 
   function bthAutoCalcCloudToken(that) {
     that.disabled = true;
-    var uuid = getHiwifiUuid(hiwifiDomain.value);
+    var uuid = blog.httpGetJson(aGetUuid.href).data.uuid;
     if (uuid) {
       hiwifiUuid.value = uuid;
     }
-    var local_token = getHiwifiLocalToken(hiwifiDomain.value);
+    var local_token = blog.httpGetJson(aGetLocalToken.href).data;
     if (local_token) {
       hiwifiLocalToken.value = local_token;
     }
@@ -77,7 +79,15 @@
   }
 
   function onHiwifiDomainChange() {
-    aCloseSsh.href = buildCloseSshUrl(hiwifiDomain.value);
+    var closeSshUrl = buildCloseSshUrl(hiwifiDomain.value);
+    var getUuidUrl = buildGetUuidUrl(hiwifiDomain.value);
+    var getLocalTokenUrl = buildGetLocalTokenUrl(hiwifiDomain.value);
+
+    aCloseSsh.href = closeSshUrl;
+    aGetUuid.href = getUuidUrl;
+    aGetUuid.innerHTML = getUuidUrl;
+    aGetLocalToken.href = getLocalTokenUrl;
+    aGetLocalToken.innerHTML = getLocalTokenUrl;
   }
 
   onHiwifiDomainChange();
