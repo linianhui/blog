@@ -1,5 +1,5 @@
-var HIWIFI_GET_LOCAL_TOKEN_PATH = '/cgi-bin/turbo/proxy/router_info';
-var HIWIFI_GET_UUID_PATH = '/local-ssh/api?method=get';
+var HIWIFI_GET_UUID_PATH = '/cgi-bin/turbo/proxy/router_info';
+var HIWIFI_GET_LOCAL_TOKEN_PATH = '/local-ssh/api?method=get';
 var HIWIFI_OPEN_SSH_PATH = '/local-ssh/api?method=valid&data=';
 var HIWIFI_CLOSE_SSH_PATH = '/local-ssh/api?method=stop';
 
