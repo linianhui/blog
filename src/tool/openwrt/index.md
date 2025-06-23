@@ -13,10 +13,10 @@ toc: true
 
 ```sh
 # 登陆到路由器
-ssh root@10.1.199.1
+ssh root@192.168.199.1 -v -o hostKeyalgorithms=ssh-rsa
 
 # 复制breed.bin到路由器
-scp breed.bin ssh root@10.1.199.1:/root/
+scp breed.bin root@192.168.199.1:/root/
 
 # 刷入breed
 mtd -r write breed.bin u-boot
@@ -47,6 +47,9 @@ sed -i 's_downloads.openwrt.org_mirrors.aliyun.com/openwrt_' /etc/opkg/distfeeds
 # 安装ca-certificates
 opkg update
 opkg install ca-certificates
+
+# 更新所有可升级的包
+opkg list-upgradable | cut -f 1 -d ' ' | xargs -r opkg upgrade
 ```
 
 ## 1.3 upgrade {#upgrade}
