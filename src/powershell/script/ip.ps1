@@ -2,7 +2,7 @@
 # powershell ip functions
 ################################
 
-function set-ip() {
+function IP-SET() {
     # show all ethernet interfaces
     netsh interface ipv4 show interfaces
 
@@ -23,7 +23,7 @@ function set-ip() {
         return
     }
 
-    $defaultIP = '192.168.100.2'
+    $defaultIP = '192.168.1.2'
     $ip = Read-Host-With-Default -Prompt 'set ip' -DefaultValue $defaultIP
 
     $defaultMask = '255.255.255.0'
