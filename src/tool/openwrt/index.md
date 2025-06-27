@@ -77,7 +77,7 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs -r opkg upgrade
 # 2 software {#software}
 
 {{<highlight-file path="config/network" lang="sh">}}
-
+{{<highlight-file path="app.sh" lang="sh">}}
 ## 2.1 openwrt-v2ray {#v2ray}
 
 `openwrt-v2ray`[^openwrt-v2ray]安装步骤
