@@ -76,6 +76,8 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs -r opkg upgrade
 
 # 2 software {#software}
 
+{{<highlight-file path="cofig/network">}}
+
 ## 2.1 openwrt-v2ray {#v2ray}
 
 `openwrt-v2ray`[^openwrt-v2ray]安装步骤
@@ -97,9 +99,17 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 
 {{<highlight-file path="samba.sh" lang="sh">}}
 
-## 2.4 Stats {#samba}
+## 2.4 Stats {#stats}
 
 {{<highlight-file path="stats.sh" lang="sh">}}
+
+## 2.5 Stats {#v2rya}
+
+{{<highlight-file path="v2rya.sh" lang="sh">}}
+
+## 2.4 vlmcsd {#vlmcsd}
+
+{{<highlight-file path="vlmcsd.sh" lang="sh">}}
 
 # 3 x86 {#x86}
 

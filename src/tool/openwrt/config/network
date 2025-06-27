@@ -1,0 +1,10 @@
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+	option ipv6 '0'
+
+config interface 'wan'
+	option proto 'dhcp'
+	option device 'br-lan'
+	option hostname '*'
