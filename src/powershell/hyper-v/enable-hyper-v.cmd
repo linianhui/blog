@@ -1,3 +1,4 @@
+CHCP 65001
 @ECHO ON
 REM 家庭版启用Hyper-V
 SET PACKAGE_PATH=%SystemRoot%\servicing\Packages\
