@@ -12,6 +12,8 @@ toc: true
 Enable-WindowsOptionalFeature -Online -FeatureName:Microsoft-Hyper-V -All
 ```
 
+{{<highlight-file path="enable-hyper-v.cmd" lang="cmd">}}
+
 https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v#enable-hyper-v-using-powershell
 
 
