@@ -529,7 +529,7 @@ function Env-SetWinScpEnvironmentVariable() {
 
 # https://github.com/hacdias/webdav
 # https://github.com/hacdias/webdav/releases/download/v5.8.0/windows-amd64-webdav.zip
-function Env-SetWinScpEnvironmentVariable() {
+function Env-SetWebDavEnvironmentVariable() {
     $APP_WEBDAV_DIR = $APP_DIR + '_webdav\';
 
     Env-TryAppendPathVariable -Value $APP_WEBDAV_DIR
