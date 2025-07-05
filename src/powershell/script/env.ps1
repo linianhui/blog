@@ -535,6 +535,14 @@ function Env-SetWebDavEnvironmentVariable() {
     Env-TryAppendPathVariable -Value $APP_WEBDAV_DIR
 }
 
+# https://github.com/sigoden/dufs
+# https://github.com/sigoden/dufs/releases/download/v0.43.0/dufs-v0.43.0-x86_64-pc-windows-msvc.zip
+function Env-SetDuFsEnvironmentVariable() {
+    $APP_DUFS_DIR = $APP_DIR + '_dufs\';
+
+    Env-TryAppendPathVariable -Value $APP_DUFS_DIR
+}
+
 # 杂项工具
 function Env-SetOtherEnvironmentVariable() {
     $APP_OTHER_DIR = $APP_DIR + '_other\';

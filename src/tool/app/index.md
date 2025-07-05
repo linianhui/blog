@@ -96,6 +96,11 @@ toc: true
 
 <https://mirrors.sdu.edu.cn/github-release/Chuyu-Team_Dism-Multi-language/v10.1.1002.2/Dism++10.1.1002.1B.zip>
 
+# DuFs
+
+<https://github.com/sigoden/dufs>
+<https://github.com/sigoden/dufs/releases/download/v0.43.0/dufs-v0.43.0-x86_64-pc-windows-msvc.zip>
+
 # Etcher
 
 <https://etcher.balena.io/>
