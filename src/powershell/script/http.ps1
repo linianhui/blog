@@ -23,8 +23,8 @@ function Http-Server-Mineserve() {
 
 # https://github.com/sigoden/dufs
 function Http-Server-Dufs() {
-    Log-Debug "dufs --bind 192.168.2.2 --port 8080 --allow-all $Args"
-    dufs --bind 192.168.2.2 --port 8080 --allow-all $Args
+    Log-Debug "dufs --bind 192.168.2.2 --port 8080 --allow-all --log-file z:\_log\dufs.log $Args"
+    dufs --bind 192.168.2.2 --port 8080 --allow-all --log-file z:\_log\dufs.log $Args
 }
 
 function Http-Server-Temp() {
