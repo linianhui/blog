@@ -7,6 +7,7 @@
 [string]$CACHE_DIR = 'd:\_cache\';
 [string]$CONFIG_DIR = 'd:\_config\';
 [string]$DATA_DIR = 'd:\_data\';
+[string]$LOG_DIR = 'd:\_log\';
 [string]$PATH_SPLIT = ';';
 
 function script:Env-TrySetVariable (
@@ -80,6 +81,15 @@ function Env-SetXDGEnvironmentVariable() {
     Env-TrySetVariable -Variable 'XDG_CONFIG_HOME' -Value $CONFIG_DIR
     Env-TrySetVariable -Variable 'XDG_CACHE_HOME' -Value $CACHE_DIR
     Env-TrySetVariable -Variable 'XDG_DATA_HOME' -Value $DATA_DIR
+}
+
+
+function Env-SetHomeEnvironmentVariable() {
+    Env-TrySetVariable -Variable 'HOME_APP' -Value $APP_DIR
+    Env-TrySetVariable -Variable 'HOME_APP_LOG' -Value $LOG_DIR
+    Env-TrySetVariable -Variable 'HOME_APP_CONFIG' -Value $CONFIG_DIR
+    Env-TrySetVariable -Variable 'HOME_APP_CACHE' -Value $CACHE_DIR
+    Env-TrySetVariable -Variable 'HOME_APP_DATA' -Value $DATA_DIR
 }
 
 # https://github.com/MicrosoftArchive/redis/releases
@@ -541,6 +551,15 @@ function Env-SetDuFsEnvironmentVariable() {
     $APP_DUFS_DIR = $APP_DIR + '_dufs\';
 
     Env-TryAppendPathVariable -Value $APP_DUFS_DIR
+}
+
+# https://docs.sftpgo.com/
+# https://github.com/drakkan/sftpgo
+# https://github.com/drakkan/sftpgo/releases/download/v2.6.6/sftpgo_v2.6.6_windows_portable.zip
+function Env-SetSFTPGoEnvironmentVariable() {
+    $APP_SFTOPGO_DIR = $APP_DIR + '_sftpgo\';
+
+    Env-TryAppendPathVariable -Value $APP_SFTOPGO_DIR
 }
 
 # 杂项工具

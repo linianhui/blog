@@ -240,6 +240,12 @@ toc: true
 
 <https://github.com/pbatard/rufus/releases/download/v4.6/rufus-4.6p.exe>
 
+# SFTPGO
+
+<https://docs.sftpgo.com/>
+<https://github.com/drakkan/sftpgo>
+<https://github.com/drakkan/sftpgo/releases/download/v2.6.6/sftpgo_v2.6.6_windows_portable.zip>
+
 # Spacesniffer
 
 <http://www.uderzo.it>
