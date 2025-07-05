@@ -97,6 +97,7 @@ function Env-SetMongoDBEnvironmentVariable() {
 }
 
 # https://www.putty.org/
+# https://the.earth.li/~sgtatham/putty/latest/w64/putty.zip
 function Env-SetPuttyEnvironmentVariable() {
     $APP_PUTTY_DIR = $APP_DIR + '_putty\';
 
@@ -513,6 +514,16 @@ function Env-SetSysinternalsEnvironmentVariable() {
     $APP_SYSINTERNALS_DIR = $APP_DIR + '_sysinternals\';
 
     Env-TryAppendPathVariable -Value $APP_SYSINTERNALS_DIR
+}
+
+
+# https://github.com/winscp/winscp
+# https://winscp.net/eng/index.php
+# https://winscp.net/download/WinSCP-6.5.2-Portable.zip/download
+function Env-SetWinScpEnvironmentVariable() {
+    $APP_WINSCP_DIR = $APP_DIR + '_winscp\';
+
+    Env-TryAppendPathVariable -Value $APP_WINSCP_DIR
 }
 
 # 杂项工具

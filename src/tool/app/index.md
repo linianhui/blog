@@ -302,6 +302,11 @@ docker pull ghcr.io/linianhui/vlmcsd:latest
 
 <https://download.microsoft.com/download/C/4/8/C48F6E20-FE20-41C6-8C1C-408FE7B49A3A/Windows7-USB-DVD-Download-Tool-Installer-en-US.exe>
 
+# WinSCP
+
+<https://github.com/winscp/winscp>
+<https://winscp.net/eng/index.php>
+<https://winscp.net/download/WinSCP-6.5.2-Portable.zip/download>
 
 # Wireshark
 
