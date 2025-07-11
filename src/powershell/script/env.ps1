@@ -129,7 +129,7 @@ function Env-SetJavaEnvironmentVariable() {
     $APP_ARTHAS_BOOT_DIR = $LANG_DIR + '_arthas_boot\';
     $APP_JAVA_BIN_DIR = $APP_JAVA_DIR + 'bin\';
 
-    Env-TrySetVariable -Variable 'JAVA_TOOL_OPTIONS' -Value '-Dfile.encoding=UTF-8'
+    #Env-TrySetVariable -Variable 'JAVA_TOOL_OPTIONS' -Value '-Dfile.encoding=UTF-8'
 
     Env-TrySetVariable -Variable 'JAVA_HOME' -Value $APP_JAVA_DIR
     Env-TrySetVariable -Variable 'ARTHAS_BOOT_HOME' -Value $APP_ARTHAS_BOOT_DIR
@@ -337,7 +337,7 @@ function Env-SetKubectlEnvironmentVariable() {
 # https://docs.docker.com/engine/reference/commandline/cli/#environment-variables
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
 function Env-SetDockerEnvironmentVariable() {
-    $APP_DOCKER_DIR = $LANG_DIR + '_docker\';
+    $APP_DOCKER_DIR = $APP_DIR + '_docker\';
     $CONFIG_DOCKER_DIR = $CONFIG_DIR + '_docker\';
 
     Env-TrySetVariable -Variable 'DOCKER_CONFIG' -Value $CONFIG_DOCKER_DIR
@@ -348,7 +348,7 @@ function Env-SetDockerEnvironmentVariable() {
 # https://docs.docker.com/machine
 # https://docs.docker.com/machine/drivers/hyper-v/
 # function Env-SetDockerMachineEnvironmentVariable() {
-#     $APP_DOCKER_DIR = $LANG_DIR + '_docker\';
+#     $APP_DOCKER_DIR = $APP_DIR + '_docker\';
 #     $BOOT2DOCKER_ISO_DIR = 'file://' + $APP_DOCKER_DIR + 'boot2docker.iso';
 
 #     $DATA_DOCKER_DIR = 'e:\_docker\';
