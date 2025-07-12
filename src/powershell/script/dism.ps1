@@ -67,6 +67,7 @@ function Dism-Get-OsName {
     return "${CsName}-${OsName}";
 }
 
+# 修复命令：sfc /scannow
 # https://www.cnblogs.com/lindexi/p/17679590.html
 # https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options?view=windows-11#cleanup-image
 function Dism-WinSxs-Stats {
