@@ -66,3 +66,17 @@ function Dism-Get-OsName {
     [string]$OsName = $($($ComputerInfo.OsName.ToLower() -Replace 'microsoft', '').Trim() -Replace ' ', '-');
     return "${CsName}-${OsName}";
 }
+
+# https://www.cnblogs.com/lindexi/p/17679590.html
+# https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options?view=windows-11#cleanup-image
+function Dism-WinSxs-Stats {
+    DISM /Online /Cleanup-Image /AnalyzeComponentStore
+}
+
+function Dism-WinSxs-Clean {
+    DISM /online /Cleanup-Image /StartComponentCleanup
+}
+
+function Dism-WinSxs-Clean-All {
+    DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase
+}
