@@ -67,7 +67,6 @@ function Dism-Get-OsName {
     return "${CsName}-${OsName}";
 }
 
-# 修复命令：sfc /scannow
 # https://www.cnblogs.com/lindexi/p/17679590.html
 # https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options?view=windows-11#cleanup-image
 function Dism-WinSxs-Stats {
@@ -83,4 +82,11 @@ function Dism-WinSxs-Clean {
 function Dism-WinSxs-Clean-All {
     Log-Debug 'DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase'
     DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase
+}
+
+function Dism-WinSxs-Repair {
+    Log-Debug '/Cleanup-Image /RestoreHealth /Source:X:\Sources\install.wim /LimitAccess'
+    DISM /Online /Cleanup-Image /RestoreHealth
+    # sfc /scannow
+    # DISM /Online /Cleanup-Image /RestoreHealth /Source:X:\Sources\install.wim /LimitAccess
 }
