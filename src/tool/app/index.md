@@ -267,7 +267,7 @@ toc: true
 
 # Super pi
 
-<http://www.superpi.net/Download/>
+<https://www.techpowerup.com/download/super-pi/>
 
 # Usb tree view
 
