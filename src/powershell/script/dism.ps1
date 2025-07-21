@@ -89,5 +89,5 @@ function Dism-WinSxs-Repair {
     Log-Debug '/Cleanup-Image /RestoreHealth /Source:X:\Sources\install.wim /LimitAccess'
     DISM /Online /Cleanup-Image /RestoreHealth
     # sfc /scannow
-    # DISM /Online /Cleanup-Image /RestoreHealth /Source:X:\Sources\install.wim /LimitAccess
+    # DISM /Online /Cleanup-Image /RestoreHealth /Source:wim:z:\win11\Sources\install.wim:1 /LimitAccess
 }
