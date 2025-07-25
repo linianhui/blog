@@ -101,6 +101,11 @@ toc: true
 <https://github.com/sigoden/dufs>
 <https://github.com/sigoden/dufs/releases/download/v0.43.0/dufs-v0.43.0-x86_64-pc-windows-msvc.zip>
 
+# EdgelessPE
+
+<https://home.edgeless.top/>
+<https://github.com/EdgelessPE/Edgeless>
+
 # Etcher
 
 <https://etcher.balena.io/>
