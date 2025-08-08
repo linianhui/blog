@@ -11,6 +11,16 @@ toc: true
 # CPU
 
 <https://nanoreview.net/en/cpu-list/desktop-chips-rating>
+<https://nanoreview.net/en/cpu-list/amd-chips-rating>
+<https://nanoreview.net/en/cpu-list/intel-chips-rating>
+
+# GPU
+
+<https://nanoreview.net/en/gpu-list/desktop-graphics-rating>
+
+# SSD
+
+致态TiPro9000:<https://www.ymtc.com/cn/products/59.html?cat=44>
 
 # USB {#usb}
 
