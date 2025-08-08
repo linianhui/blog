@@ -246,6 +246,7 @@ function Env-SetPIEnvironmentVariable() {
 }
 
 # https://maven.apache.org/
+# https://maven.apache.org/settings.html
 function Env-SetMavenEnvironmentVariable() {
     $APP_MAVEN_DIR = $LANG_DIR + '_maven\'
     $APP_MAVEN_BIN_DIR = $APP_MAVEN_DIR + 'bin\'
@@ -262,6 +263,14 @@ function Env-SetMavenEnvironmentVariable() {
 
     # http://maven.apache.org/configure.html
     Env-TrySetVariable -Variable 'MAVEN_OPTS' -Value '-Xms256m -Xmx1024m'
+
+    Env-TryAppendPathVariable -Value $APP_MAVEN_BIN_DIR
+}
+
+# https://maven.apache.org/configure.html
+function Env-SetMvndEnvironmentVariable() {
+    $APP_MVND_DIR = $LANG_DIR + '_mvnd\'
+    $APP_MVND_BIN_DIR = $APP_MVND_DIR + 'bin\'
 
     Env-TryAppendPathVariable -Value $APP_MAVEN_BIN_DIR
 }
