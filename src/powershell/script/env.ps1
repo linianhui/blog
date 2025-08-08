@@ -272,7 +272,7 @@ function Env-SetMvndEnvironmentVariable() {
     $APP_MVND_DIR = $LANG_DIR + '_mvnd\'
     $APP_MVND_BIN_DIR = $APP_MVND_DIR + 'bin\'
 
-    Env-TryAppendPathVariable -Value $APP_MAVEN_BIN_DIR
+    Env-TryAppendPathVariable -Value $APP_MVND_BIN_DIR
 }
 
 # https://gradle.org/releases/
