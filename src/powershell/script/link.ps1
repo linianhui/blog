@@ -7,15 +7,17 @@ function Link-Soft() {
     New-Item -ItemType SymbolicLink -Path $VirtualPath -Target $RealPath
 }
 
-function Link-Reset-Home-Sub-Dir {
+function Link-Reset-Home {
      param (
-        [string] $Dir
+        [string] $Path
     )
-    Link-Soft -VirtualPath "${ENV:HOME}\${Dir}" -RealPath "${ENV:HOME_D}\${Dir}"
+    Link-Soft -VirtualPath "${ENV:HOME}\${Path}" -RealPath "${ENV:HOME_D}\${Path}"
 }
 
-function Link-Reset-Home-Sub-Dir-All {
-    Link-Reset-Home-Sub-Dir -Dir '.m2'
-    Link-Reset-Home-Sub-Dir -Dir '.ssh'
-    Link-Reset-Home-Sub-Dir -Dir '.nuget'
+function Link-Reset-Home-All {
+    Link-Reset-Home -Path '.m2'
+    Link-Reset-Home -Path '.ssh'
+    Link-Reset-Home -Path '.nuget'
+    Link-Reset-Home -Path '.gitconfig'
+    Link-Reset-Home -Path '.bash_history'
 }
