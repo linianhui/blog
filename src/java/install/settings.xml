@@ -9,32 +9,9 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
   <localRepository>/lnh/_cache/_maven</localRepository>
-  <!-- <localRepository>d:/_cache/_maven</localRepository> -->
+  <!--<localRepository>d:\\_cache\\_maven</localRepository>-->
 
   <profiles>
-    <profile>
-      <!-- /lib/maven-model-builder-${version}.jar -->
-      <!-- /org/apache/maven/model/pom-4.0.0.xml -->
-      <id>default</id>
-      <repositories>
-        <repository>
-          <id>central</id>
-          <url>https://repo1.maven.org/maven2/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <id>central</id>
-          <url>https://repo1.maven.org/maven2/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-      </pluginRepositories>
-    </profile>
     <profile>
       <!-- https://developer.aliyun.com/mvn/guide -->
       <id>aliyun</id>
@@ -75,7 +52,7 @@
         </pluginRepository>
         <pluginRepository>
           <id>central</id>
-          <url>https://maven.aliyun.com/repository/central/</url>
+          <url>https://maven.aliyun.com/repository/central</url>
         </pluginRepository>
         <pluginRepository>
           <id>jcenter</id>
@@ -103,6 +80,5 @@
 
   <activeProfiles>
     <activeProfile>aliyun</activeProfile>
-    <activeProfile>default</activeProfile>
   </activeProfiles>
 </settings>
