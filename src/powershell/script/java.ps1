@@ -23,7 +23,7 @@ function Java-Set-Jdk {
         Remove-Item $BasePath -Force -Confirm:$False
 
         Log-Info "New-Item -ItemType Junction -Path $BasePath -Target $JdkPath | Out-Null"
-        New-Item -ItemType Junction -Path $BasePath -Target $JdkPath | Out-Null
+        Link-Soft -VirtualPath $BasePath -RealPath $JdkPath | Out-Null
     }
 
     Log-Debug "now jdk path : $((Get-Item -Path $BasePath).Target)"
@@ -44,4 +44,8 @@ function Java17 {
 
 function Java21 {
     Java-Set-Jdk -Version 21
+}
+
+function Java-Maven-Repository-Soft-Link-Create(){
+    Link-Soft -VirtualPath 'd:\_lang\_maven\repository' -RealPath "${ENV:HOME_D}\.m2\repository"
 }

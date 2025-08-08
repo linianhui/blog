@@ -3,6 +3,7 @@
 ################################
 
 [string]$APP_DIR = 'd:\_app\';
+[string]$HOME_DIR = 'd:\_home';
 [string]$LANG_DIR = 'd:\_lang\';
 [string]$CACHE_DIR = 'd:\_cache\';
 [string]$CONFIG_DIR = 'd:\_config\';
@@ -83,8 +84,8 @@ function Env-SetXDGEnvironmentVariable() {
     Env-TrySetVariable -Variable 'XDG_DATA_HOME' -Value $DATA_DIR
 }
 
-
 function Env-SetHomeEnvironmentVariable() {
+    Env-TrySetVariable -Variable 'HOME_D' -Value $HOME_DIR
     Env-TrySetVariable -Variable 'HOME_APP' -Value $APP_DIR
     Env-TrySetVariable -Variable 'HOME_APP_LOG' -Value $LOG_DIR
     Env-TrySetVariable -Variable 'HOME_APP_CONFIG' -Value $CONFIG_DIR
@@ -211,9 +212,6 @@ function Env-SetILSpyEnvironmentVariable() {
 function Env-SetNugetEnvironmentVariable() {
     $APP_NUGET_DIR = $LANG_DIR + '_nuget\';
 
-    $CACHE_NUGET_DIR = $CACHE_DIR + '_nuget\';
-
-    Env-TrySetVariable -Variable 'NUGET_PACKAGES' -Value $CACHE_NUGET_DIR
     Env-TryAppendPathVariable -Value $APP_NUGET_DIR
 }
 
@@ -250,16 +248,12 @@ function Env-SetPIEnvironmentVariable() {
 function Env-SetMavenEnvironmentVariable() {
     $APP_MAVEN_DIR = $LANG_DIR + '_maven\'
     $APP_MAVEN_BIN_DIR = $APP_MAVEN_DIR + 'bin\'
-    $CACHE_MAVEN_DIR = $CACHE_DIR + '_maven\'
 
     # for maven 1
     Env-TrySetVariable -Variable 'MAVEN_HOME' -Value $APP_MAVEN_DIR
 
     # for maven 2 or 3
     Env-TrySetVariable -Variable 'M2_HOME' -Value $APP_MAVEN_DIR
-
-    # for maven-wrapper https://github.com/takari/maven-wrapper
-    Env-TrySetVariable -Variable 'MAVEN_USER_HOME' -Value $APP_MAVEN_DIR
 
     # http://maven.apache.org/configure.html
     Env-TrySetVariable -Variable 'MAVEN_OPTS' -Value '-Xms256m -Xmx1024m'
