@@ -15,6 +15,8 @@ function Link-Reset-Home {
 }
 
 function Link-Reset-Home-All {
+    Link-Reset-Home -Path '.android'
+    Link-Reset-Home -Path '.dotnet'
     Link-Reset-Home -Path '.m2'
     Link-Reset-Home -Path '.ssh'
     Link-Reset-Home -Path '.nuget'
