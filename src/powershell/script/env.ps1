@@ -160,6 +160,7 @@ function Env-SetRubyEnvironmentVariable() {
 }
 
 # https://nodejs.org/en/download/
+# https://nodejs.org/download/release/latest/
 function Env-SetNodeEnvironmentVariable() {
     $APP_NODE_DIR = $LANG_DIR + '_node\';
     $APP_NODE_MODULES_DIR = $APP_NODE_DIR + 'node_modules\';
@@ -170,8 +171,8 @@ function Env-SetNodeEnvironmentVariable() {
     Env-TryAppendPathVariable -Value $APP_NODE_DIR
 
     npm config set cache $CACHE_NODE_DIR --global
-    npm config set registry "https://registry.npm.taobao.org" --global
-    npm install -g cnpm --registry=https://registry.npm.taobao.org
+    npm config set registry "http://registry.npmmirror.com" --global
+    npm install -g cnpm --registry=http://registry.npmmirror.com
 }
 
 
