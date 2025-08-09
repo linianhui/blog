@@ -19,6 +19,7 @@ function Link-Reset-Home-All {
     Link-Reset-Home -Path '.dotnet'
     Link-Reset-Home -Path '.m2'
     Link-Reset-Home -Path '.ssh'
+    Link-Reset-Home -Path '.vscode'
     Link-Reset-Home -Path '.nuget'
     Link-Reset-Home -Path '.gitconfig'
     Link-Reset-Home -Path '.bash_history'
