@@ -253,12 +253,12 @@
           </td>
         </tr>
         <tr>
-          <td>{{changePrinicipalAction.type}}</td>
-          <td><el-date-picker v-model="changePrinicipalAction.date" type="date" placeholder="提前还款的扣款日期"
+          <td>{{changePrincipalAction.type}}</td>
+          <td><el-date-picker v-model="changePrincipalAction.date" type="date" placeholder="提前还款的扣款日期"
               value-format="yyyy-MM-dd" format="yyyy-MM-dd" class="form-input-weight"></el-date-picker></td>
-          <td><el-input-number v-model="changePrinicipalAction.principal"></el-input-number></td>
+          <td><el-input-number v-model="changePrincipalAction.principal"></el-input-number></td>
           <td></td>
-          <td><el-button v-on:click="addChangePrinicipalAction" type="success" icon="el-icon-circle-plus-outline" size="small" plain></el-button>
+          <td><el-button v-on:click="addChangePrincipalAction" type="success" icon="el-icon-circle-plus-outline" size="small" plain></el-button>
           </td>
         </tr>
         <template v-for="(action,i) in actions">

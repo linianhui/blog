@@ -1,19 +1,19 @@
 // 贷款还款类型 - 等额本金
-var LOAN_REPALMENT_TYPE_SAME_PRINCIPAL = '等额本金';
+var LOAN_REPAYMENT_TYPE_SAME_PRINCIPAL = '等额本金';
 // 贷款还款类型 - 等额本息
-var LOAN_REPALMENT_TYPE_SAME_REPALMENT = '等额本息';
+var LOAN_REPAYMENT_TYPE_SAME_REPAYMENT = '等额本息';
 
-var LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE = '调整利率';
-var LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT = '提前还款';
-var LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL = '调整月本金';
+var LOAN_REPAYMENT_PLAN_ACTION_TYPE_RESET_RATE = '调整利率';
+var LOAN_REPAYMENT_PLAN_ACTION_TYPE_PREPAYMENT = '提前还款';
+var LOAN_REPAYMENT_PLAN_ACTION_TYPE_CHANGE_PRINCIPAL = '调整月本金';
 
-var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL = '期数减少，本金减少';
-var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL = '期数减少，本金不变';
-var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME = '期数不变，本金减少';
+var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINCIPAL = '期数减少，本金减少';
+var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINCIPAL = '期数减少，本金不变';
+var LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINCIPAL_NOT_CHANGE_TIME = '期数不变，本金减少';
 var LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST = [
-    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL,
-    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL,
-    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME
+    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINCIPAL,
+    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINCIPAL,
+    LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINCIPAL_NOT_CHANGE_TIME
 ];
 
 function buildCsv(items, bom) {
@@ -260,7 +260,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
     for (var index = 0; index < currentPlanActionList.length; index++) {
         var action = currentPlanActionList[index];
         // 调整房贷利率
-        if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE == action.type) {
+        if (LOAN_REPAYMENT_PLAN_ACTION_TYPE_RESET_RATE == action.type) {
             originPlan.actionList.push(blog.deepClone(action));
             originPlan.rateList.push({
                 yearRate: action.yearRate,
@@ -268,7 +268,7 @@ function buildNextPlanList(repaymentPlan, actionList) {
             });
         }
 
-        if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT == action.type) {
+        if (LOAN_REPAYMENT_PLAN_ACTION_TYPE_PREPAYMENT == action.type) {
             var prepaymentPlan = blog.deepClone(originPlan);
             prepaymentPlan.actionList = [blog.deepClone(action)];
             prepaymentPlan.endInterestDate = blog.dateAddDays(action.date, -1);
@@ -281,25 +281,25 @@ function buildNextPlanList(repaymentPlan, actionList) {
             // 延后原始还款计划的计息时间
             originPlan.beginInterestDate = action.date;
             // 期数减少，本金减少
-            if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL == action.afterAction) {
+            if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINCIPAL == action.afterAction) {
                 originPlan.totalNumberOfRepayment = calculateTotalNumberOfRepayment(originPlan);
                 originPlan.repaymentPrincipal = blog.number(originPlan.balancePrincipal).divide(originPlan.totalNumberOfRepayment).value;
                 originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + ' / ' + originPlan.totalNumberOfRepayment;
             }
             // 期数减少，本金不变
-            if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINICIPAL == action.afterAction) {
+            if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_CHANGE_PRINCIPAL == action.afterAction) {
                 originPlan.totalNumberOfRepayment = Math.ceil(originPlan.balancePrincipal / originPlan.repaymentPrincipal);
                 originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + ' / ' + originPlan.totalNumberOfRepayment;
             }
             // 期数不变，本金减少
-            if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINICIPAL_NOT_CHANGE_TIME == action.afterAction) {
+            if (LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_PRINCIPAL_NOT_CHANGE_TIME == action.afterAction) {
                 originPlan.repaymentPrincipal = blog.number(originPlan.balancePrincipal).divide(originPlan.totalNumberOfRepayment).value;
                 originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + ' / ' + originPlan.totalNumberOfRepayment;
             }
             result.push(prepaymentPlan);
         }
 
-        if (LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL == action.type) {
+        if (LOAN_REPAYMENT_PLAN_ACTION_TYPE_CHANGE_PRINCIPAL == action.type) {
             originPlan.repaymentPrincipal = blog.number(action.principal).value;
             originPlan.totalNumberOfRepayment = Math.ceil(originPlan.balancePrincipal / originPlan.repaymentPrincipal);
             originPlan.repaymentPrincipalFormula = originPlan.balancePrincipal + ' / ' + originPlan.totalNumberOfRepayment;

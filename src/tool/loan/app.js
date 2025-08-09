@@ -1,7 +1,7 @@
-var localtionParam = blog.getLocationParamJson() || {};
-console.log('localtionParam', localtionParam);
-var loanParam = localtionParam.loan || {};
-var actionsParam = localtionParam.actions || [];
+var locationParam = blog.getLocationParamJson() || {};
+console.log('locationParam', locationParam);
+var loanParam = locationParam.loan || {};
+var actionsParam = locationParam.actions || [];
 
 var defaultLoan = {
     totalPrincipal: 1000000,
@@ -33,11 +33,11 @@ for (var index = 0; index < actionsParam.length; index++) {
 }
 actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
 
-var defautParam = {
+var defaultParam = {
     loan: loan,
     actions: actions
 };
-var defautParamJson = JSON.stringify({ loan: defaultLoan, actions: [] });
+var defaultParamJson = JSON.stringify({ loan: defaultLoan, actions: [] });
 
 var vueApp = new Vue({
     el: '#app',
@@ -52,18 +52,18 @@ var vueApp = new Vue({
             afterActionTypes: LOAN_PREPAYMENT_AFTER_ACTION_TYPE_LIST,
             loan: loan,
             resetRateAction: {
-                type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_RESET_RATE,
+                type: LOAN_REPAYMENT_PLAN_ACTION_TYPE_RESET_RATE,
                 date: blog.dateAddMonths(moment(), 3),
                 yearRate: loan.yearRate
             },
             prepaymentAction: {
-                type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_PREPAYMENT,
+                type: LOAN_REPAYMENT_PLAN_ACTION_TYPE_PREPAYMENT,
                 date: blog.dateAddMonths(moment(), 1),
                 principal: 10000,
-                afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINICIPAL
+                afterAction: LOAN_PREPAYMENT_AFTER_ACTION_REDUCE_TIME_NOT_GTE_PRINCIPAL
             },
-            changePrinicipalAction: {
-                type: LOAN_REPLAMENT_PLAN_ACTION_TYPE_CHANGE_PRINICIPAL,
+            changePrincipalAction: {
+                type: LOAN_REPAYMENT_PLAN_ACTION_TYPE_CHANGE_PRINCIPAL,
                 date: blog.dateAddMonths(moment(), 1),
                 principal: 10000,
             },
@@ -101,8 +101,8 @@ var vueApp = new Vue({
             this.actions.push(blog.deepClone(this.prepaymentAction));
             this.actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
         },
-        addChangePrinicipalAction() {
-            this.actions.push(blog.deepClone(this.changePrinicipalAction));
+        addChangePrincipalAction() {
+            this.actions.push(blog.deepClone(this.changePrincipalAction));
             this.actions.sort((a, b) => blog.dateDiffDays(a.date, b.date));
         },
         deleteAction(i) {
@@ -133,8 +133,8 @@ var vueApp = new Vue({
             param.loan = blog.deepClone(this.loan);
             param.actions = blog.deepClone(this.actions);
             var paramJson = JSON.stringify(param);
-            if (paramJson != defautParamJson) {
-                console.log('localtionParam', param);
+            if (paramJson != defaultParamJson) {
+                console.log('locationParam', param);
                 blog.setLocationParams(paramJson);
             } else {
                 blog.setLocationParams();
