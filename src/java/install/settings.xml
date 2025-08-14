@@ -22,24 +22,12 @@
           <url>https://maven.aliyun.com/repository/central</url>
         </repository>
         <repository>
-          <id>jcenter</id>
-          <url>https://maven.aliyun.com/repository/jcenter</url>
-        </repository>
-        <repository>
-          <id>spring</id>
-          <url>https://maven.aliyun.com/repository/spring</url>
-        </repository>
-        <repository>
           <id>gradle-plugin</id>
           <url>https://maven.aliyun.com/repository/gradle-plugin</url>
         </repository>
         <repository>
-          <id>google</id>
-          <url>https://maven.aliyun.com/repository/google</url>
-        </repository>
-        <repository>
-          <id>grails-core</id>
-          <url>https://maven.aliyun.com/repository/grails-core</url>
+          <id>apache snapshots</id>
+          <url>https://maven.aliyun.com/repository/apache-snapshots</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -52,24 +40,12 @@
           <url>https://maven.aliyun.com/repository/central</url>
         </pluginRepository>
         <pluginRepository>
-          <id>jcenter</id>
-          <url>https://maven.aliyun.com/repository/jcenter</url>
-        </pluginRepository>
-        <pluginRepository>
-          <id>spring</id>
-          <url>https://maven.aliyun.com/repository/spring</url>
-        </pluginRepository>
-        <pluginRepository>
           <id>gradle-plugin</id>
           <url>https://maven.aliyun.com/repository/gradle-plugin</url>
         </pluginRepository>
         <pluginRepository>
-          <id>google</id>
-          <url>https://maven.aliyun.com/repository/google</url>
-        </pluginRepository>
-        <pluginRepository>
-          <id>grails-core</id>
-          <url>https://maven.aliyun.com/repository/grails-core</url>
+          <id>apache snapshots</id>
+          <url>https://maven.aliyun.com/repository/apache-snapshots</url>
         </pluginRepository>
       </pluginRepositories>
     </profile>
