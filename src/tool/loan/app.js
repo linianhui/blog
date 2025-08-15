@@ -153,7 +153,7 @@ var vueApp = new Vue({
                 title: {
                     text: '每期还款明细'
                 },
-                backgroundColor: '#efe',
+                backgroundColor: '#F5F5F5',
                 legend: {
                     show: true
                 },
@@ -306,7 +306,7 @@ var vueApp = new Vue({
                 title: {
                     text: '总还款百分比分布'
                 },
-                backgroundColor: '#efe',
+                backgroundColor: '#F5F5F5',
                 grid: {
                     left: 20,
                     right: 20,

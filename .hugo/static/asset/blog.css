@@ -43,7 +43,7 @@ tbody,
 table {
   position: relative;
   border-collapse: collapse;
-  border: 1px solid #ebeef5;
+  border: 1px solid #eee;
   padding: 6px;
   max-width: 100%;
 }
@@ -174,7 +174,7 @@ time {
 .article {
   position: relative;
   padding: 32px;
-  box-shadow: 0 0 2px #ddd;
+  box-shadow: 0 0 2px #eee;
 }
 
 .topic-title,
