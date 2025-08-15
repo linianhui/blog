@@ -331,6 +331,7 @@ var vueApp = new Vue({
                         nodes: nodes,
                         links: links,
                         lineStyle: {
+                            color: 'gradient',
                             curveness: 0.5
                         }
                     }
