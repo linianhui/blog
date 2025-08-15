@@ -285,29 +285,29 @@ function vm-ssh (
 }
 
 function ubt1 () {
-    vm-ssh -username root -hostname ubt1.lan
+    vm-ssh -username root -hostname ubt1
 }
 
 function ubt2 () {
-    vm-ssh -username root -hostname ubt2.lan
+    vm-ssh -username root -hostname ubt2
 }
 
 function ubt3 () {
-    vm-ssh -username root -hostname ubt3.lan
+    vm-ssh -username root -hostname ubt3
 }
 
 function ceos () {
-    vm-ssh -username root -hostname ceos.lan
+    vm-ssh -username root -hostname ceos
 }
 
 function deb1 () {
-    vm-ssh -username root -hostname deb1.lan
+    vm-ssh -username root -hostname deb1
 }
 
 function deb2 () {
-    vm-ssh -username root -hostname deb2.lan
+    vm-ssh -username root -hostname deb2
 }
 
 function deb3 () {
-    vm-ssh -username root -hostname deb3.lan
+    vm-ssh -username root -hostname deb3
 }
