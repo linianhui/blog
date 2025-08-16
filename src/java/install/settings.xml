@@ -6,47 +6,48 @@
   2. 用户设置 HOME/.m2/settiing.xml
 -->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
   <profiles>
     <profile>
-      <!-- https://developer.aliyun.com/mvn/guide -->
+      <!-- https://maven.aliyun.com/mvn/guide -->
       <id>aliyun</id>
       <repositories>
         <repository>
-          <id>public</id>
-          <url>https://maven.aliyun.com/repository/public</url>
-        </repository>
-        <repository>
           <id>central</id>
           <url>https://maven.aliyun.com/repository/central</url>
         </repository>
-        <repository>
+        <!-- <repository>
+          <id>public</id>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </repository>-->
+        <!--<repository>
           <id>gradle-plugin</id>
           <url>https://maven.aliyun.com/repository/gradle-plugin</url>
-        </repository>
-        <repository>
+        </repository>-->
+        <!-- <repository>
           <id>apache snapshots</id>
           <url>https://maven.aliyun.com/repository/apache-snapshots</url>
-        </repository>
+        </repository>-->
       </repositories>
       <pluginRepositories>
         <pluginRepository>
-          <id>public</id>
-          <url>https://maven.aliyun.com/repository/public</url>
-        </pluginRepository>
-        <pluginRepository>
           <id>central</id>
           <url>https://maven.aliyun.com/repository/central</url>
         </pluginRepository>
-        <pluginRepository>
+        <!-- <pluginRepository>
+          <id>public</id>
+          <url>https://maven.aliyun.com/repository/public</url>
+        </pluginRepository>-->
+        <!-- <pluginRepository>
           <id>gradle-plugin</id>
           <url>https://maven.aliyun.com/repository/gradle-plugin</url>
-        </pluginRepository>
-        <pluginRepository>
+        </pluginRepository>-->
+        <!-- <pluginRepository>
           <id>apache snapshots</id>
           <url>https://maven.aliyun.com/repository/apache-snapshots</url>
-        </pluginRepository>
+        </pluginRepository>-->
       </pluginRepositories>
     </profile>
   </profiles>
