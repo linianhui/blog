@@ -30,7 +30,7 @@ Param(
     '/ip.ps1',
     '/k8s.ps1',
     '/docker.ps1',
-    '/hugo.ps1',
+    '/blog.ps1',
     '/java.ps1',
     '/wlan.ps1',
     '/directory.ps1',

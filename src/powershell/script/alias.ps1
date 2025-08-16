@@ -2,7 +2,8 @@
 # powershell alias functions
 ################################
 
-Set-Alias -Name b -Value hugo-blog
+Set-Alias -Name b -Value blog
+Set-Alias -Name bs -Value blog-server
 Set-Alias -Name d -Value Directory-To
 Set-Alias -Name dq -Value Directory-Search-Path-List-From-Quick-Access
 Set-Alias -Name dql -Value Directory-List-Quick-Access
@@ -27,8 +28,6 @@ Set-Alias -Name gti -Value git
 Set-Alias -Name hs -Value http-server
 Set-Alias -Name hst -Value http-server-temp
 Set-Alias -Name hss -Value http-server-share
-
-Set-Alias -Name hsb -Value hugo-server-blog
 
 Set-Alias -Name env -Value Env-GetAllVariable
 

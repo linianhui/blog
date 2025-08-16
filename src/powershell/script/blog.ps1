@@ -3,11 +3,11 @@ function Hugo-Server() {
     hugo server --config hugo.yml --watch --buildDrafts --forceSyncStatic --panicOnWarning --port 13131
 }
 
-function Hugo-Blog() {
+function Blog() {
     cd d:/_code/blog
 }
 
-function Hugo-Server-Blog() {
-    Hugo-Blog
+function Blog-Server() {
+    Blog
     Hugo-Server
 }
