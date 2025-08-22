@@ -170,7 +170,7 @@
           当前成本
         </label>
       </div>
-      <div colspan="2" class="form-input">
+      <div class="form-input">
         <el-input-number id="eCost" v-model="cost" step="0.01">
         </el-input-number>
       </div>
@@ -181,7 +181,7 @@
           当前股价
         </label>
       </div>
-      <div colspan="2" class="form-input">
+      <div class="form-input">
         <el-input-number id="ePrice" v-model="price" step="0.01">
         </el-input-number>
       </div>
@@ -192,7 +192,7 @@
           持仓股数
         </label>
       </div>
-      <div colspan="2" class="form-input">
+      <div class="form-input">
         <el-input-number id="eNumber" v-model="number" step="100"> </el-input-number>
       </div>
     </section>
@@ -202,7 +202,7 @@
           涨停数(10%)
         </label>
       </div>
-      <div colspan="2" class="form-input">
+      <div class="form-input">
         <el-input-number id="eLimitUp" v-model="limitUp" step="1"> </el-input-number>
       </div>
     </section>
@@ -223,7 +223,7 @@
             <tr>
               <td><el-checkbox v-model="action.enabled"></el-checkbox> </td>
               <td><el-select v-model="action.type" :disabled="!action.enabled">
-                  <el-option v-for="item in actionTypes" :key="item" :label="item":value="item"></el-option>
+                  <el-option v-for="item in actionTypes" :key="item" :label="item" :value="item"></el-option>
                 </el-select></td>
               <td><el-input-number v-model="action.price" step="0.01" :disabled="!action.enabled"></el-input-number></td>
               <td><el-input-number v-model="action.number" step="100" :disabled="!action.enabled"></el-input-number></td>
@@ -250,17 +250,18 @@
             <th>收益金额</th>
           </tr>
             <template v-for="item in result.items">
-            <tr class="row-data" v-if="item">
-              <td>{{item.type}}</td>
-              <td>{{item.cost.price | CNY}}<sub v-if="item.costDiff && (item.costDiff.price != 0)" :class="[item.costDiff.priceClass]">{{item.costDiff.price | CNY}}</sub></td>
-              <td>{{item.price.price | CNY}}<sub v-if="item.priceDiff && (item.priceDiff.price != 0)" :class="[item.priceDiff.priceClass]">{{item.priceDiff.price | CNY}}</sub></td>
-              <td>{{item.cost.number }}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.number}}</sub></td>
-              <td>{{item.cost.amount | CNY}}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.amount | CNY}}</sub></td>
-              <td>{{item.price.amount | CNY}}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.amount | CNY}}</sub></td>
-              <td :class="[item.income.amountClass]">{{item.income.amountPercent }}%</td>
-              <td :class="[item.income.amountClass]">{{item.income.amount | CNY}}</sub></td>
+              <tr class="row-data" v-if="item">
+                <td>{{item.type}}</td>
+                <td>{{item.cost.price | CNY}}<sub v-if="item.costDiff && (item.costDiff.price != 0)" :class="[item.costDiff.priceClass]">{{item.costDiff.price | CNY}}</sub></td>
+                <td>{{item.price.price | CNY}}<sub v-if="item.priceDiff && (item.priceDiff.price != 0)" :class="[item.priceDiff.priceClass]">{{item.priceDiff.price | CNY}}</sub></td>
+                <td>{{item.cost.number }}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.number}}</sub></td>
+                <td>{{item.cost.amount | CNY}}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.amount | CNY}}</sub></td>
+                <td>{{item.price.amount | CNY}}<sub v-if="item.action" :class="[item.action.actionClass]">{{item.action.amount | CNY}}</sub></td>
+                <td :class="[item.income.amountClass]">{{item.income.amountPercent }}%</td>
+                <td :class="[item.income.amountClass]">{{item.income.amount | CNY}}</td>
               </tr>
           </template>
+          </table>
       </pre>
     </div>
   </fieldset>
