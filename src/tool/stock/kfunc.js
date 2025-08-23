@@ -12,13 +12,13 @@ function calculateAndSetMACD(itemsTimeAsc, shortPeriod, longPeriod, signalPeriod
         return;
     }
 
-    var emaShortPrev = itemsTimeAsc[0].close;
-    var emaLongPrev = itemsTimeAsc[0].close;
+    var emaShortPrev = itemsTimeAsc[0].收盘价;
+    var emaLongPrev = itemsTimeAsc[0].收盘价;
     var deaPrev = 0;
 
     for (var i = 0; i < itemsTimeAsc.length; i++) {
         var item = itemsTimeAsc[i];
-        var close = itemsTimeAsc[i].close;
+        var close = itemsTimeAsc[i].收盘价;
 
         // 计算EMA、DIF、DEA
         var emaShort = calculateMacdEMA(emaShortPrev, close, shortPeriod);
@@ -115,7 +115,7 @@ function calculateMA(items, endIndex, periods) {
     var beginIndex = 0;
     for (var period of periods) {
         beginIndex = endIndex - period + 1;
-        result[period] = calculateAvg(items, x => x.close, beginIndex, endIndex);
+        result[period] = calculateAvg(items, x => x.收盘价, beginIndex, endIndex);
     }
 
     return result;

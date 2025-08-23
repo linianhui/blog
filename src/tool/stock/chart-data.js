@@ -11,16 +11,16 @@ function adaptKDataFromXueqiu(xueqiu) {
 
     for (var item of xueqiu.item) {
         result.itemsTimeAsc.push({
-            date: blog.dateFormat(moment(item[ki.timestamp])),
-            open: item[ki.open],
-            high: item[ki.high],
-            low: item[ki.low],
-            close: item[ki.close],
-            changeAmount: item[ki.chg],
-            changePercent: item[ki.percent],
-            count: item[ki.volume],
-            amount: item[ki.amount],
-            turnoverRate: item[ki.turnoverrate],
+            日期: blog.dateFormat(moment(item[ki.timestamp])),
+            开盘价: item[ki.open],
+            最高价: item[ki.high],
+            最低价: item[ki.low],
+            收盘价: item[ki.close],
+            涨跌额: item[ki.chg],
+            涨跌幅: item[ki.percent],
+            成交量: item[ki.volume],
+            成交额: item[ki.amount],
+            换手率: item[ki.turnoverrate],
         });
     }
     return result;
