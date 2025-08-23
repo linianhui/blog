@@ -2,7 +2,7 @@ var xueqiu = JSON.parse(blog.httpGet('/tool/stock/xueqiu-data.json'));
 function adaptKDataFromXueqiu(xueqiu) {
     var result = {};
     result.symbol = xueqiu.symbol;
-    result.itemsTimeAsc = [];
+    result.items = [];
 
     var ki = {};
     for (var i = 0; i < xueqiu.column.length; i++) {
@@ -10,7 +10,7 @@ function adaptKDataFromXueqiu(xueqiu) {
     }
 
     for (var item of xueqiu.item) {
-        result.itemsTimeAsc.push({
+        result.items.push({
             日期: blog.dateFormat(moment(item[ki.timestamp])),
             开盘价: item[ki.open],
             最高价: item[ki.high],
@@ -27,6 +27,7 @@ function adaptKDataFromXueqiu(xueqiu) {
 }
 
 var kData = adaptKDataFromXueqiu(xueqiu.data);
-calculateAndSetMA(kData.itemsTimeAsc, [5, 10, 20, 30, 60, 90, 120]);
-calculateAndSetMACD(kData.itemsTimeAsc, 12, 26, 9);
-console.log("kData", kData.itemsTimeAsc.reverse());
+kfunc.calculateAndSetMA(kData.items, [5, 10, 20, 30, 60, 90, 120]);
+kfunc.calculateAndSetMACD(kData.items, 12, 26, 9);
+kfunc.calculateAndSetBOLL(kData.items, 20, 2);
+console.log("kData", kData.items[kData.items.length - 1]);

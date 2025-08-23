@@ -10,10 +10,13 @@ var chartColor = {
     ma30: '#ff7042',
     ma60: '#5bd3a0',
     turnoverRate: '#CCC',
+    bollUP: '#ff9306',
+    bollMA: '#1472d0',
+    bollDN: '#de0cad',
 };
 
 var kChart = echarts.init(this.kChartDiv);
-var kChartDatas = kData.itemsTimeAsc.reverse();
+var kChartDatas = kData.items;
 var kChartOption = {
     tooltip: {
         trigger: 'axis',
@@ -179,6 +182,7 @@ var kChartOption = {
                 width: 1,
                 color: chartColor.ma5
             },
+            dimensions: ['日期', 'ma5'],
             encode: {
                 x: '日期',
                 y: 'ma5'
@@ -195,6 +199,7 @@ var kChartOption = {
                 width: 1,
                 color: chartColor.ma10
             },
+            dimensions: ['日期', 'ma10'],
             encode: {
                 x: '日期',
                 y: 'ma10'
@@ -211,6 +216,7 @@ var kChartOption = {
                 width: 1,
                 color: chartColor.ma20
             },
+            dimensions: ['日期', 'ma20'],
             encode: {
                 x: '日期',
                 y: 'ma20'
@@ -227,6 +233,7 @@ var kChartOption = {
                 width: 1,
                 color: chartColor.ma30
             },
+            dimensions: ['日期', 'ma30'],
             encode: {
                 x: '日期',
                 y: 'ma30'
@@ -243,9 +250,61 @@ var kChartOption = {
                 width: 1,
                 color: chartColor.ma60
             },
+            dimensions: ['日期', 'ma60'],
             encode: {
                 x: '日期',
                 y: 'ma60'
+            }
+        },
+        {
+            name: 'BOLL-UP',
+            type: 'line',
+            xAxisId: 'x股价',
+            yAxisId: 'y股价',
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1,
+                color: chartColor.bollUP
+            },
+            dimensions: ['日期', 'bollUP'],
+            encode: {
+                x: '日期',
+                y: 'bollUP'
+            }
+        },
+        {
+            name: 'BOLL-MA',
+            type: 'line',
+            xAxisId: 'x股价',
+            yAxisId: 'y股价',
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1,
+                color: chartColor.bollMA
+            },
+            dimensions: ['日期', 'bollMA'],
+            encode: {
+                x: '日期',
+                y: 'bollMA'
+            }
+        },
+        {
+            name: 'BOLL-DN',
+            type: 'line',
+            xAxisId: 'x股价',
+            yAxisId: 'y股价',
+            smooth: true,
+            showSymbol: false,
+            lineStyle: {
+                width: 1,
+                color: chartColor.bollDN
+            },
+            dimensions: ['日期', 'bollDN'],
+            encode: {
+                x: '日期',
+                y: 'bollDN'
             }
         },
         {
@@ -259,6 +318,7 @@ var kChartOption = {
                 width: 1,
                 color: chartColor.turnoverRate
             },
+            dimensions: ['日期', '换手率'],
             encode: {
                 x: '日期',
                 y: '换手率'
@@ -277,6 +337,7 @@ var kChartOption = {
             itemStyle: {
                 color: x => x.data.收盘价 >= x.data.开盘价 ? chartColor.red : chartColor.green,
             },
+            dimensions: ['日期', '成交量'],
             encode: {
                 x: '日期',
                 y: '成交量'
@@ -297,6 +358,7 @@ var kChartOption = {
                 color: chartColor.dif,
                 width: 1
             },
+            dimensions: ['日期', 'macdDIF'],
             encode: {
                 x: '日期',
                 y: 'macdDIF'
@@ -313,6 +375,7 @@ var kChartOption = {
                 color: chartColor.dea,
                 width: 1
             },
+            dimensions: ['日期', 'macdDEA'],
             encode: {
                 x: '日期',
                 y: 'macdDEA'
@@ -328,6 +391,7 @@ var kChartOption = {
             itemStyle: {
                 color: x => x.data.macd >= 0 ? chartColor.red : chartColor.green,
             },
+            dimensions: ['日期', 'macd'],
             encode: {
                 x: '日期',
                 y: 'macd'
