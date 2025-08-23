@@ -467,11 +467,13 @@
     function httpGet(url, callback) {
         var xhr = new XMLHttpRequest();
         var async = callback != null;
-        xhr.onreadystatechange = function (e) {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                callback(xhr.responseText);
-            }
-        };
+        if (async) {
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    callback(xhr.responseText);
+                }
+            };
+        }
         xhr.open("GET", url, async);
         xhr.send();
         if (!async) {
@@ -479,8 +481,8 @@
         }
     }
 
-    function httpGetJson(url,callback) {
-        return JSON.stringify(httpGet(url,callback));
+    function httpGetJson(url, callback) {
+        return JSON.stringify(httpGet(url, callback));
     }
 
     initByteUnits(1000);

@@ -7,4 +7,6 @@ draft: true
 ---
 
 {{<element-ui>}}
+{{<echarts>}}
 {{<inline-html path="app.html">}}
+{{<inline-html path="chart.html">}}
