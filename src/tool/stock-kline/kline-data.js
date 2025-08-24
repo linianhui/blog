@@ -25,6 +25,7 @@ function buildKLineDataFromXueqiu(xueqiu) {
             涨跌额: item[ki.chg],
             涨跌幅: item[ki.percent],
             成交量: item[ki.volume],
+            成交量万手: blog.round(item[ki.volume] / 10000_00),
             成交额: item[ki.amount],
             换手率: item[ki.turnoverrate],
         });
