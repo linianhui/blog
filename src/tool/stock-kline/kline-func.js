@@ -9,10 +9,13 @@
      * @param {number} k 标准差倍数，常用2
      * @returns {void}
      */
-    function calculateAndSetBOLL(items, period, k) {
-        if (!items || !items.length) {
+    function calculateAndSetBOLL(items, bollConfig) {
+        if (blog.isEmptyArray(items) || blog.isNull(bollConfig)) {
+            console.log("calculateAndSetBOLL param error", items, bollConfig);
             return;
         }
+        var period = bollConfig.period;
+        var k = bollConfig.k;
         for (var i = 0; i < items.length; i++) {
             var ma = calculateMA(items, i, period);
             var std = calculateBollStd(items, i, period, ma);
@@ -39,13 +42,7 @@
      * @returns {number} 标准差
      */
     function calculateBollStd(items, endIndex, period, ma) {
-        if (!items || !items.length) {
-            return;
-        }
-        if (!period || period <= 0) {
-            return;
-        }
-        if (!ma || ma <= 0) {
+        if (blog.isNullOrLte0(ma)) {
             return;
         }
 
@@ -67,8 +64,25 @@
      * @param {number} signalPeriod DEA周期，常用9
      * @returns {void}
      */
-    function calculateAndSetMACD(items, shortPeriod, longPeriod, signalPeriod) {
-        if (!items || !items.length) {
+    function calculateAndSetMACD(items, macdConfig) {
+        if (blog.isEmptyArray(items) || blog.isNull(macdConfig)) {
+            console.log("calculateAndSetMACD param error", items, macdConfig);
+            return;
+        }
+
+        var shortPeriod = macdConfig.shortPeriod;
+        if (blog.isNullOrLte0(shortPeriod)) {
+            return;
+        }
+        var longPeriod = macdConfig.longPeriod;
+        if (blog.isNullOrLte0(longPeriod)) {
+            return;
+        }
+        if (longPeriod <= shortPeriod) {
+            return;
+        }
+        var signalPeriod = macdConfig.signalPeriod;
+        if (blog.isNullOrLte0(signalPeriod)) {
             return;
         }
 
@@ -107,13 +121,17 @@
     * @param {array} periods 均线周期数组
     * @returns {void}
     */
-    function calculateAndSetMA(items, periods) {
-        if (!items || !items.length) {
+    function calculateAndSetMA(items, maConfig) {
+        if (blog.isEmptyArray(items) || blog.isNull(maConfig)) {
+            console.log("calculateAndSetMA param error", items, maConfig);
             return;
         }
-        if (!periods || !periods.length) {
+
+        var periods = maConfig.periods;
+        if (blog.isEmptyArray(periods)) {
             return;
         }
+
         for (var index = 0; index < items.length; index++) {
             var item = items[index];
             for (var period of periods) {
@@ -163,14 +181,6 @@
     * @returns {object} 周期内收盘价平均值
     */
     function calculateMA(items, endIndex, period) {
-        if (!items || !items.length) {
-            return;
-        }
-
-        if (!period || period == 0) {
-            return;
-        }
-
         var beginIndex = endIndex - period + 1;
         return calculateAvg(items, x => x.收盘价, beginIndex, endIndex);
     }
@@ -184,13 +194,6 @@
     * @returns {number} 平均值
     */
     function calculateAvg(items, valueFunction, beginIndex, endIndex) {
-        if (!items || !items.length) {
-            return;
-        }
-
-        if (!valueFunction) {
-            return;
-        }
         var sum = 0;
         var count = 0;
         for (var i = beginIndex; i <= endIndex; i++) {
@@ -213,9 +216,27 @@
         return blog.round(avg);
     }
 
-    window.kfunc = {
+    function defaultKlineConfig() {
+        return {
+            ma: {
+                periods: [5, 10, 20, 30, 60]
+            },
+            macd: {
+                shortPeriod: 12,
+                longPeriod: 26,
+                signalPeriod: 9
+            },
+            boll: {
+                period: 20,
+                k: 2
+            }
+        };
+    }
+
+    window.kline = {
         calculateAndSetBOLL: calculateAndSetBOLL,
         calculateAndSetMACD: calculateAndSetMACD,
-        calculateAndSetMA: calculateAndSetMA
+        calculateAndSetMA: calculateAndSetMA,
+        defaultKlineConfig: defaultKlineConfig,
     };
 })();

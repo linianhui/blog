@@ -485,6 +485,32 @@
         return JSON.stringify(httpGet(url, callback));
     }
 
+    function isNotEmptyArray(array) {
+        if (array) {
+            return array.length > 0;
+        }
+        return false;
+    }
+
+    function isEmptyArray(array) {
+        return !isNotEmptyArray(array);
+    }
+
+    function isNotNull(value) {
+        if (value) {
+            return true;
+        }
+        return false;
+    }
+
+    function isNull(value) {
+        return !isNotNull(value);
+    }
+
+    function isNullOrLte0(value) {
+        return isNull(value) || value <= 0;
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -521,7 +547,12 @@
         arrayUnique: arrayUnique,
         echartsSankeyLinks2Nodes: echartsSankeyLinks2Nodes,
         httpGet: httpGet,
-        httpGetJson: httpGetJson
+        httpGetJson: httpGetJson,
+        isNotEmptyArray: isNotEmptyArray,
+        isEmptyArray: isEmptyArray,
+        isNotNull: isNotNull,
+        isNull: isNull,
+        isNullOrLte0: isNullOrLte0,
     };
 
 })(window, document, navigator);
