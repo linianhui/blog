@@ -89,7 +89,7 @@ function buildKLineChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: buildChartDataZoom(),
+        dataZoom: [buildChartDataZoom({ type: 'inside' })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
         grid: buildChartGrid(),
@@ -99,6 +99,34 @@ function buildKLineChartOption(klineData) {
             buildChartYAxis({ name: '换手率(%)' })
         ],
         series: series
+    };
+}
+
+function buildKLineCountChartOption(klineData) {
+    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
+        console.log("buildKLineCountChartOption param error", klineData);
+        return;
+    }
+
+    var config = klineData.config;
+    return {
+        tooltip: buildChartToolTip(),
+        toolbox: buildChartToolBox(),
+        dataZoom: [buildChartDataZoom({ type: 'inside' })],
+        dataset: buildChartDataset(klineData),
+        legend: buildChartLegend(),
+        grid: buildChartGrid(),
+        xAxis: [buildChartXAxis()],
+        yAxis: [buildChartYAxis({ name: '成交量(万手)' }),],
+        series: [
+            buildChartBar({
+                name: '成交量',
+                color: x => x.data.收盘价 >= x.data.开盘价 ? config.color.red : config.color.green,
+                x: '日期',
+                y: '成交量万手',
+                valueFormatter: x => x + '万手'
+            })
+        ]
     };
 }
 
@@ -114,11 +142,11 @@ function buildKLineMacdChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: buildChartDataZoom(),
+        dataZoom: [buildChartDataZoom({ type: 'inside' }), buildChartDataZoom({ type: 'slider' })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
-        grid: buildChartGrid(),
-        xAxis: [buildChartXAxis()],
+        grid: buildChartGrid({ bottom: 60 }),
+        xAxis: [buildChartXAxis({ show: true })],
         yAxis: [buildChartYAxis({ name: name }),],
         series: [
             buildChartLine({
@@ -143,35 +171,8 @@ function buildKLineMacdChartOption(klineData) {
     };
 }
 
-function buildKLineCountChartOption(klineData) {
-    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
-        console.log("buildKLineCountChartOption param error", klineData);
-        return;
-    }
-
-    var config = klineData.config;
-    return {
-        tooltip: buildChartToolTip(),
-        toolbox: buildChartToolBox(),
-        dataZoom: buildChartDataZoom(),
-        dataset: buildChartDataset(klineData),
-        legend: buildChartLegend(),
-        grid: buildChartGrid(),
-        xAxis: [buildChartXAxis()],
-        yAxis: [buildChartYAxis({ name: '成交量(万手)' }),],
-        series: [
-            buildChartBar({
-                name: '成交量',
-                color: x => x.data.收盘价 >= x.data.开盘价 ? config.color.red : config.color.green,
-                x: '日期',
-                y: '成交量万手',
-                valueFormatter: x => x + '万手'
-            })
-        ]
-    };
-}
-
 function buildChartLine(option) {
+    option = option || {};
     return {
         name: option.name,
         yAxisIndex: option.yAxisIndex,
@@ -193,6 +194,7 @@ function buildChartLine(option) {
 }
 
 function buildChartBar(option) {
+    option = option || {};
     return {
         name: option.name,
         type: 'bar',
@@ -213,6 +215,7 @@ function buildChartBar(option) {
 }
 
 function buildChartYAxis(option) {
+    option = option || {};
     return {
         name: option.name,
         type: 'value',
@@ -221,22 +224,24 @@ function buildChartYAxis(option) {
 }
 
 function buildChartXAxis(option) {
+    option = option || {};
     return {
         id: 'xAxis0',
         type: 'category',
-        show: true,
-
+        show: option.show
     };
 }
 
-function buildChartGrid() {
+function buildChartGrid(option) {
+    option = option || {};
     return [
         {
             id: 'guid0',
-            top: 60,
+            top: 50,
             left: 20,
             right: 20,
-            containLabel: true
+            containLabel: true,
+            bottom: option.bottom
         }
     ];
 }
@@ -257,26 +262,19 @@ function buildChartDataset(klineData) {
     };
 }
 
-function buildChartDataZoom() {
-    return [
-        {
-            id: 'dzInside0',
-            type: 'inside',
-            start: 90,
-            end: 100
-        }, {
-            id: 'dzSlider0',
-            type: 'slider',
-            start: 90,
-            end: 100
-        }
-    ];
+function buildChartDataZoom(option) {
+    option = option || {};
+    return {
+        type: option.type,
+        start: 90,
+        end: 100
+    };
 }
 
 function buildChartToolBox() {
     return {
         id: 'toolbox0',
-        show: true,
+        show: false,
         right: '20px',
         feature: {
             dataZoom: {

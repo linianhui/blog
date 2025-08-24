@@ -1,9 +1,10 @@
 
 function onChartDispatchToolTip(charts) {
-    onChartDispatch(charts, "showTip1", function (context) {
+    onChartDispatch(charts, "highlight", function (context) {
         var param = context.params.batch ? context.params.batch[0] : context.params;
         return {
             type: 'showTip',
+            seriesIndex: 0,
             dataIndex: param.dataIndex
         };
     });
@@ -43,7 +44,7 @@ function onChartDispatch(charts, event, buildDispatchActionCallback) {
                 return;
             }
             var currentChartId = this.currentChartId;
-            console.log("event", Date.now(), currentChartId, this.event, params);
+            //console.log("event", Date.now(), currentChartId, this.event, params);
             for (var other of this.others) {
                 var action = this.buildDispatchActionCallback({
                     event: this.event,
@@ -53,8 +54,8 @@ function onChartDispatch(charts, event, buildDispatchActionCallback) {
                     continue;
                 }
                 action.__dispatchChartId = currentChartId;
-                console.log("action", Date.now(), other.getDom().id, this.event, action, params);
                 other.dispatchAction(action);
+                //console.log("action", Date.now(), other.getDom().id, this.event, action, params);
             }
         }, that);
     }
