@@ -11,6 +11,7 @@ Param(
 
 @(
     '/link.ps1',
+    '/os.ps1',
     '/function.ps1',
     '/log.ps1',
     '/convert.ps1',
