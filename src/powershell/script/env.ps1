@@ -566,6 +566,16 @@ function Env-SetSFTPGoEnvironmentVariable() {
     Env-TryAppendPathVariable -Value $APP_SFTOPGO_DIR
 }
 
+# https://www.hibitsoft.ir/
+# https://www.hibitsoft.ir/HiBitUninstaller/HiBitUninstaller-Portable-3.2.70.zip
+# https://www.hibitsoft.ir/HibitStartup/HiBitStartupManager-Portable-2.6.60.zip
+# https://www.hibitsoft.ir/HiBitSysynfo/HiBitSysInfo-Portable-2.1.30.zip
+function Env-SetOtherEnvironmentVariable() {
+    $APP_HIBIT_DIR = $APP_DIR + '_hibit\';
+
+    Env-TryAppendPathVariable -Value $APP_HIBIT_DIR
+}
+
 # 杂项工具
 function Env-SetOtherEnvironmentVariable() {
     $APP_OTHER_DIR = $APP_DIR + '_other\';
