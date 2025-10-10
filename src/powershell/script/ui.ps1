@@ -10,7 +10,7 @@ function Ui-Test-Administrator {
 
 function script:UI-GetUserName() {
     $UserName = $ENV:USERNAME.ToLower();
-    if($UserName -eq 'administrator'){
+    if ($UserName -eq 'administrator') {
         return 'admin';
     }
     return $UserName;
@@ -33,6 +33,7 @@ function UI-GetUserPrompt() {
         Prefix       = $Role;
         UserName     = $UserName;
         ComputerName = $ComputerName;
+        CurrentPath  = $CurrentPath;
         Text         = "$Role $UserName@$ComputerName $CurrentPath"
     }
 }

@@ -19,8 +19,9 @@ function prompt () {
     $UserPrompt = UI-GetUserPrompt
     $UserPromptPrefix = $UserPrompt.Prefix
     $UserPromptText = $UserPrompt.Text
+    $UserPromptCurrentPath = $UserPrompt.CurrentPath
 
-    Write-Host -NoNewline "`n$UserPromptText $DateTime $UnixTimeMilliseconds w$Week-$WeekOfYear-$ResidueWeekOfYear d$DayOfYear-$DayOfNewYear" -ForegroundColor Gray
+    Write-Host -NoNewline "`n$UserPromptPrefix $UserPromptCurrentPath $DateTime $UnixTimeMilliseconds w$Week-$WeekOfYear-$ResidueWeekOfYear d$DayOfYear-$DayOfNewYear" -ForegroundColor Gray
     if ($OLD_LASTEXITCODE -gt 0) {
         Write-Host -NoNewline " $OLD_LASTEXITCODE" -ForegroundColor Red
     }
@@ -41,7 +42,7 @@ function prompt () {
     Write-Host
 
     # show current work directory in window title
-    $Host.UI.RawUI.WindowTitle = $UserPromptText
+    # $Host.UI.RawUI.WindowTitle = $UserPromptText
 
     # reset last exit code
     $LASTEXITCODE = $OLD_LASTEXITCODE
