@@ -1,10 +1,10 @@
-MY_HOME=/lnh
-MY_HOME_APP=$MY_HOME/_app
-MY_HOME_CACHE=$MY_HOME/_cache
-MY_HOME_CODE=${MY_HOME}/_code
-MY_HOME_CODE_BLOG=${MY_HOME_CODE}/_code/blog
-MY_HOME_CONFIG=$MY_HOME/_config
-MY_HOME_DATA=$MY_HOME/_data
+export MY_HOME=/lnh
+export MY_HOME_APP=$MY_HOME/_app
+export MY_HOME_CACHE=$MY_HOME/_cache
+export MY_HOME_CODE=${MY_HOME}/_code
+export MY_HOME_CODE_BLOG=${MY_HOME_CODE}/_code/blog
+export MY_HOME_CONFIG=$MY_HOME/_config
+export MY_HOME_DATA=$MY_HOME/_data
 
 # add gnu
 PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
