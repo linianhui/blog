@@ -41,7 +41,7 @@ alias ipl='ipconfig getifaddr en0'
 alias hs='miniserve --color-scheme squirrel --qrcode'
 alias hsu='hs --upload-files'
 
-alias pfd='rinetd --conf-file /lnh/_code/blog/src/tool/rinetd/rinetd.conf'
+alias pfd='rinetd --conf-file ${MY_HOME_CODE_BLOG}/src/tool/rinetd/rinetd.conf'
 alias pf='pfd --foreground'
 
 alias env='env | sort'
@@ -85,7 +85,7 @@ alias java21='export JAVA_HOME=$JAVA_21_HOME && java -version'
 alias proxy='export ALL_PROXY=socks5://127.0.0.1:1080'
 alias unproxy='unset ALL_PROXY'
 
-alias redis-server='redis-server /lnh/_code/blog/src/redis/install/redis.conf'
+alias redis-server='redis-server ${MY_HOME_CODE_BLOG}/src/redis/install/redis.conf'
 
 alias ja='java -jar $JAVA_HOME/arthas-boot.jar --repo-mirror aliyun --use-http'
 
@@ -98,4 +98,4 @@ alias gi='git'
 
 alias k='kubectl'
 alias kp='k get pods'
-alias kpt='kp -o custom-columns-file=/lnh/_code/blog/src/k8s/kubectl/terminated-pod.txt --sort-by="{.status.containerStatuses[0].lastState.terminated.finishedAt}"'
+alias kpt='kp -o custom-columns-file=${MY_HOME_CODE_BLOG}/src/k8s/kubectl/terminated-pod.txt --sort-by="{.status.containerStatuses[0].lastState.terminated.finishedAt}"'
