@@ -12,7 +12,7 @@ precmd(){
   NEW_LINE=$'\n'
   LAST_EXIT_CODE="%(?..%F{red}%?%f)"
   TIME=$(gdate +'%y-%m-%d %T %:z %s%3N w%u d%-j')
-  COMMON_PROMPT='$NEW_LINE%F{green}$USER_TYPE%f %n@%m %d $TIME $LAST_EXIT_CODE'
+  COMMON_PROMPT='$NEW_LINE%F{green}$USER_TYPE%f %d $TIME $LAST_EXIT_CODE'
   INPUT_PROMPT='$NEW_LINE'
   if git rev-parse --git-dir > /dev/null 2>&1; then
     GIT_USER="$(git config user.name)@<$(git config user.email)>"
