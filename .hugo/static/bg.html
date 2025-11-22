@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+  <script>
+    var colors = ['#FFF', '#F00', '#0F0', '#00F', '#000'];
+    var count = 0;
+    function changeBackgroundColor() {
+      var index = count % colors.length;
+      document.body.style.backgroundColor = colors[index];
+      count++;
+    }
+    window.onclick = changeBackgroundColor;
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
