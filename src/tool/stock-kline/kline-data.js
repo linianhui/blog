@@ -15,22 +15,25 @@ function buildKLineDataFromXueqiu(xueqiu, config) {
         ki[xueqiu.column[i]] = i;
     }
 
+    var avgPrev = blog.round(xueqiu.item[0][ki.amount] / xueqiu.item[0][ki.volume], 2);
     for (var item of xueqiu.item) {
+        var avg = blog.round(item[ki.amount] / item[ki.volume], 2);
         result.items.push({
             avgAsClose: config.avgAsClose,
             日期: blog.dateFormat(moment(item[ki.timestamp])),
-            开盘价: item[ki.open],
-            最高价: item[ki.high],
-            最低价: item[ki.low],
-            收盘价: item[ki.close],
+            开盘价: config.avgAsClose ? avgPrev :  item[ki.open],
+            最高价: config.avgAsClose ? Math.max(avgPrev, avg) :  item[ki.high],
+            最低价: config.avgAsClose ? Math.min(avgPrev, avg) :  item[ki.low],
+            收盘价: config.avgAsClose ? avg :  item[ki.close],
             涨跌额: item[ki.chg],
             涨跌幅: item[ki.percent],
             成交量: item[ki.volume],
             成交量万手: blog.round(item[ki.volume] / 10000_00),
             成交额: item[ki.amount],
-            均价: blog.round(item[ki.amount] / item[ki.volume], 2),
+            均价: avg,
             换手率: item[ki.turnoverrate],
         });
+        avgPrev = avg;
     }
     return result;
 }
