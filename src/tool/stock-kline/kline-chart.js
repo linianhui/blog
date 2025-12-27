@@ -78,6 +78,15 @@ function buildKLineChartOption(klineData) {
     }));
 
     series.push(buildChartLine({
+        name: '均价',
+        yAxisIndex: 0,
+        color: config.color.red,
+        x: '日期',
+        y: '均价',
+        valueFormatter: x => x + '元'
+    }));
+
+    series.push(buildChartLine({
         name: '换手率',
         yAxisIndex: 1,
         color: config.color.turnoverRate,

@@ -2,7 +2,7 @@ function getXueqiuKlineData() {
     return JSON.parse(blog.httpGet('/tool/stock-kline/data/kline-data-xueqiu.json'));
 }
 
-function buildKLineDataFromXueqiu(xueqiu) {
+function buildKLineDataFromXueqiu(xueqiu, config) {
     if (blog.isNull(xueqiu)) {
         return;
     }
@@ -17,6 +17,7 @@ function buildKLineDataFromXueqiu(xueqiu) {
 
     for (var item of xueqiu.item) {
         result.items.push({
+            avgAsClose: config.avgAsClose,
             日期: blog.dateFormat(moment(item[ki.timestamp])),
             开盘价: item[ki.open],
             最高价: item[ki.high],
@@ -27,6 +28,7 @@ function buildKLineDataFromXueqiu(xueqiu) {
             成交量: item[ki.volume],
             成交量万手: blog.round(item[ki.volume] / 10000_00),
             成交额: item[ki.amount],
+            均价: blog.round(item[ki.amount] / item[ki.volume], 2),
             换手率: item[ki.turnoverrate],
         });
     }
