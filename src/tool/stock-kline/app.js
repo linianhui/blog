@@ -1,10 +1,10 @@
 var klineChart = echarts.init(this.klineChartDiv);
 var klineMacdChart = echarts.init(this.klineMacdChartDiv);
 var klineCountChart = echarts.init(this.klineCountChartDiv);
-var xueqiu = getXueqiuKlineData();
+var data = getKlineData('SZ301357');
 
 var klineDataConfig = kline.defaultKlineConfig();
-var klineData = buildKLineDataFromXueqiu(xueqiu.data, klineDataConfig);
+var klineData = buildKLineData(data.data, klineDataConfig);
 klineData.config = klineDataConfig;
 klineData.config.color = buildKlineColorConfig();
 

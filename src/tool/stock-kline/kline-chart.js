@@ -280,7 +280,7 @@ function buildChartDataZoom(option) {
     option = option || {};
     return {
         type: option.type,
-        start: 90,
+        start: 50,
         end: 100
     };
 }

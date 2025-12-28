@@ -1,23 +1,23 @@
-function getXueqiuKlineData() {
-    return JSON.parse(blog.httpGet('/tool/stock-kline/data/kline-data-xueqiu.json'));
+function getKlineData(symbol) {
+    return JSON.parse(blog.httpGet('/tool/stock-kline/data/' + symbol + '.json'));
 }
 
-function buildKLineDataFromXueqiu(xueqiu, config) {
-    if (blog.isNull(xueqiu)) {
+function buildKLineData(data, config) {
+    if (blog.isNull(data)) {
         return;
     }
     var enabledAvgAsClose = config.enabledAvgAsClose;
     var result = {};
-    result.symbol = xueqiu.symbol;
+    result.symbol = data.symbol;
     result.items = [];
 
     var ki = {};
-    for (var i = 0; i < xueqiu.column.length; i++) {
-        ki[xueqiu.column[i]] = i;
+    for (var i = 0; i < data.column.length; i++) {
+        ki[data.column[i]] = i;
     }
 
-    var avgPrev = blog.round(xueqiu.item[0][ki.amount] / xueqiu.item[0][ki.volume], 2);
-    for (var item of xueqiu.item) {
+    var avgPrev = blog.round(data.item[0][ki.amount] / data.item[0][ki.volume], 2);
+    for (var item of data.item) {
         var avg = blog.round(item[ki.amount] / item[ki.volume], 2);
         var date = blog.dateFormat(moment(item[ki.timestamp]));
         var open = item[ki.open];
