@@ -48,7 +48,7 @@
 
         // 计算标准差
         var beginIndex = endIndex - period + 1;
-        var avg = calculateAvg(items, x => Math.pow(x.avgAsClose ? x.均价 : x.收盘价 - ma, 2), beginIndex, endIndex);
+        var avg = calculateAvg(items, x => Math.pow(x.收盘价 - ma, 2), beginIndex, endIndex);
         if (!avg || avg <= 0) {
             return;
         }
@@ -86,13 +86,13 @@
             return;
         }
 
-        var emaShortPrev = items[0].avgAsClose ? items[0].均价 : items[0].收盘价;
-        var emaLongPrev = items[0].avgAsClose ? items[0].均价 : items[0].收盘价;
+        var emaShortPrev = items[0].收盘价;
+        var emaLongPrev = items[0].收盘价;
         var deaPrev = 0;
 
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
-            var close = items[i].avgAsClose ? items[i].均价 : items[i].收盘价;
+            var close = items[i].收盘价;
 
             // 计算EMA、DIF、DEA
             var emaShort = calculateMacdEMA(emaShortPrev, close, shortPeriod);
@@ -182,7 +182,7 @@
     */
     function calculateMA(items, endIndex, period) {
         var beginIndex = endIndex - period + 1;
-        return calculateAvg(items, x => x.avgAsClose ? x.均价 : x.收盘价, beginIndex, endIndex);
+        return calculateAvg(items, x => x.收盘价, beginIndex, endIndex);
     }
 
     /**
@@ -220,12 +220,12 @@
         return {
             avgAsClose: true,
             ma: {
-                periods: [5, 10, 20, 30, 60]
+                periods: [5, 10, 20, 60]
             },
             macd: {
-                shortPeriod: 12,
-                longPeriod: 26,
-                signalPeriod: 9
+                shortPeriod: 10,
+                longPeriod: 20,
+                signalPeriod: 5
             },
             boll: {
                 period: 20,

@@ -6,6 +6,7 @@ function buildKLineDataFromXueqiu(xueqiu, config) {
     if (blog.isNull(xueqiu)) {
         return;
     }
+    var avgAsClose = config.avgAsClose;
     var result = {};
     result.symbol = xueqiu.symbol;
     result.items = [];
@@ -19,13 +20,18 @@ function buildKLineDataFromXueqiu(xueqiu, config) {
     for (var item of xueqiu.item) {
         var avg = blog.round(item[ki.amount] / item[ki.volume], 2);
         var date = blog.dateFormat(moment(item[ki.timestamp]));
+        var open = item[ki.open];
+        var close = item[ki.close];
+        if (avgAsClose) {
+            open = avgPrev;
+            close = avg;
+        }
         result.items.push({
-            avgAsClose: config.avgAsClose,
             日期: date,
-            开盘价: config.avgAsClose ? avgPrev : item[ki.open],
-            最高价: config.avgAsClose ? Math.max(avgPrev, avg) : item[ki.high],
-            最低价: config.avgAsClose ? Math.min(avgPrev, avg) : item[ki.low],
-            收盘价: config.avgAsClose ? avg : item[ki.close],
+            开盘价: open,
+            最高价: item[ki.high],
+            最低价: item[ki.low],
+            收盘价: close,
             涨跌额: item[ki.chg],
             涨跌幅: item[ki.percent],
             成交量: item[ki.volume],

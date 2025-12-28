@@ -191,6 +191,10 @@ function buildChartLine(option) {
         itemStyle: {
             color: option.color
         },
+        lineStyle: {
+            width: 1
+        },
+        z: 0,
         dimensions: [option.x, option.y],
         encode: {
             x: option.x,
