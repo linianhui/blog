@@ -1,6 +1,7 @@
 
 function buildKlineColorConfig() {
     return {
+        avg: '#CCC',
         red: '#dd2200',
         green: '#337f4c',
         gray: '#333',
@@ -80,7 +81,7 @@ function buildKLineChartOption(klineData) {
     series.push(buildChartLine({
         name: '均价',
         yAxisIndex: 0,
-        color: config.color.red,
+        color: config.color.avg,
         x: '日期',
         y: '均价',
         valueFormatter: x => x + '元'

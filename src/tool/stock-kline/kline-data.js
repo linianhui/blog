@@ -6,7 +6,7 @@ function buildKLineDataFromXueqiu(xueqiu, config) {
     if (blog.isNull(xueqiu)) {
         return;
     }
-    var avgAsClose = config.avgAsClose;
+    var enabledAvgAsClose = config.enabledAvgAsClose;
     var result = {};
     result.symbol = xueqiu.symbol;
     result.items = [];
@@ -22,15 +22,15 @@ function buildKLineDataFromXueqiu(xueqiu, config) {
         var date = blog.dateFormat(moment(item[ki.timestamp]));
         var open = item[ki.open];
         var close = item[ki.close];
-        if (avgAsClose) {
+        if (enabledAvgAsClose) {
             open = avgPrev;
             close = avg;
         }
         result.items.push({
             日期: date,
             开盘价: open,
-            最高价: item[ki.high],
-            最低价: item[ki.low],
+            最高价: Math.max(avg, avgPrev),
+            最低价: Math.min(avg, avgPrev),
             收盘价: close,
             涨跌额: item[ki.chg],
             涨跌幅: item[ki.percent],

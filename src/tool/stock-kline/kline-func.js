@@ -135,7 +135,7 @@
         for (var index = 0; index < items.length; index++) {
             var item = items[index];
             for (var period of periods) {
-                var ma = calculateMA(items, index, period);
+                var ma = calculateMA(maConfig, items, index, period);
                 item['ma' + period] = ma;
             }
         }
@@ -180,9 +180,14 @@
     * @param {array} period 周期
     * @returns {object} 周期内收盘价平均值
     */
-    function calculateMA(items, endIndex, period) {
+    function calculateMA(maConfig, items, endIndex, period) {
         var beginIndex = endIndex - period + 1;
-        return calculateAvg(items, x => x.收盘价, beginIndex, endIndex);
+        return calculateAvgWeight(items, x => {
+            return {
+                value: x.收盘价,
+                weight: x.成交量
+            };
+        }, beginIndex, endIndex);
     }
 
     /**
@@ -216,13 +221,46 @@
         return blog.round(avg);
     }
 
+    /**
+* 计算平均值
+* @param {array} items k线数据
+* @param {function} valueFunction 获取值的函数，参数为单个k线数据，返回值为数字
+* @param {number} beginIndex 开始索引
+* @param {number} endIndex 结束索引
+* @returns {number} 平均值
+*/
+    function calculateAvgWeight(items, valueFunction, beginIndex, endIndex) {
+        var sum = 0;
+        var count = 0;
+        for (var i = beginIndex; i <= endIndex; i++) {
+            if (i < 0) {
+                continue;
+            }
+            var item = valueFunction(items[i]);
+            if (item) {
+                var value = item.value * item.weight;
+                if (value) {
+                    sum = sum + value;
+                    count = count + item.weight;
+                }
+            }
+        }
+        if (count === 0) {
+            return;
+        }
+        var avg = sum / count;
+        return blog.round(avg);
+    }
+
     function defaultKlineConfig() {
         return {
-            avgAsClose: true,
+            enabledAvgAsClose: true,
             ma: {
+                enabledAvgWeight: true,
                 periods: [5, 10, 20, 60]
             },
             macd: {
+                enabledAvgWeight: true,
                 shortPeriod: 10,
                 longPeriod: 20,
                 signalPeriod: 5
