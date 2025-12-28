@@ -56,26 +56,26 @@ function buildKLineChartOption(klineData) {
         }
     }
 
-    series.push(buildChartLine({
-        name: 'BOLL-UP',
-        color: config.color.bollUP,
-        x: '日期',
-        y: 'bollUP'
-    }));
+    // series.push(buildChartLine({
+    //     name: 'BOLL-UP',
+    //     color: config.color.bollUP,
+    //     x: '日期',
+    //     y: 'bollUP'
+    // }));
 
-    series.push(buildChartLine({
-        name: 'BOLL-MA',
-        color: config.color.bollMA,
-        x: '日期',
-        y: 'bollMA'
-    }));
+    // series.push(buildChartLine({
+    //     name: 'BOLL-MA',
+    //     color: config.color.bollMA,
+    //     x: '日期',
+    //     y: 'bollMA'
+    // }));
 
-    series.push(buildChartLine({
-        name: 'BOLL-DN',
-        color: config.color.bollDN,
-        x: '日期',
-        y: 'bollDN'
-    }));
+    // series.push(buildChartLine({
+    //     name: 'BOLL-DN',
+    //     color: config.color.bollDN,
+    //     x: '日期',
+    //     y: 'bollDN'
+    // }));
 
     series.push(buildChartLine({
         name: '均价',
@@ -86,14 +86,14 @@ function buildKLineChartOption(klineData) {
         valueFormatter: x => x + '元'
     }));
 
-    series.push(buildChartLine({
-        name: '换手率',
-        yAxisIndex: 1,
-        color: config.color.turnoverRate,
-        x: '日期',
-        y: '换手率',
-        valueFormatter: x => x + '%'
-    }));
+    // series.push(buildChartLine({
+    //     name: '换手率',
+    //     yAxisIndex: 1,
+    //     color: config.color.turnoverRate,
+    //     x: '日期',
+    //     y: '换手率',
+    //     valueFormatter: x => x + '%'
+    // }));
 
     return {
         tooltip: buildChartToolTip(),
@@ -105,7 +105,7 @@ function buildKLineChartOption(klineData) {
         xAxis: [buildChartXAxis()],
         yAxis: [
             buildChartYAxis({ name: '股价(元)' }),
-            buildChartYAxis({ name: '换手率(%)' })
+            //buildChartYAxis({ name: '换手率(%)' })
         ],
         series: series
     };
