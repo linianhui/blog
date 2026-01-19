@@ -30,10 +30,10 @@ function buildKLineChartOption(klineData) {
     series.push({
         name: '日K',
         type: 'candlestick',
-        dimensions: ['日期', '开盘价', '收盘价', '最高价', '最低价'],
+        dimensions: ['日期', 'open', 'close', 'high', 'low'],
         encode: {
             x: '日期',
-            y: ['开盘价', '收盘价', '最高价', '最低价'],
+            y: ['open', 'close', 'high', 'low'],
             tooltip: ['开盘价', '收盘价', '最高价', '最低价'],
         },
         itemStyle: {
@@ -135,6 +135,33 @@ function buildKLineCountChartOption(klineData) {
                 x: '日期',
                 y: '成交量万手',
                 valueFormatter: x => x + '万手'
+            })
+        ]
+    };
+}
+
+function buildKLineOvbChartOption(klineData) {
+    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
+        console.log("buildKLineOvbChartOption param error", klineData);
+        return;
+    }
+
+    var config = klineData.config;
+    return {
+        tooltip: buildChartToolTip(),
+        toolbox: buildChartToolBox(),
+        dataZoom: [buildChartDataZoom({ type: 'inside' })],
+        dataset: buildChartDataset(klineData),
+        legend: buildChartLegend(),
+        grid: buildChartGrid(),
+        xAxis: [buildChartXAxis()],
+        yAxis: [buildChartYAxis({ name: 'OVB' }),],
+        series: [
+            buildChartLine({
+                name: 'OVB',
+                color: config.color.red,
+                x: '日期',
+                y: 'ovb'
             })
         ]
     };

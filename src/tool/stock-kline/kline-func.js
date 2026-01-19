@@ -9,13 +9,13 @@
      * @param {number} k 标准差倍数，常用2
      * @returns {void}
      */
-    function calculateAndSetBOLL(items, bollConfig) {
-        if (blog.isEmptyArray(items) || blog.isNull(bollConfig)) {
-            console.log("calculateAndSetBOLL param error", items, bollConfig);
+    function calculateAndSetBOLL(items, config) {
+        if (blog.isEmptyArray(items) || blog.isNull(config)) {
+            console.log("calculateAndSetBOLL param error", items, config);
             return;
         }
-        var period = bollConfig.period;
-        var k = bollConfig.k;
+        var period = config.period;
+        var k = config.k;
         for (var i = 0; i < items.length; i++) {
             var ma = calculateMA(items, i, period);
             var std = calculateBollStd(items, i, period, ma);
@@ -64,35 +64,35 @@
      * @param {number} signalPeriod DEA周期，常用9
      * @returns {void}
      */
-    function calculateAndSetMACD(items, macdConfig) {
-        if (blog.isEmptyArray(items) || blog.isNull(macdConfig)) {
-            console.log("calculateAndSetMACD param error", items, macdConfig);
+    function calculateAndSetMACD(items, config) {
+        if (blog.isEmptyArray(items) || blog.isNull(config)) {
+            console.log("calculateAndSetMACD param error", items, config);
             return;
         }
 
-        var shortPeriod = macdConfig.shortPeriod;
+        var shortPeriod = config.shortPeriod;
         if (blog.isNullOrLte0(shortPeriod)) {
             return;
         }
-        var longPeriod = macdConfig.longPeriod;
+        var longPeriod = config.longPeriod;
         if (blog.isNullOrLte0(longPeriod)) {
             return;
         }
         if (longPeriod <= shortPeriod) {
             return;
         }
-        var signalPeriod = macdConfig.signalPeriod;
+        var signalPeriod = config.signalPeriod;
         if (blog.isNullOrLte0(signalPeriod)) {
             return;
         }
 
-        var emaShortPrev = items[0].收盘价;
-        var emaLongPrev = items[0].收盘价;
+        var emaShortPrev = config.value(config, items[0]);
+        var emaLongPrev = config.value(config, items[0]);
         var deaPrev = 0;
 
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
-            var close = items[i].收盘价;
+            var close = config.value(config, item);
 
             // 计算EMA、DIF、DEA
             var emaShort = calculateMacdEMA(emaShortPrev, close, shortPeriod);
@@ -121,13 +121,13 @@
     * @param {array} periods 均线周期数组
     * @returns {void}
     */
-    function calculateAndSetMA(items, maConfig) {
-        if (blog.isEmptyArray(items) || blog.isNull(maConfig)) {
-            console.log("calculateAndSetMA param error", items, maConfig);
+    function calculateAndSetMA(items, config) {
+        if (blog.isEmptyArray(items) || blog.isNull(config)) {
+            console.log("calculateAndSetMA param error", items, config);
             return;
         }
 
-        var periods = maConfig.periods;
+        var periods = config.periods;
         if (blog.isEmptyArray(periods)) {
             return;
         }
@@ -135,9 +135,38 @@
         for (var index = 0; index < items.length; index++) {
             var item = items[index];
             for (var period of periods) {
-                var ma = calculateMA(maConfig, items, index, period);
+                var ma = calculateMA(config, items, index, period);
                 item['ma' + period] = ma;
             }
+        }
+    }
+
+    /**
+  * 计算均线MA并设置到k线数据中
+  * @param {array} items k线数据
+  * @param {array} periods 均线周期数组
+  * @returns {void}
+  */
+    function calculateAndSetOVB(items, config) {
+        if (blog.isEmptyArray(items) || blog.isNull(config)) {
+            console.log("calculateAndSetOVB param error", items, config);
+            return;
+        }
+        var prev = items[0];
+        prev.ovb = prev.成交量万手;
+        for (var index = 1; index < items.length; index++) {
+            var prevValue = config.value(config, prev);
+            var item = items[index];
+            var itemValue = config.value(config, item);
+            if (itemValue > prevValue) {
+                item.ovb = prev.ovb + item.成交量万手;
+            } else if (itemValue < prevValue) {
+                item.ovb = prev.ovb - item.成交量万手;
+            } else {
+                item.ovb = prev.ovb;
+            }
+            prev = item;
+
         }
     }
 
@@ -180,12 +209,12 @@
     * @param {array} period 周期
     * @returns {object} 周期内收盘价平均值
     */
-    function calculateMA(maConfig, items, endIndex, period) {
+    function calculateMA(config, items, endIndex, period) {
         var beginIndex = endIndex - period + 1;
         return calculateAvgWeight(items, x => {
             return {
-                value: x.收盘价,
-                weight: x.成交量
+                value: config.value(config, x),
+                weight: x.成交量万手
             };
         }, beginIndex, endIndex);
     }
@@ -222,13 +251,13 @@
     }
 
     /**
-* 计算平均值
-* @param {array} items k线数据
-* @param {function} valueFunction 获取值的函数，参数为单个k线数据，返回值为数字
-* @param {number} beginIndex 开始索引
-* @param {number} endIndex 结束索引
-* @returns {number} 平均值
-*/
+    * 计算平均值
+    * @param {array} items k线数据
+    * @param {function} valueFunction 获取值的函数，参数为单个k线数据，返回值为数字
+    * @param {number} beginIndex 开始索引
+    * @param {number} endIndex 结束索引
+    * @returns {number} 平均值
+    */
     function calculateAvgWeight(items, valueFunction, beginIndex, endIndex) {
         var sum = 0;
         var count = 0;
@@ -257,17 +286,38 @@
             enabledAvgAsClose: true,
             ma: {
                 enabledAvgWeight: true,
-                periods: [5, 10, 20, 60]
+                periods: [5, 10, 20, 60],
+                value: function (config, item) {
+                    if (config.enabledAvgWeight) {
+                        return item.均价;
+                    }
+                    return item.收盘价;
+                }
             },
             macd: {
                 enabledAvgWeight: true,
                 shortPeriod: 10,
                 longPeriod: 20,
-                signalPeriod: 5
+                signalPeriod: 5,
+                value: function (config, item) {
+                    if (config.enabledAvgWeight) {
+                        return item.均价;
+                    }
+                    return item.收盘价;
+                }
             },
             boll: {
                 period: 20,
                 k: 2
+            },
+            ovb: {
+                enabledAvgWeight: true,
+                value: function (config, item) {
+                    if (config.enabledAvgWeight) {
+                        return item.均价;
+                    }
+                    return item.收盘价;
+                }
             }
         };
     }
@@ -276,6 +326,7 @@
         calculateAndSetBOLL: calculateAndSetBOLL,
         calculateAndSetMACD: calculateAndSetMACD,
         calculateAndSetMA: calculateAndSetMA,
+        calculateAndSetOVB: calculateAndSetOVB,
         defaultKlineConfig: defaultKlineConfig,
     };
 })();

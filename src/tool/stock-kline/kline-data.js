@@ -28,10 +28,14 @@ function buildKLineData(data, config) {
         }
         result.items.push({
             日期: date,
-            开盘价: open,
-            最高价: Math.max(avg, avgPrev),
-            最低价: Math.min(avg, avgPrev),
-            收盘价: close,
+            open: open,
+            high: Math.max(avg, avgPrev),
+            low: Math.min(avg, avgPrev),
+            close: close,
+            开盘价: item[ki.open],
+            最高价: item[ki.high],
+            最低价: item[ki.low],
+            收盘价: item[ki.close],
             涨跌额: item[ki.chg],
             涨跌幅: item[ki.percent],
             成交量: item[ki.volume],
@@ -58,6 +62,7 @@ function calculateKLine(klineData) {
     kline.calculateAndSetMA(klineData.items, klineData.config.ma);
     kline.calculateAndSetMACD(klineData.items, klineData.config.macd);
     kline.calculateAndSetBOLL(klineData.items, klineData.config.boll);
+    kline.calculateAndSetOVB(klineData.items, klineData.config.ovb);
     console.log("calculateKLine end", klineData, klineData.config);
     console.log("calculateKLine end last item", klineData.items[klineData.items.length - 1]);
 }
