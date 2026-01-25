@@ -4,7 +4,7 @@
   },
   "inbounds": [
     {
-      "listen": "127.0.0.1",
+      "listen": "$V2RAY_CLIENT_IP",
       "port": 1080,
       "protocol": "socks",
       "settings": {
@@ -50,30 +50,9 @@
     {
       "protocol": "freedom",
       "settings": {},
-      "tag": "direct",
       "mux": {
         "enabled": false
       }
     }
-  ],
-  "routing": {
-    "domainStrategy": "IPOnDemand",
-    "rules": [
-      {
-        "type": "field",
-        "outboundTag": "direct",
-        "domain": [
-          "geosite:cn"
-        ]
-      },
-      {
-        "type": "field",
-        "outboundTag": "direct",
-        "ip": [
-          "geoip:cn",
-          "geoip:private"
-        ]
-      }
-    ]
-  }
+  ]
 }

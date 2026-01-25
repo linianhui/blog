@@ -44,10 +44,6 @@ SwitchyOmega : <https://chrome.google.com/webstore/detail/proxy-switchyomega/pad
 
 {{<highlight-file path="client-config.template.json" lang="json">}}
 
-## 4.3 客户端配置模板(v2rayNG) {#client-config-v2rayng-template}
-
-{{<highlight-file path="client-config.v2rayng.template.json" lang="json">}}
-
 ## 4.4 OpenWrt {#openwrt}
 
 [openwrt安装文档](/tool/openwrt)
