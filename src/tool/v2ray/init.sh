@@ -26,21 +26,21 @@ export TEMPLATE_SERVER_DOMAIN_NAME="${UUID:14:4}.test"
 export TEMPLATE_CLIENT_ID=$UUID
 export TEMPLATE_CERTIFICATE_JSON=$(/usr/local/bin/v2ray tls cert --ca --json --domain=$TEMPLATE_SERVER_DOMAIN_NAME --expire=720 --name=$CRET_NAME --org=$CRET_ORG)
 
-cat > /usr/local/etc/v2ray/config.json <<'SERVER_JSON'
+SERVER_JSON_TEMPLATE=$(cat <<'SERVER_JSON'
 {
   "log": {
     "logLevel": "None"
   },
   "inbounds": [
     {
-      "listen": "$V2RAY_SERVER_IP",
+      "listen": "${V2RAY_SERVER_IP}",
       "port": 443,
       "protocol": "vless",
       "settings": {
         "decryption": "none",
         "clients": [
           {
-            "id": "$TEMPLATE_CLIENT_ID"
+            "id": "${TEMPLATE_CLIENT_ID}"
           }
         ]
       },
@@ -48,12 +48,12 @@ cat > /usr/local/etc/v2ray/config.json <<'SERVER_JSON'
         "network": "tcp",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "$TEMPLATE_SERVER_DOMAIN_NAME",
+          "serverName": "${TEMPLATE_SERVER_DOMAIN_NAME}",
           "allowInsecure": false,
           "allowInsecureCiphers": false,
           "disableSystemRoot": true,
           "certificates": [
-            $TEMPLATE_CERTIFICATE_JSON
+            ${TEMPLATE_CERTIFICATE_JSON}
           ]
         }
       }
@@ -67,12 +67,13 @@ cat > /usr/local/etc/v2ray/config.json <<'SERVER_JSON'
   ]
 }
 SERVER_JSON
+)
 
-envsubst > /usr/local/etc/v2ray/config.json
+echo "${SERVER_JSON_TEMPLATE}" | envsubst > /usr/local/etc/v2ray/config.json
 
 /usr/local/bin/v2ray test -c /usr/local/etc/v2ray/config.json
 
-cat > client-config.json <<'CLIENT_JSON'
+CLIENT_JSON_TEMPLATE=$(cat <<'CLIENT_JSON'
 {
   "log": {
     "logLevel": "None"
@@ -94,11 +95,11 @@ cat > client-config.json <<'CLIENT_JSON'
       "settings": {
         "vnext": [
           {
-            "address": "$V2RAY_SERVER_IP",
+            "address": "${V2RAY_SERVER_IP}",
             "port": 443,
             "users": [
               {
-                "id": "$TEMPLATE_CLIENT_ID",
+                "id": "${TEMPLATE_CLIENT_ID}",
                 "encryption": "none"
               }
             ]
@@ -109,12 +110,12 @@ cat > client-config.json <<'CLIENT_JSON'
         "network": "tcp",
         "security": "tls",
         "tlsSettings": {
-          "serverName": "$TEMPLATE_SERVER_DOMAIN_NAME",
+          "serverName": "${TEMPLATE_SERVER_DOMAIN_NAME}",
           "allowInsecure": false,
           "allowInsecureCiphers": false,
           "disableSystemRoot": true,
           "certificates": [
-            $TEMPLATE_CERTIFICATE_JSON
+            ${TEMPLATE_CERTIFICATE_JSON}
           ]
         }
       },
@@ -132,8 +133,9 @@ cat > client-config.json <<'CLIENT_JSON'
   ]
 }
 CLIENT_JSON
+)
 
-envsubst > client-config.json
+echo "${CLIENT_JSON_TEMPLATE}" | envsubst > v2ray-client-config.json
 
 setcap cap_net_bind_service=+ep /usr/local/bin/v2ray
 

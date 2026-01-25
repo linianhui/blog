@@ -7,7 +7,7 @@ toc: true
 
 # 1 服务器安装 {#server-install}
 
-{{<highlight-file path="install.sh" lang="sh">}}
+{{<highlight-file path="init.sh" lang="sh">}}
 
 # 2 客户端安装 {#client-install}
 

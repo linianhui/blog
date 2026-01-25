@@ -40,6 +40,7 @@ Param(
     '/fast-copy.ps1',
     '/dism.ps1',
     '/hiwifi.ps1',
+    '/v2ray.ps1',
     '/alias.ps1'
 ) | Foreach-Object { . "$PSScriptRoot$_" }
 
