@@ -338,14 +338,18 @@
 
     function getLocationParam(index, defaultValue) {
         var param = window.location.hash.split("#")[index];
-        return param || defaultValue;
+        var result = param || defaultValue;
+        console.log('getLocationParam', index, result);
+        return result;
     }
 
     function getLocationParamJson() {
         var json = getLocationParam(1);
         if (json) {
             try {
-                return JSON.parse(decodeURI(json));
+                var result = JSON.parse(decodeURI(json));
+                console.log('getLocationParamJson', result);
+                return result;
             } catch (error) {
                 console.error(json, error);
             }
@@ -358,6 +362,7 @@
     }
 
     function setLocationParams() {
+        console.log('setLocationParams', JSON.stringify(arguments));
         window.location.hash = Array.from(arguments).join("#");
     }
 
@@ -511,6 +516,10 @@
         return isNull(value) || value <= 0;
     }
 
+    function kellyCriterion(b, p, q) {
+        return (b * p - q) / b;
+    }
+
     initByteUnits(1000);
     initByteUnits(1024);
 
@@ -553,6 +562,7 @@
         isNotNull: isNotNull,
         isNull: isNull,
         isNullOrLte0: isNullOrLte0,
+        kellyCriterion: kellyCriterion,
     };
 
 })(window, document, navigator);

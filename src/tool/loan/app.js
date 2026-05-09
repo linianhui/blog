@@ -1,5 +1,4 @@
 var locationParam = blog.getLocationParamJson() || {};
-console.log('locationParam', locationParam);
 var loanParam = locationParam.loan || {};
 var actionsParam = locationParam.actions || [];
 
@@ -134,7 +133,6 @@ var vueApp = new Vue({
             param.actions = blog.deepClone(this.actions);
             var paramJson = JSON.stringify(param);
             if (paramJson != defaultParamJson) {
-                console.log('locationParam', param);
                 blog.setLocationParams(paramJson);
             } else {
                 blog.setLocationParams();

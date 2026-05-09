@@ -1,0 +1,114 @@
+<style>
+  th {
+    text-align: right;
+  }
+
+  td {
+    text-align: right;
+    vertical-align: top;
+    padding: 6px 4px;
+  }
+
+  .cell {
+    padding: 0 !important;
+  }
+
+  .input-fieldset section {
+    margin: 6px 0;
+  }
+
+  .form-name,
+  .form-input {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .form-input-weight {
+    width: 13em !important;
+  }
+
+  .form-input-weight input {
+    text-align: center;
+  }
+
+  .form-name {
+    width: 4.5em;
+    text-align: right;
+  }
+
+  .form-input {
+    margin-left: 6px;
+  }
+
+  .el-collapse {
+    border: unset;
+  }
+
+  .el-collapse-item__wrap,
+  .el-collapse-item__header {
+    border: unset;
+  }
+
+  .el-input-group__prepend {
+    padding: 0;
+  }
+
+  fieldset {
+    border: unset;
+    box-shadow: 0 0 2px #ccc;
+    max-width: 100%;
+    min-width: 100%;
+    margin-top: 1em;
+    box-sizing: border-box;
+    padding: 6px;
+  }
+
+  legend {
+    background-color: #FFF;
+    color: #909399;
+  }
+
+  .result-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+</style>
+<div id="app">
+  <fieldset class="input-fieldset">
+    <legend>参数区域</legend>
+    <section>
+      <div class="form-name">
+        <label for="eB">
+          净赔率b
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eB" v-model="b" step="0.1" :min="0.2">
+        </el-input-number>
+      </div>
+    </section>
+    <section>
+      <div class="form-name">
+        <label for="eP">
+          胜率p
+        </label>
+      </div>
+      <div colspan="2" class="form-input">
+        <el-input-number id="eP" v-model="p" step="0.05" :min="0.5">
+        </el-input-number>
+      </div>
+    </section>
+  </fieldset>
+
+
+  <fieldset>
+    <legend>结果区域-合计</legend>
+    <div class="result-wrapper">
+      <div ref="bpChartDiv" style="width: 100%;height: 300px;"></div>
+    </div>
+  </fieldset>
+</div>
+<script src="chart.js"></script>
+<script src="app.js"></script>
