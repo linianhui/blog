@@ -284,25 +284,18 @@
     function defaultKlineConfig() {
         return {
             ma: {
-                enabledAvgWeight: true,
                 periods: [5, 10, 20, 60],
                 value: function (config, item) {
-                    if (config.enabledAvgWeight) {
-                        return item.均价;
-                    }
-                    return item.收盘价;
+                    return item.均价;
                 }
             },
             macd: {
-                enabledAvgWeight: true,
+
                 shortPeriod: 10,
                 longPeriod: 20,
                 signalPeriod: 5,
                 value: function (config, item) {
-                    if (config.enabledAvgWeight) {
-                        return item.均价;
-                    }
-                    return item.收盘价;
+                    return item.均价;
                 }
             },
             boll: {
@@ -310,12 +303,8 @@
                 k: 2
             },
             ovb: {
-                enabledAvgWeight: true,
                 value: function (config, item) {
-                    if (config.enabledAvgWeight) {
-                        return item.均价;
-                    }
-                    return item.收盘价;
+                    return item.均价;
                 }
             }
         };
