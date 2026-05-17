@@ -1,7 +1,67 @@
-<div id="klineChartDiv" style="width: 100%;height: 360px;"></div>
-<div id="klineCountChartDiv" style="width: 100%;height: 120px;"></div>
-<div id="klineOvbChartDiv" style="width: 100%;height: 200px;"></div>
-<div id="klineMacdChartDiv" style="width: 100%;height: 240px;"></div>
+<style>
+  th {
+    text-align: right;
+  }
+
+  td {
+    text-align: right;
+    vertical-align: baseline;
+    padding: 6px 4px;
+  }
+
+  fieldset {
+    border: unset;
+    box-shadow: 0 0 2px #ccc;
+    max-width: 100%;
+    min-width: 100%;
+    margin-top: 1em;
+    box-sizing: border-box;
+    padding: 6px;
+  }
+
+  legend {
+    background-color: #FFF;
+    color: #909399;
+  }
+</style>
+
+<fieldset>
+  <legend>参数</legend>
+  <table>
+    <tr>
+      <td>
+        <label for="symbol">TickFlow ApiKey</label>
+      </td>
+      <td>
+        <input type="password" id="tickflowApiKey">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="symbol">股票代码</label>
+      </td>
+      <td>
+        <input type="text" id="symbol" value="300323">
+      </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td>
+        <input id="renderButton" type="button" value="渲染K线" onclick="renderKLine()">
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>VWAP-K线-<span id="stockName"></span></legend>
+  <div id="klineChartDiv" style="width: 100%;height: 360px;"></div>
+  <div id="klineCountChartDiv" style="width: 100%;height: 120px;"></div>
+  <div id="klineOvbChartDiv" style="width: 100%;height: 200px;"></div>
+  <div id="klineMacdChartDiv" style="width: 100%;height: 240px;"></div>
+</fieldset>
+<script src="/asset/tickflow.js"></script>
 <script src="echarts-dispatch.js"></script>
 <script src="kline-func.js"></script>
 <script src="kline-data.js"></script>

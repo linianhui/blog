@@ -1,48 +1,66 @@
-function getKlineData(symbol) {
-    return JSON.parse(blog.httpGet('/tool/stock-kline/data/' + symbol + '.json'));
+function getKlineData(param, callback) {
+    var symbol = param.symbol;
+    var v1InstrumentsParam = tickflow.tickflowParam(param);
+    console.log("getKlineData v1InstrumentsParam", v1InstrumentsParam);
+    tickflow.v1InstrumentsAsync(v1InstrumentsParam, function (stock) {
+        console.log("getKlineData v1InstrumentsData", stock);
+        var klineParam = {
+            key: param.key,
+            symbol: param.symbol,
+            period: "日线",
+            startDate: stock.data[0].ext.listing_date,
+            endDate: blog.dateFormat(moment()),
+            adjust: "前复权",
+        };
+
+        console.log("getKlineData klineParam", klineParam);
+
+        var v1KlinesParam = tickflow.tickflowParam(klineParam);
+        v1KlinesParam.count = blog.dateDiffDays(klineParam.endDate, klineParam.startDate) + 1;
+        console.log("getKlineData v1KlinesParam", v1KlinesParam);
+        var kline = tickflow.v1KlinesAsync(v1KlinesParam, function (data) {
+            console.log("getKlineData v1KlinesData", data);
+            callback({
+                meta: stock.data[0],
+                klines: data.data
+            });
+        });
+    });
 }
 
-function buildKLineData(data, config) {
+function buildKLineData(param, data, config) {
     if (blog.isNull(data)) {
         return;
     }
-    var enabledAvgAsClose = config.enabledAvgAsClose;
     var result = {};
-    result.symbol = data.symbol;
+    result.symbol = param.symbol;
     result.items = [];
+    var count = data.timestamp.length;
+    result.count = count;
+    var avgPrev = blog.round(data.amount[0] / data.volume[0] / 100, 2);
+    for (var index = 0; index < count; index++) {
+        var avg = blog.round(data.amount[index] / data.volume[index] / 100, 2);
+        var date = blog.dateFormat(moment(data.timestamp[index]));
+        var open = avgPrev;
+        var close = avg;
 
-    var ki = {};
-    for (var i = 0; i < data.column.length; i++) {
-        ki[data.column[i]] = i;
-    }
-
-    var avgPrev = blog.round(data.item[0][ki.amount] / data.item[0][ki.volume], 2);
-    for (var item of data.item) {
-        var avg = blog.round(item[ki.amount] / item[ki.volume], 2);
-        var date = blog.dateFormat(moment(item[ki.timestamp]));
-        var open = item[ki.open];
-        var close = item[ki.close];
-        if (enabledAvgAsClose) {
-            open = avgPrev;
-            close = avg;
-        }
         result.items.push({
             日期: date,
             open: open,
+            close: close,
             high: Math.max(avg, avgPrev),
             low: Math.min(avg, avgPrev),
-            close: close,
-            开盘价: item[ki.open],
-            最高价: item[ki.high],
-            最低价: item[ki.low],
-            收盘价: item[ki.close],
-            涨跌额: item[ki.chg],
-            涨跌幅: item[ki.percent],
-            成交量: item[ki.volume],
-            成交量万手: blog.round(item[ki.volume] / 10000_00),
-            成交额: item[ki.amount],
+            开盘价: open,
+            最高价: Math.max(avg, avgPrev),
+            最低价: Math.min(avg, avgPrev),
+            收盘价: close,
+            涨跌额: blog.round(close - open, 2),
+            涨跌幅: blog.round((close - open) / open * 100, 2),
+            成交量: data.volume[index] * 100,
+            成交量万手: blog.round(data.volume[index] / 100, 2),
+            成交额: data.amount[index],
             均价: avg,
-            换手率: item[ki.turnoverrate],
+            换手率: 1,
         });
         avgPrev = avg;
     }

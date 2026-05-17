@@ -78,14 +78,14 @@ function buildKLineChartOption(klineData) {
     //     y: 'bollDN'
     // }));
 
-    series.push(buildChartLine({
-        name: '均价',
-        yAxisIndex: 0,
-        color: config.color.avg,
-        x: '日期',
-        y: '均价',
-        valueFormatter: x => x + '元'
-    }));
+    //series.push(buildChartLine({
+    //    name: '均价',
+    //    yAxisIndex: 0,
+    //    color: config.color.avg,
+    //    x: '日期',
+    //    y: '均价',
+    //    valueFormatter: x => x + '元'
+    //}));
 
     // series.push(buildChartLine({
     //     name: '换手率',
@@ -99,7 +99,7 @@ function buildKLineChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: [buildChartDataZoom({ type: 'inside' })],
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
         grid: buildChartGrid(),
@@ -122,7 +122,7 @@ function buildKLineCountChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: [buildChartDataZoom({ type: 'inside' })],
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
         grid: buildChartGrid(),
@@ -150,7 +150,7 @@ function buildKLineOvbChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: [buildChartDataZoom({ type: 'inside' })],
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
         grid: buildChartGrid(),
@@ -179,7 +179,7 @@ function buildKLineMacdChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: [buildChartDataZoom({ type: 'inside' }), buildChartDataZoom({ type: 'slider' })],
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart }), buildChartDataZoom({ type: 'slider', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
         grid: buildChartGrid({ bottom: 60 }),
@@ -307,7 +307,7 @@ function buildChartDataZoom(option) {
     option = option || {};
     return {
         type: option.type,
-        start: 50,
+        start: option.start || 90,
         end: 100
     };
 }

@@ -283,7 +283,6 @@
 
     function defaultKlineConfig() {
         return {
-            enabledAvgAsClose: true,
             ma: {
                 enabledAvgWeight: true,
                 periods: [5, 10, 20, 60],
