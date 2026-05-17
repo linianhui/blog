@@ -523,6 +523,35 @@
     initByteUnits(1000);
     initByteUnits(1024);
 
+    function trySaveInputValueToLocalStorage(id) {
+        if (!window.localStorage) {
+            return
+        }
+
+        var element = document.getElementById(id);
+        if (element) {
+            if (element.value) {
+                localStorage.setItem(id, element.value);
+            } else {
+                localStorage.removeItem(id);
+            }
+        }
+    }
+
+    function tryLoadInputValueFromLocalStorage(id) {
+        if (!window.localStorage) {
+            return
+        }
+
+        var value = localStorage.getItem(id);
+        if (value) {
+            var element = document.getElementById(id);
+            if (element) {
+                element.value = value;
+            }
+        }
+    }
+
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
@@ -563,6 +592,8 @@
         isNull: isNull,
         isNullOrLte0: isNullOrLte0,
         kellyCriterion: kellyCriterion,
+        trySaveInputValueToLocalStorage: trySaveInputValueToLocalStorage,
+        tryLoadInputValueFromLocalStorage: tryLoadInputValueFromLocalStorage,
     };
 
 })(window, document, navigator);

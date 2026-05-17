@@ -7,12 +7,16 @@ var charts = [klineChart, klineMacdChart, klineCountChart, klineOvbChart];
 onChartDispatchDataZoom(charts);
 onChartDispatchToolTip(charts);
 
+blog.tryLoadInputValueFromLocalStorage("stockKLineTickFlowApiKey");
+blog.tryLoadInputValueFromLocalStorage("stockKLineSymbol");
 
 function renderKLine() {
     var param = {
-        key: document.getElementById("tickflowApiKey").value,
-        symbol: document.getElementById("symbol").value
+        key: document.getElementById("stockKLineTickFlowApiKey").value,
+        symbol: document.getElementById("stockKLineSymbol").value
     };
+    blog.trySaveInputValueToLocalStorage("stockKLineTickFlowApiKey");
+    blog.trySaveInputValueToLocalStorage("stockKLineSymbol");
     document.getElementById("renderButton").disabled = "disabled";
     getKlineData(param, function (data) {
         console.log("getKlineData", data);

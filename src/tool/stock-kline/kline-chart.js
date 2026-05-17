@@ -95,15 +95,31 @@ function buildKLineChartOption(klineData) {
     //     y: '换手率',
     //     valueFormatter: x => x + '%'
     // }));
+    var legend = buildChartLegend();
+    legend.top = 0;
+    var toolbox = buildChartToolBox();
+    toolbox.show = false;
+    toolbox.top = 0;
+    toolbox.feature.dataZoom = { show: true };
+    toolbox.feature.restore = { show: true };
+    var xAxis = buildChartXAxis({ show: true });
+    var zoom = buildChartDataZoom({ type: 'slider', start: config.zoomStart });
+    zoom.top = 20;
+    var grid = buildChartGrid();
+    grid[0].top = 100;
+    grid[0].bottom = 20;
 
     return {
         tooltip: buildChartToolTip(),
-        toolbox: buildChartToolBox(),
-        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
+        toolbox: toolbox,
+        dataZoom: [
+            buildChartDataZoom({ type: 'inside', start: config.zoomStart }),
+            zoom
+        ],
         dataset: buildChartDataset(klineData),
-        legend: buildChartLegend(),
-        grid: buildChartGrid(),
-        xAxis: [buildChartXAxis()],
+        legend: legend,
+        grid: grid,
+        xAxis: [xAxis],
         yAxis: [
             buildChartYAxis({ name: '股价(元)' }),
             //buildChartYAxis({ name: '换手率(%)' })
@@ -179,11 +195,13 @@ function buildKLineMacdChartOption(klineData) {
     return {
         tooltip: buildChartToolTip(),
         toolbox: buildChartToolBox(),
-        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart }), buildChartDataZoom({ type: 'slider', start: config.zoomStart })],
+        dataZoom: [
+            buildChartDataZoom({ type: 'inside', start: config.zoomStart })
+        ],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
-        grid: buildChartGrid({ bottom: 60 }),
-        xAxis: [buildChartXAxis({ show: true })],
+        grid: buildChartGrid(),
+        xAxis: [buildChartXAxis()],
         yAxis: [buildChartYAxis({ name: name }),],
         series: [
             buildChartLine({
