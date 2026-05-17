@@ -552,6 +552,20 @@
         }
     }
 
+    function getLocalStorage(key) {
+        if (!window.localStorage) {
+            return
+        }
+        return localStorage.getItem(key);
+    }
+
+    function setLocalStorage(key, value) {
+        if (!window.localStorage) {
+            return
+        }
+        localStorage.setItem(key, value);
+    }
+
     window.blog = {
         isMobile: isMobile,
         isPC: isPC,
@@ -594,6 +608,8 @@
         kellyCriterion: kellyCriterion,
         trySaveInputValueToLocalStorage: trySaveInputValueToLocalStorage,
         tryLoadInputValueFromLocalStorage: tryLoadInputValueFromLocalStorage,
+        getLocalStorage: getLocalStorage,
+        setLocalStorage: setLocalStorage,
     };
 
 })(window, document, navigator);

@@ -10,6 +10,15 @@ onChartDispatchToolTip(charts);
 blog.tryLoadInputValueFromLocalStorage("stockKLineTickFlowApiKey");
 blog.tryLoadInputValueFromLocalStorage("stockKLineSymbol");
 
+function removeCache() {
+    if (!window.localStorage) {
+        return;
+    }
+    var stockKLineTickFlowApiKeyValue = localStorage.getItem("stockKLineTickFlowApiKey");
+    localStorage.clear();
+    localStorage.setItem("stockKLineTickFlowApiKey", stockKLineTickFlowApiKeyValue);
+}
+
 function renderKLine() {
     var param = {
         key: document.getElementById("stockKLineTickFlowApiKey").value,

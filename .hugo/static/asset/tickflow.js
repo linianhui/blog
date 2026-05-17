@@ -47,6 +47,24 @@
         return query.join("&");
     }
 
+    function getCache(key) {
+        if (!window.localStorage) {
+            return
+        }
+        return localStorage.getItem(key);
+    }
+
+    function setCache(key, value) {
+        if (!window.localStorage) {
+            return
+        }
+        try {
+            localStorage.setItem(key, value);
+        } catch (e) {
+            console.error("setCache error", e);
+        }
+    }
+
     function v1InstrumentsAsync(param, callback) {
         var headers = buildHeaders(param);
         var url = apiHost + "/v1/instruments?symbols=" + param.symbol;
@@ -61,9 +79,17 @@
     }
 
     function httpGetJsonAsync(url, headers, callback) {
+        var cache = getCache(url);
+        if (cache) {
+            callback(JSON.parse(cache));
+            return;
+        }
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function (e) {
             if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.responseText) {
+                    setCache(url, xhr.responseText);
+                }
                 callback(JSON.parse(xhr.responseText));
             }
         };
