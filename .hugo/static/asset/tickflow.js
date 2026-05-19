@@ -50,16 +50,16 @@
     function v1InstrumentsAsync(param, callback) {
         var headers = buildHeaders(param);
         var url = apiHost + "/v1/instruments?symbols=" + param.symbol;
-        var cacheKey="v1_instruments_" + param.symbol;
-        httpGetJsonAsync(cacheKey,url, headers, callback);
+        var cacheKey = "v1_instruments_" + param.symbol;
+        httpGetJsonAsync(cacheKey, url, headers, callback);
     }
 
     function v1KlinesAsync(param, callback) {
         var headers = buildHeaders(param);
         var queryString = buildQueryString(param, ["symbol", "period", "count", "start_time", "end_time", "adjust"]);
         var url = apiHost + "/v1/klines?" + queryString;
-        var cacheKey="v1_klines_" + param.symbol + "_" + param.period;
-        httpGetJsonAsync(cacheKey,url, headers, callback);
+        var cacheKey = "v1_klines_" + param.symbol + "_" + param.period + "_" + param.end_time;
+        httpGetJsonAsync(cacheKey, url, headers, callback);
     }
 
     function httpGetJsonAsync(cacheKey, url, headers, callback) {
