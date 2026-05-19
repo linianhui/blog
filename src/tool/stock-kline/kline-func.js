@@ -153,17 +153,17 @@
             return;
         }
         var prev = items[0];
-        prev.ovb = prev.成交量万手;
+        prev.ovb = blog.round(prev.成交量万手);
         for (var index = 1; index < items.length; index++) {
             var prevValue = config.value(config, prev);
             var item = items[index];
             var itemValue = config.value(config, item);
             if (itemValue > prevValue) {
-                item.ovb = prev.ovb + item.成交量万手;
+                item.ovb = blog.round(prev.ovb + item.成交量万手);
             } else if (itemValue < prevValue) {
-                item.ovb = prev.ovb - item.成交量万手;
+                item.ovb = blog.round(prev.ovb - item.成交量万手);
             } else {
-                item.ovb = prev.ovb;
+                item.ovb = blog.round(prev.ovb);
             }
             prev = item;
 
