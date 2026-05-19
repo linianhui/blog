@@ -9,8 +9,9 @@ onChartDispatchDataZoom(charts);
 onChartDispatchToolTip(charts);
 
 blog.tryLoadInputValueFromLocalStorage(TICK_FLOW_API_KEY_CACHE_KEY);
-if (symbolList) {
-    document.getElementById("stockKLineSymbol").value = symbolList[0];
+var cachedSymbolList = blogCache.getCacheObject("stockKLineSymbol");
+if (cachedSymbolList) {
+    document.getElementById("stockKLineSymbol").value = cachedSymbolList[0];
 }
 
 function loadStockKLineSymbols() {
