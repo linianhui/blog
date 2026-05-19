@@ -41,12 +41,12 @@
         <label for="symbol">股票代码</label>
       </td>
       <td>
-        <input type="text" id="stockKLineSymbol" value="300323" autocomplete="true">
+        <input type="text" id="stockKLineSymbol" value="300323" autocomplete="true" list="stockKLineSymbolList">
+        <datalist id="stockKLineSymbolList"></datalist>
       </td>
     </tr>
     <tr>
       <td>
-        <input type="button" value="清理缓存" onclick="removeCache()">
       </td>
       <td>
         <input id="renderButton" type="button" value="渲染K线" onclick="renderKLine()">
