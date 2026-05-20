@@ -1,4 +1,5 @@
 var TICK_FLOW_API_KEY_CACHE_KEY = "stockKLineTickFlowApiKey";
+var SYMBOL_KEY = "stockKLineSymbol";
 var klineChart = echarts.init(this.klineChartDiv);
 var klineMacdChart = echarts.init(this.klineMacdChartDiv);
 var klineCountChart = echarts.init(this.klineCountChartDiv);
@@ -7,15 +8,18 @@ var klineOvbChart = echarts.init(this.klineOvbChartDiv);
 var charts = [klineChart, klineMacdChart, klineCountChart, klineOvbChart];
 onChartDispatchDataZoom(charts);
 onChartDispatchToolTip(charts);
+loadStockKLineSymbol();
 
-blog.tryLoadInputValueFromLocalStorage(TICK_FLOW_API_KEY_CACHE_KEY);
-var cachedSymbolList = blogCache.getCacheObject("stockKLineSymbol");
-if (cachedSymbolList) {
-    document.getElementById("stockKLineSymbol").value = cachedSymbolList[0];
+
+function loadStockKLineSymbol() {
+    var symbolList = blog.cacheGet(SYMBOL_KEY);
+    if (symbolList) {
+        document.getElementById(SYMBOL_KEY).value = symbolList[0];
+    }
 }
 
 function loadStockKLineSymbols() {
-    var symbolList = blogCache.getCacheObject("stockKLineSymbol");
+    var symbolList = blog.cacheGet(SYMBOL_KEY);
     if (symbolList) {
         var datalist = document.getElementById("stockKLineSymbolList");
         datalist.innerHTML = "";
@@ -29,12 +33,23 @@ function loadStockKLineSymbols() {
 }
 
 function renderKLine() {
+    var apiKey = blog.cacheGet(TICK_FLOW_API_KEY_CACHE_KEY);
+    if (!apiKey) {
+        apiKey = prompt("TickFlow API Key");
+        if (!apiKey) {
+            alert("TickFlow API Key");
+            return;
+        }
+    }
+
     var param = {
-        key: document.getElementById(TICK_FLOW_API_KEY_CACHE_KEY).value,
-        symbol: document.getElementById("stockKLineSymbol").value
+        key: apiKey,
+        symbol: document.getElementById(SYMBOL_KEY).value,
+        period: document.querySelector('input[name="stockKLinePeriod"]:checked').value,
+        adjust: document.querySelector('input[name="stockKLineAdjust"]:checked').value
     };
-    blog.trySaveInputValueToLocalStorage(TICK_FLOW_API_KEY_CACHE_KEY);
-    blogCache.addSet("stockKLineSymbol", param.symbol);
+    blog.cacheSet(TICK_FLOW_API_KEY_CACHE_KEY, apiKey);
+    blog.cacheSetPut(SYMBOL_KEY, param.symbol);
     loadStockKLineSymbols();
     document.getElementById("renderButton").disabled = "disabled";
     getKlineData(param, function (data) {

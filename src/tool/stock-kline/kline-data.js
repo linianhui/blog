@@ -7,10 +7,10 @@ function getKlineData(param, callback) {
         var klineParam = {
             key: param.key,
             symbol: param.symbol,
-            period: "日线",
+            period: param.period,
             startDate: stock.data[0].ext.listing_date,
             endDate: blog.dateFormat(moment()),
-            adjust: "前复权",
+            adjust: param.adjust,
         };
 
         console.log("getKlineData klineParam", klineParam);

@@ -23,6 +23,10 @@
     background-color: #FFF;
     color: #909399;
   }
+
+  .radio-group input[type="radio"] {
+    margin-left: 4px;
+  }
 </style>
 
 <fieldset>
@@ -30,26 +34,39 @@
   <table>
     <tr>
       <td>
-        <label for="symbol">TickFlow ApiKey</label>
+        <label for="symbol">代码</label>
       </td>
       <td>
-        <input type="password" id="stockKLineTickFlowApiKey">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="symbol">股票代码</label>
-      </td>
-      <td>
-        <input type="text" id="stockKLineSymbol" value="000001" autocomplete="true" list="stockKLineSymbolList">
+        <input type="text" id="stockKLineSymbol" value="000001" size="6" autocomplete="true"
+          list="stockKLineSymbolList">
         <datalist id="stockKLineSymbolList"></datalist>
       </td>
     </tr>
     <tr>
       <td>
+        <label for="period">周期</label>
       </td>
+      <td class="radio-group">
+        <input type="radio" id="1d" name="stockKLinePeriod" value="日线" checked>
+        <label for="1d">日线</label>
+        <input type="radio" id="1w" name="stockKLinePeriod" value="周线">
+        <label for="1w">周线</label>
+        <input type="radio" id="1M" name="stockKLinePeriod" value="月线">
+        <label for="1M">月线</label>
+      </td>
+    </tr>
+    <tr>
       <td>
-        <input id="renderButton" type="button" value="渲染K线" onclick="renderKLine()">
+        <label for="period">复权</label>
+      </td>
+      <td class="radio-group">
+        <input type="radio" id="forward" name="stockKLineAdjust" value="前复权" checked>
+        <label for="forward">前复权</label>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input id="renderButton" type="button" value="查看K线" onclick="renderKLine()">
       </td>
     </tr>
   </table>
@@ -59,8 +76,8 @@
   <legend>VWAP-K线-<span id="stockName"></span></legend>
   <div id="klineChartDiv" style="width: 100%;height: 360px;"></div>
   <div id="klineCountChartDiv" style="width: 100%;height: 120px;"></div>
-  <div id="klineOvbChartDiv" style="width: 100%;height: 200px;"></div>
   <div id="klineMacdChartDiv" style="width: 100%;height: 240px;"></div>
+  <div id="klineOvbChartDiv" style="width: 100%;height: 120px;"></div>
 </fieldset>
 <script src="/asset/tickflow.js"></script>
 <script src="echarts-dispatch.js"></script>

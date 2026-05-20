@@ -1,15 +1,15 @@
 "use strict";
 
 (function (window) {
-    var apiHost = "https://api.tickflow.org";
-    var exchanges = {
+    var API_HOST = "https://api.tickflow.org";
+    var EXCHANGES = {
         "00": ".SZ",
         "60": ".SH",
         "30": ".SZ",
         "68": ".SH"
     };
 
-    var klinePeriods = {
+    var KLINE_PERIODS = {
         "1分钟": "1m",
         "5分钟": "5m",
         "10分钟": "10m",
@@ -22,7 +22,7 @@
         "年线": "1Y"
     };
 
-    var klineAdjusts = {
+    var KLINE_ADJUSTS = {
         "前复权": "forward",
         "前复权2": "forward_additive",
         "后复权": "backward",
@@ -49,35 +49,42 @@
 
     function v1InstrumentsAsync(param, callback) {
         var headers = buildHeaders(param);
-        var url = apiHost + "/v1/instruments?symbols=" + param.symbol;
-        var cacheKey = "v1_instruments_" + param.symbol;
-        httpGetJsonAsync(cacheKey, url, headers, callback);
+        var path = "/v1/instruments?symbols=" + param.symbol;
+        var expireMinute = minuteOfDayRemaining();
+        httpGetJsonAsync(path, headers, callback, expireMinute);
     }
 
     function v1KlinesAsync(param, callback) {
         var headers = buildHeaders(param);
         var queryString = buildQueryString(param, ["symbol", "period", "count", "start_time", "end_time", "adjust"]);
-        var url = apiHost + "/v1/klines?" + queryString;
-        var cacheKey = "v1_klines_" + param.symbol + "_" + param.period + "_" + param.end_time;
-        httpGetJsonAsync(cacheKey, url, headers, callback);
+        var path = "/v1/klines?" + queryString;
+        var expireMinute = minuteOfDayRemaining();
+        httpGetJsonAsync(path, headers, callback, expireMinute);
     }
 
-    function httpGetJsonAsync(cacheKey, url, headers, callback) {
-        var cache = blogCache.getCache(cacheKey);
+    function minuteOfDayRemaining(minuteOfDay) {
+        var now = new Date();
+        var tomorrow = new Date(now.getTime() + 24 * 3600 * 1000);
+        return Math.ceil((tomorrow.getTime() - now.getTime()) / 60000);
+    }
+
+    function httpGetJsonAsync(path, headers, callback, expireMinute) {
+        var cache = blog.cacheGet(path);
         if (cache) {
-            callback(JSON.parse(cache));
+            callback(cache);
             return;
         }
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function (e) {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.responseText) {
-                    blogCache.setCache(cacheKey, xhr.responseText);
+                    var data = JSON.parse(xhr.responseText);
+                    blog.cacheSet(path, data, expireMinute);
+                    callback(data);
                 }
-                callback(JSON.parse(xhr.responseText));
             }
         };
-        xhr.open("GET", url, true);
+        xhr.open("GET", API_HOST + path, true);
         for (var key in headers) {
             xhr.setRequestHeader(key, headers[key]);
         }
@@ -87,19 +94,19 @@
     function exchangeOf(symbol) {
         if (symbol) {
             var prefix = symbol.substring(0, 2);
-            return exchanges[prefix];
+            return EXCHANGES[prefix];
         }
     }
 
     function klinePeriodOf(text) {
         if (text) {
-            return klinePeriods[text];
+            return KLINE_PERIODS[text];
         }
     }
 
     function klineAdjustOf(text) {
         if (text) {
-            return klineAdjusts[text];
+            return KLINE_ADJUSTS[text];
         }
     }
 
@@ -121,8 +128,8 @@
     }
 
     window.tickflow = {
-        klinePeriods: klinePeriods,
-        klineAdjusts: klineAdjusts,
+        klinePeriods: KLINE_PERIODS,
+        klineAdjusts: KLINE_ADJUSTS,
         v1InstrumentsAsync: v1InstrumentsAsync,
         v1KlinesAsync: v1KlinesAsync,
         tickflowParam: tickflowParam

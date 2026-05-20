@@ -523,47 +523,19 @@
     initByteUnits(1000);
     initByteUnits(1024);
 
-    function trySaveInputValueToLocalStorage(id) {
-        if (!window.localStorage) {
-            return
-        }
-
-        var element = document.getElementById(id);
-        if (element) {
-            if (element.value) {
-                localStorage.setItem(id, element.value);
-            } else {
-                localStorage.removeItem(id);
-            }
-        }
+    function cacheGet(key) {
+        return EasyCache.get(key);
     }
 
-    function tryLoadInputValueFromLocalStorage(id) {
-        if (!window.localStorage) {
-            return
-        }
-
-        var value = localStorage.getItem(id);
-        if (value) {
-            var element = document.getElementById(id);
-            if (element) {
-                element.value = value;
-            }
-        }
+    function cacheSet(key, value, expireMinute) {
+        EasyCache.set(key, value, expireMinute);
     }
 
-    function getLocalStorage(key) {
-        if (!window.localStorage) {
-            return
-        }
-        return localStorage.getItem(key);
-    }
-
-    function setLocalStorage(key, value) {
-        if (!window.localStorage) {
-            return
-        }
-        localStorage.setItem(key, value);
+    function cacheSetPut(key, value, expireMinute) {
+        var cacheRaw = cacheGet(key);
+        var cache = cacheRaw ? new Set(cacheRaw) : new Set();
+        cache.add(value);
+        cacheSet(key, Array.from(cache), expireMinute);
     }
 
     window.blog = {
@@ -606,10 +578,9 @@
         isNull: isNull,
         isNullOrLte0: isNullOrLte0,
         kellyCriterion: kellyCriterion,
-        trySaveInputValueToLocalStorage: trySaveInputValueToLocalStorage,
-        tryLoadInputValueFromLocalStorage: tryLoadInputValueFromLocalStorage,
-        getLocalStorage: getLocalStorage,
-        setLocalStorage: setLocalStorage,
+        cacheGet: cacheGet,
+        cacheSet: cacheSet,
+        cacheSetPut: cacheSetPut,
     };
 
 })(window, document, navigator);
