@@ -13,12 +13,6 @@ function isInvalidKlineData(klineData, callerName) {
 /**
  * 格式化大数字（用于轴标签）
  */
-const KDJ_SERIES = [
-    { name: 'K', color: '#ff9100', key: 'kdjK' },
-    { name: 'D', color: '#0066cc', key: 'kdjD' },
-    { name: 'J', color: '#dd05ab', key: 'kdjJ' },
-].map(s => buildChartLine({ name: s.name, color: s.color, x: '日期', y: s.key }));
-
 function formatLargeNumber(v) {
     var absV = Math.abs(v);
     if (absV >= 100000000) {
@@ -75,7 +69,8 @@ function buildKLineChartOption(klineData) {
             borderColor: config.color.red,
             borderColor0: config.color.green,
             borderColorDoji: config.color.gray,
-        }
+        },
+        markPoint: buildMarkPoint('元')
     });
 
     if (config.ma.periods) {
@@ -84,7 +79,7 @@ function buildKLineChartOption(klineData) {
                 name: 'MA' + period,
                 color: config.color['ma' + period],
                 x: '日期',
-                y: 'ma' + period
+                y: 'ma' + period,
             }));
         }
     }
@@ -148,7 +143,8 @@ function buildKLineCountChartOption(klineData) {
                 color: x => x.data.收盘价 >= x.data.开盘价 ? config.color.red : config.color.green,
                 x: '日期',
                 y: '成交量',
-                valueFormatter: x => x + '万手'
+                valueFormatter: x => x + '手',
+                markPoint: buildMarkPoint('手')
             })
         ]
     };
@@ -178,7 +174,8 @@ function buildKLineObvChartOption(klineData) {
                 name: 'OBV',
                 color: config.color.red,
                 x: '日期',
-                y: 'obv'
+                y: 'obv',
+                markPoint: buildMarkPoint()
             })
         ]
     };
@@ -220,7 +217,8 @@ function buildKLineMacdChartOption(klineData) {
                 name: 'MACD',
                 color: x => x.data.macd >= 0 ? config.color.red : config.color.green,
                 x: '日期',
-                y: 'macd'
+                y: 'macd',
+                markPoint: buildMarkPoint()
             })
         ]
     };
@@ -243,7 +241,18 @@ function buildKLineKdjChartOption(klineData) {
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
         yAxis: [buildChartYAxis({ name: 'KDJ' })],
-        series: KDJ_SERIES
+        series: [
+            buildChartLine({
+                name: 'K', color: '#ff9100', x: '日期', y: 'kdjK',
+            }),
+            buildChartLine({
+                name: 'D', color: '#0066cc', x: '日期', y: 'kdjD'
+            }),
+            buildChartLine({
+                name: 'J', color: '#dd05ab', x: '日期', y: 'kdjJ',
+                markPoint: buildMarkPoint()
+            })
+        ]
     };
 }
 
@@ -260,6 +269,7 @@ function buildChartLine(option = {}) {
         dimensions: [option.x, option.y],
         encode: { x: option.x, y: option.y },
         tooltip: { valueFormatter: option.valueFormatter },
+        markPoint: option.markPoint,
     };
 }
 
@@ -271,6 +281,7 @@ function buildChartBar(option = {}) {
         dimensions: [option.x, option.y],
         encode: { x: option.x, y: option.y },
         tooltip: { valueFormatter: option.valueFormatter },
+        markPoint: option.markPoint,
     };
 }
 
@@ -298,7 +309,12 @@ function buildChartDataset(klineData) {
 }
 
 function buildChartDataZoom(option = {}) {
-    return { type: option.type, start: option.start || 90, end: 100 };
+    return {
+        type: option.type,
+        start: option.start || 90,
+        end: 100,
+        filterMode: 'filter'
+    };
 }
 
 function buildChartToolBox() {
@@ -316,5 +332,29 @@ function buildChartToolTip() {
     return {
         id: 'tooltip0', trigger: 'axis',
         axisPointer: { type: 'cross' },
+    };
+}
+
+/**
+ * 计算 series 中最大值、最小值、最新值，生成 markPoint 配置
+ * @param {array} items k线数据
+ * @param {string} yField 要标记的字段名
+ * @param {string} unit 值单位后缀
+ */
+function buildMarkPoint(unit) {
+    unit = unit || '';
+    return {
+        symbol: 'pin',
+        symbolSize: 36,
+        label: {
+            show: true,
+            formatter: function (params) {
+                return params.name + ': ' + params.value + unit;
+            }
+        },
+        data: [
+            { type: 'max', name: '最高', itemStyle: { color: '#dd2200' } },
+            { type: 'min', name: '最低', itemStyle: { color: '#337f4c' } }
+        ]
     };
 }
