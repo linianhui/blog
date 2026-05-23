@@ -103,6 +103,7 @@ function buildKLineChartOption(klineData) {
     toolbox.feature.dataZoom = { show: true };
     toolbox.feature.restore = { show: true };
     var xAxis = buildChartXAxis({ show: true });
+    xAxis.axisLine = { show: false };
     var zoom = buildChartDataZoom({ type: 'slider', start: config.zoomStart });
     zoom.top = 20;
     var grid = buildChartGrid();
@@ -143,7 +144,15 @@ function buildKLineCountChartOption(klineData) {
         legend: buildChartLegend(),
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
-        yAxis: [buildChartYAxis({ name: '成交量(万手)' }),],
+        yAxis: [Object.assign(buildChartYAxis({ name: '成交量(万手)' }), {
+            axisLabel: {
+                formatter: function (v) {
+                    if (v >= 10000) return (v / 10000).toFixed(1) + '亿';
+                    if (v >= 1000) return (v / 1000).toFixed(1) + '千万';
+                    return v.toFixed(0);
+                }
+            }
+        })],
         series: [
             buildChartBar({
                 name: '成交量',
@@ -171,7 +180,15 @@ function buildKLineOvbChartOption(klineData) {
         legend: buildChartLegend(),
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
-        yAxis: [buildChartYAxis({ name: 'OVB' }),],
+        yAxis: [Object.assign(buildChartYAxis({ name: 'OVB' }), {
+            axisLabel: {
+                formatter: function (v) {
+                    if (v >= 100000000) return (v / 100000000).toFixed(1) + '亿';
+                    if (v >= 10000) return (v / 10000).toFixed(1) + '万';
+                    return v.toFixed(0);
+                }
+            }
+        })],
         series: [
             buildChartLine({
                 name: 'OVB',
