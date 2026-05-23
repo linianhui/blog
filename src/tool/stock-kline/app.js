@@ -3,10 +3,10 @@ var SYMBOL_HISTORY_KEY = "stockKLineSymbolHistory";
 var klineChart = echarts.init(this.klineChartDiv);
 var klineMacdChart = echarts.init(this.klineMacdChartDiv);
 var klineCountChart = echarts.init(this.klineCountChartDiv);
-var klineOvbChart = echarts.init(this.klineOvbChartDiv);
+var klineObvChart = echarts.init(this.klineObvChartDiv);
 var klineKdjChart = echarts.init(this.klineKdjChartDiv);
 
-var charts = [klineChart, klineMacdChart, klineCountChart, klineOvbChart, klineKdjChart];
+var charts = [klineChart, klineMacdChart, klineCountChart, klineObvChart, klineKdjChart];
 onChartDispatchDataZoom(charts);
 onChartDispatchToolTip(charts);
 
@@ -89,7 +89,7 @@ new Vue({
                 klineChart.setOption(buildKLineChartOption(klineData));
                 klineMacdChart.setOption(buildKLineMacdChartOption(klineData));
                 klineCountChart.setOption(buildKLineCountChartOption(klineData));
-                klineOvbChart.setOption(buildKLineOvbChartOption(klineData));
+                klineObvChart.setOption(buildKLineObvChartOption(klineData));
                 klineKdjChart.setOption(buildKLineKdjChartOption(klineData));
                 self.loading = false;
                 document.getElementById('stockName').innerHTML = data.meta.name;

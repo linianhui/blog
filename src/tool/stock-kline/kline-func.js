@@ -14,41 +14,44 @@
             console.log("calculateAndSetBOLL param error", items, config);
             return;
         }
-        var period = config.period;
-        var k = config.k;
-        for (var i = 0; i < items.length; i++) {
-            var ma = calculateMA(items, i, period);
-            var std = calculateBollStd(items, i, period, ma);
+        const period = config.period;
+        const k = config.k;
+        if (blog.isNullOrLte0(period) || blog.isNullOrLte0(k)) {
+            return;
+        }
+        for (let i = 0; i < items.length; i++) {
+            const ma = calculateMA(config, items, i, period);
+            const std = calculateBollStd(config, items, i, period, ma);
             if (!ma || !std) {
                 continue;
             }
-            // 计算BOLL线
-            var up = ma + k * std;
-            var dn = ma - k * std;
-            var item = items[i];
+            const item = items[i];
             item.bollMA = blog.round(ma);
-            item.bollUP = blog.round(up);
-            item.bollDN = blog.round(dn);
+            item.bollUP = blog.round(ma + k * std);
+            item.bollDN = blog.round(ma - k * std);
         }
     }
 
 
     /**
      * 计算BOLL标准差
-     * @param {array} items k线数据，需包含收盘价字段
+     * @param {object} config 配置对象，需包含 value 函数
+     * @param {array} items k线数据
      * @param {number} endIndex 结束索引
      * @param {number} period BOLL周期
      * @param {number} ma BOLL均线
      * @returns {number} 标准差
      */
-    function calculateBollStd(items, endIndex, period, ma) {
+    function calculateBollStd(config, items, endIndex, period, ma) {
         if (blog.isNullOrLte0(ma)) {
             return;
         }
 
-        // 计算标准差
-        var beginIndex = endIndex - period + 1;
-        var avg = calculateAvg(items, x => Math.pow(x.收盘价 - ma, 2), beginIndex, endIndex);
+        const beginIndex = endIndex - period + 1;
+        const avg = calculateAvgWeight(items, x => {
+            const v = x.均价;
+            return { value: (v - ma) * (v - ma), weight: 1 };
+        }, beginIndex, endIndex);
         if (!avg || avg <= 0) {
             return;
         }
@@ -70,45 +73,34 @@
             return;
         }
 
-        var shortPeriod = config.shortPeriod;
-        if (blog.isNullOrLte0(shortPeriod)) {
-            return;
-        }
-        var longPeriod = config.longPeriod;
-        if (blog.isNullOrLte0(longPeriod)) {
+        const shortPeriod = config.shortPeriod;
+        const longPeriod = config.longPeriod;
+        const signalPeriod = config.signalPeriod;
+        if (blog.isNullOrLte0(shortPeriod) || blog.isNullOrLte0(longPeriod) || blog.isNullOrLte0(signalPeriod)) {
             return;
         }
         if (longPeriod <= shortPeriod) {
             return;
         }
-        var signalPeriod = config.signalPeriod;
-        if (blog.isNullOrLte0(signalPeriod)) {
-            return;
-        }
 
-        var emaShortPrev = config.value(config, items[0]);
-        var emaLongPrev = config.value(config, items[0]);
-        var deaPrev = 0;
+        let emaShortPrev = items[0].均价;
+        let emaLongPrev = items[0].均价;
+        let deaPrev = 0;
 
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var close = config.value(config, item);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const close = item.均价;
 
-            // 计算EMA、DIF、DEA
-            var emaShort = calculateMacdEMA(emaShortPrev, close, shortPeriod);
-            var emaLong = calculateMacdEMA(emaLongPrev, close, longPeriod);
-            var dif = calculateMacdDIF(emaShort, emaLong);
-            var dea = calculateMacdDEA(deaPrev, dif, signalPeriod);
+            const emaShort = calculateEMA(emaShortPrev, close, shortPeriod);
+            const emaLong = calculateEMA(emaLongPrev, close, longPeriod);
+            const dif = emaShort - emaLong;
+            const dea = calculateEMA(deaPrev, dif, signalPeriod);
+            const macd = (dif - dea) * 2;
 
-            // MACD柱（通常乘以2）
-            var macd = (dif - dea) * 2;
+            item.macdDIF = blog.round(dif);
+            item.macdDEA = blog.round(dea);
+            item.macd = blog.round(macd);
 
-            // 保存到数据
-            item['macdDIF'] = blog.round(dif);
-            item['macdDEA'] = blog.round(dea);
-            item['macd'] = blog.round(macd);
-
-            // 更新上一次值
             emaShortPrev = emaShort;
             emaLongPrev = emaLong;
             deaPrev = dea;
@@ -118,7 +110,7 @@
     /**
     * 计算均线MA并设置到k线数据中
     * @param {array} items k线数据
-    * @param {array} periods 均线周期数组
+    * @param {object} config 配置对象，需包含 periods 数组和 value 函数
     * @returns {void}
     */
     function calculateAndSetMA(items, config) {
@@ -127,53 +119,52 @@
             return;
         }
 
-        var periods = config.periods;
+        const periods = config.periods;
         if (blog.isEmptyArray(periods)) {
             return;
         }
 
-        for (var index = 0; index < items.length; index++) {
-            var item = items[index];
-            for (var period of periods) {
-                var ma = calculateMA(config, items, index, period);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            for (const period of periods) {
+                const ma = calculateMA(config, items, i, period);
                 item['ma' + period] = ma;
             }
         }
     }
 
     /**
-  * 计算均线MA并设置到k线数据中
-  * @param {array} items k线数据
-  * @param {array} periods 均线周期数组
-  * @returns {void}
-  */
-    function calculateAndSetOVB(items, config) {
+    * 计算OBV指标（On-Balance Volume，能量潮）并设置到k线数据中
+    * @param {array} items k线数据
+    * @param {object} config 配置对象，需包含 value 函数
+    * @returns {void}
+    */
+    function calculateAndSetOBV(items, config) {
         if (blog.isEmptyArray(items) || blog.isNull(config)) {
-            console.log("calculateAndSetOVB param error", items, config);
+            console.log("calculateAndSetOBV param error", items, config);
             return;
         }
-        var prev = items[0];
-        prev.ovb = blog.round(prev.成交量万手);
-        for (var index = 1; index < items.length; index++) {
-            var prevValue = config.value(config, prev);
-            var item = items[index];
-            var itemValue = config.value(config, item);
+        const first = items[0];
+        first.obv = blog.round(first.成交量 / 100);
+        for (let i = 1; i < items.length; i++) {
+            const prev = items[i - 1];
+            const item = items[i];
+            const prevValue = prev.均价;
+            const itemValue = item.均价;
             if (itemValue > prevValue) {
-                item.ovb = blog.round(prev.ovb + item.成交量万手);
+                item.obv = blog.round(prev.obv + item.成交量 / 100);
             } else if (itemValue < prevValue) {
-                item.ovb = blog.round(prev.ovb - item.成交量万手);
+                item.obv = blog.round(prev.obv - item.成交量 / 100);
             } else {
-                item.ovb = blog.round(prev.ovb);
+                item.obv = blog.round(prev.obv);
             }
-            prev = item;
-
         }
     }
 
     /**
     * 计算KDJ指标并设置到k线数据中
     * @param {array} items k线数据
-    * @param {object} config { period, kPeriod, dPeriod, value }
+    * @param {object} config { period, value }
     * @returns {void}
     */
     function calculateAndSetKDJ(items, config) {
@@ -181,41 +172,42 @@
             console.log("calculateAndSetKDJ param error", items, config);
             return;
         }
-        var period = config.period;
+        const period = config.period;
         if (blog.isNullOrLte0(period)) {
             return;
         }
-        var kPrev = 50;
-        var dPrev = 50;
+        let kPrev = 50;
+        let dPrev = 50;
 
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            var close = config.value(config, item);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const close = item.均价;
 
             // 最近 N 日的最高价和最低价
-            var beginIndex = i - period + 1;
-            var highN = -Infinity;
-            var lowN = Infinity;
-            for (var j = beginIndex; j <= i; j++) {
-                if (j < 0) continue;
-                var h = items[j].最高价;
-                var l = items[j].最低价;
-                if (h > highN) highN = h;
-                if (l < lowN) lowN = l;
+            const beginIndex = i - period + 1;
+            let highN = -Infinity;
+            let lowN = Infinity;
+            for (let j = beginIndex; j <= i; j++) {
+                if (j < 0) {
+                    continue;
+                }
+                const h = items[j].最高价;
+                const l = items[j].最低价;
+                if (h > highN) {
+                    highN = h;
+                }
+                if (l < lowN) {
+                    lowN = l;
+                }
             }
 
             // RSV
-            var rsv;
-            if (highN === lowN) {
-                rsv = 50;
-            } else {
-                rsv = (close - lowN) / (highN - lowN) * 100;
-            }
+            const rsv = (highN === lowN) ? 50 : (close - lowN) / (highN - lowN) * 100;
 
             // K、D、J
-            var kVal = 2 / 3 * kPrev + 1 / 3 * rsv;
-            var dVal = 2 / 3 * dPrev + 1 / 3 * kVal;
-            var jVal = 3 * kVal - 2 * dVal;
+            const kVal = 2 / 3 * kPrev + 1 / 3 * rsv;
+            const dVal = 2 / 3 * dPrev + 1 / 3 * kVal;
+            const jVal = 3 * kVal - 2 * dVal;
 
             item.kdjK = blog.round(kVal);
             item.kdjD = blog.round(dVal);
@@ -228,147 +220,78 @@
 
 
     /**
-    * 计算MACD的EMA
-    * @param {number} prevEMA 上一周期EMA
-    * @param {number} close 当前收盘价
+    * 计算EMA（指数移动平均）
+    * EMA = prev * (1 - k) + value * k, 其中 k = 2 / (period + 1)
+    * @param {number} prev 上一周期EMA
+    * @param {number} value 当前值
     * @param {number} period 周期
     * @returns {number} EMA值
     */
-    function calculateMacdEMA(prevEMA, close, period) {
-        return prevEMA * (period - 1) / (period + 1) + close * 2 / (period + 1);
+    function calculateEMA(prev, value, period) {
+        const k = 2 / (period + 1);
+        return prev * (1 - k) + value * k;
     }
 
     /**
-    * 计算MACD的DIF
-    * @param {number} emaShort 快速EMA
-    * @param {number} emaLong 慢速EMA
-    * @returns {number} DIF值
-    */
-    function calculateMacdDIF(emaShort, emaLong) {
-        return emaShort - emaLong;
-    }
-
-    /**
-    * 计算MACD的DEA
-    * @param {number} prevDEA 上一周期DEA
-    * @param {number} dif 当前DIF
-    * @param {number} period DEA周期
-    * @returns {number} DEA值
-    */
-    function calculateMacdDEA(prevDEA, dif, period) {
-        return prevDEA * (period - 1) / (period + 1) + dif * 2 / (period + 1);
-    }
-
-    /**
-    * 计算MA
+    * 计算加权移动平均线MA（以成交量为权重）
+    * @param {object} config 配置对象，需包含 value 函数
     * @param {array} items k线数据
     * @param {number} endIndex 结束索引
-    * @param {array} period 周期
-    * @returns {object} 周期内收盘价平均值
+    * @param {number} period 周期
+    * @returns {number|undefined} MA值
     */
     function calculateMA(config, items, endIndex, period) {
-        var beginIndex = endIndex - period + 1;
-        return calculateAvgWeight(items, x => {
-            return {
-                value: config.value(config, x),
-                weight: x.成交量万手
-            };
-        }, beginIndex, endIndex);
+        const beginIndex = endIndex - period + 1;
+        return calculateAvgWeight(items, x => ({
+            value: x.成交额,
+            weight: x.成交量
+        }), beginIndex, endIndex);
     }
 
     /**
-    * 计算平均值
+    * 计算加权平均值
     * @param {array} items k线数据
-    * @param {function} valueFunction 获取值的函数，参数为单个k线数据，返回值为数字
-    * @param {number} beginIndex 开始索引
-    * @param {number} endIndex 结束索引
-    * @returns {number} 平均值
-    */
-    function calculateAvg(items, valueFunction, beginIndex, endIndex) {
-        var sum = 0;
-        var count = 0;
-        for (var i = beginIndex; i <= endIndex; i++) {
-            if (i < 0) {
-                continue;
-            }
-            var item = items[i];
-            if (item) {
-                var value = valueFunction(item);
-                if (value) {
-                    sum = sum + value;
-                    count = count + 1;
-                }
-            }
-        }
-        if (count === 0) {
-            return;
-        }
-        var avg = sum / count;
-        return blog.round(avg);
-    }
-
-    /**
-    * 计算平均值
-    * @param {array} items k线数据
-    * @param {function} valueFunction 获取值的函数，参数为单个k线数据，返回值为数字
-    * @param {number} beginIndex 开始索引
-    * @param {number} endIndex 结束索引
-    * @returns {number} 平均值
+    * @param {function} valueFunction 获取值和权重的函数，参数为单个k线数据，返回 { value, weight }
+    * @param {number} beginIndex 开始索引（含）
+    * @param {number} endIndex 结束索引（含）
+    * @returns {number|undefined} 加权平均值
     */
     function calculateAvgWeight(items, valueFunction, beginIndex, endIndex) {
-        var sum = 0;
-        var count = 0;
-        for (var i = beginIndex; i <= endIndex; i++) {
+        let sum = 0;
+        let count = 0;
+        for (let i = beginIndex; i <= endIndex; i++) {
             if (i < 0) {
                 continue;
             }
-            var item = valueFunction(items[i]);
-            if (item) {
-                var value = item.value * item.weight;
-                if (value) {
-                    sum = sum + value;
-                    count = count + item.weight;
-                }
+            const result = valueFunction(items[i]);
+            if (result) {
+                sum += result.value;
+                count += result.weight;
             }
         }
         if (count === 0) {
             return;
         }
-        var avg = sum / count;
-        return blog.round(avg);
+        return blog.round(sum / count);
     }
 
     function defaultKlineConfig() {
         return {
             ma: {
-                periods: [5, 10, 20, 60],
-                value: function (config, item) {
-                    return item.均价;
-                }
+                periods: [5, 10, 20, 60]
             },
             macd: {
-
                 shortPeriod: 10,
                 longPeriod: 20,
-                signalPeriod: 5,
-                value: function (config, item) {
-                    return item.均价;
-                }
+                signalPeriod: 5
             },
             boll: {
                 period: 20,
                 k: 2
             },
-            ovb: {
-                value: function (config, item) {
-                    return item.均价;
-                }
-            },
+            obv: {},
             kdj: {
-                period: 9,
-                value: function (config, item) {
-                    return item.均价;
-                }
+                period: 9
             }
         };
     }
@@ -377,8 +300,8 @@
         calculateAndSetBOLL: calculateAndSetBOLL,
         calculateAndSetMACD: calculateAndSetMACD,
         calculateAndSetMA: calculateAndSetMA,
-        calculateAndSetOVB: calculateAndSetOVB,
+        calculateAndSetOBV: calculateAndSetOBV,
         calculateAndSetKDJ: calculateAndSetKDJ,
-        defaultKlineConfig: defaultKlineConfig,
+        defaultKlineConfig: defaultKlineConfig
     };
 })();

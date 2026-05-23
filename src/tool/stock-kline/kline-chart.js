@@ -1,4 +1,38 @@
 
+/**
+ * 校验 klineData 是否有效，无效时打印日志并返回 true
+ */
+function isInvalidKlineData(klineData, callerName) {
+    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
+        console.log(callerName + " param error", klineData);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * 格式化大数字（用于轴标签）
+ */
+const KDJ_SERIES = [
+    { name: 'K', color: '#ff9100', key: 'kdjK' },
+    { name: 'D', color: '#0066cc', key: 'kdjD' },
+    { name: 'J', color: '#dd05ab', key: 'kdjJ' },
+].map(s => buildChartLine({ name: s.name, color: s.color, x: '日期', y: s.key }));
+
+function formatLargeNumber(v) {
+    var absV = Math.abs(v);
+    if (absV >= 100000000) {
+        return (v / 100000000).toFixed(1) + '亿';
+    }
+    if (absV >= 10000) {
+        return (v / 10000).toFixed(1) + '万';
+    }
+    if (absV >= 1000) {
+        return (v / 1000).toFixed(1) + '千';
+    }
+    return v.toFixed(0);
+}
+
 function buildKlineColorConfig() {
     return {
         avg: '#CCC',
@@ -20,13 +54,12 @@ function buildKlineColorConfig() {
 }
 
 function buildKLineChartOption(klineData) {
-    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
-        console.log("buildKLineChartOption param error", klineData);
+    if (isInvalidKlineData(klineData, "buildKLineChartOption")) {
         return;
     }
 
-    var config = klineData.config;
-    var series = [];
+    const config = klineData.config;
+    const series = [];
     series.push({
         name: '日K',
         type: 'candlestick',
@@ -46,8 +79,7 @@ function buildKLineChartOption(klineData) {
     });
 
     if (config.ma.periods) {
-        for (var i = 0; i < config.ma.periods.length; i++) {
-            var period = config.ma.periods[i];
+        for (const period of config.ma.periods) {
             series.push(buildChartLine({
                 name: 'MA' + period,
                 color: config.color['ma' + period],
@@ -57,56 +89,17 @@ function buildKLineChartOption(klineData) {
         }
     }
 
-    // series.push(buildChartLine({
-    //     name: 'BOLL-UP',
-    //     color: config.color.bollUP,
-    //     x: '日期',
-    //     y: 'bollUP'
-    // }));
-
-    // series.push(buildChartLine({
-    //     name: 'BOLL-MA',
-    //     color: config.color.bollMA,
-    //     x: '日期',
-    //     y: 'bollMA'
-    // }));
-
-    // series.push(buildChartLine({
-    //     name: 'BOLL-DN',
-    //     color: config.color.bollDN,
-    //     x: '日期',
-    //     y: 'bollDN'
-    // }));
-
-    //series.push(buildChartLine({
-    //    name: '均价',
-    //    yAxisIndex: 0,
-    //    color: config.color.avg,
-    //    x: '日期',
-    //    y: '均价',
-    //    valueFormatter: x => x + '元'
-    //}));
-
-    // series.push(buildChartLine({
-    //     name: '换手率',
-    //     yAxisIndex: 1,
-    //     color: config.color.turnoverRate,
-    //     x: '日期',
-    //     y: '换手率',
-    //     valueFormatter: x => x + '%'
-    // }));
-    var legend = buildChartLegend();
+    const legend = buildChartLegend();
     legend.top = 0;
-    var toolbox = buildChartToolBox();
-    toolbox.show = false;
+    const toolbox = buildChartToolBox();
     toolbox.top = 0;
     toolbox.feature.dataZoom = { show: true };
     toolbox.feature.restore = { show: true };
-    var xAxis = buildChartXAxis({ show: true });
+    const xAxis = buildChartXAxis({ show: true });
     xAxis.axisLine = { show: false };
-    var zoom = buildChartDataZoom({ type: 'slider', start: config.zoomStart });
+    const zoom = buildChartDataZoom({ type: 'slider', start: config.zoomStart });
     zoom.top = 20;
-    var grid = buildChartGrid();
+    const grid = buildChartGrid();
     grid[0].top = 100;
     grid[0].bottom = 20;
 
@@ -121,22 +114,18 @@ function buildKLineChartOption(klineData) {
         legend: legend,
         grid: grid,
         xAxis: [xAxis],
-        yAxis: [
-            buildChartYAxis({ name: '股价(元)' }),
-            //buildChartYAxis({ name: '换手率(%)' })
-        ],
+        yAxis: [buildChartYAxis({ name: '股价(元)' })],
         series: series
     };
 }
 
 function buildKLineCountChartOption(klineData) {
-    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
-        console.log("buildKLineCountChartOption param error", klineData);
+    if (isInvalidKlineData(klineData, "buildKLineCountChartOption")) {
         return;
     }
 
-    var config = klineData.config;
-    var tip = buildChartToolTip();
+    const config = klineData.config;
+    const tip = buildChartToolTip();
     tip.show = false;
     return {
         tooltip: tip,
@@ -149,32 +138,29 @@ function buildKLineCountChartOption(klineData) {
         yAxis: [Object.assign(buildChartYAxis({ name: '成交量(万手)' }), {
             axisLabel: {
                 formatter: function (v) {
-                    if (v >= 10000) return (v / 10000).toFixed(1) + '亿';
-                    if (v >= 1000) return (v / 1000).toFixed(1) + '千万';
-                    return v.toFixed(0);
+                    return formatLargeNumber(v / 100);
                 }
             }
         })],
         series: [
             buildChartBar({
-                name: '成交量',
+                name: '成交量(万手)',
                 color: x => x.data.收盘价 >= x.data.开盘价 ? config.color.red : config.color.green,
                 x: '日期',
-                y: '成交量万手',
+                y: '成交量',
                 valueFormatter: x => x + '万手'
             })
         ]
     };
 }
 
-function buildKLineOvbChartOption(klineData) {
-    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
-        console.log("buildKLineOvbChartOption param error", klineData);
+function buildKLineObvChartOption(klineData) {
+    if (isInvalidKlineData(klineData, "buildKLineObvChartOption")) {
         return;
     }
 
-    var config = klineData.config;
-    var tip = buildChartToolTip();
+    const config = klineData.config;
+    const tip = buildChartToolTip();
     tip.show = false;
     return {
         tooltip: tip,
@@ -184,48 +170,39 @@ function buildKLineOvbChartOption(klineData) {
         legend: buildChartLegend(),
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
-        yAxis: [Object.assign(buildChartYAxis({ name: 'OVB' }), {
-            axisLabel: {
-                formatter: function (v) {
-                    if (v >= 100000000) return (v / 100000000).toFixed(1) + '亿';
-                    if (v >= 10000) return (v / 10000).toFixed(1) + '万';
-                    return v.toFixed(0);
-                }
-            }
+        yAxis: [Object.assign(buildChartYAxis({ name: 'OBV' }), {
+            axisLabel: { formatter: formatLargeNumber }
         })],
         series: [
             buildChartLine({
-                name: 'OVB',
+                name: 'OBV',
                 color: config.color.red,
                 x: '日期',
-                y: 'ovb'
+                y: 'obv'
             })
         ]
     };
 }
 
 function buildKLineMacdChartOption(klineData) {
-    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
-        console.log("buildKLineCountChartOption param error", klineData);
+    if (isInvalidKlineData(klineData, "buildKLineMacdChartOption")) {
         return;
     }
 
-    var config = klineData.config;
-    var macd = config.macd;
-    var name = 'MACD(' + macd.shortPeriod + ',' + macd.longPeriod + ',' + macd.signalPeriod + ')';
-    var tip = buildChartToolTip();
+    const config = klineData.config;
+    const macd = config.macd;
+    const name = 'MACD(' + macd.shortPeriod + ',' + macd.longPeriod + ',' + macd.signalPeriod + ')';
+    const tip = buildChartToolTip();
     tip.show = false;
     return {
         tooltip: tip,
         toolbox: buildChartToolBox(),
-        dataZoom: [
-            buildChartDataZoom({ type: 'inside', start: config.zoomStart })
-        ],
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
         legend: buildChartLegend(),
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
-        yAxis: [buildChartYAxis({ name: name }),],
+        yAxis: [buildChartYAxis({ name: name })],
         series: [
             buildChartLine({
                 name: 'DIF',
@@ -250,13 +227,12 @@ function buildKLineMacdChartOption(klineData) {
 }
 
 function buildKLineKdjChartOption(klineData) {
-    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
-        console.log("buildKLineKdjChartOption param error", klineData);
+    if (isInvalidKlineData(klineData, "buildKLineKdjChartOption")) {
         return;
     }
 
-    var config = klineData.config;
-    var tip = buildChartToolTip();
+    const config = klineData.config;
+    const tip = buildChartToolTip();
     tip.show = false;
     return {
         tooltip: tip,
@@ -267,142 +243,69 @@ function buildKLineKdjChartOption(klineData) {
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
         yAxis: [buildChartYAxis({ name: 'KDJ' })],
-        series: [
-            buildChartLine({
-                name: 'K',
-                color: '#ff9100',
-                x: '日期',
-                y: 'kdjK'
-            }),
-            buildChartLine({
-                name: 'D',
-                color: '#0066cc',
-                x: '日期',
-                y: 'kdjD'
-            }),
-            buildChartLine({
-                name: 'J',
-                color: '#dd05ab',
-                x: '日期',
-                y: 'kdjJ'
-            })
-        ]
+        series: KDJ_SERIES
     };
 }
 
-function buildChartLine(option) {
-    option = option || {};
+function buildChartLine(option = {}) {
     return {
         name: option.name,
         yAxisIndex: option.yAxisIndex,
         type: 'line',
         smooth: true,
         showSymbol: false,
-        itemStyle: {
-            color: option.color
-        },
-        lineStyle: {
-            width: 1
-        },
+        itemStyle: { color: option.color },
+        lineStyle: { width: 1 },
         z: 0,
         dimensions: [option.x, option.y],
-        encode: {
-            x: option.x,
-            y: option.y
-        },
-        tooltip: {
-            valueFormatter: option.valueFormatter
-        },
+        encode: { x: option.x, y: option.y },
+        tooltip: { valueFormatter: option.valueFormatter },
     };
 }
 
-function buildChartBar(option) {
-    option = option || {};
+function buildChartBar(option = {}) {
     return {
         name: option.name,
         type: 'bar',
-        smooth: true,
-        showSymbol: false,
-        itemStyle: {
-            color: option.color
-        },
+        itemStyle: { color: option.color },
         dimensions: [option.x, option.y],
-        encode: {
-            x: option.x,
-            y: option.y
-        },
-        tooltip: {
-            valueFormatter: option.valueFormatter
-        },
+        encode: { x: option.x, y: option.y },
+        tooltip: { valueFormatter: option.valueFormatter },
     };
 }
 
-function buildChartYAxis(option) {
-    option = option || {};
-    return {
-        name: option.name,
-        type: 'value',
-        scale: true
-    };
+function buildChartYAxis(option = {}) {
+    return { name: option.name, type: 'value', scale: true };
 }
 
-function buildChartXAxis(option) {
-    option = option || {};
-    return {
-        id: 'xAxis0',
-        type: 'category',
-        show: option.show
-    };
+function buildChartXAxis(option = {}) {
+    return { id: 'xAxis0', type: 'category', show: option.show };
 }
 
-function buildChartGrid(option) {
-    option = option || {};
-    return [
-        {
-            id: 'guid0',
-            top: 50,
-            left: 20,
-            right: 20,
-            containLabel: true,
-            bottom: option.bottom
-        }
-    ];
+function buildChartGrid(option = {}) {
+    return [{
+        id: 'guid0', top: 50, left: 20, right: 20,
+        containLabel: true, bottom: option.bottom
+    }];
 }
 
 function buildChartLegend() {
-    return {
-        id: 'legend0',
-        show: true,
-        top: 20
-    };
+    return { id: 'legend0', show: true, top: 20 };
 }
 
 function buildChartDataset(klineData) {
-    return {
-        id: 'dataset0',
-        sourceHeader: false,
-        source: klineData.items
-    };
+    return { id: 'dataset0', sourceHeader: false, source: klineData.items };
 }
 
-function buildChartDataZoom(option) {
-    option = option || {};
-    return {
-        type: option.type,
-        start: option.start || 90,
-        end: 100
-    };
+function buildChartDataZoom(option = {}) {
+    return { type: option.type, start: option.start || 90, end: 100 };
 }
 
 function buildChartToolBox() {
     return {
-        id: 'toolbox0',
-        show: false,
-        right: '20px',
+        id: 'toolbox0', show: false, right: '20px',
         feature: {
-            dataZoom: {
-                yAxisIndex: 'none'
-            },
+            dataZoom: { yAxisIndex: 'none' },
             restore: {},
             saveAsImage: {}
         }
@@ -411,10 +314,7 @@ function buildChartToolBox() {
 
 function buildChartToolTip() {
     return {
-        id: 'tooltip0',
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross'
-        },
+        id: 'tooltip0', trigger: 'axis',
+        axisPointer: { type: 'cross' },
     };
 }

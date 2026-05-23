@@ -14,14 +14,11 @@ function getKlineData(param, callback) {
         };
 
         console.log("getKlineData klineParam", klineParam);
-
         var v1KlinesParam = tickflow.tickflowParam(klineParam);
+        v1KlinesParam.count = blog.dateDiffDays(klineParam.endDate, klineParam.startDate) + 1;
         console.log("getKlineData v1KlinesParam", v1KlinesParam);
         var kline = tickflow.v1KlinesAsync(v1KlinesParam, function (data) {
             console.log("getKlineData v1KlinesData", data);
-            v1KlinesParam.count = blog.dateDiffDays(klineParam.endDate, klineParam.startDate) + 1;
-            var periodDays = { '日线': 1, '周线': 7, '月线': 30 }[klineParam.period] || 1;
-            v1KlinesParam.count = Math.ceil(v1KlinesParam.count / periodDays);
             callback({
                 meta: stock.data[0],
                 klines: data.data
@@ -59,7 +56,6 @@ function buildKLineData(param, data, config) {
             涨跌额: blog.round(close - open, 2),
             涨跌幅: blog.round((close - open) / open * 100, 2),
             成交量: data.volume[index] * 100,
-            成交量万手: blog.round(data.volume[index] / 100, 2),
             成交额: data.amount[index],
             均价: avg,
             换手率: 1,
@@ -82,7 +78,7 @@ function calculateKLine(klineData) {
     kline.calculateAndSetMA(klineData.items, klineData.config.ma);
     kline.calculateAndSetMACD(klineData.items, klineData.config.macd);
     kline.calculateAndSetBOLL(klineData.items, klineData.config.boll);
-    kline.calculateAndSetOVB(klineData.items, klineData.config.ovb);
+    kline.calculateAndSetOBV(klineData.items, klineData.config.obv);
     kline.calculateAndSetKDJ(klineData.items, klineData.config.kdj);
     console.log("calculateKLine end", klineData, klineData.config);
     console.log("calculateKLine end last item", klineData.items[klineData.items.length - 1]);
