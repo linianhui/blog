@@ -78,7 +78,7 @@ new Vue({
             getKlineData(param, function (data) {
                 console.log('getKlineData', data);
                 var klineDataConfig = kline.defaultKlineConfig();
-                var klineData = buildKLineData(param, data.klines, klineDataConfig);
+                var klineData = buildKLineData(param, data, klineDataConfig);
                 klineData.meta = data.meta;
                 klineData.config = klineDataConfig;
                 klineData.config.color = buildKlineColorConfig();

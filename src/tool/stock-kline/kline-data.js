@@ -21,7 +21,7 @@ function getKlineData(param, callback) {
             console.log("getKlineData v1KlinesData", data);
             callback({
                 meta: stock.data[0],
-                klines: data.data
+                kline: data.data
             });
         });
     });
@@ -31,15 +31,19 @@ function buildKLineData(param, data, config) {
     if (blog.isNull(data)) {
         return;
     }
+    var kline = data.kline;
+    if (blog.isNull(kline)) {
+        return;
+    }
     var result = {};
     result.symbol = param.symbol;
     result.items = [];
-    var count = data.timestamp.length;
+    var count = kline.timestamp.length;
     result.count = count;
-    var avgPrev = blog.round(data.amount[0] / data.volume[0] / 100, 2);
+    var avgPrev = blog.round(kline.amount[0] / kline.volume[0] / 100, 2);
     for (var index = 0; index < count; index++) {
-        var avg = blog.round(data.amount[index] / data.volume[index] / 100, 2);
-        var date = blog.dateFormat(moment(data.timestamp[index]));
+        var avg = blog.round(kline.amount[index] / kline.volume[index] / 100, 2);
+        var date = blog.dateFormat(moment(kline.timestamp[index]));
         var open = avgPrev;
         var close = avg;
 
@@ -55,8 +59,8 @@ function buildKLineData(param, data, config) {
             收盘价: close,
             涨跌额: blog.round(close - open, 2),
             涨跌幅: blog.round((close - open) / open * 100, 2),
-            成交量: data.volume[index] * 100,
-            成交额: data.amount[index],
+            成交量: kline.volume[index] * 100,
+            成交额: kline.amount[index],
             均价: avg,
             换手率: 1,
         });
