@@ -6,5 +6,6 @@ toc: true
 draft: false
 ---
 
+{{<element-ui>}}
 {{<echarts>}}
 {{<inline-html path="app.html">}}

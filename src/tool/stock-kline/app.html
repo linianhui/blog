@@ -23,54 +23,54 @@
     background-color: #FFF;
     color: #909399;
   }
-
-  .radio-group input[type="radio"] {
-    margin-left: 4px;
-  }
 </style>
 
-<fieldset>
-  <legend>参数</legend>
-  <table>
-    <tr>
-      <td>
-        <label for="symbol">代码</label>
-      </td>
-      <td>
-        <input type="text" id="stockKLineSymbol" value="000001" size="6" autocomplete="true"
-          list="stockKLineSymbolList">
-        <datalist id="stockKLineSymbolList"></datalist>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="period">周期</label>
-      </td>
-      <td class="radio-group">
-        <input type="radio" id="1d" name="stockKLinePeriod" value="日线" checked>
-        <label for="1d">日线</label>
-        <input type="radio" id="1w" name="stockKLinePeriod" value="周线">
-        <label for="1w">周线</label>
-        <input type="radio" id="1M" name="stockKLinePeriod" value="月线">
-        <label for="1M">月线</label>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="period">复权</label>
-      </td>
-      <td class="radio-group">
-        <input type="radio" id="forward" name="stockKLineAdjust" value="前复权" checked>
-        <label for="forward">前复权</label>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input id="renderButton" type="button" value="查看K线" onclick="renderKLine()">
-      </td>
-    </tr>
-  </table>
-</fieldset>
+<div id="app">
+  <fieldset>
+    <legend>参数</legend>
+    <table>
+      <tr>
+        <td><label>代码</label></td>
+        <td>
+          <el-input v-model="symbol" size="small" style="width:80px" id="stockKLineSymbol"></el-input>
+        </td>
+        <td>
+          <el-radio-group v-model="symbol" size="small" style="display:inline-flex;flex-wrap:wrap;gap:8px">
+            <span v-for="item in sortedSymbolHistory" :key="item.code" style="position:relative;display:inline-block">
+              <el-radio-button :label="item.code">{{ item.name }} ({{ item.code }})</el-radio-button>
+              <i class="el-icon-close" @click.stop="removeSymbol(item.code)"
+                style="position:absolute;top:-6px;right:-6px;font-size:11px;cursor:pointer;color:#999;background:#fff;border-radius:50%;padding:1px;line-height:1"
+                title="从历史中删除"></i>
+            </span>
+          </el-radio-group>
+        </td>
+      </tr>
+      <tr>
+        <td><label>周期</label></td>
+        <td>
+          <el-radio-group v-model="period" size="small">
+            <el-radio-button label="日线">日线</el-radio-button>
+            <el-radio-button label="周线">周线</el-radio-button>
+            <el-radio-button label="月线">月线</el-radio-button>
+          </el-radio-group>
+        </td>
+      </tr>
+      <tr>
+        <td><label>复权</label></td>
+        <td>
+          <el-radio-group v-model="adjust" size="small">
+            <el-radio-button label="前复权">前复权</el-radio-button>
+          </el-radio-group>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <el-button type="primary" @click="renderKLine" :disabled="loading" size="small">查看K线</el-button>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+</div>
 
 <fieldset>
   <legend>VWAP-K线-<span id="stockName"></span></legend>
