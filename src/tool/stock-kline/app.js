@@ -4,8 +4,9 @@ var klineChart = echarts.init(this.klineChartDiv);
 var klineMacdChart = echarts.init(this.klineMacdChartDiv);
 var klineCountChart = echarts.init(this.klineCountChartDiv);
 var klineOvbChart = echarts.init(this.klineOvbChartDiv);
+var klineKdjChart = echarts.init(this.klineKdjChartDiv);
 
-var charts = [klineChart, klineMacdChart, klineCountChart, klineOvbChart];
+var charts = [klineChart, klineMacdChart, klineCountChart, klineOvbChart, klineKdjChart];
 onChartDispatchDataZoom(charts);
 onChartDispatchToolTip(charts);
 
@@ -89,6 +90,7 @@ new Vue({
                 klineMacdChart.setOption(buildKLineMacdChartOption(klineData));
                 klineCountChart.setOption(buildKLineCountChartOption(klineData));
                 klineOvbChart.setOption(buildKLineOvbChartOption(klineData));
+                klineKdjChart.setOption(buildKLineKdjChartOption(klineData));
                 self.loading = false;
                 document.getElementById('stockName').innerHTML = data.meta.name;
                 self.saveSymbolHistory(param.symbol, data.meta.name);

@@ -83,6 +83,7 @@ function calculateKLine(klineData) {
     kline.calculateAndSetMACD(klineData.items, klineData.config.macd);
     kline.calculateAndSetBOLL(klineData.items, klineData.config.boll);
     kline.calculateAndSetOVB(klineData.items, klineData.config.ovb);
+    kline.calculateAndSetKDJ(klineData.items, klineData.config.kdj);
     console.log("calculateKLine end", klineData, klineData.config);
     console.log("calculateKLine end last item", klineData.items[klineData.items.length - 1]);
 }

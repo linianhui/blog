@@ -1,7 +1,11 @@
 
+function resolveBatchParam(context) {
+    return context.params.batch ? context.params.batch[0] : context.params;
+}
+
 function onChartDispatchToolTip(charts) {
     onChartDispatch(charts, "highlight", function (context) {
-        var param = context.params.batch ? context.params.batch[0] : context.params;
+        var param = resolveBatchParam(context);
         return {
             type: 'showTip',
             seriesIndex: 0,
@@ -12,7 +16,7 @@ function onChartDispatchToolTip(charts) {
 
 function onChartDispatchDataZoom(charts) {
     onChartDispatch(charts, "dataZoom", function (context) {
-        var param = context.params.batch ? context.params.batch[0] : context.params;
+        var param = resolveBatchParam(context);
         return {
             type: "dataZoom",
             start: param.start,
@@ -22,41 +26,25 @@ function onChartDispatchDataZoom(charts) {
 }
 
 function onChartDispatch(charts, event, buildDispatchActionCallback) {
-    if (blog.isEmptyArray(charts) || blog.isNull(event) || blog.isNull(buildDispatchActionCallback)) {
+    if (blog.isEmptyArray(charts)) {
         return;
     }
-    var thatList = [];
-    for (var index = 0; index < charts.length; index++) {
-        var current = charts[index];
-        var others = charts.filter((x, i) => i != index);
-        thatList.push({
-            event: event,
-            buildDispatchActionCallback: buildDispatchActionCallback,
-            current: current,
-            currentChartId: current.getDom().id,
-            others: others
-        });
-    }
-
-    for (var that of thatList) {
-        that.current.on(that.event, function (params) {
+    for (var i = 0; i < charts.length; i++) {
+        var current = charts[i];
+        var others = charts.slice(0, i).concat(charts.slice(i + 1));
+        current.on(event, function (params) {
             if (params.__dispatchChartId) {
                 return;
             }
-            var currentChartId = this.currentChartId;
-            //console.log("event", Date.now(), currentChartId, this.event, params);
-            for (var other of this.others) {
-                var action = this.buildDispatchActionCallback({
-                    event: this.event,
-                    params: params,
-                });
-                if (blog.isNull(action)) {
-                    continue;
-                }
-                action.__dispatchChartId = currentChartId;
+            for (var j = 0; j < this.others.length; j++) {
+                var other = this.others[j];
+                var action = buildDispatchActionCallback({ event: event, params: params });
+                action.__dispatchChartId = this.currentChartId;
                 other.dispatchAction(action);
-                //console.log("action", Date.now(), other.getDom().id, this.event, action, params);
             }
-        }, that);
+        }, {
+            others: others,
+            currentChartId: current.getDom().id
+        });
     }
 }

@@ -171,6 +171,63 @@
     }
 
     /**
+    * 计算KDJ指标并设置到k线数据中
+    * @param {array} items k线数据
+    * @param {object} config { period, kPeriod, dPeriod, value }
+    * @returns {void}
+    */
+    function calculateAndSetKDJ(items, config) {
+        if (blog.isEmptyArray(items) || blog.isNull(config)) {
+            console.log("calculateAndSetKDJ param error", items, config);
+            return;
+        }
+        var period = config.period;
+        if (blog.isNullOrLte0(period)) {
+            return;
+        }
+        var kPrev = 50;
+        var dPrev = 50;
+
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var close = config.value(config, item);
+
+            // 最近 N 日的最高价和最低价
+            var beginIndex = i - period + 1;
+            var highN = -Infinity;
+            var lowN = Infinity;
+            for (var j = beginIndex; j <= i; j++) {
+                if (j < 0) continue;
+                var h = items[j].最高价;
+                var l = items[j].最低价;
+                if (h > highN) highN = h;
+                if (l < lowN) lowN = l;
+            }
+
+            // RSV
+            var rsv;
+            if (highN === lowN) {
+                rsv = 50;
+            } else {
+                rsv = (close - lowN) / (highN - lowN) * 100;
+            }
+
+            // K、D、J
+            var kVal = 2 / 3 * kPrev + 1 / 3 * rsv;
+            var dVal = 2 / 3 * dPrev + 1 / 3 * kVal;
+            var jVal = 3 * kVal - 2 * dVal;
+
+            item.kdjK = blog.round(kVal);
+            item.kdjD = blog.round(dVal);
+            item.kdjJ = blog.round(jVal);
+
+            kPrev = kVal;
+            dPrev = dVal;
+        }
+    }
+
+
+    /**
     * 计算MACD的EMA
     * @param {number} prevEMA 上一周期EMA
     * @param {number} close 当前收盘价
@@ -306,6 +363,12 @@
                 value: function (config, item) {
                     return item.均价;
                 }
+            },
+            kdj: {
+                period: 9,
+                value: function (config, item) {
+                    return item.均价;
+                }
             }
         };
     }
@@ -315,6 +378,7 @@
         calculateAndSetMACD: calculateAndSetMACD,
         calculateAndSetMA: calculateAndSetMA,
         calculateAndSetOVB: calculateAndSetOVB,
+        calculateAndSetKDJ: calculateAndSetKDJ,
         defaultKlineConfig: defaultKlineConfig,
     };
 })();

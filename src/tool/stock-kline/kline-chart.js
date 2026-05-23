@@ -136,8 +136,10 @@ function buildKLineCountChartOption(klineData) {
     }
 
     var config = klineData.config;
+    var tip = buildChartToolTip();
+    tip.show = false;
     return {
-        tooltip: buildChartToolTip(),
+        tooltip: tip,
         toolbox: buildChartToolBox(),
         dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
@@ -172,8 +174,10 @@ function buildKLineOvbChartOption(klineData) {
     }
 
     var config = klineData.config;
+    var tip = buildChartToolTip();
+    tip.show = false;
     return {
-        tooltip: buildChartToolTip(),
+        tooltip: tip,
         toolbox: buildChartToolBox(),
         dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
         dataset: buildChartDataset(klineData),
@@ -209,8 +213,10 @@ function buildKLineMacdChartOption(klineData) {
     var config = klineData.config;
     var macd = config.macd;
     var name = 'MACD(' + macd.shortPeriod + ',' + macd.longPeriod + ',' + macd.signalPeriod + ')';
+    var tip = buildChartToolTip();
+    tip.show = false;
     return {
-        tooltip: buildChartToolTip(),
+        tooltip: tip,
         toolbox: buildChartToolBox(),
         dataZoom: [
             buildChartDataZoom({ type: 'inside', start: config.zoomStart })
@@ -238,6 +244,47 @@ function buildKLineMacdChartOption(klineData) {
                 color: x => x.data.macd >= 0 ? config.color.red : config.color.green,
                 x: '日期',
                 y: 'macd'
+            })
+        ]
+    };
+}
+
+function buildKLineKdjChartOption(klineData) {
+    if (blog.isNull(klineData) || blog.isEmptyArray(klineData.items) || blog.isNull(klineData.config)) {
+        console.log("buildKLineKdjChartOption param error", klineData);
+        return;
+    }
+
+    var config = klineData.config;
+    var tip = buildChartToolTip();
+    tip.show = false;
+    return {
+        tooltip: tip,
+        toolbox: buildChartToolBox(),
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
+        dataset: buildChartDataset(klineData),
+        legend: buildChartLegend(),
+        grid: buildChartGrid(),
+        xAxis: [buildChartXAxis()],
+        yAxis: [buildChartYAxis({ name: 'KDJ' })],
+        series: [
+            buildChartLine({
+                name: 'K',
+                color: '#ff9100',
+                x: '日期',
+                y: 'kdjK'
+            }),
+            buildChartLine({
+                name: 'D',
+                color: '#0066cc',
+                x: '日期',
+                y: 'kdjD'
+            }),
+            buildChartLine({
+                name: 'J',
+                color: '#dd05ab',
+                x: '日期',
+                y: 'kdjJ'
             })
         ]
     };
