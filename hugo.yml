@@ -4,7 +4,8 @@ log: true
 verbose: true
 
 baseURL: https://linianhui.github.io/
-languageCode: zh-cn
+language:
+  locale: zh-CN
 hasCJKLanguage: true
 
 title: Timetombs
@@ -68,7 +69,6 @@ dataDir: .hugo/data
 themesDir: .hugo/theme
 publishDir: .www
 
-metaDataFormat: yaml
 frontmatter:
   date:
     - created_at
@@ -111,7 +111,7 @@ markup:
     renderer:
       hardWraps: true
       unsafe: true
-      xHTML: true
+      xhtml: true
 
 minify:
   disableCSS: false
@@ -123,11 +123,10 @@ minify:
   minifyOutput: true
   tdewolff:
     css:
-      keepCSS2: true
       precision: 0
     html:
       keepComments: false
-      keepConditionalComments: true
+      keepSpecialComments: true
       keepDefaultAttrVals: true
       keepDocumentTags: true
       keepEndTags: true
@@ -142,3 +141,6 @@ minify:
       precision: 0
     xml:
       keepWhitespace: false
+security:
+  allowContent:
+    - '^.*$'
