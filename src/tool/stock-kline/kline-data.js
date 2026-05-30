@@ -21,7 +21,8 @@ function getKlineData(param, callback) {
             console.log("getKlineData v1KlinesData", data);
             callback({
                 meta: stock.data[0],
-                kline: data.data
+                kline: data.data,
+                exchange: tickflow.exchangeOf(klineParam.symbol)
             });
         });
     });

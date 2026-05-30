@@ -92,7 +92,8 @@ new Vue({
                 klineObvChart.setOption(buildKLineObvChartOption(klineData));
                 klineKdjChart.setOption(buildKLineKdjChartOption(klineData));
                 self.loading = false;
-                document.getElementById('stockName').innerHTML = data.meta.name;
+                document.getElementById('stockName').innerHTML =
+                data.meta.name + ' ' + data.exchange.name;
                 self.saveSymbolHistory(param.symbol, data.meta.name);
             });
         }

@@ -2,12 +2,23 @@
 
 (function (window) {
     var API_HOST = "https://api.tickflow.org";
-    var EXCHANGES = {
-        "00": ".SZ",
-        "60": ".SH",
-        "30": ".SZ",
-        "68": ".SH"
-    };
+    var EXCHANGES = [
+        { prefix: "00", exchange: "SZ", name: "深圳主板" },
+        { prefix: "20", exchange: "SZ", name: "深圳B股" },
+        { prefix: "30", exchange: "SZ", name: "深圳创业板" },
+        { prefix: "15", exchange: "SZ", name: "深圳ETF/LOF" },
+        { prefix: "16", exchange: "SZ", name: "深圳LOF" },
+        { prefix: "60", exchange: "SH", name: "上海主板" },
+        { prefix: "68", exchange: "SH", name: "上海科创板" },
+        { prefix: "90", exchange: "SH", name: "上海B股" },
+        { prefix: "51", exchange: "SH", name: "上海ETF" },
+        { prefix: "56", exchange: "SH", name: "上海ETF" },
+        { prefix: "58", exchange: "SH", name: "上海科创板ETF" },
+        { prefix: "43", exchange: "BJ", name: "北交所(原新三板)" },
+        { prefix: "83", exchange: "BJ", name: "北交所" },
+        { prefix: "87", exchange: "BJ", name: "北交所" },
+        { prefix: "92", exchange: "BJ", name: "北交所新代码段" }
+    ];
 
     var KLINE_PERIODS = {
         "1分钟": "1m",
@@ -93,8 +104,11 @@
 
     function exchangeOf(symbol) {
         if (symbol) {
-            var prefix = symbol.substring(0, 2);
-            return EXCHANGES[prefix];
+            for (var i = 0; i < EXCHANGES.length; i++) {
+                if (symbol.startsWith(EXCHANGES[i].prefix)) {
+                    return EXCHANGES[i];
+                }
+            }
         }
     }
 
@@ -119,7 +133,7 @@
     function tickflowParam(param) {
         return {
             key: param.key,
-            symbol: param.symbol + exchangeOf(param.symbol),
+            symbol: param.symbol + '.' + exchangeOf(param.symbol).exchange,
             period: klinePeriodOf(param.period),
             start_time: dateToTimestamp(param.startDate),
             end_time: dateToTimestamp(param.endDate),
@@ -128,8 +142,9 @@
     }
 
     window.tickflow = {
-        klinePeriods: KLINE_PERIODS,
-        klineAdjusts: KLINE_ADJUSTS,
+        exchangeOf: exchangeOf,
+        klinePeriodOf: klinePeriodOf,
+        klineAdjustOf: klineAdjustOf,
         v1InstrumentsAsync: v1InstrumentsAsync,
         v1KlinesAsync: v1KlinesAsync,
         tickflowParam: tickflowParam
