@@ -218,6 +218,20 @@ function buildKLineMacdChartOption(klineData) {
                 color: x => x.data.macd >= 0 ? config.color.red : config.color.green,
                 x: '日期',
                 y: 'macd',
+                markArea: {
+                    silent: true,
+                    data: [[{
+                        yAxis: 0,
+                        itemStyle: { color: 'rgba(255, 80, 80, 0.05)' }
+                    }, {
+                        yAxis: 'max'
+                    }], [{
+                        yAxis: 0,
+                        itemStyle: { color: 'rgba(80, 180, 80, 0.05)' }
+                    }, {
+                        yAxis: 'min'
+                    }]]
+                },
                 markPoint: buildMarkPoint()
             })
         ]
@@ -250,6 +264,20 @@ function buildKLineKdjChartOption(klineData) {
             }),
             buildChartLine({
                 name: 'J', color: '#dd05ab', x: '日期', y: 'kdjJ',
+                markArea: {
+                    silent: true,
+                    data: [[{
+                        yAxis: 50,
+                        itemStyle: { color: 'rgba(255, 80, 80, 0.05)' }
+                    }, {
+                        yAxis: 'max'
+                    }], [{
+                        yAxis: 50,
+                        itemStyle: { color: 'rgba(80, 180, 80, 0.05)' }
+                    }, {
+                        yAxis: 'min'
+                    }]]
+                },
                 markPoint: buildMarkPoint()
             })
         ]
@@ -278,7 +306,28 @@ function buildKLineMadiffChartOption(klineData) {
         series: [
             buildChartLine({
                 name: 'R5', color: config.color.ma5, x: '日期', y: 'madiffR5',
-                markPoint: buildMarkPoint('%')
+                markPoint: buildMarkPoint('%'),
+                markLine: {
+                    silent: true,
+                    data: [{ yAxis: 0 }],
+                    symbol: 'none',
+                    lineStyle: { color: '#666', width: 1, type: 'dashed' },
+                    label: { show: false }
+                },
+                markArea: {
+                    silent: true,
+                    data: [[{
+                        yAxis: 0,
+                        itemStyle: { color: 'rgba(255, 80, 80, 0.05)' }
+                    }, {
+                        yAxis: 'max'
+                    }], [{
+                        yAxis: 0,
+                        itemStyle: { color: 'rgba(80, 180, 80, 0.05)' }
+                    }, {
+                        yAxis: 'min'
+                    }]]
+                }
             }),
             buildChartLine({
                 name: 'R10', color: config.color.ma10, x: '日期', y: 'madiffR10'
@@ -304,6 +353,8 @@ function buildChartLine(option = {}) {
         encode: { x: option.x, y: option.y },
         tooltip: { valueFormatter: option.valueFormatter },
         markPoint: option.markPoint,
+        markLine: option.markLine,
+        markArea: option.markArea,
     };
 }
 
@@ -316,6 +367,7 @@ function buildChartBar(option = {}) {
         encode: { x: option.x, y: option.y },
         tooltip: { valueFormatter: option.valueFormatter },
         markPoint: option.markPoint,
+        markArea: option.markArea,
     };
 }
 
