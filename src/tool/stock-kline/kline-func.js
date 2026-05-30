@@ -278,7 +278,7 @@
     function defaultKlineConfig() {
         return {
             ma: {
-                periods: [5, 10, 20, 60]
+                periods: [5, 10, 20, 60,240]
             },
             macd: {
                 shortPeriod: 10,
