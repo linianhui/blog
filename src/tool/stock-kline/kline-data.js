@@ -81,6 +81,7 @@ function calculateKLine(klineData) {
     }
     console.log("calculateKLine begin", klineData, klineData.config);
     kline.calculateAndSetMA(klineData.items, klineData.config.ma);
+    kline.calculateAndSetMADIFF(klineData.items, klineData.config.madiff);
     kline.calculateAndSetMACD(klineData.items, klineData.config.macd);
     kline.calculateAndSetBOLL(klineData.items, klineData.config.boll);
     kline.calculateAndSetOBV(klineData.items, klineData.config.obv);

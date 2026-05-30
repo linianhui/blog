@@ -256,6 +256,40 @@ function buildKLineKdjChartOption(klineData) {
     };
 }
 
+function buildKLineMadiffChartOption(klineData) {
+    if (isInvalidKlineData(klineData, "buildKLineMadiffChartOption")) {
+        return;
+    }
+
+    const config = klineData.config;
+    const tip = buildChartToolTip();
+    tip.show = false;
+    return {
+        tooltip: tip,
+        toolbox: buildChartToolBox(),
+        dataZoom: [buildChartDataZoom({ type: 'inside', start: config.zoomStart })],
+        dataset: buildChartDataset(klineData),
+        legend: buildChartLegend(),
+        grid: buildChartGrid(),
+        xAxis: [buildChartXAxis()],
+        yAxis: [
+            Object.assign(buildChartYAxis({ name: 'MA60偏离率(%)' }), { gridIndex: 0 })
+        ],
+        series: [
+            buildChartLine({
+                name: 'R5', color: config.color.ma5, x: '日期', y: 'madiffR5',
+                markPoint: buildMarkPoint('%')
+            }),
+            buildChartLine({
+                name: 'R10', color: config.color.ma10, x: '日期', y: 'madiffR10'
+            }),
+            buildChartLine({
+                name: 'R20', color: config.color.ma20, x: '日期', y: 'madiffR20'
+            })
+        ]
+    };
+}
+
 function buildChartLine(option = {}) {
     return {
         name: option.name,
@@ -264,7 +298,7 @@ function buildChartLine(option = {}) {
         smooth: true,
         showSymbol: false,
         itemStyle: { color: option.color },
-        lineStyle: { width: 1 },
+        lineStyle: Object.assign({ width: 1 }, option.lineStyle),
         z: 0,
         dimensions: [option.x, option.y],
         encode: { x: option.x, y: option.y },

@@ -220,6 +220,33 @@
 
 
     /**
+    * 计算MADIFF指标并设置到k线数据中
+    * 基于MA5, MA10, MA20与MA60的差值和偏离率
+    * @param {array} items k线数据，需包含ma5, ma10, ma20, ma60字段
+    * @param {object} config 配置对象
+    * @returns {void}
+    */
+    function calculateAndSetMADIFF(items, config) {
+        if (blog.isEmptyArray(items) || blog.isNull(config)) {
+            console.log("calculateAndSetMADIFF param error", items, config);
+            return;
+        }
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const ma5 = item.ma5;
+            const ma10 = item.ma10;
+            const ma20 = item.ma20;
+            const ma60 = item.ma60;
+            if (blog.isNullOrLte0(ma60)) {
+                continue;
+            }
+            item.madiffR5 = blog.round((ma5 - ma60) / ma60 * 100);
+            item.madiffR10 = blog.round((ma10 - ma60) / ma60 * 100);
+            item.madiffR20 = blog.round((ma20 - ma60) / ma60 * 100);
+        }
+    }
+
+    /**
     * 计算EMA（指数移动平均）
     * EMA = prev * (1 - k) + value * k, 其中 k = 2 / (period + 1)
     * @param {number} prev 上一周期EMA
@@ -278,7 +305,7 @@
     function defaultKlineConfig() {
         return {
             ma: {
-                periods: [5, 10, 20, 60,240]
+                periods: [5, 10, 20, 60, 240]
             },
             macd: {
                 shortPeriod: 10,
@@ -290,6 +317,7 @@
                 k: 2
             },
             obv: {},
+            madiff: {},
             kdj: {
                 period: 9
             }
@@ -300,6 +328,7 @@
         calculateAndSetBOLL: calculateAndSetBOLL,
         calculateAndSetMACD: calculateAndSetMACD,
         calculateAndSetMA: calculateAndSetMA,
+        calculateAndSetMADIFF: calculateAndSetMADIFF,
         calculateAndSetOBV: calculateAndSetOBV,
         calculateAndSetKDJ: calculateAndSetKDJ,
         defaultKlineConfig: defaultKlineConfig
