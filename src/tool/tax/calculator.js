@@ -1,44 +1,153 @@
 
-function buildSalaryList(amount, month, insurances, rates, bonus, bonusSingleTax, bonusRates) {
+function buildSalaryList(options) {
     const salaryList = [];
-    const minMonthCount = Math.min(month, 12);
+    const minMonthCount = Math.min(options.month, 12);
     for (let index = 0; index <= minMonthCount; index++) {
         salaryList[index] = {
             month: index,
-            base: amount,
-            exempted: rates.exempted,
-            rates: blog.deepClone(rates),
-            insurances: blog.deepClone(insurances),
+            base: options.amount,
+            exempted: options.rates.exempted,
+            rates: blog.deepClone(options.rates),
+            insurances: blog.deepClone(options.insurances),
         };
     }
 
-    if (bonus > 0) {
+    if (options.bonus > 0) {
         var months = salaryList.length;
         salaryList[months] = {
             month: months,
-            bonus: bonus,
-            bonusSingleTax: bonusSingleTax,
-            bonusRates: bonusRates,
-            base: amount * (months - month + 1),
-            months: (months - month + 1),
+            bonus: options.bonus,
+            bonusSingleTax: options.bonusSingleTax,
+            bonusRates: options.bonusRates,
+            base: options.amount * (months - options.month + 1),
+            months: (months - options.month + 1),
             exempted: 0,
-            rates: blog.deepClone(rates),
-            insurances: blog.deepClone(insurances),
+            rates: blog.deepClone(options.rates),
+            insurances: blog.deepClone(options.insurances),
         };
     }
     return salaryList;
 }
 
 function buildSummary(salaryList) {
+    var sum = null;
+    var bonus = {};
     const last = salaryList[salaryList.length - 1];
-    const 公积金SumYTD = findInsurance(last.insurances.items, "公积金").sumYTD;
-    const totalActualYTD = blog.round(公积金SumYTD + last.actualYTD);
+    if (last.bonus > 0) {
+        sum = salaryList[salaryList.length - 2];
+        bonus = last;
+    } else {
+        sum = last;
+    }
+    const houseFund = findInsurance(sum.insurances.items, "公积金");
+
+    const 税前工资 = sum.baseYTD;
+    const 公司公积金 = houseFund.corporationYTD;
+    const 个人公积金 = houseFund.personalYTD;
+    const 公积金 = blog.round(个人公积金 + 公司公积金);
+    const 个人社保 = blog.round(sum.insurances.personalYTD - 个人公积金);
+    const 公司社保 = blog.round(sum.insurances.corporationYTD - 公司公积金);
+    const 社保 = blog.round(个人社保 + 公司社保);
+    const 工资个税 = sum.taxYTD;
+    const 税后工资 = sum.actualYTD;
+    const 税前奖金 = bonus.bonus || 0;
+    const 奖金个税 = bonus.bonusSingleTax ? (bonus.tax || 0) : 0;
+    const 税后奖金 = blog.round(税前奖金 - 奖金个税);
+    const 个税 = blog.round(工资个税 + 奖金个税);
+    const 公司支出 = blog.round(税前工资 + 公司社保 + 公司公积金 + 税前奖金);
+    const 个人实收 = blog.round(税后工资 + 社保 + 公积金 + 税后奖金);
+    const 个人收入 = blog.round(个人实收 + 个税);
     return {
-        last: last,
-        公积金SumYTD: 公积金SumYTD,
-        totalActualYTD: totalActualYTD,
-        personalDiffYTD: blog.round(last.baseYTD - totalActualYTD),
-        corporationDiffYTD: blog.round(last.corporationYTD - totalActualYTD),
+        公司支出: 公司支出,
+        个人收入: 个人收入,
+        个人实收: 个人实收,
+        税前工资: 税前工资,
+        个人社保: 个人社保,
+        公司社保: 公司社保,
+        社保: 社保,
+        工资个税: 工资个税,
+        税后工资: 税后工资,
+        公司公积金: 公司公积金,
+        个人公积金: 个人公积金,
+        公积金: 公积金,
+        税前奖金: 税前奖金,
+        税后奖金: 税后奖金,
+        奖金个税: 奖金个税,
+        个税: 个税
+    };
+}
+
+function buildSankeyData(summary, precision) {
+    var format = function (v) {
+        return blog.number(v, precision).format();
+    };
+
+    var percent = function (v) {
+        return blog.round(v / summary.公司支出 * 100);
+    };
+
+    var name = function (name) {
+        var value = summary[name];
+        var percentValue = blog.round(value / summary.税前工资 * 100);
+        return name + ' ' + format(value) + ' (' + percentValue + '%)';
+    }
+
+    const 公司支出 = name('公司支出');
+    const 个人收入 = name('个人收入');
+    const 个人实收 = name('个人实收');
+    const 税前工资 = name('税前工资');
+    const 个人社保 = name('个人社保');
+    const 公司社保 = name('公司社保');
+    const 社保 = name('社保');
+    const 工资个税 = name('工资个税');
+    const 税后工资 = name('税后工资');
+    const 公司公积金 = name('公司公积金');
+    const 个人公积金 = name('个人公积金');
+    const 公积金 = name('公积金');
+    const 税前奖金 = name('税前奖金');
+    const 税后奖金 = name('税后奖金');
+    const 奖金个税 = name('奖金个税');
+    const 个税 = name('个税');
+
+    var links = [];
+    links.push({ source: 公司支出, target: 税前工资, value: percent(summary.公司支出) });
+    links.push({ source: 公司支出, target: 公司社保, value: percent(summary.公司社保) });
+    links.push({ source: 公司支出, target: 公司公积金, value: percent(summary.公司公积金) });
+    if (summary.税前奖金) {
+        links.push({ source: 公司支出, target: 税前奖金, value: percent(summary.税前奖金) });
+    }
+
+    links.push({ source: 税前工资, target: 税后工资, value: percent(summary.税后工资) });
+    links.push({ source: 税前工资, target: 个人社保, value: percent(summary.个人社保) });
+    links.push({ source: 税前工资, target: 个人公积金, value: percent(summary.个人公积金) });
+    links.push({ source: 税前工资, target: 工资个税, value: percent(summary.工资个税) });
+
+    if (summary.税前奖金) {
+        links.push({ source: 税前奖金, target: 税后奖金, value: percent(summary.税后奖金) });
+        links.push({ source: 税前奖金, target: 奖金个税, value: percent(summary.奖金个税) });
+    }
+
+    links.push({ source: 税后工资, target: 个人实收, value: percent(summary.税后工资) });
+    links.push({ source: 个人社保, target: 个人实收, value: percent(summary.个人社保) });
+    links.push({ source: 个人公积金, target: 个人实收, value: percent(summary.个人公积金) });
+    links.push({ source: 公司社保, target: 个人实收, value: percent(summary.公司社保) });
+    links.push({ source: 公司公积金, target: 个人实收, value: percent(summary.公司公积金) });
+    if (summary.税前奖金) {
+        links.push({ source: 税后奖金, target: 个人实收, value: percent(summary.税后奖金) });
+    }
+    links.push({ source: 工资个税, target: 个税, value: percent(summary.工资个税) });
+    if (summary.税前奖金) {
+        links.push({ source: 奖金个税, target: 个税, value: percent(summary.奖金个税) });
+    }
+
+    links.push({ source: 个人实收, target: 个人收入, value: percent(summary.个人实收) });
+    links.push({ source: 个税, target: 个人收入, value: percent(summary.个税) });
+
+    var nodes = blog.echartsSankeyLinks2Nodes(links);
+
+    return {
+        nodes: nodes,
+        links: links
     };
 }
 

@@ -22,6 +22,21 @@ new Vue({
             bonusRates: bonusRates
         }
     },
+    mounted() {
+        this.$nextTick(() => {
+            initSumChart(this);
+        });
+    },
+    watch: {
+        salarys: {
+            handler() {
+                this.$nextTick(() => {
+                    renderSumChart(this);
+                });
+            },
+            deep: true
+        }
+    },
     filters: {
         CNY: function (value) {
             return blog.number(value || 0, precision).format();
@@ -29,15 +44,15 @@ new Vue({
     },
     computed: {
         salarys() {
-            var items = buildSalaryList(
-                parseInt(this.amount, 10),
-                this.month,
-                this.insurance,
-                this.rate,
-                this.bonus,
-                this.bonusSingleTax,
-                this.bonusRates
-            );
+            var items = buildSalaryList({
+                amount: parseInt(this.amount, 10),
+                month: this.month,
+                insurances: this.insurance,
+                rates: this.rate,
+                bonus: this.bonus,
+                bonusSingleTax: this.bonusSingleTax,
+                bonusRates: this.bonusRates
+            });
             calculateOneYear(items);
             items.shift();
             console.log("calculate salarys", items);

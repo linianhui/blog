@@ -280,41 +280,7 @@
 
   <fieldset>
     <legend>结果区域-年合计</legend>
-    <table class="salary-summary">
-      <tr class="row-data">
-        <td>税前</td>
-        <td>{{amount | CNY}}<sub>工资</sub></td>
-        <td>*</td>
-        <td>{{month}}<sub>月</sub></td>
-        <td>=</td>
-        <td>{{salarys.summary.last.baseYTD | CNY}}</td>
-        <td>+</td>
-        <td>{{salarys.summary.last.insurances.corporationYTD | CNY}}<sub>公司社保</sub></td>
-        <td>=</td>
-        <td>{{salarys.summary.last.corporationYTD | CNY}}<sub>公司支出</sub></td>
-      </tr>
-      <tr class="row-data">
-        <td colspan="6">-</td>
-        <td colspan="4">-</td>
-      </tr>
-      <tr class="row-data">
-        <td>税后</td>
-        <td>{{salarys.summary.last.actualYTD | CNY}}<sub>税后YTD</sub></td>
-        <td>+</td>
-        <td>{{salarys.summary.公积金SumYTD| CNY}}<sub>公积金YTD</sub></td>
-        <td>=</td>
-        <td colspan="5">{{salarys.summary.totalActualYTD | CNY}}</td>
-      </tr>
-      <tr class="row-data">
-        <td colspan="6">=</td>
-        <td colspan="4">=</td>
-      </tr>
-      <tr class="row-data">
-        <td>差额</td>
-        <td colspan="5">{{salarys.summary.personalDiffYTD | CNY}}</td>
-        <td colspan="4">{{salarys.summary.corporationDiffYTD | CNY}}</td>
-      </tr>
-    </table>
+    <div ref="sumChartDiv" style="width: 100%;height: 300px;"></div>
   </fieldset>
 
   <fieldset>
@@ -440,4 +406,5 @@
 <script src="rates.js"></script>
 <script src="insurances.js"></script>
 <script src="calculator.js"></script>
+<script src="chart.js"></script>
 <script src="app.js"></script>
