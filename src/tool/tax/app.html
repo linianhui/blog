@@ -166,8 +166,10 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input v-model="insurance.min" @input="onInsuranceMinChange" type="number" min="0" placeholder="最低基数"></td>
-                <td><input v-model="insurance.max" @input="onInsuranceMaxChange" type="number" min="0" placeholder="最高基数"></td>
+                <td><input v-model="insurance.min" @input="onInsuranceMinChange" type="number" min="0"
+                    placeholder="最低基数"></td>
+                <td><input v-model="insurance.max" @input="onInsuranceMaxChange" type="number" min="0"
+                    placeholder="最高基数"></td>
                 <td></td>
                 <td></td>
               </tr>
@@ -233,9 +235,13 @@
         <el-collapse>
           <el-collapse-item>
             <template slot="title">
-              <el-input-number id="ebonus" v-model="bonus" step="1000"></el-input-number>
+              <span @click.stop>
+                <el-input-number id="ebonus" v-model="bonus" step="1000"></el-input-number>
+              </span>
               &nbsp;&nbsp;
-              <el-checkbox v-model="bonusSingleTax">单独计税</el-checkbox>
+              <span @click.stop>
+                <el-checkbox v-model="bonusSingleTax">单独计税</el-checkbox>
+              </span>
               &nbsp;&nbsp; 税率表(月)
             </template>
             <table>
