@@ -9,7 +9,7 @@ new Vue({
     data: function () {
         return {
             amount: 5000,
-            month: 12,
+            month: 1,
             precision: precision,
             rateNameList: rateNameList,
             rateName: rateName,
