@@ -55,8 +55,8 @@ function buildSummary(salaryList) {
     const 税后奖金 = blog.round(税前奖金 - 奖金个税);
     const 个税 = blog.round(工资个税 + 奖金个税);
     const 公司支出 = blog.round(税前工资 + 公司社保 + 公司公积金 + 税前奖金);
-    const 个人实收 = blog.round(税后工资 + 社保 + 公积金 + 税后奖金);
-    const 个人收入 = blog.round(个人实收 + 个税);
+    const 个人实收 = blog.round(税后工资 + 公积金 + 税后奖金);
+    const 个人收入 = blog.round(个人实收 + 社保 + 个税);
     return {
         公司支出: 公司支出,
         个人收入: 个人收入,
@@ -128,9 +128,8 @@ function buildSankeyData(summary, precision) {
     }
 
     links.push({ source: 税后工资, target: 个人实收, value: percent(summary.税后工资) });
-    links.push({ source: 个人社保, target: 个人实收, value: percent(summary.个人社保) });
     links.push({ source: 个人公积金, target: 个人实收, value: percent(summary.个人公积金) });
-    links.push({ source: 公司社保, target: 个人实收, value: percent(summary.公司社保) });
+
     links.push({ source: 公司公积金, target: 个人实收, value: percent(summary.公司公积金) });
     if (summary.税前奖金) {
         links.push({ source: 税后奖金, target: 个人实收, value: percent(summary.税后奖金) });
@@ -141,6 +140,8 @@ function buildSankeyData(summary, precision) {
     }
 
     links.push({ source: 个人实收, target: 个人收入, value: percent(summary.个人实收) });
+    links.push({ source: 个人社保, target: 个人收入, value: percent(summary.个人社保) });
+    links.push({ source: 公司社保, target: 个人收入, value: percent(summary.公司社保) });
     links.push({ source: 个税, target: 个人收入, value: percent(summary.个税) });
 
     var nodes = blog.echartsSankeyLinks2Nodes(links);
