@@ -1,6 +1,6 @@
 function calculateBpItems(b, p) {
     var result = [];
-    for (var i = p; i <= 1; i+=0.05) {
+    for (var i = p; i <= 1; i += 0.05) {
         result.push(kellyCriterionItem(b, blog.round(i, 2)));
     }
     return result;
@@ -53,11 +53,11 @@ function renderBpChart(chart, items) {
             right: '20px',
             feature: {
                 dataZoom: {
-                    yAxisIndex: 'none'
+                    show: false
                 },
-                magicType: { type: ['line', 'bar'] },
-                restore: {},
-                saveAsImage: {}
+                magicType: { show: false },
+                restore: { show: false },
+                saveAsImage: { show: true }
             }
         },
         dataset: {
