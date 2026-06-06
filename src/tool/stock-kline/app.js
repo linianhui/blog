@@ -5,9 +5,9 @@ var klineMacdChart = echarts.init(this.klineMacdChartDiv);
 var klineMadiffChart = echarts.init(this.klineMadiffChartDiv);
 var klineCountChart = echarts.init(this.klineCountChartDiv);
 var klineObvChart = echarts.init(this.klineObvChartDiv);
-var klineKdjChart = echarts.init(this.klineKdjChartDiv);
+//var klineKdjChart = echarts.init(this.klineKdjChartDiv);
 
-var charts = [klineChart, klineMacdChart, klineMadiffChart, klineCountChart, klineObvChart, klineKdjChart];
+var charts = [klineChart, klineMacdChart, klineMadiffChart, klineCountChart, klineObvChart];
 onChartDispatchDataZoom(charts);
 onChartDispatchToolTip(charts);
 
@@ -92,7 +92,7 @@ new Vue({
                 klineMadiffChart.setOption(buildKLineMadiffChartOption(klineData));
                 klineCountChart.setOption(buildKLineCountChartOption(klineData));
                 klineObvChart.setOption(buildKLineObvChartOption(klineData));
-                klineKdjChart.setOption(buildKLineKdjChartOption(klineData));
+                // klineKdjChart.setOption(buildKLineKdjChartOption(klineData));
                 self.loading = false;
                 document.getElementById('stockName').innerHTML =
                     data.meta.name + ' ' + data.exchange.name;

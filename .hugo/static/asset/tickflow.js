@@ -61,7 +61,8 @@
     function v1InstrumentsAsync(param, callback) {
         var headers = buildHeaders(param);
         var path = "/v1/instruments?symbols=" + param.symbol;
-        var expireMinute = minuteOfDayRemaining();
+        // 30天过期，除非用户更换了symbol，否则不需要频繁请求这个接口
+        var expireMinute = 30 * 24 * 60;
         httpGetJsonAsync(path, headers, callback, expireMinute);
     }
 

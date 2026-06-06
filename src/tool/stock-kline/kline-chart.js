@@ -167,7 +167,7 @@ function buildKLineObvChartOption(klineData) {
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
         yAxis: [Object.assign(buildChartYAxis({ name: 'OBV' }), {
-            axisLabel: { formatter: formatLargeNumber }
+            axisLabel: { show: false }
         })],
         series: [
             buildChartLine({
@@ -254,7 +254,9 @@ function buildKLineKdjChartOption(klineData) {
         legend: buildChartLegend(),
         grid: buildChartGrid(),
         xAxis: [buildChartXAxis()],
-        yAxis: [buildChartYAxis({ name: 'KDJ' })],
+        yAxis: [Object.assign(buildChartYAxis({ name: 'KDJ' }), {
+            axisLabel: { show: false }
+        })],
         series: [
             buildChartLine({
                 name: 'K', color: '#ff9100', x: '日期', y: 'kdjK',
