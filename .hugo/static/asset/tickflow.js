@@ -137,12 +137,17 @@
     }
 
     function tickflowParam(param) {
+        var endTime = dateToTimestamp(param.endDate);
+        var startTime = dateToTimestamp(param.startDate);
+        if (!startTime) {
+            startTime = endTime - 366 * 24 * 3600 * 1000;
+        }
         return {
             key: param.key,
             symbol: param.symbol + '.' + exchangeOf(param.symbol).exchange,
             period: klinePeriodOf(param.period),
-            start_time: dateToTimestamp(param.startDate),
-            end_time: dateToTimestamp(param.endDate),
+            start_time: startTime,
+            end_time: endTime,
             adjust: klineAdjustOf(param.adjust)
         };
     }
