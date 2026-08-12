@@ -12,6 +12,9 @@ function getKlineData(param, callback) {
             endDate: blog.dateFormat(moment()),
             adjust: param.adjust,
         };
+        if (!param.startDate) {
+            klineParam.startDate = blog.dateAddDays(klineParam.endDate, -366);
+        }
 
         console.log("getKlineData klineParam", klineParam);
         var v1KlinesParam = tickflow.tickflowParam(klineParam);
