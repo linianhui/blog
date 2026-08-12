@@ -1,6 +1,6 @@
 ---
 title: '[Windows] Microsoft Activation Scripts'
-created_at: 2026-07-044 19:02:01
+created_at: 2026-07-04 19:02:01
 tag: ["Windows", "MAS","HWID","Ohook","TSForge",]
 toc: true
 ---
