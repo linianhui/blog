@@ -13,7 +13,7 @@ function getKlineData(param, callback) {
             adjust: param.adjust,
         };
         if (!param.startDate) {
-            klineParam.startDate = blog.dateAddDays(klineParam.endDate, -366);
+            klineParam.startDate = blog.dateAddDays(klineParam.endDate, -1000);
         }
 
         console.log("getKlineData klineParam", klineParam);
