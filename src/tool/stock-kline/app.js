@@ -84,7 +84,8 @@ new Vue({
                 klineData.meta = data.meta;
                 klineData.config = klineDataConfig;
                 klineData.config.color = buildKlineColorConfig();
-                klineData.config.zoomStart = Math.max(0, (klineData.count - 90) * 100 / klineData.count);
+                var count = klineData.count >= 240 ? klineData.count : 240;
+                klineData.config.zoomStart = Math.max(0, (klineData.count - 240) * 100 / klineData.count);
 
                 calculateKLine(klineData);
 
