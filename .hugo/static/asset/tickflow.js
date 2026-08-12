@@ -105,6 +105,11 @@
 
     function exchangeOf(symbol) {
         if (symbol) {
+            // 港交所代码为5位数字（如 00700 腾讯、09988 阿里巴巴），
+            // 需优先于前缀匹配判断，否则会与内地前缀（如 00、60）冲突
+            if (/^\d{5}$/.test(symbol)) {
+                return { prefix: "", exchange: "HK", name: "香港联交所" };
+            }
             for (var i = 0; i < EXCHANGES.length; i++) {
                 if (symbol.startsWith(EXCHANGES[i].prefix)) {
                     return EXCHANGES[i];
