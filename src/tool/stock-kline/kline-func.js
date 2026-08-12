@@ -269,10 +269,19 @@
     */
     function calculateMA(config, items, endIndex, period) {
         const beginIndex = endIndex - period + 1;
-        return calculateAvgWeight(items, x => ({
-            value: x.成交额,
-            weight: x.成交量
-        }), beginIndex, endIndex);
+        return calculateAvgWeight(items, x => {
+            // 成交额为 0（如部分指数/基金）时，无法用 成交额/成交量 计算均价，改用收盘价（权重 1）
+            if (blog.isNullOrLte0(x.成交额)) {
+                return {
+                    value: x.收盘价,
+                    weight: 1
+                };
+            }
+            return {
+                value: x.成交额,
+                weight: x.成交量
+            };
+        }, beginIndex, endIndex);
     }
 
     /**
