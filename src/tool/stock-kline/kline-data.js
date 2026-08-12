@@ -44,22 +44,43 @@ function buildKLineData(param, data, config) {
     result.items = [];
     var count = kline.timestamp.length;
     result.count = count;
-    var avgPrev = blog.round(kline.amount[0] / kline.volume[0] / 100, 2);
+    // amount 全为 0（如部分指数/基金）时，无法用 成交额/成交量 计算均价，改用接口返回的原始 OHLC
+    var amountIsAllZero = kline.amount.every(value => value === 0);
+    var avgPrev = 0;
+    if (!amountIsAllZero) {
+        avgPrev = blog.round(kline.amount[0] / kline.volume[0] / 100, 2);
+    }
     for (var index = 0; index < count; index++) {
-        var avg = blog.round(kline.amount[index] / kline.volume[index] / 100, 2);
         var date = blog.dateFormat(moment(kline.timestamp[index]));
-        var open = avgPrev;
-        var close = avg;
+        var open;
+        var close;
+        var high;
+        var low;
+        var avg;
+        if (amountIsAllZero) {
+            open = kline.open[index];
+            close = kline.close[index];
+            high = kline.high[index];
+            low = kline.low[index];
+            avg = close;
+        } else {
+            avg = blog.round(kline.amount[index] / kline.volume[index] / 100, 2);
+            open = avgPrev;
+            close = avg;
+            high = Math.max(avg, avgPrev);
+            low = Math.min(avg, avgPrev);
+            avgPrev = avg;
+        }
 
         result.items.push({
             日期: date,
             open: open,
             close: close,
-            high: Math.max(avg, avgPrev),
-            low: Math.min(avg, avgPrev),
+            high: high,
+            low: low,
             开盘价: open,
-            最高价: Math.max(avg, avgPrev),
-            最低价: Math.min(avg, avgPrev),
+            最高价: high,
+            最低价: low,
             收盘价: close,
             涨跌额: blog.round(close - open, 2),
             涨跌幅: blog.round((close - open) / open * 100, 2),
@@ -68,7 +89,6 @@ function buildKLineData(param, data, config) {
             均价: avg,
             换手率: 1,
         });
-        avgPrev = avg;
     }
     return result;
 }
