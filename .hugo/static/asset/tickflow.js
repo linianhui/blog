@@ -103,6 +103,15 @@
         xhr.send();
     }
 
+    function removeExpiredCache() {
+        console.log("tickflow removeExpiredCache begin");
+        if (window.EasyCache) {
+            // 遍历所有缓存，删除已经过期的条目
+            EasyCache.flushExpired();
+        }
+        console.log("tickflow removeExpiredCache end");
+    }
+
     function exchangeOf(symbol) {
         if (symbol) {
             // 港交所代码为5位数字（如 00700 腾讯、09988 阿里巴巴），
@@ -158,7 +167,8 @@
         klineAdjustOf: klineAdjustOf,
         v1InstrumentsAsync: v1InstrumentsAsync,
         v1KlinesAsync: v1KlinesAsync,
-        tickflowParam: tickflowParam
+        tickflowParam: tickflowParam,
+        removeExpiredCache: removeExpiredCache
     };
 
 })(window);

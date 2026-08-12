@@ -56,6 +56,7 @@ new Vue({
             delete map[code];
             blog.cacheSet(SYMBOL_HISTORY_KEY, map);
             this.symbolHistory = map;
+            tickflow.removeExpiredCache();
         },
         renderKLine: function () {
             var self = this;
