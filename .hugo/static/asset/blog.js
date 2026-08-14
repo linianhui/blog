@@ -57,7 +57,7 @@
     }
 
     function isMobile() {
-        return /.*Mobile.*/.test(navigator.userAgent);
+        return /(Android|iPhone|iPad|iPod|Windows Phone|Mobile)/i.test(navigator.userAgent);
     }
 
     function isPC() {
@@ -227,12 +227,16 @@
 
     function refreshHorizontalProgressStyle(scrollAxis) {
         scrollAxis = scrollAxis || getScrollAxis();
+        var progressElement = id('horizontal-progress');
+        if (!progressElement) {
+            return;
+        }
         var progressWidth = scrollAxis.scroll.percentage.y2 * scrollAxis.body.width;
-        id('horizontal-progress').style.width = progressWidth + 'px';
+        progressElement.style.width = progressWidth + 'px';
     }
 
 
-    function refreshTocSytle(scrollAxis) {
+    function refreshTocStyle(scrollAxis) {
         scrollAxis = scrollAxis || getScrollAxis();
         var tocElement = id('toc');
         if (!tocElement) {
@@ -244,20 +248,16 @@
             return;
         }
         var top = tocElementHeight * scrollAxis.scroll.percentage.y1 - viewportHeight / 2;
-        tocElement.scroll({
-            top: top,
-            left: 0,
-            behavior: 'smooth'
-        });
+        tocElement.scrollTop = Math.max(0, top);
     }
 
     function refreshStyleOnHeightChange(scrollAxis) {
         scrollAxis = scrollAxis || getScrollAxis();
         refreshHorizontalProgressStyle(scrollAxis);
-        refreshTocSytle(scrollAxis);
+        refreshTocStyle(scrollAxis);
     }
 
-    function onScorllEventCore(scrollAxis, tocItemArray) {
+    function onScrollEventCore(scrollAxis, tocItemArray) {
         refreshSelectedTocStyle(scrollAxis, tocItemArray);
         refreshStyleOnHeightChange(scrollAxis);
     }
@@ -266,9 +266,9 @@
         var tocItemArray = getTocItemArray();
         window.onscroll = function () {
             var scrollAxis = getScrollAxis();
-            onScorllEventCore(scrollAxis, tocItemArray);
+            onScrollEventCore(scrollAxis, tocItemArray);
         };
-        onScorllEventCore(getScrollAxis(), tocItemArray);
+        onScrollEventCore(getScrollAxis(), tocItemArray);
     }
 
     function toggleToc() {
@@ -295,9 +295,11 @@
         var item = findByteUnit(function (x) {
             return value.endsWith(x.unit);
         });
-
-        var size = parseFloat(value.replace(item.unit), 10);
-        return size * item[base].min;
+        if (!item) {
+            return 0;
+        }
+        var size = parseFloat(value.replace(item.unit, ''));
+        return isNaN(size) ? 0 : size * item[base].min;
     }
 
     function formatBytes(bytes, base, unit, fixed) {
@@ -307,7 +309,9 @@
             }
             return (bytes >= x[base].min && bytes <= x[base].max);
         });
-
+        if (!item) {
+            item = byteUnits[byteUnits.length - 1];
+        }
         return (bytes / item[base].min).toFixed(fixed) + item.unit;
     }
 
@@ -319,17 +323,17 @@
 
     function sum(items, func) {
         var result = 0;
-        for (let index in items) {
-            var item = items[index];
-            result = round(result + func(item));
+        for (var i = 0; i < items.length; i++) {
+            result += func(items[i]);
         }
         return round(result);
     }
 
     function deepClone(value) {
-        if (value) {
+        if (value != null) {
             return JSON.parse(JSON.stringify(value));
         }
+        return value;
     }
 
     function log() {
@@ -459,7 +463,7 @@
         var nodeNames = [];
         for (var index = 0; index < links.length; index++) {
             var link = links[index];
-            nodeNames.push(link.source)
+            nodeNames.push(link.source);
             nodeNames.push(link.target);
         }
 
@@ -486,8 +490,25 @@
         }
     }
 
+    function parseJsonSafe(text) {
+        if (!text) {
+            return null;
+        }
+        try {
+            return JSON.parse(text);
+        } catch (error) {
+            return null;
+        }
+    }
+
     function httpGetJson(url, callback) {
-        return JSON.stringify(httpGet(url, callback));
+        if (callback) {
+            httpGet(url, function (responseText) {
+                callback(parseJsonSafe(responseText));
+            });
+            return;
+        }
+        return parseJsonSafe(httpGet(url));
     }
 
     function isNotEmptyArray(array) {
