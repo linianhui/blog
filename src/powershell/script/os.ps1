@@ -1,0 +1,1 @@
+## 禁用内存压缩 Disable-MMAgent -mc
