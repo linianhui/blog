@@ -8,19 +8,23 @@ function Link-Soft() {
 }
 
 function Link-Reset-Home {
-     param (
+    param (
         [string] $Path
     )
-    Link-Soft -VirtualPath "${ENV:HOME}\${Path}" -RealPath "${ENV:HOME_D}\${Path}"
+    Link-Soft -VirtualPath "${ENV:USERPROFILE}\${Path}" -RealPath "${ENV:HOME_D}\${Path}"
 }
 
 function Link-Reset-Home-All {
     Link-Reset-Home -Path '.android'
+    Link-Reset-Home -Path '.claude'
+    Link-Reset-Home -Path '.copilot'
     Link-Reset-Home -Path '.dotnet'
     Link-Reset-Home -Path '.m2'
     Link-Reset-Home -Path '.ssh'
     Link-Reset-Home -Path '.vscode'
+    Link-Reset-Home -Path '.vscode-shared'
     Link-Reset-Home -Path '.nuget'
-    Link-Reset-Home -Path '.gitconfig'
     Link-Reset-Home -Path '.bash_history'
+    Link-Reset-Home -Path '.claude.json'
+    Link-Reset-Home -Path '.gitconfig'
 }
