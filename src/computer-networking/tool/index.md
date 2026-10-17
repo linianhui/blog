@@ -118,6 +118,8 @@ tcpdump port 80 -A -c 100
 
 ## 6.1 preferences {#wireshark-preferences}
 
+`${ENV:APPDATA}\Wireshark\preferences`
+
 ```sh
 gui.column.format: 
 	"#", "%m",
