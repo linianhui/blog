@@ -146,17 +146,19 @@ opkg install block-mount
 # 5 reference {#reference}
 
 1. `toh-online` : <https://toh.openwrt.org/>
-2. `toh-online-json` : <https://openwrt.org/toh.json>
-3. `toh-home` : <https://openwrt.org/toh/views/start>
-4. `supported_devices` : <https://openwrt.org/supported_devices>
-5. `local_token`: <http://hiwifi.com/local-ssh>
-6. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
-7. `ssh`: <http://www.hiwifi.wtf>
-8. aliyun-mirrors :<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/ramips/mt7621>
+2. `toh-GL-MT3600BE` : [toh-GL-MT3600BE][^toh]
+3. `toh-online-json` : <https://openwrt.org/toh.json>
+4. `toh-home` : <https://openwrt.org/toh/views/start>
+5. `supported_devices` : <https://openwrt.org/supported_devices>
+6. `local_token`: <http://hiwifi.com/local-ssh>
+7. `uuid`: <http://hiwifi.com/cgi-bin/turbo/proxy/router_info>
+8. `ssh`: <http://www.hiwifi.wtf>
+9. aliyun-mirrors :<https://mirrors.aliyun.com/openwrt/releases/22.03.2/targets/ramips/mt7621>
 
 
 [^breed]:breed官网：<https://breed.hackpascal.net>
 [^openwrt]:openwrt：<https://openwrt.org/toh/views/toh_fwdownload> <https://openwrt.org/docs/guide-user/start#installation>
 [^openwrt-v2ray]:openwrt-v2ray项目地址：<https://github.com/kuoruan/openwrt-v2ray/>
+[^toh]:toh-GL-MT3600BE: <https://toh.openwrt.org/?columns=brand,model,cpu,cpucores,cpumhz,flashmb,rammb,usbports,ethernet1gports,ethernet2_5gports,wlan50ghz,wlan60ghz,VIRT_firm,firmwareopenwrtinstallurl,firmwareopenwrtupgradeurl,devicepage,oemdevicehomepageurl,target,subtarget,supportedcurrentrel,supportedsincerel,bootloader,packagearchitecture,recoverymethods,devicetype,availability,picture&model=GL-MT3600BE>
 
 
