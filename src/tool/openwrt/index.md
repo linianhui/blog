@@ -86,6 +86,13 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs -r opkg upgrade
 
 默认的安装目录`/usr/bin/v2ray`。
 ```sh
+# 输出 CPU 的详细信息
+cat /proc/cpuinfo
+
+# 查看当前系统可以安装哪些架构的软件包
+opkg print-architecture
+apk arch
+
 # 复制相关的配置文件
 scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 ```
