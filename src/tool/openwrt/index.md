@@ -110,8 +110,9 @@ scp config.json geoip.dat geosite.dat root@10.1.199.1:/usr/bin/
 
 {{<highlight-file path="stats.sh" lang="sh">}}
 
-## 2.5 V2rayA {#v2raya}
+## 2.5 V2ray {#v2ray}
 
+{{<highlight-file path="v2ray-core.sh" lang="sh">}}
 {{<highlight-file path="v2raya.sh" lang="sh">}}
 
 ## 2.4 vlmcsd {#vlmcsd}
