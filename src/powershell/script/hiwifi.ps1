@@ -3,13 +3,33 @@
 [string]$HIWIFI_OPEN_SSH_PATH = '/local-ssh/api?method=valid&data=';
 [string]$HIWIFI_CLOSE_SSH_PATH = '/local-ssh/api?method=stop';
 
+function HiWifi-Log-Debug {
+    param (
+        [Parameter(Mandatory = $TRUE)]
+        [string] $Label,
+        [string] $Value
+    )
+    if ($PSBoundParameters.ContainsKey('Value')) {
+        LOG-DEBUG "$($Label.PadRight(25)): $Value"
+    } else {
+        LOG-DEBUG $Label
+    }
+}
+
 function HiWifi-Open-Ssh {
     param (
         [string] $IP = "192.168.199.1"
     )
     $CloudToken = HiWifi-Calc-CloudToken -IP $IP
+
     $Url = "http://" + $IP + $HIWIFI_OPEN_SSH_PATH + $CloudToken
-    Invoke-WebRequest -Method GET -Uri $Url
+    HiWifi-Log-Debug -Label "Open SSH URL" -Value $Url
+
+    $Result = ((Invoke-WebRequest -Method GET -Uri $Url).Content)
+    HiWifi-Log-Debug -Label "Open SSH URL RESPONSE" -Value $Result
+
+    HiWifi-Log-Debug -Label "ssh -v -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 root@$IP"
+    ssh -v -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 root@$IP
 }
 
 function HiWifi-Calc-CloudToken() {
@@ -18,10 +38,25 @@ function HiWifi-Calc-CloudToken() {
         [string] $IP
     )
     $UuidUrl = "http://" + $IP + $HIWIFI_GET_UUID_PATH
-    $Uuid = ((Invoke-WebRequest -Method GET -Uri $UuidUrl).Content | ConvertFrom-Json).data.uuid
+    HiWifi-Log-Debug -Label "Get UUID URL" -Value $UuidUrl
+
+    $UuidResponse = ((Invoke-WebRequest -Method GET -Uri $UuidUrl).Content)
+    HiWifi-Log-Debug -Label "Get UUID URL RESPONSE" -Value $UuidResponse
+
+    $Uuid = ($UuidResponse | ConvertFrom-Json).data.uuid
+    HiWifi-Log-Debug -Label "UUID" -Value $Uuid
+
     $LocalTokenUrl = "http://" + $IP + $HIWIFI_GET_LOCAL_TOKEN_PATH
-    $LocalToken = ((Invoke-WebRequest -Method GET -Uri $LocalTokenUrl).Content | ConvertFrom-Json).data
+    HiWifi-Log-Debug -Label "Get Local Token" -Value $LocalTokenUrl
+
+    $LocalTokenResponse = ((Invoke-WebRequest -Method GET -Uri $LocalTokenUrl).Content)
+    HiWifi-Log-Debug -Label "Get Local Token RESPONSE" -Value $LocalTokenResponse
+
+    $LocalToken = ($LocalTokenResponse | ConvertFrom-Json).data
+    HiWifi-Log-Debug -Label "Local Token" -Value $LocalToken
+
     $CloudToken = HiWifi-Calc-CloudTokenCore -Uuid $Uuid -LocalToken $LocalToken
+    HiWifi-Log-Debug -Label "Cloud Token" -Value $CloudToken
     return $CloudToken;
 }
 
