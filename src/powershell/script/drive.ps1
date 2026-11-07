@@ -49,8 +49,9 @@ function Drive-AssignLetterByGuid {
 
         if ($partition.DriveLetter) {
             Write-Warning "该分区当前已分配盘符: $($partition.DriveLetter):"
-            $confirm = Read-Host "是否覆盖原有盘符并分配为 ${DriveLetter}: ? (Y/N)"
-            if ($confirm -ne 'Y') { return }
+            #$confirm = Read-Host "是否覆盖原有盘符并分配为 ${DriveLetter}: ? (Y/N)"
+            #if ($confirm -ne 'Y') { return }
+            return
         }
 
         # 2. 执行分配
