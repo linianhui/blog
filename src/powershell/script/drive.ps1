@@ -38,7 +38,43 @@ function Drive-ListVolume {
     #Where-Object { $_.AccessPaths -ne $null -and $_.Guid -ne $null }  |
     Sort-Object DiskNumber, PartitionNumber |
     Format-Table -AutoSize -Property @{
-        Label      = 'Disk';
+        Label      = '#';
+        Expression = {
+            # DriveLetter 没有盘符时是 [char]0，直接格式化会写入 NUL 字符，导致后续列错位
+            $letter = $_.DriveLetter ? $_.DriveLetter : " "
+            "{0}.{1} {2}" -f $_.DiskNumber, $_.PartitionNumber, $letter
+        };
+        Alignment  = 'Left'
+    }, @{
+        Label      = 'Label';
+        Expression = {
+            $volume = & $getVolume $_
+            if ($volume -and $volume.FileSystemLabel) {
+                $volume.FileSystemLabel
+            }
+            else {
+                $_.Type
+            }
+        };
+        Alignment  = 'Right'
+    }, @{
+        Name       = 'Size';
+        Expression = { Format-Bytes $_.Size };
+        Alignment  = 'Right'
+    }, @{
+        Label      = 'FS';
+        Expression = {
+            $volume = & $getVolume $_
+            $volume.FileSystemType
+        }
+    }, @{
+        Label      = 'Volume Guid';
+        Expression = { $_.Guid.trim("{}") }
+    }, @{
+        Label      = 'Status';
+        Expression = { $_.OperationalStatus }
+    }, @{
+        Label      = 'Disk Friendly Name';
         Expression = {
             if ($diskByNumber.ContainsKey($_.DiskNumber)) {
                 $diskByNumber[$_.DiskNumber].FriendlyName
@@ -46,7 +82,7 @@ function Drive-ListVolume {
         };
         Alignment  = 'Left'
     }, @{
-        Label      = 'Media';
+        Label      = 'Type';
         Expression = {
             $physicalDisk = $physicalDiskByNumber["$($_.DiskNumber)"]
             if ($physicalDisk -and $physicalDisk.MediaType -ne 'Unspecified') {
@@ -61,43 +97,12 @@ function Drive-ListVolume {
             }
         }
     }, @{
-        Label      = 'Style';
+        Label      = 'Part';
         Expression = {
             if ($diskByNumber.ContainsKey($_.DiskNumber)) {
                 $diskByNumber[$_.DiskNumber].PartitionStyle
             }
         }
-    }, @{
-        Label      = 'Drive';
-        Expression = { $_.DriveLetter ? $_.DriveLetter : " " };
-        Alignment  = 'Right'
-    }, @{
-        Label      = 'Label';
-        Expression = {
-            $volume = & $getVolume $_
-            if ($volume -and $volume.FileSystemLabel) {
-                $volume.FileSystemLabel
-            }
-            else {
-                $_.Type
-            }
-        }
-    }, @{
-        Label      = 'Status';
-        Expression = { $_.OperationalStatus }
-    }, @{
-        Name       = 'Size';
-        Expression = { Format-Bytes $_.Size };
-        Alignment  = 'Right'
-    }, @{
-        Label      = 'Volume';
-        Expression = {
-            $volume = & $getVolume $_
-            "{0}.{1} {2}" -f $_.DiskNumber, $_.PartitionNumber, $volume.FileSystemType
-        }
-    }, @{
-        Label      = 'Volume Guid';
-        Expression = { $_.Guid.trim("{}") }
     }
 }
 
