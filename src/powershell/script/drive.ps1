@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
-# 函数 1: 获取所有分区的 Volume GUID 列表
+# 函数 1: 获取所有分区的 Volume 列表
 # -----------------------------------------------------------------------------
-function Drive-ListVolumeGuid {
+function Drive-ListVolume {
     [CmdletBinding()]
     param()
 
@@ -10,36 +10,97 @@ function Drive-ListVolumeGuid {
         $diskByNumber[$_.Number] = $_
     }
 
+    # DeviceId 与 Get-Disk 的 Number 对应，用字符串做键避免 UInt32/Int32 的类型差异
+    $physicalDiskByNumber = @{}
+    Get-PhysicalDisk | ForEach-Object {
+        $physicalDiskByNumber[$_.DeviceId.Trim()] = $_
+    }
+
+    $volumeByGuid = @{}
+    Get-Volume | ForEach-Object {
+        if ($_.UniqueId -match '\{([0-9a-fA-F-]+)\}') {
+            $volumeByGuid[$matches[1].ToLower()] = $_
+        }
+    }
+
+    # 分区的 Guid 与卷的 UniqueId (\\?\Volume{GUID}\) 一一对应
+    $getVolume = {
+        param($Partition)
+
+        $guid = $Partition.Guid
+        if (-not $guid) {
+            return $null
+        }
+        return $volumeByGuid[$guid.Trim('{}').ToLower()]
+    }
+
     Get-Partition |
     #Where-Object { $_.AccessPaths -ne $null -and $_.Guid -ne $null }  |
-    Sort-Object DiskNumber, Size, DriveLetter, Guid |
+    Sort-Object DiskNumber, PartitionNumber |
     Format-Table -AutoSize -Property @{
         Label      = 'Disk';
         Expression = {
             if ($diskByNumber.ContainsKey($_.DiskNumber)) {
                 $diskByNumber[$_.DiskNumber].FriendlyName
             }
+        };
+        Alignment  = 'Left'
+    }, @{
+        Label      = 'Media';
+        Expression = {
+            $physicalDisk = $physicalDiskByNumber["$($_.DiskNumber)"]
+            if ($physicalDisk -and $physicalDisk.MediaType -ne 'Unspecified') {
+                $physicalDisk.MediaType
+            }
         }
+    }, @{
+        Label      = 'Bus';
+        Expression = {
+            if ($diskByNumber.ContainsKey($_.DiskNumber)) {
+                $diskByNumber[$_.DiskNumber].BusType
+            }
+        }
+    }, @{
+        Label      = 'Style';
+        Expression = {
+            if ($diskByNumber.ContainsKey($_.DiskNumber)) {
+                $diskByNumber[$_.DiskNumber].PartitionStyle
+            }
+        }
+    }, @{
+        Label      = 'Drive';
+        Expression = { $_.DriveLetter ? $_.DriveLetter : " " };
+        Alignment  = 'Right'
+    }, @{
+        Label      = 'Label';
+        Expression = {
+            $volume = & $getVolume $_
+            if ($volume -and $volume.FileSystemLabel) {
+                $volume.FileSystemLabel
+            }
+            else {
+                $_.Type
+            }
+        }
+    }, @{
+        Label      = 'Status';
+        Expression = { $_.OperationalStatus }
+    }, @{
+        Name       = 'Size';
+        Expression = { Format-Bytes $_.Size };
+        Alignment  = 'Right'
     }, @{
         Label      = 'Volume';
         Expression = {
             if ($diskByNumber.ContainsKey($_.DiskNumber)) {
                 $disk = $diskByNumber[$_.DiskNumber]
-                "{0,-4} {1,3} {2}" -f $disk.BusType, $disk.PartitionStyle, $_.Type
+                $volume = & $getVolume $_
+                "{0}.{1} {2}" -f $disk.NumberOfPartitions, $_.PartitionNumber, $volume.FileSystemType
             }
         }
     }, @{
-        Label      = 'Drive';
-        Expression = { $_.DriveLetter?$_.DriveLetter: " " }
-    }, @{
-        Label      = 'Guid';
+        Label      = 'Volume Guid';
         Expression = { $_.Guid.trim("{}") }
-    }, @{
-        Label      = 'Status';
-        Expression = { $_.OperationalStatus }
-    }, @{
-        Name       = "Size";
-        Expression = { Format-Bytes $_.Size }
     }
 }
 
