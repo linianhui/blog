@@ -1,4 +1,28 @@
 # -----------------------------------------------------------------------------
+# 函数 0: 获取分区的 Volume GUID
+# -----------------------------------------------------------------------------
+function Drive-GetVolumeGuidFromPartition {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        $Partition
+    )
+
+    # GPT 分区有 Guid; MBR 分区没有 Guid，只能从 AccessPaths (\\?\Volume{GUID}\) 中解析
+    if ($Partition.Guid) {
+        return $Partition.Guid.Trim('{}')
+    }
+
+    foreach ($accessPath in $Partition.AccessPaths) {
+        if ($accessPath -match 'Volume\{([0-9a-fA-F-]+)\}') {
+            return $matches[1]
+        }
+    }
+
+    return $null
+}
+
+# -----------------------------------------------------------------------------
 # 函数 1: 获取所有分区的 Volume 列表
 # -----------------------------------------------------------------------------
 function Drive-ListVolume {
@@ -26,12 +50,11 @@ function Drive-ListVolume {
     # 分区的 Guid 与卷的 UniqueId (\\?\Volume{GUID}\) 一一对应
     $getVolume = {
         param($Partition)
-
-        $guid = $Partition.Guid
+        $guid = Drive-GetVolumeGuidFromPartition -Partition $Partition
         if (-not $guid) {
             return $null
         }
-        return $volumeByGuid[$guid.Trim('{}').ToLower()]
+        return $volumeByGuid[$guid.ToLower()]
     }
 
     Get-Partition |
@@ -69,7 +92,7 @@ function Drive-ListVolume {
         }
     }, @{
         Label      = 'Volume Guid';
-        Expression = { $_.Guid.trim("{}") }
+        Expression = { Drive-GetVolumeGuidFromPartition -Partition $_ }
     }, @{
         Label      = 'Status';
         Expression = { $_.OperationalStatus }
