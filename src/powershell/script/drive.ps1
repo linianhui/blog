@@ -92,11 +92,8 @@ function Drive-ListVolume {
     }, @{
         Label      = 'Volume';
         Expression = {
-            if ($diskByNumber.ContainsKey($_.DiskNumber)) {
-                $disk = $diskByNumber[$_.DiskNumber]
-                $volume = & $getVolume $_
-                "{0}.{1} {2}" -f $disk.NumberOfPartitions, $_.PartitionNumber, $volume.FileSystemType
-            }
+            $volume = & $getVolume $_
+            "{0}.{1} {2}" -f $_.DiskNumber, $_.PartitionNumber, $volume.FileSystemType
         }
     }, @{
         Label      = 'Volume Guid';
