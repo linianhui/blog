@@ -5,10 +5,30 @@ function Drive-ListVolumeGuid {
     [CmdletBinding()]
     param()
 
+    $diskByNumber = @{}
+    Get-Disk | ForEach-Object {
+        $diskByNumber[$_.Number] = $_
+    }
+
     Get-Partition |
-    Where-Object { $_.AccessPaths -ne $null -and $_.Guid -ne $null }  |
-    Sort-Object Size, DriveLetter, Guid |
+    #Where-Object { $_.AccessPaths -ne $null -and $_.Guid -ne $null }  |
+    Sort-Object DiskNumber, Size, DriveLetter, Guid |
     Format-Table -AutoSize -Property @{
+        Label      = 'Disk';
+        Expression = {
+            if ($diskByNumber.ContainsKey($_.DiskNumber)) {
+                $diskByNumber[$_.DiskNumber].FriendlyName
+            }
+        }
+    }, @{
+        Label      = 'Volume';
+        Expression = {
+            if ($diskByNumber.ContainsKey($_.DiskNumber)) {
+                $disk = $diskByNumber[$_.DiskNumber]
+                "{0,-4} {1,3} {2}" -f $disk.BusType, $disk.PartitionStyle, $_.Type
+            }
+        }
+    }, @{
         Label      = 'Drive';
         Expression = { $_.DriveLetter?$_.DriveLetter: " " }
     }, @{
@@ -20,7 +40,7 @@ function Drive-ListVolumeGuid {
     }, @{
         Name       = "Size";
         Expression = { Format-Bytes $_.Size }
-    }, Type
+    }
 }
 
 # -----------------------------------------------------------------------------
