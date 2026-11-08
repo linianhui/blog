@@ -3,7 +3,7 @@
 Register-ArgumentCompleter -CommandName Directory-To -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
 Register-ArgumentCompleter -CommandName VsCode-Open -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
 Register-ArgumentCompleter -CommandName Idea-Open -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
-Register-ArgumentCompleter -CommandName Gui-OpenExplorer -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
+Register-ArgumentCompleter -CommandName Gui-Open-Explorer -ParameterName Path -ScriptBlock $__QUICK_ACCESS_DIRECTORY_SCRIPT_BLOCK
 
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)

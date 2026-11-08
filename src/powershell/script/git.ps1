@@ -3,29 +3,55 @@
 ################################
 
 # import posh-git module
-function Git-ImportPoshGit () {
+function Git-Import-Posh-Git () {
     Import-Module posh-git
 }
 
 # install posh-git module
-function Git-InstallPoshGit () {
+function Git-Install-Posh-Git () {
     Install-Module posh-git
+}
+
+function Git-Pull-Rebase-Recurse-Recurse () {
+    Get-ChildItem -Attributes Directory -Path (Get-Location) | ForEach-Object {
+        $Path = $_.FullName.ToLower()
+        Log-Debug "`ncd $Path"
+        Set-Location $Path
+
+        Log-Debug 'Git-Pull-Rebase-Recurse'
+        Git-Pull-Rebase-Recurse
+
+        Set-Location -Path ..
+    }
+}
+
+function Git-Warn-GC-Recurse-Recurse () {
+    Get-ChildItem -Attributes Directory -Path (Get-Location) | ForEach-Object {
+        $Path = $_.FullName.ToLower()
+        Log-Debug "`ncd $Path"
+        Set-Location $Path
+
+        Log-Debug 'Git-Warn-GC-Recurse'
+        Git-Warn-GC-Recurse
+
+        Set-Location -Path ..
+    }
 }
 
 # recurse git pull rebase
 function Git-Pull-Rebase-Recurse () {
     Get-ChildItem -Attributes Directory -Path (Get-Location) | ForEach-Object {
         $Path = $_.FullName.ToLower()
-        Log-Debug "`ncd $Path"
+        Console-Debug "`ncd $Path"
         Set-Location $Path
 
-        Log-Debug 'git remote -v'
+        Console-Debug 'git remote -v'
         git remote -v
 
-        Log-Debug 'git symbolic-ref HEAD'
+        Console-Debug 'git symbolic-ref HEAD'
         git symbolic-ref HEAD
 
-        Log-Debug "git pull --rebase"
+        Console-Debug "git pull --rebase"
         git pull --rebase
 
         Set-Location -Path ..
@@ -34,18 +60,18 @@ function Git-Pull-Rebase-Recurse () {
 
 
 function Git-Warn-GC () {
-    Log-Debug "git reflog expire --expire=now --all"
+    Console-Debug "git reflog expire --expire=now --all"
     git warn-expire-reflog
-    Log-Debug "git gc --prune=now --aggressive"
+    Console-Debug "git gc --prune=now --aggressive"
     git warn-gc-now
-    Log-Debug "git count-objects -v -H"
+    Console-Debug "git count-objects -v -H"
     git size
 }
 
 function Git-Warn-GC-Recurse () {
     Get-ChildItem -Attributes Directory -Path (Get-Location) | ForEach-Object {
         $Path = $_.FullName.ToLower()
-        Log-Debug "`ncd $Path"
+        Console-Debug "`ncd $Path"
         Set-Location $Path
         Git-Warn-GC
         Set-Location -Path ..
@@ -55,17 +81,17 @@ function Git-Warn-GC-Recurse () {
 function Git-Size-Recurse () {
     Get-ChildItem -Attributes Directory -Path (Get-Location) | ForEach-Object {
         $Path = $_.FullName.ToLower()
-        Log-Debug "`ngit -C '$Path' count-objects -v -H"
+        Console-Debug "`ngit -C '$Path' count-objects -v -H"
         git -C "$Path" size
     }
 }
 
-function script:Git-GetAllObjects () {
+function script:Git-Get-All-Objects () {
     $gitObjects = git rev-list --objects --all | git cat-file --batch-check='%(objecttype)|%(objectname)|%(objectsize)|%(rest)'
     return $gitObjects
 }
 
-function script:Git-ConvertToPSObject ($object) {
+function script:Git-Convert-To-PS-Object ($object) {
     $row = $object.Split('|')
 
     $gitObject = New-Object PSObject -Property @{
@@ -78,32 +104,32 @@ function script:Git-ConvertToPSObject ($object) {
     return $gitObject
 }
 
-function script:Git-GetAllBlobObjects () {
+function script:Git-Get-All-Blob-Objects () {
     $gitBlobObjects = @()
-    Git-GetAllObjects | Foreach-Object {
+    Git-Get-All-Objects | Foreach-Object {
         if ($_.StartsWith('blob')) {
-            $gitBlobObjects += (Git-ConvertToPSObject $_)
+            $gitBlobObjects += (Git-Convert-To-PS-Object $_)
         }
     }
     return $gitBlobObjects
 }
 
 
-function Git-GetBigFiles([int]$top = 20) {
+function Git-Get-Big-Files([int]$top = 20) {
     $begin = Get-Date
-    Log-Debug "begin..." $begin
+    Console-Debug "begin..." $begin
 
-    Git-GetAllBlobObjects |
+    Git-Get-All-Blob-Objects |
     Sort-Object size -Descending |
     Select-Object -First $top |
     Format-Table -Property sha, @{Label = "size"; Expression = { ($_.size / 1MB).ToString(('0.000')) + 'MB' } }, path -Wrap
 
     $end = Get-Date
-    Log-Debug "end..." $end
-    Log-Debug "elapsed times" ($end - $begin)
+    Console-Debug "end..." $end
+    Console-Debug "elapsed times" ($end - $begin)
 }
 
-function Git-SetGlobalAlias () {
+function Git-Set-Global-Alias () {
 
     # checkout
     git config --global alias.co checkout
@@ -154,7 +180,7 @@ function Git-SetGlobalAlias () {
 }
 
 # set global config
-function Git-SetGlobalConfig () {
+function Git-Set-Global-Config () {
 
     git config --global init.defaultBranch main
 
@@ -179,7 +205,7 @@ function Git-SetGlobalConfig () {
 }
 
 # set git global user
-function Git-SetGlobalUser (
+function Git-Set-Global-User (
     [string] $UserName = $(throw "UserName is null!"),
     [string] $UserEmail = $(throw "UserEmail is null!")
 ) {
@@ -189,7 +215,7 @@ function Git-SetGlobalUser (
 }
 
 # get git user
-function Git-GetCurrentUser () {
+function Git-Get-Current-User () {
 
     $UserName = git config user.name
     $UserEmail = git config user.email
@@ -197,7 +223,7 @@ function Git-GetCurrentUser () {
 }
 
 # git get config
-function Git-GetConfig ([string]$Name) {
+function Git-Get-Config ([string]$Name) {
     if ($Name) {
         $Values = git config --get-all $Name
         $LocalValues = git config --get-all --local $Name
@@ -216,15 +242,13 @@ function Git-GetConfig ([string]$Name) {
 }
 
 function Git-Proxy(
-    [switch]$set = $False,
-    [switch]$get = $True,
-    [switch]$unset = $False
+    [switch]$set = $True
 ) {
     if ($set) {
-        git config --global http.proxy 'socks5://192.168.2.123:1080'
+        git config --global http.proxy 'socks5://proxy:1080'
+        git config --global https.proxy 'socks5://proxy:1080'
     }
-
-    if ($unset) {
+    else {
         git config --global --unset http.proxy
         git config --global --unset https.proxy
     }

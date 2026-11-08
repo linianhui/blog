@@ -19,10 +19,10 @@ function script:Env-TrySetVariable (
 
     # 输出旧值
     [string]$OldValue = [System.Environment]::GetEnvironmentVariable($Variable, $Target);
-    Log-Info "[$Target][$Variable] OLD_VALUE : " $OldValue
+    Console-Info "[$Target][$Variable] OLD_VALUE : " $OldValue
 
     if ($OldValue -eq $Value) {
-        Log-Warn "[$Target][$Variable] NEW_VALUE : " $Value
+        Console-Warn "[$Target][$Variable] NEW_VALUE : " $Value
         return
     }
 
@@ -31,7 +31,7 @@ function script:Env-TrySetVariable (
 
     # 输出新值
     [string]$NewValue = [System.Environment]::GetEnvironmentVariable($Variable, $Target);
-    Log-Debug "[$Target][$Variable] NEW_VALUE : " $NewValue
+    Console-Debug "[$Target][$Variable] NEW_VALUE : " $NewValue
     Write-Host
 }
 
@@ -46,11 +46,11 @@ function script:Env-TryAppendPathVariable (
 
     # 检测是否已经存在
     if ($OldValueArray -Contains $Value) {
-        Log-Warn "[$Target][$Variable] EXISTS_VALUE : $Value"
+        Console-Warn "[$Target][$Variable] EXISTS_VALUE : $Value"
         return
     }
 
-    Log-Debug "[$Target][$Variable] APPEND_VALUE : $Value"
+    Console-Debug "[$Target][$Variable] APPEND_VALUE : $Value"
 
     # 追加新值
     $OldValueArray += $Value;
@@ -62,7 +62,7 @@ function script:Env-TryAppendPathVariable (
 
 function Env-TrySetAll() {
     Get-Command -Name 'Env-Set*EnvironmentVariable' -CommandType Function | ForEach-Object {
-        Log-Info "RUN : $($_.Name)"
+        Console-Info "RUN : $($_.Name)"
         Invoke-Expression -Command $_.Name
         Write-Host
         Write-Host

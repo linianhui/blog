@@ -37,7 +37,7 @@ function script:Directory-Get-Abbr {
     return $Abbr;
 }
 
-function script:Directory-ConvertToDirObject {
+function script:Directory-Convert-To-Dir-Object {
     param ($Raw)
     $FullPath = $Raw.FullName;
     $Name = (Split-Path -Path $FullPath -Leaf);
@@ -63,7 +63,7 @@ function Directory-Add-To-Quick-Access {
     if (Directory-Exists-And-Is-Directory -Path $Path) {
         Get-ChildItem -Path $Path | ForEach-Object {
             if (Test-Path -Path $_.FullName -PathType Container) {
-                $__QUICK_ACCESS_DIRECTORY.Add((Directory-ConvertToDirObject -Raw $_))
+                $__QUICK_ACCESS_DIRECTORY.Add((Directory-Convert-To-Dir-Object -Raw $_))
             }
         }
     }
@@ -139,7 +139,7 @@ function Directory-To {
         [string] $Path = $(throw "Path param is null!")
     )
     if (Directory-Exists-And-Is-Directory -Path $Path) {
-        Log-Debug "cd $Path".ToLower()
+        Console-Debug "cd $Path".ToLower()
         Set-Location $Path
     }
 }

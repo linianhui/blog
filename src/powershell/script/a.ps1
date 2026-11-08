@@ -10,11 +10,10 @@ Param(
 )
 
 @(
+    '/function-console.ps1',
+    '/function-format.ps1',
     '/link.ps1',
     '/os.ps1',
-    '/function.ps1',
-    '/log.ps1',
-    '/convert.ps1',
     '/env.ps1',
     '/file.ps1',
     '/git.ps1',
@@ -49,20 +48,20 @@ if ($Init) {
 
     Profile-AddScriptFile -ProfilePath $PROFILE -ScriptFilePath $PSCOMMANDPATH
 
-    Git-SetGlobalAlias
+    Git-Set-Global-Alias
 
-    Git-SetGlobalConfig
+    Git-Set-Global-Config
 
-    Git-SetGlobalUser -UserName $GitUserName -UserEmail $GitUserEmail
+    Git-Set-Global-User -UserName $GitUserName -UserEmail $GitUserEmail
 
-    Git-GetConfig
+    Git-Get-Config
 
     # Update-Help
 }
 
-Git-ImportPoshGit
+Git-Import-Posh-Git
 
-# Kubernetes-ImportPSKubectlCompletion
+# Kubernetes-Import-PS-Kubectl-Completion
 # UI-SetDisplayOptions
 
-Log-NameValue -Name 'Get-ExecutionPolicy' -Value $(Get-ExecutionPolicy)
+Console-Debug-Name-Value -Name 'Get-ExecutionPolicy' -Value $(Get-ExecutionPolicy)

@@ -4,7 +4,7 @@
 
 function script:Sln-GetFiles() {
     $currentPath = Get-Location
-    Log-Debug 'current path : ' $currentPath
+    Console-Debug 'current path : ' $currentPath
 
     $slnFiles = Get-ChildItem -Path $currentPath -File -Filter *.sln
 
@@ -33,6 +33,6 @@ function script:Sln-SelectFile($slnFiles) {
 function Sln() {
     $slnFiles = Sln-GetFiles
     $slnFile = Sln-SelectFile $slnFiles
-    Log-Debug 'opening...   : ' $slnFile
+    Console-Debug 'opening...   : ' $slnFile
     Invoke-Item $slnFile
 }

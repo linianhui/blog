@@ -3,72 +3,59 @@
 [string]$HIWIFI_OPEN_SSH_PATH = '/local-ssh/api?method=valid&data=';
 [string]$HIWIFI_CLOSE_SSH_PATH = '/local-ssh/api?method=stop';
 
-function HiWifi-Log-Debug {
-    param (
-        [Parameter(Mandatory = $TRUE)]
-        [string] $Label,
-        [string] $Value
-    )
-    if ($PSBoundParameters.ContainsKey('Value')) {
-        LOG-DEBUG "$($Label.PadRight(25)): $Value"
-    } else {
-        LOG-DEBUG $Label
-    }
-}
-
 function HiWifi-Open-Ssh {
     param (
         [string] $IP = "192.168.199.1"
     )
-    $CloudToken = HiWifi-Calc-CloudToken -IP $IP
+    $CloudToken = HiWifi-Calc-Cloud-Token -IP $IP
 
     $Url = "http://" + $IP + $HIWIFI_OPEN_SSH_PATH + $CloudToken
-    HiWifi-Log-Debug -Label "Open SSH URL" -Value $Url
+    Console-Debug-Name-Value -NamePadding 25 -Name "Open SSH URL" -Value $Url
 
     $Result = ((Invoke-WebRequest -Method GET -Uri $Url).Content)
-    HiWifi-Log-Debug -Label "Open SSH URL RESPONSE" -Value $Result
+    Console-Debug-Name-Value -NamePadding 25 -Name "Open SSH URL RESPONSE" -Value $Result
 
-    HiWifi-Log-Debug -Label "ssh -v -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 root@$IP"
+    Console-Debug-Name-Value -NamePadding 25 -Name "ssh -v -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 root@$IP"
     ssh -v -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 root@$IP
 }
 
-function HiWifi-Calc-CloudToken() {
+function HiWifi-Calc-Cloud-Token() {
     param (
         [Parameter(Mandatory = $TRUE)]
         [string] $IP
     )
     $UuidUrl = "http://" + $IP + $HIWIFI_GET_UUID_PATH
-    HiWifi-Log-Debug -Label "Get UUID URL" -Value $UuidUrl
+    Console-Debug-Name-Value -NamePadding 25 -Name "Get UUID URL" -Value $UuidUrl
 
     $UuidResponse = ((Invoke-WebRequest -Method GET -Uri $UuidUrl).Content)
-    HiWifi-Log-Debug -Label "Get UUID URL RESPONSE" -Value $UuidResponse
+    Console-Debug-Name-Value -NamePadding 25 -Name "Get UUID URL RESPONSE" -Value $UuidResponse
 
     $Uuid = ($UuidResponse | ConvertFrom-Json).data.uuid
-    HiWifi-Log-Debug -Label "UUID" -Value $Uuid
+    Console-Debug-Name-Value -NamePadding 25 -Name "UUID" -Value $Uuid
 
     $LocalTokenUrl = "http://" + $IP + $HIWIFI_GET_LOCAL_TOKEN_PATH
-    HiWifi-Log-Debug -Label "Get Local Token" -Value $LocalTokenUrl
+    Console-Debug-Name-Value -NamePadding 25 -Name "Get Local Token" -Value $LocalTokenUrl
 
     $LocalTokenResponse = ((Invoke-WebRequest -Method GET -Uri $LocalTokenUrl).Content)
-    HiWifi-Log-Debug -Label "Get Local Token RESPONSE" -Value $LocalTokenResponse
+    Console-Debug-Name-Value -NamePadding 25 -Name "Get Local Token RESPONSE" -Value $LocalTokenResponse
 
     $LocalToken = ($LocalTokenResponse | ConvertFrom-Json).data
-    HiWifi-Log-Debug -Label "Local Token" -Value $LocalToken
+    Console-Debug-Name-Value -NamePadding 25 -Name "Local Token" -Value $LocalToken
 
-    $CloudToken = HiWifi-Calc-CloudTokenCore -Uuid $Uuid -LocalToken $LocalToken
-    HiWifi-Log-Debug -Label "Cloud Token" -Value $CloudToken
+    $CloudToken = HiWifi-Calc-Cloud-Token-Core -Uuid $Uuid -LocalToken $LocalToken
+    Console-Debug-Name-Value -NamePadding 25 -Name "Cloud Token" -Value $CloudToken
     return $CloudToken;
 }
 
-function HiWifi-Calc-CloudTokenCore() {
+function HiWifi-Calc-Cloud-Token-Core() {
     param (
         [Parameter(Mandatory = $TRUE)]
         [string] $Uuid,
         [Parameter(Mandatory = $TRUE)]
         [string] $LocalToken
     )
-    $Key = HiWifi-Calc-CloudTokenKeyHex -Uuid $Uuid
-    $Data = HiWifi-Calc-CloudTokenDataUtf8 -LocalToken $LocalToken
+    $Key = HiWifi-Calc-Cloud-Token-Key-Hex -Uuid $Uuid
+    $Data = HiWifi-Calc-Cloud-Token-Data-Utf8 -LocalToken $LocalToken
     $HmacSha1 = New-Object System.Security.Cryptography.HMACSHA1
     $HmacSha1.key = [System.Convert]::FromHexString($Key)
     $Hash1 = $HmacSha1.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Data))
@@ -76,7 +63,7 @@ function HiWifi-Calc-CloudTokenCore() {
     return $Result;
 }
 
-function HiWifi-Calc-CloudTokenKeyHex() {
+function HiWifi-Calc-Cloud-Token-Key-Hex() {
     param (
         [Parameter(Mandatory = $TRUE)]
         [string] $Uuid
@@ -90,7 +77,7 @@ function HiWifi-Calc-CloudTokenKeyHex() {
     return $Hash.Hash;
 }
 
-function HiWifi-Calc-CloudTokenDataUtf8() {
+function HiWifi-Calc-Cloud-Token-Data-Utf8() {
     param (
         [Parameter(Mandatory = $TRUE)]
         [string] $LocalToken

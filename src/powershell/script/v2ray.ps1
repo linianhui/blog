@@ -1,4 +1,4 @@
-function V2Ray-Upload-InstallScript {
+function V2Ray-Upload-Install-Script {
     param (
         [string] $ServerHost,
         [bool] $DryRun = $False
@@ -9,7 +9,7 @@ function V2Ray-Upload-InstallScript {
     }
 }
 
-function V2Ray-Download-ClientConfig {
+function V2Ray-Download-Client-Config {
     param (
         [string] $ServerHost,
         [bool] $DryRun = $False
@@ -20,7 +20,7 @@ function V2Ray-Download-ClientConfig {
     }
 }
 
-function V2Ray-Upload-ClientConfig {
+function V2Ray-Upload-Client-Config {
     param (
         [string] $ServerHost,
         [string] $ClientHost,
@@ -40,7 +40,7 @@ function V2Ray-Init-Server-And-Client {
     )
     $ServerIP = ($ServerHost -split '@')[-1]
     $ClientIP = ($ClientHost -split '@')[-1]
-    V2Ray-Upload-InstallScript -ServerHost $ServerHost -DryRun $DryRun
+    V2Ray-Upload-Install-Script -ServerHost $ServerHost -DryRun $DryRun
 
     $InstallCommand = "chmod +x ./v2ray-init.sh;./v2ray-init.sh ${ServerIP} ${ClientIP};exit"
     Log-DEBUG "ssh ${ServerHost} `"${InstallCommand}`""
@@ -48,9 +48,9 @@ function V2Ray-Init-Server-And-Client {
         ssh -t ${ServerHost} "${InstallCommand}"
     }
 
-    V2Ray-Download-ClientConfig -ServerHost $ServerHost -DryRun $DryRun
+    V2Ray-Download-Client-Config -ServerHost $ServerHost -DryRun $DryRun
 
-    V2Ray-Upload-ClientConfig -ServerHost $ServerHost -ClientHost $ClientHost -DryRun $DryRun
+    V2Ray-Upload-Client-Config -ServerHost $ServerHost -ClientHost $ClientHost -DryRun $DryRun
 
     Log-DEBUG "ssh $ClientHost `"reboot`""
     if ($DryRun -eq $False) {

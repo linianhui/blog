@@ -9,7 +9,7 @@ function Dism-Backup-Os {
         [string] $TargetPath = 'f:\_backup\'
     )
 
-    [string]$OsName = Dism-Get-OsName;
+    [string]$OsName = Dism-Get-Os-Name;
     [string]$Date = $(Get-Date -Format 'yyyy-MM-dd');
     [string]$Name = "${OsName}-${Date}".ToLower();
     [string]$ImageFile = "${TargetPath}${OsName}.wim";
@@ -30,7 +30,7 @@ function Dism-Backup-Os-Append {
     )
     $GetImageCommand = "DISM /Get-ImageInfo /ImageFile:$ImageFile";
 
-    [string]$OsName = Dism-Get-OsName;
+    [string]$OsName = Dism-Get-Os-Name;
     [string]$Date = $(Get-Date -Format 'yyyy-MM-dd');
     [string]$Name = "${OsName}-${Date}".ToLower();
 
@@ -51,16 +51,16 @@ function Dism-Get-Image-Info {
 }
 
 function Dism-Get-Intl {
-    Log-Debug 'DISM /Online /Get-Intl';
+    Console-Debug 'DISM /Online /Get-Intl';
     DISM /Online /Get-Intl
 }
 
 function Dism-Get-Lang {
-    Log-Debug 'Get-Culture | Format-List -Property *';
+    Console-Debug 'Get-Culture | Format-List -Property *';
     Get-Culture | Format-List -Property *
 }
 
-function Dism-Get-OsName {
+function Dism-Get-Os-Name {
     $ComputerInfo = Get-ComputerInfo;
     [string]$CsName = $ComputerInfo.CsName.Trim().ToLower();
     [string]$OsName = $($($ComputerInfo.OsName.ToLower() -Replace 'microsoft', '').Trim() -Replace ' ', '-');
@@ -71,22 +71,22 @@ function Dism-Get-OsName {
 # https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder?view=windows-11
 # https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options?view=windows-11#cleanup-image
 function Dism-WinSxs-Stats {
-    Log-Debug 'DISM /Online /Cleanup-Image /AnalyzeComponentStore'
+    Console-Debug 'DISM /Online /Cleanup-Image /AnalyzeComponentStore'
     DISM /Online /Cleanup-Image /AnalyzeComponentStore
 }
 
 function Dism-WinSxs-Clean {
-    Log-Debug 'DISM /online /Cleanup-Image /StartComponentCleanup'
+    Console-Debug 'DISM /online /Cleanup-Image /StartComponentCleanup'
     DISM /online /Cleanup-Image /StartComponentCleanup
 }
 
 function Dism-WinSxs-Clean-All {
-    Log-Debug 'DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase'
+    Console-Debug 'DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase'
     DISM /online /Cleanup-Image /StartComponentCleanup /ResetBase
 }
 
 function Dism-WinSxs-Repair {
-    Log-Debug '/Cleanup-Image /RestoreHealth /Source:X:\Sources\install.wim /LimitAccess'
+    Console-Debug '/Cleanup-Image /RestoreHealth /Source:X:\Sources\install.wim /LimitAccess'
     DISM /Online /Cleanup-Image /RestoreHealth
     # sfc /scannow
     # DISM /Online /Cleanup-Image /RestoreHealth /Source:wim:z:\win11\Sources\install.wim:1 /LimitAccess

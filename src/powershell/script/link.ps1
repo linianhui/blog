@@ -3,7 +3,7 @@ function Link-Soft() {
         [string] $VirtualPath,
         [string] $RealPath
     )
-    Log-Debug "New-Item -ItemType SymbolicLink -Path $VirtualPath -Target $RealPath"
+    Console-Debug "New-Item -ItemType SymbolicLink -Path $VirtualPath -Target $RealPath"
     New-Item -ItemType SymbolicLink -Path $VirtualPath -Target $RealPath
 }
 

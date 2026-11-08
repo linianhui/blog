@@ -6,11 +6,11 @@ function script:Profile-New(
     [string] $ProfilePath = $(throw "ProfilePath is null!")
 ) {
     if (Test-Path $ProfilePath) {
-        Log-Info "# $ProfilePath already existed."
+        Console-Info "# $ProfilePath already existed."
     }
     else {
         New-Item -Path $Profile -ItemType File -Force
-        Log-Debug "# Create [$ProfilePath] succeed."
+        Console-Debug "# Create [$ProfilePath] succeed."
     }
 }
 
@@ -22,11 +22,11 @@ function Profile-AddScriptExpression (
 
     $ProfileContent = Get-Content -Path $ProfilePath
     if ($ProfileContent -contains $ScriptExpression) {
-        Log-Info "# [$ScriptExpression] already existed in $ProfilePath."
+        Console-Info "# [$ScriptExpression] already existed in $ProfilePath."
     }
     else {
         Set-Content -Path $ProfilePath -Value "$ProfileContent`r`n$ScriptExpression"
-        Log-Debug "# [$ScriptExpression] append to $ProfilePath."
+        Console-Debug "# [$ScriptExpression] append to $ProfilePath."
     }
 }
 

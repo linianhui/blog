@@ -30,7 +30,7 @@ function prompt () {
     if (Get-GitStatus) {
 
         # get git user.name and user.email
-        $GitUser = Git-GetCurrentUser
+        $GitUser = Git-Get-Current-User
 
         # show git user.name and user.email
         Write-Host -NoNewline "`n$UserPromptPrefix $GitUser :" -ForegroundColor Gray

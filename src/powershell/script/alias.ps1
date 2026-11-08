@@ -19,7 +19,7 @@ Set-Alias -Name dm -Value docker-machine
 Set-Alias -Name k -Value kubectl
 Set-Alias -Name mk -Value minikube
 
-Set-Alias -Name e -Value Gui-OpenExplorer
+Set-Alias -Name e -Value Gui-Open-Explorer
 
 Set-Alias -Name g -Value git
 
@@ -39,6 +39,6 @@ Set-Alias -Name jy -Value Yaml-FromJson
 
 Set-Alias -Name grep -Value Select-String
 
-Set-Alias -Name k8sgtp -Value Kubernetes-GetTerminatedPod
+Set-Alias -Name k8sgtp -Value Kubernetes-Get-Terminated-Pod
 
 Set-Alias -Name ja -Value Java-Arthas

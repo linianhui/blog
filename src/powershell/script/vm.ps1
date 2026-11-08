@@ -16,7 +16,7 @@ function vhd-create(
     [string] $Path,
     [uint64] $Size = 128GB
 ) {
-    Log-Debug "New-VHD -Dynamic -Path $Path -SizeBytes $Size"
+    Console-Debug "New-VHD -Dynamic -Path $Path -SizeBytes $Size"
     New-VHD `
         -Dynamic `
         -Path $Path `
@@ -33,13 +33,13 @@ function Vm-From-Json(
 ) {
     $NamePadding = 22
     if ((Test-Path -Path $JsonFilePath -PathType Leaf) -eq $False) {
-        Log-NameValue -Name 'not_found' -NamePadding $NamePadding -Value "$JsonFilePath"
-        Log-NameValue -Name 'help' -NamePadding $NamePadding -Value 'https://linianhui.github.io/powershell/hyper-v/#config'
+        Console-Debug-Name-Value -Name 'not_found' -NamePadding $NamePadding -Value "$JsonFilePath"
+        Console-Debug-Name-Value -Name 'help' -NamePadding $NamePadding -Value 'https://linianhui.github.io/powershell/hyper-v/#config'
         return
     }
 
     if ((Ui-Test-Administrator) -eq $False) {
-        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value "need use administrator"
+        Console-Debug-Name-Value -Name 'no_permission' -NamePadding $NamePadding -Value "need use administrator"
         return
     }
 
@@ -85,21 +85,21 @@ function Vm-From-Json(
 
     # print vm
     $VM = Get-VM -Name $Json.name
-    Log-NameValue -Name 'name' -NamePadding $NamePadding -Value $VM.Name
-    Log-NameValue -Name 'generation' -NamePadding $NamePadding -Value $VM.Generation
-    Log-NameValue -Name 'path' -NamePadding $NamePadding -Value $VM.Path
-    Log-NameValue -Name 'state' -NamePadding $NamePadding -Value $VM.State
+    Console-Debug-Name-Value -Name 'name' -NamePadding $NamePadding -Value $VM.Name
+    Console-Debug-Name-Value -Name 'generation' -NamePadding $NamePadding -Value $VM.Generation
+    Console-Debug-Name-Value -Name 'path' -NamePadding $NamePadding -Value $VM.Path
+    Console-Debug-Name-Value -Name 'state' -NamePadding $NamePadding -Value $VM.State
     if ($VM.Generation -eq 2) {
         $VMFirmware = Get-VMFirmware -VMName $Json.name
-        Log-NameValue -Name 'boot.secure' -NamePadding $NamePadding -Value $VMFirmware.SecureBoot.ToString()
+        Console-Debug-Name-Value -Name 'boot.secure' -NamePadding $NamePadding -Value $VMFirmware.SecureBoot.ToString()
     }
     else {
-        Log-NameValue -Name 'boot.secure' -NamePadding $NamePadding -Value 'Off'
+        Console-Debug-Name-Value -Name 'boot.secure' -NamePadding $NamePadding -Value 'Off'
     }
-    Log-NameValue -Name 'automatic.start' -NamePadding $NamePadding -Value $VM.AutomaticStartAction
-    Log-NameValue -Name 'automatic.stop' -NamePadding $NamePadding -Value $VM.AutomaticStopAction
-    Log-NameValue -Name 'automatic.checkpoint' -NamePadding $NamePadding -Value $VM.AutomaticCheckpointsEnabled
-    Log-NameValue -Name 'checkpoint.type' -NamePadding $NamePadding -Value $VM.CheckpointType
+    Console-Debug-Name-Value -Name 'automatic.start' -NamePadding $NamePadding -Value $VM.AutomaticStartAction
+    Console-Debug-Name-Value -Name 'automatic.stop' -NamePadding $NamePadding -Value $VM.AutomaticStopAction
+    Console-Debug-Name-Value -Name 'automatic.checkpoint' -NamePadding $NamePadding -Value $VM.AutomaticCheckpointsEnabled
+    Console-Debug-Name-Value -Name 'checkpoint.type' -NamePadding $NamePadding -Value $VM.CheckpointType
 
     # https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmprocessor?view=windowsserver2019-ps
     Set-VMProcessor `
@@ -107,7 +107,7 @@ function Vm-From-Json(
         -Count $Json.cpu.count
     $CPU = Get-VMProcessor -VMName $Json.name
     # print cpu
-    Log-NameValue -Name 'cpu.count' -NamePadding $NamePadding -Value $CPU.Count
+    Console-Debug-Name-Value -Name 'cpu.count' -NamePadding $NamePadding -Value $CPU.Count
 
 
     # https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmmemory?view=windowsserver2019-ps
@@ -119,10 +119,10 @@ function Vm-From-Json(
         -MaximumBytes $Json.mem.max
     $MEM = Get-VMMemory -VMName $Json.name
     # print mem
-    Log-NameValue -Name 'mem.dynamic' -NamePadding $NamePadding -Value $MEM.DynamicMemoryEnabled
-    Log-NameValue -Name 'mem.startup' -NamePadding $NamePadding -Value ($MEM.Startup | Byte-Format)
-    Log-NameValue -Name 'mem.min' -NamePadding $NamePadding -Value ($MEM.Minimum | Byte-Format)
-    Log-NameValue -Name 'mem.max' -NamePadding $NamePadding -Value ($MEM.Maximum | Byte-Format)
+    Console-Debug-Name-Value -Name 'mem.dynamic' -NamePadding $NamePadding -Value $MEM.DynamicMemoryEnabled
+    Console-Debug-Name-Value -Name 'mem.startup' -NamePadding $NamePadding -Value ($MEM.Startup | Format-Byte)
+    Console-Debug-Name-Value -Name 'mem.min' -NamePadding $NamePadding -Value ($MEM.Minimum | Format-Byte)
+    Console-Debug-Name-Value -Name 'mem.max' -NamePadding $NamePadding -Value ($MEM.Maximum | Format-Byte)
 
 
     if ($Json.net.mac) {
@@ -132,23 +132,23 @@ function Vm-From-Json(
     }
     $VM = Get-VM -Name $Json.name
     # print net
-    Log-NameValue -Name 'net.switch' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].SwitchName
-    Log-NameValue -Name 'net.connected' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].Connected
-    Log-NameValue -Name 'net.mac' -NamePadding $NamePadding -Value ($VM.NetworkAdapters[0].MacAddress | Mac-Format)
+    Console-Debug-Name-Value -Name 'net.switch' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].SwitchName
+    Console-Debug-Name-Value -Name 'net.connected' -NamePadding $NamePadding -Value $VM.NetworkAdapters[0].Connected
+    Console-Debug-Name-Value -Name 'net.mac' -NamePadding $NamePadding -Value ($VM.NetworkAdapters[0].MacAddress | Format-Mac)
 
 
     $VHD = Get-VHD -Path $VhdPath
     $HDD = Get-VMHardDiskDrive -VMName $Json.name
     # print hdd
-    Log-NameValue -Name 'vhd.type' -NamePadding $NamePadding -Value $VHD.VhdType
-    Log-NameValue -Name 'vhd.path' -NamePadding $NamePadding -Value $VHD.Path
-    Log-NameValue -Name 'vhd.format' -NamePadding $NamePadding -Value $VHD.VhdFormat
-    Log-NameValue -Name 'vhd.size' -NamePadding $NamePadding -Value ($VHD.Size | Byte-Format)
-    Log-NameValue -Name 'vhd.blocksize' -NamePadding $NamePadding -Value ($VHD.BlockSize | Byte-Format)
-    Log-NameValue -Name 'vhd.fileSize' -NamePadding $NamePadding -Value ($VHD.FileSize | Byte-Format)
-    Log-NameValue -Name 'vhd.controllerType' -NamePadding $NamePadding -Value $HDD.ControllerType
-    Log-NameValue -Name 'vhd.controllerNumber' -NamePadding $NamePadding -Value $HDD.ControllerNumber
-    Log-NameValue -Name 'vhd.controllerLocation' -NamePadding $NamePadding -Value $HDD.ControllerLocation
+    Console-Debug-Name-Value -Name 'vhd.type' -NamePadding $NamePadding -Value $VHD.VhdType
+    Console-Debug-Name-Value -Name 'vhd.path' -NamePadding $NamePadding -Value $VHD.Path
+    Console-Debug-Name-Value -Name 'vhd.format' -NamePadding $NamePadding -Value $VHD.VhdFormat
+    Console-Debug-Name-Value -Name 'vhd.size' -NamePadding $NamePadding -Value ($VHD.Size | Format-Byte)
+    Console-Debug-Name-Value -Name 'vhd.blocksize' -NamePadding $NamePadding -Value ($VHD.BlockSize | Format-Byte)
+    Console-Debug-Name-Value -Name 'vhd.fileSize' -NamePadding $NamePadding -Value ($VHD.FileSize | Format-Byte)
+    Console-Debug-Name-Value -Name 'vhd.controllerType' -NamePadding $NamePadding -Value $HDD.ControllerType
+    Console-Debug-Name-Value -Name 'vhd.controllerNumber' -NamePadding $NamePadding -Value $HDD.ControllerNumber
+    Console-Debug-Name-Value -Name 'vhd.controllerLocation' -NamePadding $NamePadding -Value $HDD.ControllerLocation
 
 
     if ($Json.dvd.iso) {
@@ -163,12 +163,12 @@ function Vm-From-Json(
         $DVD = Get-VMDvdDrive -VMName $Json.name
         if ($DVD.Path) {
             # print dvd
-            Log-NameValue -Name 'dvd.type' -NamePadding $NamePadding -Value $DVD.DvdMediaType
-            Log-NameValue -Name 'dvd.path' -NamePadding $NamePadding -Value $DVD.Path
-            Log-NameValue -Name 'dvd.fileSize' -NamePadding $NamePadding -Value ((Get-Item $DVD.Path).Length | Byte-Format)
-            Log-NameValue -Name 'dvd.controllerType' -NamePadding $NamePadding -Value $DVD.ControllerType
-            Log-NameValue -Name 'dvd.controllerNumber' -NamePadding $NamePadding -Value $DVD.ControllerNumber
-            Log-NameValue -Name 'dvd.controllerLocation' -NamePadding $NamePadding -Value $DVD.ControllerLocation
+            Console-Debug-Name-Value -Name 'dvd.type' -NamePadding $NamePadding -Value $DVD.DvdMediaType
+            Console-Debug-Name-Value -Name 'dvd.path' -NamePadding $NamePadding -Value $DVD.Path
+            Console-Debug-Name-Value -Name 'dvd.fileSize' -NamePadding $NamePadding -Value ((Get-Item $DVD.Path).Length | Format-Byte)
+            Console-Debug-Name-Value -Name 'dvd.controllerType' -NamePadding $NamePadding -Value $DVD.ControllerType
+            Console-Debug-Name-Value -Name 'dvd.controllerNumber' -NamePadding $NamePadding -Value $DVD.ControllerNumber
+            Console-Debug-Name-Value -Name 'dvd.controllerLocation' -NamePadding $NamePadding -Value $DVD.ControllerLocation
         }
     }
 }
@@ -182,13 +182,13 @@ function Vm-To-Json() {
     $NamePadding = 22
 
     if ((Ui-Test-Administrator) -eq $False) {
-        Log-NameValue -Name 'no_permission' -NamePadding $NamePadding -Value 'need use administrator'
+        Console-Debug-Name-Value -Name 'no_permission' -NamePadding $NamePadding -Value 'need use administrator'
         return
     }
 
     $VM = Get-VM -Name $VMName -ErrorAction Ignore
     if ($VM -eq $NULL) {
-        Log-NameValue -Name 'not_found' -NamePadding $NamePadding -Value $VMName
+        Console-Debug-Name-Value -Name 'not_found' -NamePadding $NamePadding -Value $VMName
         return
     }
 
@@ -217,21 +217,21 @@ function Vm-To-Json() {
 
     $Mem = Get-VMMemory -VMName $VM.Name
     $MemJson = [ordered]@{
-        'min' = ($Mem.Minimum | Byte-Format)
-        'max' = ($Mem.Maximum | Byte-Format)
+        'min' = ($Mem.Minimum | Format-Byte)
+        'max' = ($Mem.Maximum | Format-Byte)
     }
 
     $NetJson = [ordered]@{
         'switch' = $VM.NetworkAdapters[0].SwitchName
-        'mac'    = ($VM.NetworkAdapters[0].MacAddress | Mac-Format)
+        'mac'    = ($VM.NetworkAdapters[0].MacAddress | Format-Mac)
     }
 
     $VhdPath = (Get-VMHardDiskDrive -VMName $VM.Name)[0].Path
     $Vhd = Get-VHD -Path $VhdPath
     $VhdJson = [ordered]@{
         'path'      = (Get-ChildItem -Path $Vhd.Path).DirectoryName.ToLower()
-        'size'      = ($Vhd.Size | Byte-Format)
-        'blockSize' = ($Vhd.BlockSize | Byte-Format)
+        'size'      = ($Vhd.Size | Format-Byte)
+        'blockSize' = ($Vhd.BlockSize | Format-Byte)
     }
 
     $Dvd = Get-VMDvdDrive -VMName $VM.Name
@@ -258,7 +258,7 @@ function Vm-To-Json() {
 
 function vm-run ([string] $name) {
     if ((Ui-Test-Administrator) -eq $False) {
-        Log-NameValue -Name 'no_permission' -NamePadding 20 -Value 'use administrator run vm'
+        Console-Debug-Name-Value -Name 'no_permission' -NamePadding 20 -Value 'use administrator run vm'
         return
     }
     Get-VM -Name $name | Start-VM
@@ -266,7 +266,7 @@ function vm-run ([string] $name) {
 
 function vm-stop ([string] $name) {
     if ((Ui-Test-Administrator) -eq $False) {
-        Log-NameValue -Name 'no_permission' -NamePadding 10 -Value 'use administrator stop vm'
+        Console-Debug-Name-Value -Name 'no_permission' -NamePadding 10 -Value 'use administrator stop vm'
         return
     }
     Get-VM -Name $name | Stop-VM
@@ -277,10 +277,10 @@ function vm-ssh (
     [string]$hostname,
     [string]$port = 22) {
 
-    Log-Debug "run [$hostname] hyper-v vm"
+    Console-Debug "run [$hostname] hyper-v vm"
     vm-run -name $hostname
 
-    Log-Debug "ssh $username@$hostname -p $port"
+    Console-Debug "ssh $username@$hostname -p $port"
     ssh "$username@$hostname" -p $port
 }
 

@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # 函数 0: 获取分区的 Volume GUID
 # -----------------------------------------------------------------------------
-function Drive-GetVolumeGuidFromPartition {
+function Drive-Get-Volume-Guid-From-Partition {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
@@ -25,7 +25,7 @@ function Drive-GetVolumeGuidFromPartition {
 # -----------------------------------------------------------------------------
 # 函数 1: 获取所有分区的 Volume 列表
 # -----------------------------------------------------------------------------
-function Drive-ListVolume {
+function Drive-List-Volume {
     [CmdletBinding()]
     param()
 
@@ -50,7 +50,7 @@ function Drive-ListVolume {
     # 分区的 Guid 与卷的 UniqueId (\\?\Volume{GUID}\) 一一对应
     $getVolume = {
         param($Partition)
-        $guid = Drive-GetVolumeGuidFromPartition -Partition $Partition
+        $guid = Drive-Get-Volume-Guid-From-Partition -Partition $Partition
         if (-not $guid) {
             return $null
         }
@@ -82,7 +82,7 @@ function Drive-ListVolume {
         Alignment  = 'Right'
     }, @{
         Name       = 'Size';
-        Expression = { Format-Bytes $_.Size };
+        Expression = { Format-Byte -Value $_.Size -Split ' ' };
         Alignment  = 'Right'
     }, @{
         Label      = 'FS';
@@ -92,7 +92,7 @@ function Drive-ListVolume {
         }
     }, @{
         Label      = 'Volume Guid';
-        Expression = { Drive-GetVolumeGuidFromPartition -Partition $_ }
+        Expression = { Drive-Get-Volume-Guid-From-Partition -Partition $_ }
     }, @{
         Label      = 'Status';
         Expression = { $_.OperationalStatus }
@@ -132,7 +132,7 @@ function Drive-ListVolume {
 # -----------------------------------------------------------------------------
 # 函数 2: 根据 Volume GUID 分配盘符
 # -----------------------------------------------------------------------------
-function Drive-AssignLetterByGuid {
+function Drive-Assign-Letter-By-Guid {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory = $true)]
@@ -173,7 +173,7 @@ function Drive-AssignLetterByGuid {
 # -----------------------------------------------------------------------------
 # 函数 3: 根据 Volume GUID 移除盘符
 # -----------------------------------------------------------------------------
-function Drive-RemoveLetterByGuid {
+function Drive-Remove-Letter-By-Guid {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory = $true)]

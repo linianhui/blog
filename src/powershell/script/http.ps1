@@ -25,7 +25,7 @@ function Http-Server-Mineserve() {
     param (
         [string] $Path = $((Get-Location).Path)
     )
-    Log-Debug "miniserve --qrcode --upload-files --dirs-first --hide-theme-selector --enable-webdav --interfaces 192.168.2.2 $Path $Args"
+    Console-Debug "miniserve --qrcode --upload-files --dirs-first --hide-theme-selector --enable-webdav --interfaces 192.168.2.2 $Path $Args"
     miniserve --qrcode --upload-files --dirs-first --hide-theme-selector --enable-webdav --interfaces 192.168.2.2 $Path
 }
 
@@ -34,7 +34,7 @@ function Http-Server-Dufs() {
     param (
         [string] $Path = $((Get-Location).Path)
     )
-    Log-Debug "dufs --bind 192.168.2.2 --port 8080 --allow-all --log-file ${env:HOME_APP_LOG}dufs.log $Path $Args"
+    Console-Debug "dufs --bind 192.168.2.2 --port 8080 --allow-all --log-file ${env:HOME_APP_LOG}dufs.log $Path $Args"
     dufs --bind 192.168.2.2 --port 8080 --allow-all --log-file ${env:HOME_APP_LOG}dufs.log $Path
 }
 
@@ -43,7 +43,7 @@ function Http-Server-SFTPGo() {
     param (
         [string] $Path = $((Get-Location).Path)
     )
-    Log-Debug "sftpgo serve --config-dir ${env:HOME_APP}/_sftpgo $Path $Args"
+    Console-Debug "sftpgo serve --config-dir ${env:HOME_APP}/_sftpgo $Path $Args"
     sftpgo serve --config-dir ${env:HOME_APP}/_sftpgo $Path
 }
 
