@@ -242,15 +242,16 @@ function Git-Get-Config ([string]$Name) {
 }
 
 function Git-Proxy(
-    [switch]$set = $True
+    [switch]$Set = $False
 ) {
-    if ($set) {
+    if ($Set) {
         git config --global http.proxy 'socks5://proxy:1080'
         git config --global https.proxy 'socks5://proxy:1080'
     }
     else {
         git config --global --unset http.proxy
         git config --global --unset https.proxy
+        Console-Debug "unset proxy"
     }
 
     git config --global --get http.proxy
