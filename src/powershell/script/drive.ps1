@@ -207,3 +207,101 @@ function Drive-Remove-Letter-By-Guid {
         Write-Error "❌ 失败: $_"
     }
 }
+
+# -----------------------------------------------------------------------------
+# 函数 4: 写满指定盘符所在的分区
+# -----------------------------------------------------------------------------
+function Drive-Fill-Disk {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidatePattern('^[A-Za-z]:?$')]
+        [string]$Drive,
+
+        # 单个文件的大小(MB)，写满后自动写下一个文件，避免 FAT32 等单文件 4GB 限制
+        [ValidateRange(1, 4096)]
+        [int]$FileSizeMB = 1024
+    )
+
+    $letter = $Drive.Trim().TrimEnd(':').ToUpperInvariant()
+    $volume = Get-Volume -DriveLetter $letter -ErrorAction SilentlyContinue
+    if (-not $volume) {
+        Write-Error "❌ 失败: 未找到盘符 ${letter}: 对应的分区。"
+        return
+    }
+
+    $root = "${letter}:\"
+    if (-not (Test-Path -LiteralPath $root)) {
+        Write-Error "❌ 失败: ${root} 不可访问。"
+        return
+    }
+
+    $label = $volume.FileSystemLabel ? $volume.FileSystemLabel : $volume.FileSystemType
+    Write-Warning "即将写满分区 ${root} (${label}，可用 $(Format-Byte -Value $volume.SizeRemaining))，写入期间系统可能变慢。"
+    Write-Warning "生成的文件不会被自动删除，需要手工清理 ${root}fill-disk-<序号>-<随机 GUID>.bin。"
+
+    # 第一次确认
+    if (-not $PSCmdlet.ShouldProcess($root, '写满该分区')) {
+        Write-Host "已取消。" -ForegroundColor Yellow
+        return
+    }
+
+    # 第二次确认: 必须手工输入盘符
+    $confirm = Read-Host "二次确认: 请输入盘符 $letter 以继续"
+    if ($confirm.Trim().TrimEnd(':').ToUpperInvariant() -ne $letter) {
+        Write-Host "输入的盘符不匹配，已取消。" -ForegroundColor Yellow
+        return
+    }
+
+    $chunk = New-Object byte[] (1MB)
+    $maxFileSize = [long]$FileSizeMB * 1MB
+    # 每次执行随机生成一个 GUID，保证不会与之前生成的文件重名
+    $runGuid = [guid]::NewGuid().ToString()
+    $fileIndex = 0
+    $fileCount = 0
+    $totalBytes = [long]0
+    $stream = $null
+    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+
+    try {
+        while ($true) {
+            $filePath = Join-Path $root ('fill-disk-{0:D6}-{1}.bin' -f $fileIndex, $runGuid)
+            $fileIndex++
+
+            # CreateNew 保证不会覆盖分区上已有的同名文件
+            $stream = [System.IO.File]::Open($filePath, [System.IO.FileMode]::CreateNew, [System.IO.FileAccess]::Write, [System.IO.FileShare]::None)
+            $fileCount++
+
+            $fileBytes = [long]0
+            while ($fileBytes -lt $maxFileSize) {
+                $stream.Write($chunk, 0, $chunk.Length)
+                $fileBytes += $chunk.Length
+                $totalBytes += $chunk.Length
+            }
+
+            $stream.Dispose()
+            $stream = $null
+        }
+    }
+    catch [System.IO.IOException] {
+        # ERROR_DISK_FULL(112) / ERROR_HANDLE_DISK_FULL(39) 表示分区已经写满
+        if ($_.Exception.HResult -eq -2147024784 -or $_.Exception.HResult -eq -2147024857) {
+            Write-Host "✅ 完成: 分区 ${root} 已写满。" -ForegroundColor Green
+        }
+        else {
+            Write-Error "❌ 失败: $($_.Exception.Message)"
+        }
+    }
+    catch {
+        Write-Error "❌ 失败: $($_.Exception.Message)"
+    }
+    finally {
+        if ($stream) {
+            $stream.Dispose()
+        }
+
+        $stopwatch.Stop()
+        $remaining = (Get-Volume -DriveLetter $letter).SizeRemaining
+        Write-Host ("写入 {0} 个文件，共 {1}，耗时 {2}，剩余可用空间 {3}" -f $fileCount, (Format-Byte -Value $totalBytes), $stopwatch.Elapsed, (Format-Byte -Value $remaining))
+    }
+}
